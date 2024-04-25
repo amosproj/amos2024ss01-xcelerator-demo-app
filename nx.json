@@ -42,6 +42,11 @@
           "codeCoverage": true
         }
       }
+    },
+    "@angular-devkit/build-angular:browser": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "plugins": [
@@ -63,6 +68,16 @@
         "buildTargetName": "build",
         "serveTargetName": "serve",
         "previewTargetName": "preview"
+      }
+    },
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static"
       }
     }
   ],
