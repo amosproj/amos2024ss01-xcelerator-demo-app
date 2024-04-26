@@ -1,24 +1,20 @@
 async function getConfig() {
   const {
     default: {
-      utils: {getProjects},
+      utils: { getProjects },
     },
   } = await import('@commitlint/config-nx-scopes');
 
   return {
     extends: [
       '@commitlint/config-nx-scopes',
-      '@commitlint/config-conventional'
+      '@commitlint/config-conventional',
     ],
     rules: {
       'scope-enum': async (ctx) => [
         2,
         'always',
-        [
-          ...(await getProjects(ctx)),
-        ],
-        'deliverables',
-        'documentation'
+        [...(await getProjects(ctx)), 'deliverables', 'documentation'],
       ],
     },
   };
