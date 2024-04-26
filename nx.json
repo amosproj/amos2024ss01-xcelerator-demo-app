@@ -73,5 +73,8 @@
 			"unitTestRunner": "jest"
 		}
 	},
-	"nxCloudAccessToken": "M2Y0ZTliYjAtYjQ4Yy00ZGZmLWJkOTgtMTEzNjJmNTAxNDdhfHJlYWQtd3JpdGU="
+	"nxCloudAccessToken": "M2Y0ZTliYjAtYjQ4Yy00ZGZmLWJkOTgtMTEzNjJmNTAxNDdhfHJlYWQtd3JpdGU=",
+	"affected": {
+		"defaultBase": "develop"
+	}
 }
