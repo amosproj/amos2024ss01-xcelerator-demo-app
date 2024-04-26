@@ -7,4 +7,3 @@ rules:
   color-function-notation: null
   property-no-vendor-prefix: null
   custom-property-empty-line-before: null
-  string-quotes: double
