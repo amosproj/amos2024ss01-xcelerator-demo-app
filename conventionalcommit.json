@@ -1,43 +1,43 @@
 {
-  "types": {
-    "refactor": {
-      "description": "Changes which neither fix a bug nor add a feature"
-    },
-    "fix": {
-      "description": "Changes which patch a bug"
-    },
-    "feat": {
-      "description": "Changes which introduce a new feature"
-    },
-    "build": {
-      "description": "Changes which affect the build system or external dependencies.<br/>Example scopes: gulp, broccoli, npm",
-      "scopes": {
-        "npm": {}
-      }
-    },
-    "chore": {
-      "description": "Changes which aren't user-facing"
-    },
-    "style": {
-      "description": "Changes which don't affect code logic, such as white-spaces, formatting, missing semi-colons"
-    },
-    "test": {
-      "description": "Changes which add missing tests or correct existing tests"
-    },
-    "docs": {
-      "description": "Changes which affect documentation"
-    },
-    "perf": {
-      "description": "Changes which improve performance"
-    },
-    "ci": {
-      "description": "Changes which affect CI configuration files and scripts.<br/>Example scopes: travis, circle, browser-stack, sauce-labs"
-    },
-    "revert": {
-      "description": "Changes which revert a previous commit"
-    },
-    "deps": {
-      "description": "Changes which affect the dependencies"
-    }
-  }
+	"types": {
+		"refactor": {
+			"description": "Changes which neither fix a bug nor add a feature"
+		},
+		"fix": {
+			"description": "Changes which patch a bug"
+		},
+		"feat": {
+			"description": "Changes which introduce a new feature"
+		},
+		"build": {
+			"description": "Changes which affect the build system or external dependencies.<br/>Example scopes: gulp, broccoli, npm",
+			"scopes": {
+				"npm": {}
+			}
+		},
+		"chore": {
+			"description": "Changes which aren't user-facing"
+		},
+		"style": {
+			"description": "Changes which don't affect code logic, such as white-spaces, formatting, missing semi-colons"
+		},
+		"test": {
+			"description": "Changes which add missing tests or correct existing tests"
+		},
+		"docs": {
+			"description": "Changes which affect documentation"
+		},
+		"perf": {
+			"description": "Changes which improve performance"
+		},
+		"ci": {
+			"description": "Changes which affect CI configuration files and scripts.<br/>Example scopes: travis, circle, browser-stack, sauce-labs"
+		},
+		"revert": {
+			"description": "Changes which revert a previous commit"
+		},
+		"deps": {
+			"description": "Changes which affect the dependencies"
+		}
+	}
 }
