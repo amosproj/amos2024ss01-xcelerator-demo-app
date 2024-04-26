@@ -48,9 +48,6 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('pnpm-lock.yaml') }}
-
-            - run: pnpm install --frozen-lockfile
-
             - run: npx nx affected --target=lint --parallel=3 --base=origin/develop
 
     test:
@@ -70,8 +67,6 @@ jobs:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('pnpm-lock.yaml') }}
 
-            - run: pnpm install --frozen-lockfile
-
             - run: npx nx affected --target=test --parallel=3 --configuration=ci --base=origin/develop
 
     build:
@@ -90,7 +85,5 @@ jobs:
               with:
                   path: node_modules
                   key: cache-node-modules-${{ hashFiles('pnpm-lock.yaml') }}
-
-            - run: pnpm install --frozen-lockfile
 
             - run: npx nx affected --target=build --parallel=3 --configuration=ci --base=origin/develop
