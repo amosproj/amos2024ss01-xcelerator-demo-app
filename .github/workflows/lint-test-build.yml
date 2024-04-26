@@ -26,6 +26,8 @@ jobs:
               with:
                   node-version: 22.x
                   cache: 'pnpm'
+                  path: node_modules
+                  key: cache-node-modules-${{ hashFiles('pnpm-lock.yaml') }}
 
             - name: PNPM install based on lockfile
               run: pnpm install --frozen-lockfile
