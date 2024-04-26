@@ -1,0 +1,90 @@
+name: Lint Test Build
+on:
+    push:
+        branches:
+            - develop
+    pull_request:
+        branches:
+            - develop
+
+jobs:
+    install-deps:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 8.15.1
+
+            # Connect your workspace on nx.app and uncomment this to enable task distribution.
+            # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
+            - run: pnpm exec nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
+
+            # Cache node_modules
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22.x
+                  cache: 'pnpm'
+
+            - name: PNPM install based on lockfile
+              run: pnpm install --frozen-lockfile
+
+    lint:
+        runs-on: ubuntu-latest
+        needs: install-deps
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 1
+
+            - run: git fetch --no-tags --prune --depth=1 origin develop
+
+            - name: Cache node modules
+              uses: actions/cache@v4
+              with:
+                  path: node_modules
+                  key: cache-node-modules-${{ hashFiles('pnpm-lock.json') }}
+
+            - run: npx nx affected --target=lint --parallel=3 --base=origin/develop
+
+    test:
+        runs-on: ubuntu-latest
+        needs: install-deps
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 1
+
+            - run: git fetch --no-tags --prune --depth=1 origin develop
+
+            - name: Cache node modules
+              uses: actions/cache@v4
+              with:
+                  path: node_modules
+                  key: cache-node-modules-${{ hashFiles('pnpm-lock.json') }}
+
+            - run: npx nx affected --target=test --parallel=3 --configuration=ci --base=origin/develop
+
+    build:
+        runs-on: ubuntu-latest
+        needs: install-deps
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 1
+
+            - run: git fetch --no-tags --prune --depth=1 origin develop
+
+            - name: Cache node modules
+              uses: actions/cache@v4
+              with:
+                  path: node_modules
+                  key: cache-node-modules-${{ hashFiles('pnpm-lock.json') }}
+
+            - run: npx nx affected --target=build --parallel=3 --configuration=ci --base=origin/develop
