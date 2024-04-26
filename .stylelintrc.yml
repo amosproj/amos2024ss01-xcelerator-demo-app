@@ -1,0 +1,10 @@
+extends:
+  - stylelint-config-standard-scss
+  - stylelint-config-recess-order
+rules:
+  at-rule-empty-line-before: null
+  scss/dollar-variable-empty-line-before: null
+  color-function-notation: null
+  property-no-vendor-prefix: null
+  custom-property-empty-line-before: null
+  string-quotes: double
