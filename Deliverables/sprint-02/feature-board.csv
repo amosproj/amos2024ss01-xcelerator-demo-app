@@ -1,0 +1,11 @@
+Title,URL,Assignees,Status,Labels
+Create T-shirt mockup,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/2,lamara11,Feature Archive,"topic: documentation 📝, type: feature ✨"
+Design and upload team logo,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/1,shahraz1998,Feature Archive,"topic: documentation 📝, type: feature ✨"
+Research of fundamentals,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/3,"HaruspexSan, PatrickSchm1dt, Sabo2k",Feature Archive,"topic: backend, topic: documentation 📝, topic: frontend, topic: Tool 🔧, type: feature ✨"
+Software architecture document,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/7,Sabo2k,Sprint Backlog,"🟧 priority: high, Est Size: L, topic: documentation 📝, type: feature ✨"
+Fill in the bill of materials,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/8,Hydraneut,Sprint Backlog,"🟧 priority: high, Est Size: S, topic: documentation 📝"
+GitHub Pipelines,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/10,"KonsumGandalf, Persists",Awaiting Review,"🟨 priority: medium, Est Size: S, topic: CI/CD, type: feature ✨"
+Nx Setup,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/12,"KonsumGandalf, Persists",Awaiting Review,"🟧 priority: high, Est Size: M, type: feature ✨"
+Config service for NEST,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/14,"KonsumGandalf, Persists",In Progress,"🟧 priority: high, Est Size: M, topic: backend, type: feature ✨"
+Config based service implementation in Angular,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/13,"IngoSternberg, KonsumGandalf, PatrickSchm1dt",In Progress,"🟧 priority: high, Est Size: M, topic: frontend, type: feature ✨"
+Setup Development Environment,https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/issues/9,,Product Backlog,"🟧 priority: high, Est Size: M, topic: backend, topic: CI/CD, topic: frontend, topic: Tool 🔧, type: feature ✨"
