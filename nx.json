@@ -75,6 +75,6 @@
 	},
 	"nxCloudAccessToken": "M2Y0ZTliYjAtYjQ4Yy00ZGZmLWJkOTgtMTEzNjJmNTAxNDdhfHJlYWQtd3JpdGU=",
 	"affected": {
-		"defaultBase": "develop"
+		"defaultBase": "origin/develop"
 	}
 }
