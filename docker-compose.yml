@@ -29,7 +29,7 @@ services:
     backend:
         depends_on:
             - postgres
-        # image: ghcr.io/amosproj/amos2024ss01-xcelerator-demo-app-backend
+        image: ghcr.io/amosproj/amos2024ss01-xcelerator-demo-app-backend
         build:
             context: .
             target: production
@@ -43,7 +43,7 @@ services:
     frontend:
         depends_on:
             - backend
-        # image: ghcr.io/amosproj/amos2024ss01-xcelerator-demo-app-frontend
+        image: ghcr.io/amosproj/amos2024ss01-xcelerator-demo-app-frontend
         build:
             context: .
             target: production

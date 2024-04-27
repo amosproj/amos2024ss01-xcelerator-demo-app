@@ -1,3 +1,5 @@
+name: Release Please
+
 on:
     push:
         branches:
@@ -14,5 +16,4 @@ jobs:
             - uses: google-github-actions/release-please-action@v4
               with:
                   release-type: node
-                  package-name: xcelerator-demo
                   target-branch: main
