@@ -1,0 +1,64 @@
+version: '3.8'
+
+name: maintenance-automation-compose
+
+services:
+    postgres:
+        image: postgres:alpine
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        restart: unless-stopped
+        ports:
+            - '5432:5432'
+        environment:
+            POSTGRES_USER: amos
+            POSTGRES_PASSWORD: amos
+            POSTGRES_DB: amos
+        networks:
+            - db_network
+            - backend_network
+
+    cloudbeaver:
+        image: dbeaver/cloudbeaver
+        restart: unless-stopped
+        ports:
+            - '8978:8978'
+        networks:
+            - db_network
+
+    backend:
+        depends_on:
+            - postgres
+        # image: ghcr.io/amosproj/amos2024ss01-xcelerator-demo-app-backend
+        build:
+            context: .
+            target: production
+            dockerfile: apps/backend/Dockerfile
+        restart: unless-stopped
+        ports:
+            - '3000:3000'
+        networks:
+            - backend_network
+
+    frontend:
+        depends_on:
+            - backend
+        # image: ghcr.io/amosproj/amos2024ss01-xcelerator-demo-app-frontend
+        build:
+            context: .
+            target: production
+            dockerfile: apps/frontend/Dockerfile
+        restart: unless-stopped
+        ports:
+            - '4200:80'
+        networks:
+            - backend_network
+
+networks:
+    backend_network:
+        driver: bridge
+    db_network:
+        driver: bridge
+
+volumes:
+    postgres:
