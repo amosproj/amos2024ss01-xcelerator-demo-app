@@ -14,7 +14,6 @@ services:
             POSTGRES_USER: amos
             POSTGRES_PASSWORD: amos
             POSTGRES_DB: amos
-
         networks:
             - db_network
             - backend_network
