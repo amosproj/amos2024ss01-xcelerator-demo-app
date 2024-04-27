@@ -24,8 +24,7 @@ jobs:
             - name: Restore cached npm dependencies
               uses: actions/cache@v4
               with:
-                  path: |
-                      node_modules
+                  path: node_modules
                   key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
 
             - uses: actions/setup-node@v4
@@ -54,8 +53,7 @@ jobs:
             - name: Cache node modules
               uses: actions/cache@v4
               with:
-                  path: |
-                      node_modules
+                  path: node_modules
                   key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
 
             - run: pnpm nx affected --target=lint --parallel=3 --configuration=ci --base=origin/develop
@@ -78,8 +76,7 @@ jobs:
             - name: Cache node modules
               uses: actions/cache@v4
               with:
-                  path: |
-                      node_modules
+                  path: node_modules
                   key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
 
             - run: pnpm nx affected --target=test --parallel=3 --configuration=ci --base=origin/develop
@@ -102,8 +99,7 @@ jobs:
             - name: Cache node modules
               uses: actions/cache@v4
               with:
-                  path: |
-                      node_modules
+                  path: node_modules
                   key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
 
             - run: pnpm nx affected --target=build --parallel=3 --configuration=ci --base=origin/develop
