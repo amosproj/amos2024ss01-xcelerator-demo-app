@@ -14,19 +14,19 @@ import { DatabaseConfig } from './database.class';
  * The Backend configuration class
  */
 export class BackendConfig implements IBackendConfig {
-  /**
-   * The app configuration
-   * @type {IAppConfig}
-   */
-  @ValidateNested()
-  @Type(() => AppConfig)
-  app: IAppConfig;
+	/**
+	 * The app configuration
+	 * @type {IAppConfig}
+	 */
+	@ValidateNested()
+	@Type(() => AppConfig)
+	app: IAppConfig;
 
-  /**
-   * The database configuration
-   * @type {IDatabaseConfig}
-   */
-  @ValidateNested()
-  @Type(() => DatabaseConfig)
-  database: IDatabaseConfig;
+	/**
+	 * The database configuration
+	 * @type {IDatabaseConfig}
+	 */
+	@ValidateNested()
+	@Type(() => DatabaseConfig)
+	database: IDatabaseConfig;
 }
