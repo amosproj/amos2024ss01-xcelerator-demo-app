@@ -5,7 +5,6 @@ import { ValidateNested } from 'class-validator';
 import { IAppConfig } from '../interfaces/app.interface';
 import { IBackendConfig } from '../interfaces/config.interface';
 import { IDatabaseConfig } from '../interfaces/database.interface';
-
 /* Classes */
 import { AppConfig } from './app.class';
 import { DatabaseConfig } from './database.class';

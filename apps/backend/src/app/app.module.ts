@@ -8,14 +8,14 @@ import { AppController } from './app.controller';
 import { validateConfig } from './config/validation';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ['.env'],
-      validate: validateConfig,
-    }),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		ConfigModule.forRoot({
+			isGlobal: true,
+			envFilePath: ['.env'],
+			validate: validateConfig,
+		}),
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {}
