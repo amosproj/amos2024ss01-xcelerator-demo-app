@@ -1,1 +1,2 @@
-export * from './lib/common-backend-models.module';
+export * from "./classes"
+export * from "./interfaces"

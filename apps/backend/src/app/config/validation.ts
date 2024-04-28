@@ -1,39 +1,51 @@
-import { validateSync } from "class-validator";
-import { plainToClass } from "class-transformer";
+import { Logger } from '@nestjs/common';
+
+import { validateSync } from 'class-validator';
+import { plainToClass, plainToInstance } from 'class-transformer';
 
 /* classes */
-import { EnvironmentVariables } from "./classes/environment.class";
+import { EnvironmentVariables } from './classes/environment.class';
 
 /* Interfaces */
-import { IEnvironmentVariables } from "./interfaces/environment.interface";
-
+import { BackendConfig } from 'common-backend-models';
+import { IEnvironmentVariables } from './interfaces/environment.interface';
 
 /**
  * Validate the configuration
  */
-export const validateConfig = (config: IEnvironmentVariables) => {
+export const validateConfig = (config: IEnvironmentVariables): BackendConfig => {
+	/**
+	 * Validate the environment variables
+	 */
+	const validatedEnv = plainToClass(EnvironmentVariables, config, {
+		enableImplicitConversion: true,
+	});
 
-  /**
-   * Extract config and assign default values
-   */
-  const defaultConfig: IEnvironmentVariables = 
-    {
-      ...config,
-        APP_PORT: config.APP_PORT || 3000,
-        APP_HOST: config.APP_HOST || 'localhost',
-    }
+	const errors = validateSync(validatedEnv, {
+		skipMissingProperties: false,
+	});
 
-    const validatedConfig = plainToClass(
-        EnvironmentVariables,
-        defaultConfig,
-        { enableImplicitConversion: true },
-      );
+	errors.length && Logger.error(`Config validation error: ${errors}`, 'ConfigValidation');
 
-      const errors = validateSync(validatedConfig, { skipMissingProperties: false });
-    
-      if (errors.length > 0) {
-        throw new Error(errors.toString());
-      }
+	const configWithDefaults = generateConfig(validatedEnv);
 
-      return validatedConfig;
+	/**
+	 * Return the validated configuration
+	 */
+	return configWithDefaults;
 };
+
+const generateConfig = (config: IEnvironmentVariables): BackendConfig =>
+	plainToInstance(BackendConfig, {
+		app: {
+			port: config.APP_PORT || 3000,
+			host: config.APP_HOST || 'localhost',
+			name: config.APP_NAME,
+		},
+		database: {
+			host: config.POSTGRES_HOST,
+			port: config.POSTGRES_PORT,
+			user: config.POSTGRES_USER,
+			password: config.POSTGRES_PASSWORD,
+		},
+	} as BackendConfig);
