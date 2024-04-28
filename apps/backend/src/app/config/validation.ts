@@ -1,13 +1,11 @@
 import { Logger } from '@nestjs/common';
-
-import { validateSync } from 'class-validator';
 import { plainToClass, plainToInstance } from 'class-transformer';
+import { validateSync } from 'class-validator';
+/* Interfaces */
+import { BackendConfig } from 'common-backend-models';
 
 /* classes */
 import { EnvironmentVariables } from './classes/environment.class';
-
-/* Interfaces */
-import { BackendConfig } from 'common-backend-models';
 import { IEnvironmentVariables } from './interfaces/environment.interface';
 
 /**

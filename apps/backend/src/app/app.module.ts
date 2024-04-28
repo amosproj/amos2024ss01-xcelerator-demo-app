@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
+import { AppController } from './app.controller';
 /* Internal */
 import { AppService } from './app.service';
-import { AppController } from './app.controller';
-
 import { validateConfig } from './config/validation';
 
 @Module({
