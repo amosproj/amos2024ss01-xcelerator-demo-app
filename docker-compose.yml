@@ -40,7 +40,7 @@ services:
         networks:
             - backend_network
         env_file:
-            - .env
+            - apps/backend/.env
 
     frontend:
         depends_on:

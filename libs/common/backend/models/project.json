@@ -1,16 +1,16 @@
 {
-  "name": "common-backend-models",
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/common/backend/models/src",
-  "projectType": "library",
-  "tags": ["type:models", "domain:common", "tier:backend"],
-  "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "libs/common/backend/models/jest.config.ts"
-      }
+    "name": "common-backend-models",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/common/backend/models/src",
+    "projectType": "library",
+    "tags": ["type:models", "domain:common", "tier:backend"],
+    "targets": {
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "libs/common/backend/models/jest.config.ts"
+            }
+        }
     }
-  }
 }

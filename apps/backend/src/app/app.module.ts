@@ -10,7 +10,7 @@ import { validateConfig } from './config/validation';
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			envFilePath: ['.env'],
+			envFilePath: ['apps/backend/.env'],
 			validate: validateConfig,
 		}),
 	],
