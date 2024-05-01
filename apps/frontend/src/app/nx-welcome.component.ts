@@ -7,12 +7,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
 	imports: [CommonModule],
 	template: `
 		<!--
-     * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     This is a starter component and can be deleted.
-     * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     Delete this file and get started with your project!
-     * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     -->
+         * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+         This is a starter component and can be deleted.
+         * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+         Delete this file and get started with your project!
+         * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+         -->
 		<style>
 			html {
 				-webkit-text-size-adjust: 100%;
@@ -505,14 +505,14 @@ import { Component, ViewEncapsulation } from '@angular/core';
 		</style>
 		<div class="wrapper">
 			<div class="container">
-				<!--  WELCOME  -->
+				<!--    WELCOME    -->
 				<div id="welcome">
 					<h1>
 						<span> Hello there, </span>
 						Welcome frontend 👋
 					</h1>
 				</div>
-				<!--  HERO  -->
+				<!--    HERO    -->
 				<div id="hero" class="rounded">
 					<div class="text-container">
 						<h2>
@@ -546,7 +546,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 						</svg>
 					</div>
 				</div>
-				<!--  MIDDLE CONTENT  -->
+				<!--    MIDDLE CONTENT    -->
 				<div id="middle-content">
 					<div id="learning-materials" class="rounded shadow">
 						<h2>Learning materials</h2>
@@ -869,7 +869,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 						</a>
 					</div>
 				</div>
-				<!--  COMMANDS  -->
+				<!--    COMMANDS    -->
 				<div id="commands" class="rounded shadow">
 					<h2>Next steps</h2>
 					<p>Here are some things you can do with Nx:</p>
