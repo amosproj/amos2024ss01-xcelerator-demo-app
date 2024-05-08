@@ -4,7 +4,7 @@
 	"projectType": "application",
 	"prefix": "app",
 	"sourceRoot": "apps/frontend/src",
-	"tags": [],
+	"tags": ["tier:frontend", "type:app"],
 	"targets": {
 		"build": {
 			"executor": "@angular-devkit/build-angular:browser",
@@ -34,7 +34,13 @@
 							"maximumError": "4kb"
 						}
 					],
-					"outputHashing": "all"
+					"outputHashing": "all",
+					"fileReplacements": [
+						{
+							"replace": "apps/frontend/src/environments/environment.ts",
+							"with": "apps/frontend/src/environments/environment.prod.ts"
+						}
+					]
 				},
 				"development": {
 					"buildOptimizer": false,

@@ -39,6 +39,8 @@ services:
             - '3000:3000'
         networks:
             - backend_network
+        env_file:
+            - apps/backend/.env
 
     frontend:
         depends_on:
