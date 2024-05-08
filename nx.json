@@ -41,6 +41,9 @@
 					"codeCoverage": true
 				}
 			}
+		},
+		"build": {
+			"inputs": ["production", "^production"]
 		}
 	},
 	"plugins": [
