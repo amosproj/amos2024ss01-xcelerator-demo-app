@@ -1,13 +1,13 @@
-name: Release Please
-
 on:
     push:
         branches:
-            - main
+            - develop
 
 permissions:
     contents: write
     pull-requests: write
+
+name: Release Manager
 
 jobs:
     release-please:
@@ -17,6 +17,7 @@ jobs:
               with:
                   release-type: node
                   target-branch: main
+                  package-name: xcelerator-demo-app
             - uses: actions/checkout@v4
             - name: tag major and minor versions
               if: ${{ steps.release.outputs.release_created }}
