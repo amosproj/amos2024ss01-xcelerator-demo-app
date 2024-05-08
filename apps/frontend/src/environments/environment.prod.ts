@@ -1,4 +1,4 @@
 export const environment = {
 	production: true,
-	apiUrl: 'https://test.prod.de',
+	apiUrl: process.env.XD_API_URL,
 };
