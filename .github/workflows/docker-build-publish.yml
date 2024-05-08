@@ -1,97 +1,97 @@
 name: Docker Build and Publish
 
 on:
-        push:
-                branches:
-                        - develop
-        workflow_dispatch:
+    push:
+        branches:
+            - develop
+    workflow_dispatch:
 
 env:
-        REGISTRY: ghcr.io
-        IMAGE_NAME: amosproj/amos2024ss01-xcelerator-demo-app
+    REGISTRY: ghcr.io
+    IMAGE_NAME: amosproj/amos2024ss01-xcelerator-demo-app
 
 jobs:
-        setup-buildx:
-                runs-on: ubuntu-latest
-                steps:
-                        - uses: actions/checkout@v4
-                            with:
-                                    fetch-depth: 0
+    setup-buildx:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
 
-                        - name: Set up Docker Buildx
-                            id: buildx
-                            uses: docker/setup-buildx-action@v3
+            - name: Set up Docker Buildx
+              id: buildx
+              uses: docker/setup-buildx-action@v3
 
-        backend:
-                runs-on: ubuntu-latest
-                needs: setup-buildx
-                steps:
-                        - uses: actions/checkout@v4
-                            with:
-                                    fetch-depth: 1
+    backend:
+        runs-on: ubuntu-latest
+        needs: setup-buildx
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 1
 
-                        - name: Docker meta
-                            id: meta
-                            uses: docker/metadata-action@v5
-                            with:
-                                    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend
-                                    tags: |
-                                            type=ref,event=branch
-                                            type=ref,event=pr
-                                            type=semver,pattern={{version}}
-                                            type=semver,pattern={{major}}.{{minor}}
-                                            type=sha
-                                            latest
+            - name: Docker meta
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                  images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend
+                  tags: |
+                      type=ref,event=branch
+                      type=ref,event=pr
+                      type=semver,pattern={{version}}
+                      type=semver,pattern={{major}}.{{minor}}
+                      type=sha
+                      latest
 
-                        - name: Log in to registry ${{ env.REGISTRY }}
-                            uses: docker/login-action@v3
-                            with:
-                                    registry: ${{ env.REGISTRY }}
-                                    username: ${{ github.actor }}
-                                    password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Log in to registry ${{ env.REGISTRY }}
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
 
-                        - name: Build and push backend image
-                            uses: docker/build-push-action@v5
-                            with:
-                                    context: .
-                                    file: ./apps/backend/Dockerfile
-                                    push: true
-                                    tags: ${{ steps.meta.outputs.tags }}
-                                    labels: ${{ steps.meta.outputs.labels }}
+            - name: Build and push backend image
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: ./apps/backend/Dockerfile
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
 
-        frontend:
-                runs-on: ubuntu-latest
-                needs: setup-buildx
-                steps:
-                        - uses: actions/checkout@v4
-                            with:
-                                    fetch-depth: 1
+    frontend:
+        runs-on: ubuntu-latest
+        needs: setup-buildx
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 1
 
-                        - name: Docker meta
-                            id: meta
-                            uses: docker/metadata-action@v5
-                            with:
-                                    images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend
-                                    tags: |
-                                            type=ref,event=branch
-                                            type=ref,event=pr
-                                            type=semver,pattern={{version}}
-                                            type=semver,pattern={{major}}.{{minor}}
-                                            type=sha
-                                            latest
+            - name: Docker meta
+              id: meta
+              uses: docker/metadata-action@v5
+              with:
+                  images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-frontend
+                  tags: |
+                      type=ref,event=branch
+                      type=ref,event=pr
+                      type=semver,pattern={{version}}
+                      type=semver,pattern={{major}}.{{minor}}
+                      type=sha
+                      latest
 
-                        - name: Log in to registry ${{ env.REGISTRY }}
-                            uses: docker/login-action@v3
-                            with:
-                                    registry: ${{ env.REGISTRY }}
-                                    username: ${{ github.actor }}
-                                    password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Log in to registry ${{ env.REGISTRY }}
+              uses: docker/login-action@v3
+              with:
+                  registry: ${{ env.REGISTRY }}
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
 
-                        - name: Build and push frontend image
-                            uses: docker/build-push-action@v5
-                            with:
-                                    context: .
-                                    file: ./apps/frontend/Dockerfile
-                                    push: true
-                                    tags: ${{ steps.meta.outputs.tags }}
-                                    labels: ${{ steps.meta.outputs.labels }}
+            - name: Build and push frontend image
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: ./apps/frontend/Dockerfile
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
