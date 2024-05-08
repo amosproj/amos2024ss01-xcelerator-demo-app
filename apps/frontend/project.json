@@ -4,7 +4,7 @@
 	"projectType": "application",
 	"prefix": "app",
 	"sourceRoot": "apps/frontend/src",
-	"tags": [],
+	"tags": ["tier:frontend", "type:app"],
 	"targets": {
 		"build": {
 			"executor": "@angular-devkit/build-angular:browser",
