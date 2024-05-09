@@ -36,7 +36,7 @@ services:
             dockerfile: apps/backend/Dockerfile
         restart: unless-stopped
         ports:
-            - '3000:3000'
+            - '3100:3100'
         networks:
             - backend_network
         env_file:

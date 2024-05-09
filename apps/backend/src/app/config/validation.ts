@@ -36,7 +36,7 @@ export const validateConfig = (config: IEnvironmentVariables): BackendConfig => 
 const generateConfig = (config: IEnvironmentVariables): BackendConfig =>
 	plainToInstance(BackendConfig, {
 		app: {
-			port: config.APP_PORT || 3000,
+			port: config.APP_PORT || 3333,
 			host: config.APP_HOST || 'localhost',
 			name: config.APP_NAME,
 		},
