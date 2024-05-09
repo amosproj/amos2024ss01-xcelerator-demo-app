@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BrowsePage } from './browse.page';
+import { XdBrowsePage } from './browse.page';
 
 describe('BrowseComponent', () => {
-	let component: BrowsePage;
-	let fixture: ComponentFixture<BrowsePage>;
+	let component: XdBrowsePage;
+	let fixture: ComponentFixture<XdBrowsePage>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [BrowsePage],
+			imports: [XdBrowsePage],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(BrowsePage);
+		fixture = TestBed.createComponent(XdBrowsePage);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
