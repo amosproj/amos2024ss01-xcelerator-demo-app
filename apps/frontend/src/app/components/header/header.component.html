@@ -1,0 +1,19 @@
+<ix-application-header name="Xcelerator Demo App">
+	<ix-breadcrumb visibleItemCount="3">
+		@for (breadcrumb of breadcrumbs(); track breadcrumb.url) {
+			<ix-breadcrumb-item
+				[routerLink]="[breadcrumb.url]"
+				[label]="breadcrumb.label"
+			></ix-breadcrumb-item>
+		}
+	</ix-breadcrumb>
+	<!-- TODO This must be replaced !!! -->
+	<ix-tabs>
+		<ix-tab-item [routerLink]="['/facilities']">Facilities</ix-tab-item>
+		<ix-tab-item [routerLink]="['/orders']">Orders</ix-tab-item>
+	</ix-tabs>
+	<ix-avatar username="John Doe" extra="Administrator">
+		<ix-dropdown-item label="Action 1"></ix-dropdown-item>
+		<ix-dropdown-item label="Action 2"></ix-dropdown-item>
+	</ix-avatar>
+</ix-application-header>
