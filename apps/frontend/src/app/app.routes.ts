@@ -4,16 +4,6 @@ import { AppRootLayout } from './layouts/root.layout';
 
 export const APP_ROUTES: Route[] = [
 	{
-		path: 'welcome',
-		data: {
-			breadcrumbs: {
-				label: 'Welcome',
-				url: 'welcome',
-			},
-		},
-		loadComponent: () => import('./nx-welcome.component').then((m) => m.NxWelcomeComponent),
-	},
-	{
 		path: '',
 		component: AppRootLayout,
 		data: {
