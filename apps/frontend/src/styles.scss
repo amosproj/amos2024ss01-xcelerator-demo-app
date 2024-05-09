@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@siemens/ix/dist/siemens-ix/siemens-ix.css';
+
+.test-custom-class {
+	@apply bg-red-500 rounded text-center;
+}
