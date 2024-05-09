@@ -1,4 +1,16 @@
-<div class="text-4xl">This text ist big because of a tailwind class</div>
-<div class="bg-custom-pink">The background is pink because of a custom color</div>
-<div class="test-custom-class">This text is centered because of a custom class</div>
-<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>
+<ix-application>
+	<ix-application-header name="My Application">
+		<div class="placeholder-logo" slot="logo"></div>
+	</ix-application-header>
+	<ix-menu>
+		<ix-menu-item>Item 1</ix-menu-item>
+		<ix-menu-item>Item 2</ix-menu-item>
+	</ix-menu>
+	<ix-content>
+		<ix-content-header slot="header" header-title="My Content Page"> </ix-content-header>
+		<div class="text-4xl">This text ist big because of a tailwind class</div>
+		<div class="bg-custom-pink">The background is pink because of a custom color</div>
+		<div class="test-custom-class">This text is centered because of a custom class</div>
+		<router-outlet></router-outlet>
+	</ix-content>
+</ix-application>

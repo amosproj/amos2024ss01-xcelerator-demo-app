@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { IxModule } from '@siemens/ix-angular';
 
 @Component({
 	standalone: true,
-	imports: [NxWelcomeComponent, RouterModule],
+	imports: [RouterModule, IxModule, BrowserAnimationsModule],
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.scss',
