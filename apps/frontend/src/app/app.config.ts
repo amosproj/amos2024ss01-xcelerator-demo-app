@@ -1,9 +1,12 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
-import { appRoutes } from './app.routes';
+import { APP_ROUTES } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
-	providers: [provideRouter(appRoutes), importProvidersFrom(IxModule.forRoot())],
+	providers: [
+		provideRouter(APP_ROUTES, withComponentInputBinding()),
+		importProvidersFrom(IxModule.forRoot()),
+	],
 };
