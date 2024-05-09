@@ -1,11 +1,12 @@
 {
 	"root": true,
 	"ignorePatterns": ["**/*"],
-	"plugins": ["@nx", "simple-import-sort"],
+	"plugins": ["@nx", "simple-import-sort", "@stylistic/js"],
 	"overrides": [
 		{
 			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
 			"rules": {
+				"@stylistic/js/array-bracket-spacing": ["error", "always"],
 				"no-console": "error",
 				"@nx/enforce-module-boundaries": [
 					"error",
@@ -14,41 +15,39 @@
 						"allow": [],
 						"depConstraints": [
 							{
-                                "sourceTag": "type:app",
+								"sourceTag": "type:app",
 								"onlyDependOnLibsWithTags": ["*"]
-                            },
-                            {
-                                "sourceTag": "type:feature",
-                                "onlyDependOnLibsWithTags": ["type:models", "type:feature"]
-                            },
-                            {
-                                "sourceTag": "type:util",
-                                "onlyDependOnLibsWithTags": ["type:models", "type:util"]
-                            },
-                            {
-                                "sourceTag": "type:models",
-                                "onlyDependOnLibsWithTags": ["type:models"]
-
-                            },
-                            {
-                                "sourceTag": "domain:common",
-                                "onlyDependOnLibsWithTags": ["domain:common"]
-                            },
-                            {
-                                "sourceTag": "tier:backend",
-                                "onlyDependOnLibsWithTags": ["tier:backend", "tier:common"]
-                            },
-                            {
-                                "sourceTag": "tier:frontend",
-                                "onlyDependOnLibsWithTags": ["tier:frontend", "tier:common"]
-                            },
-                            {
-                                "sourceTag": "tier:common",
-                                "onlyDependOnLibsWithTags": ["tier:common"]
+							},
+							{
+								"sourceTag": "type:feature",
+								"onlyDependOnLibsWithTags": ["type:models", "type:feature"]
+							},
+							{
+								"sourceTag": "type:util",
+								"onlyDependOnLibsWithTags": ["type:models", "type:util"]
+							},
+							{
+								"sourceTag": "type:models",
+								"onlyDependOnLibsWithTags": ["type:models"]
+							},
+							{
+								"sourceTag": "domain:common",
+								"onlyDependOnLibsWithTags": ["domain:common"]
+							},
+							{
+								"sourceTag": "tier:backend",
+								"onlyDependOnLibsWithTags": ["tier:backend", "tier:common"]
+							},
+							{
+								"sourceTag": "tier:frontend",
+								"onlyDependOnLibsWithTags": ["tier:frontend", "tier:common"]
+							},
+							{
+								"sourceTag": "tier:common",
+								"onlyDependOnLibsWithTags": ["tier:common"]
 							}
 						]
 					}
-
 				]
 			}
 		},
