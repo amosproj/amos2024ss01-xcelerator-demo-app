@@ -6,7 +6,7 @@
 		{
 			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
 			"rules": {
-				"@stylistic/js/array-bracket-spacing": ["error", "always"],
+				"@stylistic/js/array-bracket-spacing": ["warn", "always"],
 				"no-console": "error",
 				"@nx/enforce-module-boundaries": [
 					"error",
@@ -19,6 +19,15 @@
 								"onlyDependOnLibsWithTags": ["*"]
 							},
 							{
+								"sourceTag": "type:shell",
+								"onlyDependOnLibsWithTags": [
+									"type:shell",
+									"type:feature",
+									"type:util",
+									"type:models"
+								]
+							},
+							{
 								"sourceTag": "type:feature",
 								"onlyDependOnLibsWithTags": ["type:models", "type:feature"]
 							},
@@ -29,6 +38,14 @@
 							{
 								"sourceTag": "type:models",
 								"onlyDependOnLibsWithTags": ["type:models"]
+							},
+							{
+								"sourceTag": "domain:orders",
+								"onlyDependOnLibsWithTags": ["domain:orders", "domain:orders"]
+							},
+							{
+								"sourceTag": "domain:facilities",
+								"onlyDependOnLibsWithTags": ["domain:facilities", "domain:common"]
 							},
 							{
 								"sourceTag": "domain:common",
@@ -75,6 +92,38 @@
 				"jest": true
 			},
 			"rules": {}
+		},
+		{
+			"files": ["*.component.ts", "*.layout.ts", "*.page.ts"],
+			"extends": [
+				"plugin:@nx/angular",
+				"plugin:@typescript-eslint/recommended",
+				"plugin:@angular-eslint/template/process-inline-templates"
+			],
+			"rules": {
+				"@angular-eslint/directive-selector": [
+					"error",
+					{
+						"type": "attribute",
+						"prefix": "app",
+						"style": "camelCase"
+					}
+				],
+				"@angular-eslint/component-selector": [
+					"error",
+					{
+						"type": "element",
+						"prefix": "app",
+						"style": "kebab-case"
+					}
+				],
+				"@angular-eslint/component-class-suffix": [
+					"error",
+					{
+						"suffixes": ["Component", "Page", "Layout"]
+					}
+				]
+			}
 		}
 	]
 }
