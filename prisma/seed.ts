@@ -48,8 +48,6 @@ async function main() {
 	});
 }
 
-// execute the main function
-
 main()
 	.catch((e) => {
 		console.error(e);
@@ -58,7 +56,5 @@ main()
 	})
 
 	.finally(async () => {
-		// close Prisma Client at the end
-
 		await prisma.$disconnect();
 	});
