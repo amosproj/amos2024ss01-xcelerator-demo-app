@@ -1,19 +1,39 @@
-<ix-application-header name="Xcelerator Demo App">
-	<ix-breadcrumb visibleItemCount="3">
-		@for (breadcrumb of breadcrumbs(); track breadcrumb.url) {
-			<ix-breadcrumb-item
-				[routerLink]="[breadcrumb.url]"
-				[label]="breadcrumb.label"
-			></ix-breadcrumb-item>
-		}
-	</ix-breadcrumb>
-	<!-- TODO This must be replaced !!! -->
+<ix-application class="h-screen">
+	<ix-application-header name="Xcelerator Demo App">
+		<div class="placeholder-logo" slot="logo">
+			<img
+				src="https://cdn.c2comms.cloud/images/logo-collection/2.1/sie-logo-white-rgb.svg"
+				style="height: 20px"
+			/>
+		</div>
+		<ix-breadcrumb class="flex justify-start" visibleItemCount="3">
+			@for (breadcrumb of breadcrumbs(); track breadcrumb.url) {
+				<ix-breadcrumb-item
+					[routerLink]="[breadcrumb.url]"
+					[label]="breadcrumb.label"
+				></ix-breadcrumb-item>
+			}
+		</ix-breadcrumb>
+		<ix-button class="mt-1" variant="secondary" ghost>
+			Powered by Siemens Xcelerator
+		</ix-button>
+		<!-- TODO This must be replaced !!! -->
+		<!--
 	<ix-tabs>
 		<ix-tab-item [routerLink]="['/facilities']">Facilities</ix-tab-item>
 		<ix-tab-item [routerLink]="['/orders']">Orders</ix-tab-item>
 	</ix-tabs>
-	<ix-avatar username="John Doe" extra="Administrator">
-		<ix-dropdown-item label="Action 1"></ix-dropdown-item>
-		<ix-dropdown-item label="Action 2"></ix-dropdown-item>
-	</ix-avatar>
-</ix-application-header>
+	-->
+		<ix-avatar username="John Doe" extra="Administrator">
+			<ix-dropdown-item label="Action 1"></ix-dropdown-item>
+			<ix-dropdown-item label="Action 2"></ix-dropdown-item>
+		</ix-avatar>
+	</ix-application-header>
+	<ix-menu>
+		<ix-menu-item icon="anomaly-found" [routerLink]="['']">Facility Issues</ix-menu-item>
+		<ix-menu-item icon="building1" [routerLink]="['/facilities']">Facilities</ix-menu-item>
+		<ix-menu-item icon="tasks-open" [routerLink]="['/orders']">Work Orders</ix-menu-item>
+
+		<ix-menu-about> AMOS Xcelerator Demo App</ix-menu-about>
+	</ix-menu>
+</ix-application>

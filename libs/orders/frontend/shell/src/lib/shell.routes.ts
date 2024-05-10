@@ -14,7 +14,6 @@ import { Route } from '@angular/router';
 export const ORDERS_SHELL_ROUTES: Route[] = [
 	{
 		path: '',
-		redirectTo: 'not-found',
 		children: [
 			{
 				// Route to create an order
