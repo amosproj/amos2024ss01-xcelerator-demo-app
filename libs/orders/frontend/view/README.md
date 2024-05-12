@@ -1,4 +1,4 @@
-# view
+# orders-frontend-view
 
 This library was generated with [Nx](https://nx.dev).
 

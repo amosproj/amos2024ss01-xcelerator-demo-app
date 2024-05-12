@@ -18,17 +18,20 @@ export const ORDERS_SHELL_ROUTES: Route[] = [
 			{
 				// Route to create an order
 				path: 'create',
-				redirectTo: 'not-found',
+				loadComponent: () =>
+					import('orders-frontend-view').then((m) => m.CreateOrderComponent),
 			},
 			{
 				// Route to order which are open - later this should be a query param!!!
 				path: 'open',
-				redirectTo: 'not-found',
+				loadComponent: () =>
+					import('orders-frontend-view').then((m) => m.OpenOrdersComponent),
 			},
 			{
 				// Route to detail order
 				path: ':id',
-				redirectTo: 'not-found',
+				loadComponent: () =>
+					import('orders-frontend-view').then((m) => m.DetailOrderComponent),
 			},
 		],
 	},

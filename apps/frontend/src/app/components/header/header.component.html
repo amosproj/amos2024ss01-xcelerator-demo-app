@@ -1,4 +1,4 @@
-<ix-application class="h-screen">
+<ix-application>
 	<ix-application-header name="Xcelerator Demo App">
 		<div class="placeholder-logo" slot="logo">
 			<img
@@ -6,7 +6,7 @@
 				style="height: 20px"
 			/>
 		</div>
-		<ix-breadcrumb class="flex justify-start" visibleItemCount="3">
+		<ix-breadcrumb visibleItemCount="3">
 			@for (breadcrumb of breadcrumbs(); track breadcrumb.url) {
 				<ix-breadcrumb-item
 					[routerLink]="[breadcrumb.url]"
@@ -19,21 +19,25 @@
 		</ix-button>
 		<!-- TODO This must be replaced !!! -->
 		<!--
-	<ix-tabs>
-		<ix-tab-item [routerLink]="['/facilities']">Facilities</ix-tab-item>
-		<ix-tab-item [routerLink]="['/orders']">Orders</ix-tab-item>
-	</ix-tabs>
-	-->
+<ix-tabs>
+    <ix-tab-item [routerLink]="['/facilities']">Facilities</ix-tab-item>
+    <ix-tab-item [routerLink]="['/orders']">Orders</ix-tab-item>
+</ix-tabs>
+-->
 		<ix-avatar username="John Doe" extra="Administrator">
 			<ix-dropdown-item label="Action 1"></ix-dropdown-item>
 			<ix-dropdown-item label="Action 2"></ix-dropdown-item>
 		</ix-avatar>
 	</ix-application-header>
-	<ix-menu>
-		<ix-menu-item icon="anomaly-found" [routerLink]="['']">Facility Issues</ix-menu-item>
+	<ix-menu class="h-screen">
+		<ix-menu-item icon="anomaly-found" [routerLink]="['/facilities/issues']"
+			>Open Issues</ix-menu-item
+		>
 		<ix-menu-item icon="building1" [routerLink]="['/facilities']">Facilities</ix-menu-item>
 		<ix-menu-item icon="tasks-open" [routerLink]="['/orders']">Work Orders</ix-menu-item>
 
 		<ix-menu-about> AMOS Xcelerator Demo App</ix-menu-about>
 	</ix-menu>
+
+	<router-outlet></router-outlet>
 </ix-application>

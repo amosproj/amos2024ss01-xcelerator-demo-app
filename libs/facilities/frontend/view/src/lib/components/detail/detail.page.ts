@@ -3,12 +3,12 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { IxModule } from '@siemens/ix-angular';
 
 @Component({
-	selector: 'lib-browse',
+	selector: 'lib-detail',
 	standalone: true,
 	imports: [CommonModule, IxModule],
-	templateUrl: './browse.page.html',
-	styleUrl: './browse.page.scss',
+	templateUrl: './detail.page.html',
+	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdBrowsePage {}
+export class XdDetailPage {}

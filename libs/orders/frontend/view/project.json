@@ -1,5 +1,5 @@
 {
-	"name": "view",
+	"name": "orders-frontend-view",
 	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "libs/orders/frontend/view/src",
 	"prefix": "lib",

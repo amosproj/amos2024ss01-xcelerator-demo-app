@@ -6,9 +6,9 @@ import { IxModule } from '@siemens/ix-angular';
 	selector: 'lib-browse',
 	standalone: true,
 	imports: [CommonModule, IxModule],
-	templateUrl: './browse.page.html',
-	styleUrl: './browse.page.scss',
+	templateUrl: './issues.page.html',
+	styleUrl: './issues.page.scss',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdBrowsePage {}
+export class XdIssuesPage {}

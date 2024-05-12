@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { IxModule } from '@siemens/ix-angular';
 
 @Component({
-	selector: 'lib-browse',
+	selector: 'lib-create-order',
 	standalone: true,
-	imports: [CommonModule, IxModule],
-	templateUrl: './browse.page.html',
-	styleUrl: './browse.page.scss',
+	imports: [CommonModule],
+	templateUrl: './create-order.component.html',
+	styleUrl: './create-order.component.scss',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdBrowsePage {}
+export class CreateOrderComponent {}

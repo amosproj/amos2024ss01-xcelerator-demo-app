@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
 @Component({
-	selector: 'lib-browse',
+	selector: 'app-menu',
 	standalone: true,
-	imports: [CommonModule, IxModule],
-	templateUrl: './browse.page.html',
-	styleUrl: './browse.page.scss',
+	imports: [CommonModule, IxModule, RouterLink],
+	templateUrl: './menu.component.html',
+	styleUrl: './menu.component.scss',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdBrowsePage {}
+export class MenuComponent {}

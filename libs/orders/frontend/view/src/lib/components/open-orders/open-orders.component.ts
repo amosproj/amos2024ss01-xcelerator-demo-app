@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { IxModule } from '@siemens/ix-angular';
 
 @Component({
-	selector: 'lib-browse',
+	selector: 'lib-open-orders',
 	standalone: true,
-	imports: [CommonModule, IxModule],
-	templateUrl: './browse.page.html',
-	styleUrl: './browse.page.scss',
+	imports: [CommonModule],
+	templateUrl: './open-orders.component.html',
+	styleUrl: './open-orders.component.scss',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdBrowsePage {}
+export class OpenOrdersComponent {}

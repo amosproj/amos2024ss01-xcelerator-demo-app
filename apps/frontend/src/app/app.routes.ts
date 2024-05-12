@@ -1,11 +1,11 @@
 import { Route } from '@angular/router';
 
-import { AppRootLayout } from './layouts/root.layout';
+import { HeaderComponent } from './components/header/header.component';
 
 export const APP_ROUTES: Route[] = [
 	{
 		path: '',
-		component: AppRootLayout,
+		component: HeaderComponent,
 		data: {
 			breadcrumbs: {
 				label: 'Home',
