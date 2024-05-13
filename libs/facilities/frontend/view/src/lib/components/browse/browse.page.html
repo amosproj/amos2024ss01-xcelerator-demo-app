@@ -14,7 +14,11 @@
 			[heading]="facility.heading"
 			[subheading]="facility.subheading"
 			[variant]="facility.variant"
-		></ix-push-card>
+			[routerLink]="['/facilities', facility.id]"
+		>
+			<p>Number of water pumps: {{facility.pumps}}</p>
+			<p>Location: {{facility.location}}</p>
+		</ix-push-card>
 		}
 	</ix-card-list>
 </ix-content>

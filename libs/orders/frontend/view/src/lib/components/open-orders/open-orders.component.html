@@ -1,1 +1,19 @@
-<p>open-orders works!</p>
+<ix-content>
+	<ix-content-header slot="header" header-title="Open Work Orders"> </ix-content-header>
+
+	<ix-card-list label="Facilities Overview" [showAllCount]="orders.length" list-style="stack">
+		@for (order of orders; track order) {
+			<ix-push-card
+				class="mb-7"
+				[icon]="order.icon"
+				[notification]="order.notification"
+				[heading]="order.heading"
+				[subheading]="order.subheading"
+				[variant]="order.variant"
+				[routerLink]="['/orders', order.id]"
+			></ix-push-card>
+		}
+	</ix-card-list>
+
+	<ix-button [routerLink]="['/orders/create']">Create order</ix-button>
+</ix-content>

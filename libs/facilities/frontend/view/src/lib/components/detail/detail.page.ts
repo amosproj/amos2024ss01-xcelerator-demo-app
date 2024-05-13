@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
+
+import { facilities } from '../facility';
 
 @Component({
 	selector: 'lib-detail',
@@ -11,4 +14,19 @@ import { IxModule } from '@siemens/ix-angular';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdDetailPage {}
+export class XdDetailPage {
+	facility = this.getFacility();
+
+	constructor(private route: ActivatedRoute) {}
+
+	getFacility() {
+		const facility = facilities.find(
+			(facility) => facility.id === this.route.snapshot.params['id'],
+		);
+		if (facility === undefined) {
+			throw new Error('Facility not found');
+		} else {
+			return facility;
+		}
+	}
+}

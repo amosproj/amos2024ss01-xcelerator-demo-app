@@ -1,25 +1,16 @@
 <ix-content>
-	<ix-content-header
-		slot="header"
-		header-title="Main Dashboard"
-		header-subtitle="List of all water tanks with issues"
-	>
-	</ix-content-header>
+	<ix-content-header slot="header" header-title="Details of Facility"> </ix-content-header>
 
 	<ix-card-list label="Facilities Overview" show-all-count="12" list-style="stack">
 		<ix-push-card
-			icon="water-fish"
-			notification="3"
-			heading="Water Tank - FAU Erlangen"
-			subheading="Large Aquarium in CS Department building"
-			variant="critical"
-		></ix-push-card>
-		<ix-push-card
-			icon="water-plant"
-			notification="20"
-			heading="Water Tank - TU Berlin"
-			subheading="Submarine testing facility"
-			variant="warning"
-		></ix-push-card>
+			[icon]="facility.icon"
+			[notification]="facility.notification"
+			[heading]="facility.heading"
+			[subheading]="facility.subheading"
+			[variant]="facility.variant"
+		>
+			<p>Number of water pumps: {{facility.pumps}}</p>
+			<p>Location: {{facility.location}}</p>
+		</ix-push-card>
 	</ix-card-list>
 </ix-content>

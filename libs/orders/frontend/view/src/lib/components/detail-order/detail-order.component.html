@@ -1,1 +1,15 @@
-<p>detail-order works!</p>
+<ix-content>
+	<ix-content-header slot="header" header-title="Detail of Work Order"></ix-content-header>
+
+	<ix-card-list label="Facilities Overview" show-all-count="12" list-style="stack">
+		<ix-push-card
+			[icon]="order.icon"
+			[notification]="order.notification"
+			[heading]="order.heading"
+			[subheading]="order.subheading"
+			[variant]="order.variant"
+		>
+			<p>More order details</p>
+		</ix-push-card>
+	</ix-card-list>
+</ix-content>
