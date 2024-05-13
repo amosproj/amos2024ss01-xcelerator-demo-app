@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { XdBrowsePage } from './issues.page';
+import { XdIssuesPage } from './issues.page';
 
 describe('BrowseComponent', () => {
-	let component: XdBrowsePage;
-	let fixture: ComponentFixture<XdBrowsePage>;
+	let component: XdIssuesPage;
+	let fixture: ComponentFixture<XdIssuesPage>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [XdBrowsePage],
+			imports: [XdIssuesPage],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(XdBrowsePage);
+		fixture = TestBed.createComponent(XdIssuesPage);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
