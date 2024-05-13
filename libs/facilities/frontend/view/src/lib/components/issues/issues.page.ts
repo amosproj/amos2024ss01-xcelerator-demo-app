@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { IxModule } from '@siemens/ix-angular';
 
+import { facilities } from '../index';
+
 @Component({
 	selector: 'lib-browse',
 	standalone: true,
@@ -11,4 +13,6 @@ import { IxModule } from '@siemens/ix-angular';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdIssuesPage {}
+export class XdIssuesPage {
+	readonly issueFacilities = facilities.filter((facility) => facility.variant != 'success');
+}
