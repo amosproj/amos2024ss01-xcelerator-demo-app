@@ -11,13 +11,14 @@
 		[showAllCount]="issueFacilities.length"
 		list-style="stack"
 	>
+		@for (facility of issueFacilities; track facility){
 		<ix-push-card
-			*ngFor="let facility of issueFacilities"
 			[icon]="facility.icon"
 			[notification]="facility.notification"
 			[heading]="facility.heading"
 			[subheading]="facility.subheading"
 			[variant]="facility.variant"
 		></ix-push-card>
+		}
 	</ix-card-list>
 </ix-content>

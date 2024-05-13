@@ -7,13 +7,14 @@
 	</ix-content-header>
 
 	<ix-card-list label="Facilities Overview" [showAllCount]="facilities.length" list-style="stack">
+		@for (facility of facilities; track facility){
 		<ix-push-card
-			*ngFor="let facility of facilities"
 			[icon]="facility.icon"
 			[notification]="facility.notification"
 			[heading]="facility.heading"
 			[subheading]="facility.subheading"
 			[variant]="facility.variant"
 		></ix-push-card>
+		}
 	</ix-card-list>
 </ix-content>
