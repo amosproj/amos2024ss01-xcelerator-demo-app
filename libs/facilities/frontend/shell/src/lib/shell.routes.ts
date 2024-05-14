@@ -23,11 +23,23 @@ export const FACILITIES_SHELL_ROUTES: Route[] = [
 			{
 				// Route to facilities with issues
 				path: 'issues',
+				data: {
+					breadcrumbs: {
+						label: 'Issues',
+						url: 'facilities/issues',
+					},
+				},
 				loadComponent: () => import('facilities-frontend-view').then((m) => m.XdIssuesPage),
 			},
 			{
 				// Route to detail page
 				path: ':id',
+				data: {
+					breadcrumbs: {
+						label: 'Details',
+						url: 'facilites/:id',
+					},
+				},
 				loadComponent: () => import('facilities-frontend-view').then((m) => m.XdDetailPage),
 			},
 		],

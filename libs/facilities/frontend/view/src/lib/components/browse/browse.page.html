@@ -1,9 +1,5 @@
 <ix-content>
-	<ix-content-header
-		slot="header"
-		header-title="Main Dashboard"
-		header-subtitle="List of all water tanks with issues"
-	>
+	<ix-content-header slot="header" header-title="Main Dashboard" [headerSubtitle]="subtitle">
 	</ix-content-header>
 
 	<ix-card-list label="Facilities Overview" [showAllCount]="facilities.length" list-style="stack">

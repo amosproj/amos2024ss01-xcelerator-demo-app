@@ -1,28 +1,4 @@
-<ix-content>
-	<ix-content-header
-		slot="header"
-		header-title="Main Dashboard"
-		header-subtitle="List of all water tanks with issues"
-	>
-	</ix-content-header>
-
-	<ix-card-list
-		label="Facilities Overview"
-		[showAllCount]="issueFacilities.length"
-		list-style="stack"
-	>
-		@for (facility of issueFacilities; track facility){
-		<ix-push-card
-			[icon]="facility.icon"
-			[notification]="facility.notification"
-			[heading]="facility.heading"
-			[subheading]="facility.subheading"
-			[variant]="facility.variant"
-			[routerLink]="['/facilities', facility.id]"
-		>
-			<p>Number of water pumps: {{facility.pumps}}</p>
-			<p>Location: {{facility.location}}</p>
-		</ix-push-card>
-		}
-	</ix-card-list>
-</ix-content>
+<lib-browse
+	[facilities]="issueFacilities"
+	[subtitle]="'List of all facilities with issues'"
+></lib-browse>

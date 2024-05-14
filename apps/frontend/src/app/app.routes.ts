@@ -26,6 +26,12 @@ export const APP_ROUTES: Route[] = [
 			},
 			{
 				path: 'orders',
+				data: {
+					breadcrumbs: {
+						label: 'Orders',
+						url: 'orders',
+					},
+				},
 				loadChildren: () =>
 					import('orders-frontend-shell').then((m) => m.ORDERS_SHELL_ROUTES),
 			},

@@ -3,12 +3,13 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { RouterLink } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
+import { XdBrowsePage } from '../browse';
 import { facilities } from '../facility';
 
 @Component({
-	selector: 'lib-browse',
+	selector: 'lib-issues',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink],
+	imports: [CommonModule, IxModule, RouterLink, XdBrowsePage],
 	templateUrl: './issues.page.html',
 	styleUrl: './issues.page.scss',
 	encapsulation: ViewEncapsulation.None,
