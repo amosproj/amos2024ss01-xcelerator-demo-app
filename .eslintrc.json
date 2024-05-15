@@ -52,16 +52,16 @@
 								"onlyDependOnLibsWithTags": ["domain:common"]
 							},
 							{
-								"sourceTag": "tier:backend",
-								"onlyDependOnLibsWithTags": ["tier:backend", "tier:common"]
+								"sourceTag": "kind:backend",
+								"onlyDependOnLibsWithTags": ["kind:backend", "kind:common"]
 							},
 							{
-								"sourceTag": "tier:frontend",
-								"onlyDependOnLibsWithTags": ["tier:frontend", "tier:common"]
+								"sourceTag": "kind:frontend",
+								"onlyDependOnLibsWithTags": ["kind:frontend", "kind:common"]
 							},
 							{
-								"sourceTag": "tier:common",
-								"onlyDependOnLibsWithTags": ["tier:common"]
+								"sourceTag": "kind:common",
+								"onlyDependOnLibsWithTags": ["kind:common"]
 							}
 						]
 					}

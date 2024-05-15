@@ -3,7 +3,7 @@
 	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "libs/common/backend/models/src",
 	"projectType": "library",
-	"tags": ["type:models", "domain:common", "tier:backend"],
+	"tags": ["type:models", "domain:common", "kind:backend"],
 	"targets": {
 		"test": {
 			"executor": "@nx/jest:jest",
