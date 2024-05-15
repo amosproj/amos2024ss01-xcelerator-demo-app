@@ -16,7 +16,7 @@ export class EnvironmentVariables implements IEnvironmentVariables {
 	 */
 	@IsDefined()
 	@IsNumber()
-	APP_PORT: number;
+	BACKEND_PORT?: number;
 
 	/**
 	 * Application host for the backend
@@ -26,7 +26,7 @@ export class EnvironmentVariables implements IEnvironmentVariables {
 	@IsDefined()
 	@IsString()
 	@MinLength(1)
-	APP_HOST: string;
+	BACKEND_HOST?: string;
 
 	/**
 	 * Application name for the backend
@@ -36,7 +36,7 @@ export class EnvironmentVariables implements IEnvironmentVariables {
 	@IsDefined()
 	@IsString()
 	@MinLength(1)
-	APP_NAME: string;
+	BACKEND_NAME?: string;
 
 	/* DATABASE */
 
