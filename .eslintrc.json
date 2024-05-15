@@ -23,17 +23,21 @@
 								"onlyDependOnLibsWithTags": [
 									"type:shell",
 									"type:feature",
-									"type:util",
+									"type:utils",
 									"type:models"
 								]
 							},
 							{
 								"sourceTag": "type:feature",
-								"onlyDependOnLibsWithTags": ["type:models", "type:feature"]
+								"onlyDependOnLibsWithTags": [
+									"type:models",
+									"type:utils",
+									"type:feature"
+								]
 							},
 							{
-								"sourceTag": "type:util",
-								"onlyDependOnLibsWithTags": ["type:models", "type:util"]
+								"sourceTag": "type:utils",
+								"onlyDependOnLibsWithTags": ["type:models", "type:utils"]
 							},
 							{
 								"sourceTag": "type:models",
@@ -53,15 +57,15 @@
 							},
 							{
 								"sourceTag": "kind:backend",
-								"onlyDependOnLibsWithTags": ["kind:backend", "kind:common"]
+								"onlyDependOnLibsWithTags": ["kind:backend", "kind:shared"]
 							},
 							{
 								"sourceTag": "kind:frontend",
-								"onlyDependOnLibsWithTags": ["kind:frontend", "kind:common"]
+								"onlyDependOnLibsWithTags": ["kind:frontend", "kind:shared"]
 							},
 							{
-								"sourceTag": "kind:common",
-								"onlyDependOnLibsWithTags": ["kind:common"]
+								"sourceTag": "kind:shared",
+								"onlyDependOnLibsWithTags": ["kind:shared"]
 							}
 						]
 					}
