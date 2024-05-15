@@ -36,9 +36,9 @@ export const validateConfig = (config: IEnvironmentVariables): BackendConfig => 
 const generateConfig = (config: IEnvironmentVariables): BackendConfig =>
 	plainToInstance(BackendConfig, {
 		app: {
-			port: config.APP_PORT || 3000,
-			host: config.APP_HOST || 'localhost',
-			name: config.APP_NAME,
+			port: config.BACKEND_PORT || 3333,
+			host: config.BACKEND_HOST || 'localhost',
+			name: config.BACKEND_NAME,
 		},
 		database: {
 			host: config.POSTGRES_HOST,

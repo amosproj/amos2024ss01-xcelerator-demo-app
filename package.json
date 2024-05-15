@@ -28,6 +28,7 @@
 		"@nestjs/platform-express": "^10.0.2",
 		"@nx/angular": "18.3.3",
 		"@siemens/ix": "^2.2.1",
+		"@prisma/client": "^5.13.0",
 		"@siemens/ix-angular": "^2.2.1",
 		"@siemens/ix-icons": "^2.1.0",
 		"axios": "^1.6.8",
@@ -36,7 +37,6 @@
 		"dotenv": "^16.4.5",
 		"lodash": "^4.17.21",
 		"postgres": "^3.4.4",
-		"prisma": "^5.13.0",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "~7.8.0",
 		"ts-enum-util": "^4.1.0",
@@ -97,6 +97,7 @@
 		"lint-staged": "^15.2.2",
 		"nx": "18.3.4",
 		"prettier": "^3.2.5",
+		"prisma": "^5.13.0",
 		"stylelint": "^16.4.0",
 		"stylelint-config-recess-order": "^5.0.1",
 		"stylelint-config-standard": "^36.0.0",
@@ -106,6 +107,9 @@
 		"ts-node": "10.9.2",
 		"typescript": "~5.4.5",
 		"webpack-cli": "^5.1.4"
+	},
+	"prisma": {
+		"seed": "ts-node prisma/seed.ts"
 	},
 	"packageManager": "pnpm@8.15.1+sha512.831cf4c5f8b8374af71521d4d153db49d7086de615c2af7cb5e9d7eb8ba630ddac46fea495d643e552ef2e68a3aa99a3e5e9fbee8696702967504df5c59cb273"
 }
