@@ -3,7 +3,7 @@
 	</ix-content-header>
 
 	<ix-card-list label="Facilities Overview" [showAllCount]="facilities.length" list-style="stack">
-		@for (facility of facilities; track facility){
+		@for (facility of facilities; track facility.id){
 		<ix-push-card
 			[icon]="facility.icon"
 			[notification]="facility.notification"

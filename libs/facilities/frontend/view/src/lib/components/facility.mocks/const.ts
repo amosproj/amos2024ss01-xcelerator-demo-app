@@ -1,22 +1,18 @@
-export interface Facility {
-	id: string;
-	icon: string;
-	notification: string;
-	heading: string;
-	subheading: string;
-	variant: string;
-	pumps: number;
-	location: string;
-}
+import { IFacilityMock } from './facility.interface';
+import { FACILITY_VARIANT } from './facility.variant';
 
-export const facilities: Facility[] = [
+/**
+ *  This is just a Mock Interface for the Facility Component
+ *  It has to be deleted once the actual implementation is done
+ * */
+export const facilities: IFacilityMock[] = [
 	{
 		id: '1',
 		icon: 'battery-empty',
 		notification: '99+',
 		heading: 'totally legal waste disposal',
 		subheading: 'No shady business.com',
-		variant: 'success',
+		variant: FACILITY_VARIANT.SUCCESS,
 		pumps: 99,
 		location: 'Ethical Valley',
 	},
@@ -26,7 +22,7 @@ export const facilities: Facility[] = [
 		notification: '3',
 		heading: 'Water Tank - FAU Erlangen',
 		subheading: 'Large Aquarium in CS Department building',
-		variant: 'critical',
+		variant: FACILITY_VARIANT.CRITICAL,
 		pumps: 38,
 		location: 'Erlangen',
 	},
@@ -36,7 +32,7 @@ export const facilities: Facility[] = [
 		notification: '20',
 		heading: 'Water Tank - TU Berlin',
 		subheading: 'Submarine testing facility',
-		variant: 'warning',
+		variant: FACILITY_VARIANT.WARNING,
 		pumps: 14,
 		location: 'Berlin',
 	},
@@ -46,7 +42,7 @@ export const facilities: Facility[] = [
 		notification: '3',
 		heading: 'Water Tank - Waste Water Processing',
 		subheading: 'Waste water processing in Mosville',
-		variant: 'success',
+		variant: FACILITY_VARIANT.SUCCESS,
 		pumps: 93,
 		location: 'Mosville',
 	},

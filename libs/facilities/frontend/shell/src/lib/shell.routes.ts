@@ -37,7 +37,7 @@ export const FACILITIES_SHELL_ROUTES: Route[] = [
 				data: {
 					breadcrumbs: {
 						label: 'Details',
-						url: 'facilites/:id',
+						url: 'facilities/:id',
 					},
 				},
 				loadComponent: () => import('facilities-frontend-view').then((m) => m.XdDetailPage),

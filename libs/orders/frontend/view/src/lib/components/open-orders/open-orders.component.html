@@ -2,7 +2,7 @@
 	<ix-content-header slot="header" header-title="Open Work Orders"> </ix-content-header>
 
 	<ix-card-list label="Order Overview" [showAllCount]="orders.length" list-style="stack">
-		@for (order of orders; track order) {
+		@for (order of orders; track order.id) {
 			<ix-push-card
 				class="mb-7"
 				[icon]="order.icon"

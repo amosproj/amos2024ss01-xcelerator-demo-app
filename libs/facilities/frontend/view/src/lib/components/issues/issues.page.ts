@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
 import { XdBrowsePage } from '../browse';
-import { facilities } from '../facility';
+import { facilities } from '../facility.mocks/const';
 
 @Component({
 	selector: 'lib-issues',

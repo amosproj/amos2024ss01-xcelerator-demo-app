@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { ActivatedRoute } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
-import { facilities } from '../facility';
+import { facilities } from '../facility.mocks/const';
 
 @Component({
 	selector: 'lib-detail',

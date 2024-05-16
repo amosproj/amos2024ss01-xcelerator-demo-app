@@ -9,7 +9,8 @@ import {
 import { RouterLink } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
-import { facilities, Facility } from '../facility';
+import { facilities } from '../facility.mocks/const';
+import { IFacilityMock } from '../facility.mocks/facility.interface';
 
 @Component({
 	selector: 'lib-browse',
@@ -22,7 +23,7 @@ import { facilities, Facility } from '../facility';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class XdBrowsePage implements OnInit {
-	@Input() facilities: Facility[] = facilities;
+	@Input() facilities: IFacilityMock[] = facilities;
 	@Input() subtitle = 'List of all facilities';
 
 	ngOnInit() {
