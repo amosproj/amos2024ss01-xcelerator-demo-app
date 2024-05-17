@@ -23,8 +23,11 @@ import { IFacilityMock } from '../facility.mocks/facility.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class XdBrowsePage implements OnInit {
-	@Input() facilities: IFacilityMock[] = facilities;
-	@Input() subtitle = 'List of all facilities';
+	@Input()
+	facilities: IFacilityMock[] = facilities;
+
+	@Input()
+	subtitle = 'List of all facilities';
 
 	ngOnInit() {
 		if (this.facilities === undefined) {

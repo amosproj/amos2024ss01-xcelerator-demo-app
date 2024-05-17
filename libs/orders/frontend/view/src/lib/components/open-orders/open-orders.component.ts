@@ -15,5 +15,5 @@ import { orders } from '../orders';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OpenOrdersComponent {
-	readonly orders = orders;
+	protected readonly _orders = orders;
 }

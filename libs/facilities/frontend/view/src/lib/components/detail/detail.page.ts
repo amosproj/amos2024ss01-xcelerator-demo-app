@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
 import { facilities } from '../facility.mocks/const';
+import { IFacilityMock } from '../facility.mocks/facility.interface';
 
 @Component({
 	selector: 'lib-detail',
@@ -15,11 +16,11 @@ import { facilities } from '../facility.mocks/const';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class XdDetailPage {
-	facility = this.getFacility();
+	facility: IFacilityMock = this.getFacility();
 
 	constructor(private route: ActivatedRoute) {}
 
-	getFacility() {
+	getFacility(): IFacilityMock {
 		const facility = facilities.find(
 			(facility) => facility.id === this.route.snapshot.params['id'],
 		);

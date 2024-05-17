@@ -16,5 +16,7 @@ import { facilities } from '../facility.mocks/const';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class XdIssuesPage {
-	readonly issueFacilities = facilities.filter((facility) => facility.variant != 'success');
+	protected readonly _issueFacilities = facilities.filter(
+		(facility) => facility.variant != 'success',
+	);
 }
