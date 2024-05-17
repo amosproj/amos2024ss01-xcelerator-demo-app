@@ -7,7 +7,7 @@ import {
 	ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 import { find } from 'lodash';
 import { filter } from 'rxjs';
@@ -26,7 +26,7 @@ export interface IBreadcrumbData {
 @Component({
 	selector: 'app-header',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink],
+	imports: [CommonModule, IxModule, RouterLink, RouterOutlet],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.scss',
 	encapsulation: ViewEncapsulation.None,

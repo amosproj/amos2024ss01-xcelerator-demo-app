@@ -14,22 +14,42 @@ import { Route } from '@angular/router';
 export const ORDERS_SHELL_ROUTES: Route[] = [
 	{
 		path: '',
-		redirectTo: 'not-found',
 		children: [
 			{
 				// Route to create an order
 				path: 'create',
-				redirectTo: 'not-found',
+				data: {
+					breadcrumbs: {
+						label: 'Create',
+						url: 'create',
+					},
+				},
+				loadComponent: () =>
+					import('orders-frontend-view').then((m) => m.CreateOrderComponent),
 			},
 			{
 				// Route to order which are open - later this should be a query param!!!
 				path: 'open',
-				redirectTo: 'not-found',
+				data: {
+					breadcrumbs: {
+						label: 'Open',
+						url: 'orders/open',
+					},
+				},
+				loadComponent: () =>
+					import('orders-frontend-view').then((m) => m.OpenOrdersComponent),
 			},
 			{
 				// Route to detail order
 				path: ':id',
-				redirectTo: 'not-found',
+				data: {
+					breadcrumbs: {
+						label: 'Details',
+						url: 'orders/:id',
+					},
+				},
+				loadComponent: () =>
+					import('orders-frontend-view').then((m) => m.DetailOrderComponent),
 			},
 		],
 	},
