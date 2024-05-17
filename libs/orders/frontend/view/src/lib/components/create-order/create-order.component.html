@@ -2,11 +2,23 @@
 	<ix-content-header slot="header" header-title="Create order"> </ix-content-header>
 
 	<ix-card class="w-2/3">
-		<form class="needs-validation m-2 flex flex-col gap-y-16">
+		<form
+			class="m-2 flex flex-col gap-y-16"
+			[formGroup]="createOrderForm"
+			(submit)="onSubmit()"
+		>
+			<ix-button #trigger>Open</ix-button>
+			<ix-dropdown [ixDropdownTrigger]="trigger">
+				<!-- TODO:Add for over facilities !-->
+				<ix-dropdown-header label="Category"></ix-dropdown-header>
+				<ix-dropdown-item label="Item 2"></ix-dropdown-item>
+				<ix-dropdown-item label="Item 3"></ix-dropdown-item>
+				<ix-dropdown-item label="Item 4"></ix-dropdown-item>
+			</ix-dropdown>
+
 			<div class="flex">
 				<p class="w-48">Email</p>
 				<ix-input-group>
-					<span slot="input-start">Email:</span>
 					<input placeholder="example@domain.com" type="email" />
 				</ix-input-group>
 			</div>
@@ -33,7 +45,7 @@
 				</ix-input-group>
 			</div>
 
-			<ix-button type="submit" class="ix-button" variant="primary" (submit)="onSubmit()">
+			<ix-button type="submit" class="ix-button" variant="primary">
 				Create work order
 			</ix-button>
 		</form>
