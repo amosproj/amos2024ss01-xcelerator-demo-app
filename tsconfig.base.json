@@ -15,6 +15,8 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
+			"@frontend/common/shared/models": ["libs/common/shared/models/src/index.ts"],
+			"@frontend/facilities/shared/models": ["libs/facilities/shared/models/src/index.ts"],
 			"common-backend-models": ["libs/common/backend/models/src/index.ts"],
 			"common-frontend-models": ["libs/common/frontend/models/src/index.ts"],
 			"common-shared-models": ["libs/common/shared/models/src/index.ts"],

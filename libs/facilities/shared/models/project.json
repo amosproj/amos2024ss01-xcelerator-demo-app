@@ -1,7 +1,7 @@
 {
-	"name": "common-shared-models",
+	"name": "facilities-shared-models",
 	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "libs/common/shared/models/src",
+	"sourceRoot": "libs/facilities/shared/models/src",
 	"prefix": "lib",
 	"projectType": "library",
 	"tags": [],
@@ -10,7 +10,7 @@
 			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
 			"options": {
-				"jestConfig": "libs/common/shared/models/jest.config.ts"
+				"jestConfig": "libs/facilities/shared/models/jest.config.ts"
 			}
 		},
 		"lint": {
