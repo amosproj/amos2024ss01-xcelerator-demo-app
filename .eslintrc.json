@@ -32,6 +32,15 @@
 								"onlyDependOnLibsWithTags": [
 									"type:models",
 									"type:utils",
+									"type:feature",
+									"type:util-feature"
+								]
+							},
+							{
+								"sourceTag": "type:util-feature",
+								"onlyDependOnLibsWithTags": [
+									"type:models",
+									"type:utils",
 									"type:feature"
 								]
 							},
@@ -57,15 +66,18 @@
 							},
 							{
 								"sourceTag": "kind:backend",
-								"onlyDependOnLibsWithTags": ["kind:backend", "kind:shared"]
+								"onlyDependOnLibsWithTags": ["kind:backend", "kind:shared"],
+								"bannedExternalImports": ["@angular/*"]
 							},
 							{
 								"sourceTag": "kind:frontend",
-								"onlyDependOnLibsWithTags": ["kind:frontend", "kind:shared"]
+								"onlyDependOnLibsWithTags": ["kind:frontend", "kind:shared"],
+								"bannedExternalImports": ["@nestjs/*"]
 							},
 							{
 								"sourceTag": "kind:shared",
-								"onlyDependOnLibsWithTags": ["kind:shared"]
+								"onlyDependOnLibsWithTags": ["kind:shared"],
+								"bannedExternalImports": ["@angular/*", "@nestjs/*"]
 							}
 						]
 					}
