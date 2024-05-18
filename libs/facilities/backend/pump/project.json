@@ -1,0 +1,16 @@
+{
+	"name": "facilities-backend-pump",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/facilities/backend/pump/src",
+	"projectType": "library",
+	"tags": ["type:feature", "domain:facilities", "tier:backend"],
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/facilities/backend/pump/jest.config.ts"
+			}
+		}
+	}
+}
