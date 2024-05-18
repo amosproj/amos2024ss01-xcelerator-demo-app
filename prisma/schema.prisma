@@ -7,38 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pump {
+model timeSeries {
   id Int @id @default(autoincrement())
-  name String
-  environment Environment[]
-  data Data[]
-
-  @@unique([name])
-}
-
-model Environment {
-  id Int @id @default(autoincrement())
-  pressureQc Int
-  temperature Float
-  temperatureQc Int
-  humidityQc Int
-  humidity Int
-  pressure Int
   time DateTime
-  pumpId Int
-  pump Pump @relation(fields: [pumpId], references: [id])
+  data Json
 }
 
-model Data {
-  id Int @id @default(autoincrement())
-  motorCurrent Int
-  pressureOut Float
-  stuffingBoxTemperature Int
-  pressureIn Float
-  time DateTime
-  flow Float
-  pumpId Int
-  pump Pump @relation(fields: [pumpId], references: [id])
-}
+// model Pump {
+//   id Int @id @default(autoincrement())
+//   name String
+//   environment Environment[]
+//   data Data[]
+
+//   @@unique([name])
+// }
+
+// model Environment {
+//   id Int @id @default(autoincrement())
+//   pressureQc Int
+//   temperature Float
+//   temperatureQc Int
+//   humidityQc Int
+//   humidity Int
+//   pressure Int
+//   time DateTime
+//   pumpId Int
+//   pump Pump @relation(fields: [pumpId], references: [id])
+// }
+
+// model Data {
+//   id Int @id @default(autoincrement())
+//   motorCurrent Int
+//   pressureOut Float
+//   stuffingBoxTemperature Int
+//   pressureIn Float
+//   time DateTime
+//   flow Float
+//   pumpId Int
+//   pump Pump @relation(fields: [pumpId], references: [id])
+// }
 
 
