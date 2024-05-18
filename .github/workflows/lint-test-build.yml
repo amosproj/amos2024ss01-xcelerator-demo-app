@@ -35,13 +35,6 @@ jobs:
             - run: pnpm install --frozen-lockfile
               if: steps.cache.outputs.cache-hit != 'true'
 
-            - name: Derive appropriate SHAs for base and head for `nx affected` commands
-              id: set-shas
-              uses: nrwl/nx-set-shas@v4
-              with:
-                  main-branch-name: ${{ inputs.main-branch-name }}
-                  last-successful-event: ${{ inputs.last-successful-event }}
-
     lint:
         runs-on: ubuntu-latest
         needs: install-deps
@@ -63,7 +56,7 @@ jobs:
                   path: node_modules
                   key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
 
-            - run: pnpm nx affected --target=lint --parallel=3 --configuration=ci --base=${{ steps.set-shas.main-branch-name }} --head=${{ steps.set-shas.last-successful-event }}
+            - run: pnpm nx affected --target=lint --parallel=3 --configuration=ci --base=origin/develop
 
     test:
         runs-on: ubuntu-latest
@@ -86,7 +79,7 @@ jobs:
                   path: node_modules
                   key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
 
-            - run: pnpm nx affected --target=test --parallel=3 --configuration=ci --base=${{ steps.set-shas.main-branch-name }} --head=${{ steps.set-shas.last-successful-event }}
+            - run: pnpm nx affected --target=test --parallel=3 --configuration=ci --base=origin/develop
 
     build:
         runs-on: ubuntu-latest
@@ -109,4 +102,4 @@ jobs:
                   path: node_modules
                   key: npm-dependencies-${{ hashFiles('pnpm-lock.yaml') }}
 
-            - run: pnpm nx affected --target=build --parallel=3 --configuration=ci  --base=${{ steps.set-shas.main-branch-name }} --head=${{ steps.set-shas.last-successful-event }}
+            - run: pnpm nx affected --target=build --parallel=3 --configuration=ci --base=origin/develop
