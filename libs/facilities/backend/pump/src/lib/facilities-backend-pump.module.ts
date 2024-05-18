@@ -4,7 +4,7 @@ import { PumpService } from './services/pump.service';
 
 @Module({
 	controllers: [],
-	providers: [PumpService],
-	exports: [PumpService],
+	providers: [ PumpService ],
+	exports: [ PumpService ],
 })
 export class FacilitiesBackendPumpModule {}
