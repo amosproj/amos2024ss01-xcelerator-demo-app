@@ -22,7 +22,7 @@ describe('IotTime', () => {
 		};
 
 		const module: TestingModule = await Test.createTestingModule({
-			providers: [IotTimeSeriesService, { provide: HttpService, useValue: httpServiceMock }],
+			providers: [ IotTimeSeriesService, { provide: HttpService, useValue: httpServiceMock } ],
 		}).compile();
 
 		service = module.get<IotTimeSeriesService>(IotTimeSeriesService);
@@ -43,7 +43,7 @@ describe('IotTime', () => {
 				from: faker.date.past(),
 				to: faker.date.recent(),
 				limit: faker.number.int(),
-				select: ['flow', 'pressure'],
+				select: [ 'flow', 'pressure' ],
 			};
 
 			const response = service.getTimeSeriesData<MockSelectParameter, any>(params);
