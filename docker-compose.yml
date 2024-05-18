@@ -52,6 +52,8 @@ services:
             context: .
             target: production
             dockerfile: apps/frontend/Dockerfile
+            args:
+                XD_API_URL: localhost:3000
         restart: unless-stopped
         ports:
             - '4200:80'

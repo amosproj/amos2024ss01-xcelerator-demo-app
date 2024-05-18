@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { APP_CONFIG } from 'common-frontend-models';
 
 @Component({
 	standalone: true,
@@ -10,4 +11,5 @@ import { RouterModule } from '@angular/router';
 })
 export class AppComponent {
 	title = 'frontend';
+	readonly apiUrl = inject(APP_CONFIG).apiUrl;
 }

@@ -4,7 +4,7 @@
 	"sourceRoot": "libs/facilities/frontend/shell/src",
 	"prefix": "lib",
 	"projectType": "library",
-	"tags": ["tier:frontend", "type:shell", "domain:facilities"],
+	"tags": ["kind:frontend", "type:shell", "domain:facilities"],
 	"targets": {
 		"test": {
 			"executor": "@nx/jest:jest",
