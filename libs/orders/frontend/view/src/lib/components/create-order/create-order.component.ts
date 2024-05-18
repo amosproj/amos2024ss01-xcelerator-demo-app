@@ -5,7 +5,7 @@ import { IxModule } from '@siemens/ix-angular';
 @Component({
 	selector: 'lib-create-order',
 	standalone: true,
-	imports: [CommonModule, IxModule],
+	imports: [ CommonModule, IxModule ],
 	templateUrl: './create-order.component.html',
 	styleUrl: './create-order.component.scss',
 	encapsulation: ViewEncapsulation.None,

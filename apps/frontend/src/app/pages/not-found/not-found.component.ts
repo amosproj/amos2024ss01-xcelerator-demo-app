@@ -6,7 +6,7 @@ import { IxModule } from '@siemens/ix-angular';
 @Component({
 	selector: 'app-not-found',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink],
+	imports: [ CommonModule, IxModule, RouterLink ],
 	templateUrl: './not-found.component.html',
 	styleUrl: './not-found.component.scss',
 	encapsulation: ViewEncapsulation.None,

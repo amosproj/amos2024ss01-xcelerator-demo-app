@@ -9,7 +9,7 @@ import { IFacilityMock } from '../facility.mocks/facility.interface';
 @Component({
 	selector: 'lib-detail',
 	standalone: true,
-	imports: [CommonModule, IxModule],
+	imports: [ CommonModule, IxModule ],
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,

@@ -9,7 +9,7 @@ describe('OpenOrdersComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [OpenOrdersComponent],
+			imports: [ OpenOrdersComponent ],
 			providers: [
 				{
 					provide: ActivatedRoute,

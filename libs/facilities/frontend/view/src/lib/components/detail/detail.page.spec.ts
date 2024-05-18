@@ -9,7 +9,7 @@ describe('DetailComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [XdDetailPage],
+			imports: [ XdDetailPage ],
 			providers: [
 				{
 					provide: ActivatedRoute,

@@ -9,7 +9,7 @@ describe('DetailOrderComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DetailOrderComponent],
+			imports: [ DetailOrderComponent ],
 			providers: [
 				{
 					provide: ActivatedRoute,
