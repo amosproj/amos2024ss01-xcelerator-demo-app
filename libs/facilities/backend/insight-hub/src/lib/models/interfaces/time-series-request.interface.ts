@@ -7,6 +7,8 @@ import { TimeSeriesOrdering } from '../enums';
 export interface ITimeSeriesRequestParameter<SelectType> {
 	/**
 	 * The entity id of the time series data
+	 *
+	 * @default "asc"
 	 */
 	sort?: TimeSeriesOrdering;
 
