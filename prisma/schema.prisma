@@ -8,12 +8,12 @@ datasource db {
 }
 
 model TimeSeriesItem {
-    id              Int    @id @default(autoincrement())
     entityId        String //Example: Pump-002 - id
     propertySetName String //Example: Environment | PumpData
 
     data TimeSeriesDataItem[]
 
+    @@id([entityId, propertySetName])
     @@unique([entityId, propertySetName])
 }
 
@@ -23,8 +23,7 @@ model TimeSeriesDataItem {
     data Json?
 
     // Foreign keys
-    timeSeriesItemId Int
-    timeSeriesItem   TimeSeriesItem @relation(fields: [timeSeriesItemId], references: [id])
+    timeSeriesItementityId        String
+    timeSeriesItempropertySetName String
+    timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesItementityId, timeSeriesItempropertySetName], references: [entityId, propertySetName])
 }
-
-
