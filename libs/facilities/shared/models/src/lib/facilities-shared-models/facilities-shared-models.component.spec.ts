@@ -8,7 +8,7 @@ describe('FacilitiesSharedModelsComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [FacilitiesSharedModelsComponent],
+			imports: [ FacilitiesSharedModelsComponent ],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(FacilitiesSharedModelsComponent);

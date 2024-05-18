@@ -6,8 +6,8 @@ import { IotTimeSeriesService } from './services';
 
 @Module({
 	controllers: [],
-	providers: [IotTimeSeriesService],
-	imports: [HttpModule, XdPrismaModule],
-	exports: [],
+	providers: [ IotTimeSeriesService ],
+	imports: [ HttpModule, XdPrismaModule ],
+	exports: [ IotTimeSeriesService ],
 })
 export class XdInsightHubModule {}

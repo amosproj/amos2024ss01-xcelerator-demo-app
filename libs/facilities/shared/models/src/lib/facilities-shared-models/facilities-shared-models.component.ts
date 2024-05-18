@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 @Component({
 	selector: 'lib-facilities-shared-models',
 	standalone: true,
-	imports: [CommonModule],
+	imports: [ CommonModule ],
 	templateUrl: './facilities-shared-models.component.html',
 	styleUrl: './facilities-shared-models.component.css',
 })

@@ -28,7 +28,8 @@
 			"facilities-frontend-view": ["libs/facilities/frontend/view/src/index.ts"],
 			"orders-frontend-shell": ["libs/orders/frontend/shell/src/index.ts"],
 			"orders-frontend-view": ["libs/orders/frontend/view/src/index.ts"],
-			"common-backend-prisma": ["libs/common/backend/prisma/src/index.ts"]
+			"common-backend-prisma": ["libs/common/backend/prisma/src/index.ts"],
+			"facilities-backend-insight-hub": ["libs/facilities/backend/insight-hub/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]
