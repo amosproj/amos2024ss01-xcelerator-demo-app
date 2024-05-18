@@ -1,6 +1,5 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'common-backend-prisma';
 import { catchError, map, Observable } from 'rxjs';
 
 import { ITimeSeriesRequestParameter } from '../models/interfaces/time-series-request.interface';

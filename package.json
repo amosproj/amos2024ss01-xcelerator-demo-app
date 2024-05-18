@@ -22,6 +22,7 @@
 		"@angular/platform-browser-dynamic": "~17.3.9",
 		"@angular/router": "~17.3.9",
 		"@faker-js/faker": "^8.4.1",
+		"@nestjs/axios": "^3.0.2",
 		"@nestjs/common": "^10.3.8",
 		"@nestjs/config": "^3.2.2",
 		"@nestjs/core": "^10.0.2",
@@ -44,6 +45,7 @@
 		"rxjs": "~7.8.1",
 		"ts-enum-util": "^4.1.0",
 		"tslib": "^2.6.2",
+		"webpack": "^5.91.0",
 		"zone.js": "~0.14.6"
 	},
 	"devDependencies": {
