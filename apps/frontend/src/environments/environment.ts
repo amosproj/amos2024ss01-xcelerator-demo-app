@@ -1,4 +1,6 @@
-export const environment = {
+import { IAppEnvironment } from 'common-frontend-models';
+
+export const environment: IAppEnvironment = {
 	production: false,
-	apiUrl: 'https://test.dev.de',
+	apiUrl: process.env.XD_API_URL,
 };

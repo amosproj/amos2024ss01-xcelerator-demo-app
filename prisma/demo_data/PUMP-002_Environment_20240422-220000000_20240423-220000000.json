@@ -1,0 +1,542 @@
+[
+	{
+		"Pressure_qc": 1,
+		"Temperature": 2.19,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 69,
+		"Pressure": 102,
+		"_time": "2024-04-22T22:06:03.695Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 1.29,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 76,
+		"Pressure": 102,
+		"_time": "2024-04-22T22:26:03.696Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 1.29,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 76,
+		"Pressure": 102,
+		"_time": "2024-04-22T22:46:03.701Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 1.29,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 76,
+		"Pressure": 102,
+		"_time": "2024-04-22T23:06:03.781Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 0.08,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 80,
+		"Pressure": 101.9,
+		"_time": "2024-04-22T23:26:03.757Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 0.08,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 80,
+		"Pressure": 101.9,
+		"_time": "2024-04-22T23:46:03.755Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 0.08,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 80,
+		"Pressure": 101.9,
+		"_time": "2024-04-23T00:06:03.734Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -0.3,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 81,
+		"Pressure": 101.9,
+		"_time": "2024-04-23T00:26:03.759Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -0.3,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 81,
+		"Pressure": 101.9,
+		"_time": "2024-04-23T00:46:03.732Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -0.3,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 81,
+		"Pressure": 101.9,
+		"_time": "2024-04-23T01:06:03.806Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -0.51,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 79,
+		"Pressure": 101.9,
+		"_time": "2024-04-23T01:26:03.702Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -0.51,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 79,
+		"Pressure": 101.9,
+		"_time": "2024-04-23T01:46:03.713Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -0.51,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 79,
+		"Pressure": 101.9,
+		"_time": "2024-04-23T02:06:03.756Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -0.58,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 78,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T02:26:03.766Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -0.58,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 78,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T02:46:03.696Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -0.58,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 78,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T03:06:03.778Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -1.37,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 80,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T03:26:04.239Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -1.37,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 80,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T03:46:03.706Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -1.37,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 80,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T04:06:03.762Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -1.78,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 85,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T04:26:03.806Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -1.78,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 85,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T04:46:03.696Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -1.78,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 85,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T05:06:03.700Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -1.71,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 84,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T05:26:03.713Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -1.71,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 84,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T05:46:03.793Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": -1.71,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 84,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T06:06:03.732Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 0.35,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 75,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T06:26:03.754Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 0.35,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 75,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T06:46:03.740Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 0.35,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 75,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T07:06:03.831Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 3.11,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 63,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T07:26:03.882Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 3.11,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 63,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T07:46:03.850Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 3.11,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 63,
+		"Pressure": 101.8,
+		"_time": "2024-04-23T08:06:03.806Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 4.97,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 59,
+		"Pressure": 101.7,
+		"_time": "2024-04-23T08:26:03.755Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 4.97,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 59,
+		"Pressure": 101.7,
+		"_time": "2024-04-23T08:46:03.750Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 4.97,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 59,
+		"Pressure": 101.7,
+		"_time": "2024-04-23T09:06:03.782Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 6.96,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 54,
+		"Pressure": 101.7,
+		"_time": "2024-04-23T09:26:03.797Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 6.96,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 54,
+		"Pressure": 101.7,
+		"_time": "2024-04-23T09:46:03.740Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 6.96,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 54,
+		"Pressure": 101.7,
+		"_time": "2024-04-23T10:06:03.802Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 7.69,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 52,
+		"Pressure": 101.7,
+		"_time": "2024-04-23T10:26:05.110Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 7.69,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 52,
+		"Pressure": 101.7,
+		"_time": "2024-04-23T10:46:04.455Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 7.69,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 52,
+		"Pressure": 101.7,
+		"_time": "2024-04-23T11:06:04.552Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 9.02,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 49,
+		"Pressure": 101.6,
+		"_time": "2024-04-23T11:26:04.507Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 9.02,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 49,
+		"Pressure": 101.6,
+		"_time": "2024-04-23T11:46:04.491Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 9.02,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 49,
+		"Pressure": 101.6,
+		"_time": "2024-04-23T12:06:13.738Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 9.64,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 48,
+		"Pressure": 101.5,
+		"_time": "2024-04-23T12:26:08.712Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 9.64,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 48,
+		"Pressure": 101.5,
+		"_time": "2024-04-23T12:46:08.760Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 9.64,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 48,
+		"Pressure": 101.5,
+		"_time": "2024-04-23T13:06:08.797Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 10.48,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 47,
+		"Pressure": 101.5,
+		"_time": "2024-04-23T13:26:08.770Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 10.48,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 47,
+		"Pressure": 101.5,
+		"_time": "2024-04-23T13:46:08.732Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 10.48,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 47,
+		"Pressure": 101.5,
+		"_time": "2024-04-23T14:06:08.704Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 10.06,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 47,
+		"Pressure": 101.4,
+		"_time": "2024-04-23T14:26:08.708Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 10.06,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 47,
+		"Pressure": 101.4,
+		"_time": "2024-04-23T14:46:08.710Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 10.06,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 47,
+		"Pressure": 101.4,
+		"_time": "2024-04-23T15:06:08.707Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 9.24,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 49,
+		"Pressure": 101.4,
+		"_time": "2024-04-23T15:26:08.719Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 9.24,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 49,
+		"Pressure": 101.4,
+		"_time": "2024-04-23T15:46:08.700Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 9.24,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 49,
+		"Pressure": 101.4,
+		"_time": "2024-04-23T16:06:08.777Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 8.53,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 54,
+		"Pressure": 101.4,
+		"_time": "2024-04-23T16:26:08.735Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 8.53,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 54,
+		"Pressure": 101.4,
+		"_time": "2024-04-23T16:46:08.709Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 8.53,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 54,
+		"Pressure": 101.4,
+		"_time": "2024-04-23T17:06:08.761Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 7.93,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 58,
+		"Pressure": 101.3,
+		"_time": "2024-04-23T17:26:08.726Z"
+	},
+	{
+		"Pressure_qc": 1,
+		"Temperature": 7.93,
+		"Temperature_qc": 1,
+		"Humidity_qc": 1,
+		"Humidity": 58,
+		"Pressure": 101.3,
+		"_time": "2024-04-23T17:46:08.722Z"
+	}
+]

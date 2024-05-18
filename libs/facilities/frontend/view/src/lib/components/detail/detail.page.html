@@ -1,0 +1,23 @@
+<ix-content>
+	<ix-content-header
+		slot="header"
+		[headerTitle]="'Details of Facility ' + facility.heading"
+		headerSubtitle="On this page you can see all our data about this facility"
+	>
+	</ix-content-header>
+
+	<ix-card-list label="Facilities Overview" show-all-count="2" list-style="stack">
+		<ix-push-card
+			[icon]="facility.icon"
+			[notification]="facility.notification"
+			[heading]="facility.heading"
+			[subheading]="facility.subheading"
+			[variant]="facility.variant"
+		>
+			<p>Number of water pumps: {{facility.pumps}}</p>
+			<p>Location: {{facility.location}}</p>
+		</ix-push-card>
+
+		<img src="../assets/diagram.png" class="max-h-[260px]" />
+	</ix-card-list>
+</ix-content>

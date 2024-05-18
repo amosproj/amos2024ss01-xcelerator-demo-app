@@ -1,1 +1,20 @@
-<p>browse works!</p>
+<ix-content>
+	<ix-content-header slot="header" header-title="Main Dashboard" [headerSubtitle]="subtitle">
+	</ix-content-header>
+
+	<ix-card-list label="Facilities Overview" [showAllCount]="facilities.length" list-style="stack">
+		@for (facility of facilities; track facility.id){
+		<ix-push-card
+			[icon]="facility.icon"
+			[notification]="facility.notification"
+			[heading]="facility.heading"
+			[subheading]="facility.subheading"
+			[variant]="facility.variant"
+			[routerLink]="['/facilities', facility.id]"
+		>
+			<p>Number of water pumps: {{facility.pumps}}</p>
+			<p>Location: {{facility.location}}</p>
+		</ix-push-card>
+		}
+	</ix-card-list>
+</ix-content>
