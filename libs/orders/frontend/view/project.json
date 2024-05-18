@@ -4,7 +4,7 @@
 	"sourceRoot": "libs/orders/frontend/view/src",
 	"prefix": "lib",
 	"projectType": "library",
-	"tags": ["type:feature", "tier:frontend", "domain:orders"],
+	"tags": ["type:feature", "kind:frontend", "domain:orders"],
 	"targets": {
 		"test": {
 			"executor": "@nx/jest:jest",
