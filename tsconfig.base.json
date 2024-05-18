@@ -25,7 +25,10 @@
 			"common-frontend-models": ["libs/common/frontend/models/src/index.ts"],
 			"common-shared-models": ["libs/common/shared/models/src/index.ts"],
 			"facilities-frontend-shell": ["libs/facilities/frontend/shell/src/index.ts"],
-			"facilities-frontend-view": ["libs/facilities/frontend/view/src/index.ts"]
+			"facilities-frontend-view": ["libs/facilities/frontend/view/src/index.ts"],
+			"orders-frontend-shell": ["libs/orders/frontend/shell/src/index.ts"],
+			"orders-frontend-view": ["libs/orders/frontend/view/src/index.ts"],
+			"common-backend-prisma": ["libs/common/backend/prisma/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]
