@@ -11499,7 +11499,7 @@ packages:
     dependencies:
       hosted-git-info: 7.0.2
       proc-log: 3.0.0
-      semver: 7.6.0
+      semver: 7.6.2
       validate-npm-package-name: 5.0.1
 
   /npm-packlist@8.0.2:
