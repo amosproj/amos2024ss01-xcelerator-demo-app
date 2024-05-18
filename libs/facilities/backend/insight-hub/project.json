@@ -1,0 +1,16 @@
+{
+	"name": "facilities-backend-insight-hub",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/facilities/backend/insight-hub/src",
+	"projectType": "library",
+	"tags": ["domain:facilities", "tier:backend", "kind:feature"],
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/facilities/backend/insight-hub/jest.config.ts"
+			}
+		}
+	}
+}
