@@ -11,7 +11,7 @@ async function getConfig() {
 			'scope-enum': async (ctx) => [
 				2,
 				'always',
-				[...(await getProjects(ctx)), 'deliverables', 'documentation'],
+				[...(await getProjects(ctx)), 'deliverables', 'documentation', 'prisma'],
 			],
 		},
 	};
