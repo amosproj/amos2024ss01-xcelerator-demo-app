@@ -5,6 +5,7 @@ import { AxiosResponse } from 'axios';
 import { firstValueFrom, Observable, of, throwError } from 'rxjs';
 
 import { ITimeSeriesRequestParameter } from '../models';
+import { INSIGHT_HUB_OPTIONS } from '../tokens';
 import { IotTimeSeriesService } from './iot-time-series.service';
 
 interface MockSelectParameter {
@@ -22,7 +23,20 @@ describe('IotTime', () => {
 		};
 
 		const module: TestingModule = await Test.createTestingModule({
-			providers: [ IotTimeSeriesService, { provide: HttpService, useValue: httpServiceMock } ],
+			providers: [
+				IotTimeSeriesService,
+				{
+					provide: HttpService,
+					useValue: httpServiceMock,
+				},
+				{
+					provide: INSIGHT_HUB_OPTIONS,
+					useValue: {
+						apiUrl: 'https://gateway.{region}-{environment}.{mindsphere-domain}/api/iottimeseries/v3/timeseries',
+						apiKey: 'test',
+					},
+				},
+			],
 		}).compile();
 
 		service = module.get<IotTimeSeriesService>(IotTimeSeriesService);
@@ -43,7 +57,7 @@ describe('IotTime', () => {
 				from: faker.date.past(),
 				to: faker.date.recent(),
 				limit: faker.number.int(),
-				select: [ 'flow', 'pressure' ],
+				select: ['flow', 'pressure'],
 			};
 
 			const response = service.getTimeSeriesData<MockSelectParameter, any>(params);
@@ -52,8 +66,10 @@ describe('IotTime', () => {
 			expect(getSpy).toHaveBeenCalledWith(
 				'https://gateway.{region}-{environment}.{mindsphere-domain}/api/iottimeseries/v3/timeseries',
 				{
-					headers: {},
-					params: params,
+					params: {
+						apiKey: 'test',
+						...params,
+					},
 				},
 			);
 			await expect(firstValueFrom(response)).resolves.toEqual(mockResponse);
@@ -61,8 +77,8 @@ describe('IotTime', () => {
 
 		it('should log errors', async () => {
 			const error = new Error('Internal Server Error');
-			const consoleSpy = jest.spyOn(console, 'log'); // Spy on console.log
-			jest.spyOn(httpService, 'get').mockReturnValue(throwError(() => error)); // Fix throwError call
+			const consoleSpy = jest.spyOn(console, 'log');
+			jest.spyOn(httpService, 'get').mockReturnValue(throwError(() => error));
 
 			const response = service.getTimeSeriesData<MockSelectParameter, any>({});
 			await expect(firstValueFrom(response)).rejects.toThrow(error);
