@@ -6,7 +6,7 @@
 	>
 	</ix-content-header>
 
-	<div class="flex flex-wrap gap-8 h-full w-full">
+	<div class="flex flex-wrap gap-x-8">
 		<ix-card variant="insight" class="infoContainer nochart">
 			<ix-card-content>
 				<ix-card-title>
@@ -18,7 +18,7 @@
 			</ix-card-content>
 		</ix-card>
 
-		<div echarts class="infoContainer" [options]="options" [theme]="theme"></div>
+		<div echarts id="pumpChart" [options]="options" [theme]="theme"></div>
 
 		<ix-action-card
 			class="infoContainer nochart"

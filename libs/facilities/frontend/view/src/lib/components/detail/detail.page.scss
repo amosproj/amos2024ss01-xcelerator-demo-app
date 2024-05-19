@@ -1,12 +1,17 @@
-.infoContainer {
-	height: 400px;
-	width: 500px;
-}
+$container-height: 360px;
+$container-width: 500px;
 
-.nochart {
+.infoContainer {
+	height: $container-height;
+	width: $container-width;
 	padding: 1rem;
 	padding-top: 2rem;
 	padding-bottom: 2rem;
+}
+
+#pumpChart {
+	height: $container-height !important;
+	width: $container-width !important;
 }
 
 ix-card-content {
