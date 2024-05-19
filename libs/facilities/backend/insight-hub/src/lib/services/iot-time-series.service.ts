@@ -1,18 +1,22 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { IInsightHub } from 'common-backend-models';
+import { defaults } from 'lodash';
 import { catchError, map, Observable } from 'rxjs';
 
 import { ITimeSeriesRequestParameter } from '../models/interfaces/time-series-request.interface';
+import { INSIGHT_HUB_OPTIONS } from '../tokens';
 
+/**
+ * Service to interact with the IoT Time Series API.
+ */
 @Injectable()
 export class IotTimeSeriesService {
-	private _apiUrl: string;
-
-	constructor(private readonly _httpClient: HttpService) {
-		// how to get the region, environment, and mindsphere-domain from the environment variables via config service?
-		this._apiUrl =
-			'https://gateway.{region}-{environment}.{mindsphere-domain}/api/iottimeseries/v3/timeseries';
-	}
+	constructor(
+		private readonly _httpClient: HttpService,
+		@Inject(INSIGHT_HUB_OPTIONS)
+		private readonly _insightHubOptions: IInsightHub,
+	) {}
 
 	/**
 	 * Allows to get the time series data from the IoT Time Series API.
@@ -21,9 +25,13 @@ export class IotTimeSeriesService {
 		params: ITimeSeriesRequestParameter<SelectType>,
 	): Observable<ReturnType> {
 		return this._httpClient
-			.get<ReturnType>(this._apiUrl, {
-				headers: {},
-				params,
+			.get<ReturnType>(this._insightHubOptions.apiUrl, {
+				params: defaults(
+					{
+						apiKey: this._insightHubOptions.apiKey,
+					},
+					params,
+				),
 			})
 			.pipe(
 				map((response) => response.data),
