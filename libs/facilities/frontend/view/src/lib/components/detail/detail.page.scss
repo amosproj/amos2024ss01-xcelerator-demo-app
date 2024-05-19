@@ -1,4 +1,16 @@
-#waterPumpChart {
+.infoContainer {
+	height: 400px;
 	width: 500px;
-	height: 250px;
+}
+
+.nochart {
+	padding: 1rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+ix-card-content {
+	border: 1px solid var(--ix-card-border-color, var(--theme-color-soft-bdr));
+	border-radius: var(--theme-default-border-radius);
+	border-color: var(--theme-color-soft-bdr);
 }

@@ -27,6 +27,9 @@ export class XdDetailPage implements OnInit {
 	options: EChartsOption = {
 		xAxis: {
 			type: 'category',
+			name: 'Time',
+			nameLocation: 'middle',
+			nameGap: 30,
 			data: [
 				'16:20',
 				'16:30',
@@ -45,6 +48,9 @@ export class XdDetailPage implements OnInit {
 		},
 		yAxis: {
 			type: 'value',
+			name: 'Humidity',
+			nameLocation: 'middle',
+			nameGap: 25,
 		},
 		series: [
 			{
@@ -53,6 +59,9 @@ export class XdDetailPage implements OnInit {
 			},
 		],
 	};
+
+	locked = false;
+	icon = {};
 
 	constructor(private route: ActivatedRoute) {}
 
@@ -73,5 +82,9 @@ export class XdDetailPage implements OnInit {
 		} else {
 			return facility;
 		}
+	}
+
+	changeLocked() {
+		this.locked = !this.locked;
 	}
 }

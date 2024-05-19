@@ -6,18 +6,27 @@
 	>
 	</ix-content-header>
 
-	<div class="flex gap-[1.75rem]">
-		<ix-push-card
-			[icon]="facility.icon"
-			[notification]="facility.notification"
-			[heading]="facility.heading"
-			[subheading]="facility.subheading"
-			[variant]="facility.variant"
-		>
-			<p>Number of water pumps: {{facility.pumps}}</p>
-			<p>Location: {{facility.location}}</p>
-		</ix-push-card>
+	<div class="flex flex-wrap gap-8 h-full w-full">
+		<ix-card variant="insight" class="infoContainer nochart">
+			<ix-card-content>
+				<ix-card-title>
+					<ix-icon class="icon" [name]="facility.icon" size="32"></ix-icon>
+					<span class="notification"> {{ facility.notification }} </span>
+				</ix-card-title>
+				<ix-typography color="std" format="h4"> {{ facility.heading }} </ix-typography>
+				<ix-typography color="std"> {{ facility.subheading }} </ix-typography>
+			</ix-card-content>
+		</ix-card>
 
-		<div echarts id="waterPumpChart" [options]="options" [theme]="theme"></div>
+		<div echarts class="infoContainer" [options]="options" [theme]="theme"></div>
+
+		<ix-action-card
+			class="infoContainer nochart"
+			[icon]="locked ? 'lock-filled' : 'unlock-filled'"
+			[heading]="locked ? 'Unlock the doors' : 'Lock the doors'"
+			[subheading]="locked ? 'Currently the doors are locked' : 'Currently the doors are unlocked'"
+			variant="insight"
+			(click)="changeLocked()"
+		></ix-action-card>
 	</div>
 </ix-content>
