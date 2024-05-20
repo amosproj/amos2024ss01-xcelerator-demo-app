@@ -31,4 +31,9 @@ export class XdTimeseriesController {
 			latestValue,
 		});
 	}
+
+	@Get()
+	async getTimeseries(): Promise<any> {
+		return this.timeseriesService.getAllTimeSeries();
+	}
 }
