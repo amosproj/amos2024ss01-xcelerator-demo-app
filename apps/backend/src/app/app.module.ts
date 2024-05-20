@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AppConfig, BackendConfig } from 'common-backend-models';
+import { BackendConfig } from 'common-backend-models';
 /* Libraries */
 import { XdInsightHubModule } from 'facilities-backend-insight-hub';
+import { XdTimeseriesModule } from 'facilities-backend-timeseries';
 
 import { AppController } from './app.controller';
 /* Internal */
@@ -22,6 +23,7 @@ import { validateConfig } from './config/validation';
 				configService.get('insightHub'),
 			inject: [ConfigService],
 		}),
+		XdTimeseriesModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

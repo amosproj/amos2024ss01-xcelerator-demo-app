@@ -1,13 +1,12 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
 import { GetTimeSeriesParamsDto, GetTimeSeriesQueryDto } from '../dto/request.dto';
-import { PumpService } from '../services/timeseries.service';
+import { TimeseriesService } from '../services/timeseries.service';
+@Controller('timeseries')
+export class XdTimeseriesController {
+	constructor(private readonly timeseriesService: TimeseriesService) {}
 
-@Controller()
-export class PumpController {
-	constructor(private readonly pumpService: PumpService) {}
-
-	@Get('timeseries/:entityId/:propertySetName')
+	@Get(':entityId/:propertySetName')
 	async getTimeSeries(
 		@Param() params: GetTimeSeriesParamsDto,
 		@Query() query: GetTimeSeriesQueryDto,
@@ -21,8 +20,7 @@ export class PumpController {
 		/**
 		 * Call the service to get the time series data
 		 */
-
-		return this.pumpService({
+		return this.timeseriesService.getTimeSeriesFromDB({
 			entityId,
 			propertySetName,
 			from,
