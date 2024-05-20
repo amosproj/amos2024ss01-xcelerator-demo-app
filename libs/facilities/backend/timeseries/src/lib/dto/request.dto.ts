@@ -1,6 +1,5 @@
 import { Type } from 'class-transformer';
 import {
-	IsArray,
 	IsBoolean,
 	IsDate,
 	IsEnum,
@@ -39,7 +38,7 @@ export class GetTimeSeriesQueryDto implements IGetTimeseriesQuery {
 	limit?: number;
 
 	@IsOptional()
-	@IsArray()
+	@IsString({ each: true })
 	select?: string[];
 
 	@IsOptional()

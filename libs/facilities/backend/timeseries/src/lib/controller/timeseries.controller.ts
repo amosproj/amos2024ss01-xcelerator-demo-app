@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 
 import { GetTimeSeriesParamsDto, GetTimeSeriesQueryDto } from '../dto/request.dto';
 import {
-	TimeSeriesDataItemResponse,
-	TimeSeriesItemResponse,
+	ITimeSeriesDataItemResponse,
+	ITimeSeriesItemResponse,
 } from '../interfaces/respons.interface';
 import { TimeseriesService } from '../services/timeseries.service';
 @Controller('timeseries')
@@ -12,7 +12,7 @@ export class XdTimeseriesController {
 	constructor(private readonly timeseriesService: TimeseriesService) {}
 
 	@Get()
-	public getTimeseries(): Observable<TimeSeriesItemResponse[]> {
+	public getTimeseries(): Observable<ITimeSeriesItemResponse[]> {
 		return this.timeseriesService.getAllTimeSeries();
 	}
 
@@ -20,7 +20,7 @@ export class XdTimeseriesController {
 	public getTimeSeries(
 		@Param() params: GetTimeSeriesParamsDto,
 		@Query() query: GetTimeSeriesQueryDto,
-	): Observable<TimeSeriesDataItemResponse[]> {
+	): Observable<ITimeSeriesDataItemResponse[]> {
 		/**
 		 * Extract the parameters and query from the request
 		 */
