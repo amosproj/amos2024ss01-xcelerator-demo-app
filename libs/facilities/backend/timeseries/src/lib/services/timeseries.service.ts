@@ -8,6 +8,11 @@ type TimeSeriesDataItem = {
 	[key: string]: number | string | Date | boolean | null;
 };
 
+type TimeSeriesItem = {
+	entityId: string;
+	propertySetName: string;
+};
+
 @Injectable()
 export class TimeseriesService {
 	constructor(
@@ -70,5 +75,14 @@ export class TimeseriesService {
 		});
 
 		return unjsonifiedItems;
+	}
+
+	async getAllTimeSeries(): Promise<TimeSeriesItem[]> {
+		const items = await this.prismaService.timeSeriesItem.findMany();
+
+		return items.map((item) => ({
+			entityId: item.entityId,
+			propertySetName: item.propertySetName,
+		}));
 	}
 }
