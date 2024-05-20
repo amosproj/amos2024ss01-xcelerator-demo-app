@@ -51,7 +51,7 @@ export class TimeseriesService {
 			if (!select) {
 				return {
 					time: item.time,
-					...(JSON.parse(item.data) as {
+					...(item.data as {
 						[key: string]: number | string | Date | boolean | null;
 					}),
 				};

@@ -1,31 +1,32 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IsArray, IsDate, IsEnum, IsInt } from 'class-validator';
 
 import { IGetTimeSeriesParams, IGetTimeseriesQuery } from '../interfaces/request.interface';
 
 export class GetTimeSeriesParamsDto implements IGetTimeSeriesParams {
-	@ApiProperty({ required: true })
 	entityId!: string;
 
-	@ApiProperty({ required: true })
 	propertySetName!: string;
 }
 
 export class GetTimeSeriesQueryDto implements IGetTimeseriesQuery {
-	@ApiProperty()
+	@IsDate()
+	@Type(() => Date)
 	from?: Date;
 
-	@ApiProperty()
+	@IsDate()
+	@Type(() => Date)
 	to?: Date;
 
-	@ApiProperty()
+	@IsInt()
+	@Type(() => Number)
 	limit?: number;
 
-	@ApiProperty()
+	@IsArray()
 	select?: string[];
 
-	@ApiProperty()
+	@IsEnum(['asc', 'desc'])
 	sort?: 'asc' | 'desc';
 
-	@ApiProperty()
 	latestValue?: boolean;
 }
