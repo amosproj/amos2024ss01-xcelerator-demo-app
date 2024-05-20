@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { XdPrismaModule } from 'common-backend-prisma';
 
-import { PumpService } from './services/pump.service';
+import { PumpService } from './services/timeseries.service';
 
 /*
 interface IXdPumpModuleOptions {
