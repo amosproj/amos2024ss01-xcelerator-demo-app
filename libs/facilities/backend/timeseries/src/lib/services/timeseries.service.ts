@@ -1,12 +1,12 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { TimeSeriesDataItem } from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
-import { from, map, Observable } from 'rxjs';
+import { catchError, from, map, Observable } from 'rxjs';
 
 import { IGetTimeSeriesParams, IGetTimeseriesQuery } from '../interfaces/request.interface';
 import {
-	TimeSeriesDataItemResponse,
-	TimeSeriesItemResponse,
+	ITimeSeriesDataItemResponse,
+	ITimeSeriesItemResponse,
 } from '../interfaces/respons.interface';
 
 @Injectable()
@@ -18,28 +18,37 @@ export class TimeseriesService {
 		// private readonly configService: ConfigService,
 	) {}
 
-	private unjsonifyItems(
-		items: TimeSeriesDataItem[],
-		select?: string[],
-	): TimeSeriesDataItemResponse[] {
-		return items.map((item) => {
+	private unjsonifyItems({
+		items,
+		select,
+	}: {
+		items: TimeSeriesDataItem[];
+		select?: string[];
+	}): ITimeSeriesDataItemResponse[] {
+		return items.map(({ time, data: json }) => {
+			/**
+			 * Parse the JSON data
+			 * @tutorial
+			 * this is a workaround, since Prisma already returns the data as a object
+			 */
+			const data = typeof json === 'string' ? JSON.parse(json) : json;
+
 			if (!select) {
 				return {
-					time: item.time,
-					...(item.data as {
-						[key: string]: number | string | Date | boolean | null;
-					}),
+					time: time,
+					...data,
 				};
 			}
 
+			/**
+			 * Select only the selected data
+			 */
 			const selectedData = Object.fromEntries(
-				Object.entries(
-					item.data as { [key: string]: number | string | Date | boolean | null },
-				).filter(([key]) => select.includes(key)),
+				Object.entries(data).filter(([key]) => select.includes(key)),
 			);
 
 			return {
-				time: item.time,
+				time: time,
 				...selectedData,
 			};
 		});
@@ -47,7 +56,7 @@ export class TimeseriesService {
 
 	public getTimeSeriesFromDB(
 		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
-	): Observable<TimeSeriesDataItemResponse[]> {
+	): Observable<ITimeSeriesDataItemResponse[]> {
 		/**
 		 * Extract the parameters
 		 */
@@ -71,10 +80,17 @@ export class TimeseriesService {
 					time: args.sort,
 				},
 			}),
-		).pipe(map((items) => this.unjsonifyItems(items, args.select)));
+		).pipe(
+			map((items) => this.unjsonifyItems({ items, select: args.select })),
+			catchError((err: Error) => {
+				// eslint-disable-next-line no-console
+				console.log(err);
+				throw err;
+			}),
+		);
 	}
 
-	public getAllTimeSeries(): Observable<TimeSeriesItemResponse[]> {
+	public getAllTimeSeries(): Observable<ITimeSeriesItemResponse[]> {
 		return from(this.prismaService.timeSeriesItem.findMany()).pipe(
 			map((items) =>
 				items.map((item) => ({
@@ -82,6 +98,11 @@ export class TimeseriesService {
 					propertySetName: item.propertySetName,
 				})),
 			),
+			catchError((err: Error) => {
+				// eslint-disable-next-line no-console
+				console.log(err);
+				throw err;
+			}),
 		);
 	}
 }
