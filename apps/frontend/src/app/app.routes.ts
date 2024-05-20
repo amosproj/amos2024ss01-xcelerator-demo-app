@@ -43,6 +43,10 @@ export const APP_ROUTES: Route[] = [
 			import('./pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
 	},
 	{
+		path: 'account',
+		loadChildren: () => import('account-frontend-shell').then((m) => m.ACCOUNT_SHELL_ROUTES),
+	},
+	{
 		path: '**',
 		redirectTo: 'not-found',
 	},
