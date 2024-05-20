@@ -29,12 +29,22 @@ export class XdBrowsePage implements OnInit {
 	@Input()
 	subtitle = 'List of all facilities';
 
-	ngOnInit() {
-		if (this.facilities === undefined) {
-			this.facilities = facilities;
-		}
-		if (this.subtitle === undefined) {
-			this.subtitle = 'List of all facilities';
-		}
-	}
+    showCardList = true;
+    ngOnInit() {
+        if (this.facilities === undefined) {
+            this.facilities = facilities;
+        }
+        if (this.subtitle === undefined) {
+            this.subtitle = 'List of all facilities';
+        }
+    }
+
+    toggleView() {
+        this.showCardList = !this.showCardList;
+    }
+
+    trackByFacilityId(index: number, facility: IFacilityMock): string {
+        return facility.id;
+    }
 }
+
