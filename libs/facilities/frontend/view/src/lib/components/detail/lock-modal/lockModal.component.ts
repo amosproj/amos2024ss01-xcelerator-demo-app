@@ -4,7 +4,7 @@ import { IxActiveModal, IxModule } from '@siemens/ix-angular';
 @Component({
 	selector: 'lib-lock-modal',
 	standalone: true,
-	imports: [CommonModule, IxModule],
+	imports: [ CommonModule, IxModule ],
 	templateUrl: './lockModal.component.html',
 	styleUrl: './lockModal.component.scss',
 	encapsulation: ViewEncapsulation.None,

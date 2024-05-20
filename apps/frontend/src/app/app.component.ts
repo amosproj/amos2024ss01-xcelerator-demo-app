@@ -5,8 +5,8 @@ import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 
 @Component({
 	standalone: true,
-	imports: [RouterModule, NgxEchartsDirective],
-	providers: [provideEcharts()],
+	imports: [ RouterModule, NgxEchartsDirective ],
+	providers: [ provideEcharts() ],
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.scss',

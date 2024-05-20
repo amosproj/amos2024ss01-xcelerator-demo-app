@@ -8,7 +8,7 @@ describe('LockModalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [LockModalComponent],
+			imports: [ LockModalComponent ],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(LockModalComponent);

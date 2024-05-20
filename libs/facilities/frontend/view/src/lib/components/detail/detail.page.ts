@@ -16,7 +16,7 @@ import LockModalComponent from './lock-modal/lockModal.component';
 @Component({
 	selector: 'lib-detail',
 	standalone: true,
-	imports: [CommonModule, IxModule, NgxEchartsModule, LockModalComponent],
+	imports: [ CommonModule, IxModule, NgxEchartsModule, LockModalComponent ],
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -56,7 +56,7 @@ export class XdDetailPage implements OnInit {
 		},
 		series: [
 			{
-				data: [98, 88, 88, 102, 102, 88, 88, 88, 80, 76, 70, 72, 68],
+				data: [ 98, 88, 88, 102, 102, 88, 88, 88, 80, 76, 70, 72, 68 ],
 				type: 'line',
 			},
 		],

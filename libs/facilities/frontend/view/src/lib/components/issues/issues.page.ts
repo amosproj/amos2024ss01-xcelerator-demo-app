@@ -9,7 +9,7 @@ import { facilities } from '../facility.mocks/const';
 @Component({
 	selector: 'lib-issues',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink, XdBrowsePage],
+	imports: [ CommonModule, IxModule, RouterLink, XdBrowsePage ],
 	templateUrl: './issues.page.html',
 	styleUrl: './issues.page.scss',
 	encapsulation: ViewEncapsulation.None,

@@ -9,8 +9,8 @@ describe('AppComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [AppComponent],
-			providers: [{ provide: APP_CONFIG, useValue: { apiUrl: 'http://localhost:3333/api' } }],
+			imports: [ AppComponent ],
+			providers: [ { provide: APP_CONFIG, useValue: { apiUrl: 'http://localhost:3333/api' } } ],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(AppComponent);
