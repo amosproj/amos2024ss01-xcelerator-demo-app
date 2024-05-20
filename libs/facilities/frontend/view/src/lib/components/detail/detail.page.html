@@ -22,14 +22,12 @@
 
 		<ix-action-card
 			class="infoContainer nochart"
-			[icon]="locked ? 'lock-filled' : 'unlock-filled'"
-			[heading]="locked ? 'Unlock the doors' : 'Lock the doors'"
-			[subheading]="locked ? 'Currently the doors are locked' : 'Currently the doors are unlocked'"
+			[icon]="(locked$ | async) ? 'lock-filled' : 'unlock-filled'"
+			[heading]="(locked$ | async)? 'Unlock the doors' : 'Lock the doors'"
+			[subheading]="(locked$ | async) ? 'Currently the doors are locked' : 'Currently the doors are unlocked'"
 			variant="insight"
-            (click)="changeLocked()"
+			(click)="changeLocked()"
 		>
-        </ix-action-card>
+		</ix-action-card>
 	</div>
-
-
 </ix-content>

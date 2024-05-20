@@ -1,20 +1,12 @@
-<ix-modal-header>
-    Warning
-</ix-modal-header>
+<ix-modal-header> Warning </ix-modal-header>
 <ix-modal-content class="pb-8">
-    Do you really want to
-    {{ locked ? 'unlock the doors' : 'lock the doors' }}
-    ?
+	Do you really want to
+	{{ locked ? 'unlock the doors' : 'lock the doors' }}
+	?
 </ix-modal-content>
 <ix-modal-footer>
-    <ix-button
-        outline
-        class="dismiss-modal"
-        (click)="activeModal.dismiss('dismiss')"
-    >
-        Cancel
-    </ix-button>
-    <ix-button class="close-modal" (click)="closeModal()">
-        Confirm
-    </ix-button>
+	<ix-button outline class="dismiss-modal" (click)="activeModal.dismiss('cancel')">
+		Cancel
+	</ix-button>
+	<ix-button class="close-modal" (click)="this.activeModal.close('confirm')"> Confirm </ix-button>
 </ix-modal-footer>

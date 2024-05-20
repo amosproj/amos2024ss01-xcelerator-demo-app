@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import LockModalComponent from './lockModal.component';
 
-
 describe('LockModalComponent', () => {
 	let component: LockModalComponent;
 	let fixture: ComponentFixture<LockModalComponent>;
