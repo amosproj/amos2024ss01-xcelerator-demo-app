@@ -1,9 +1,11 @@
-export interface TimeSeriesDataItemResponse {
+export type TimeSeriesData = string | number | Date | boolean | null;
+
+export interface ITimeSeriesDataItemResponse {
 	time: Date;
-	[key: string]: number | string | Date | boolean | null;
+	[key: string]: TimeSeriesData;
 }
 
-export interface TimeSeriesItemResponse {
+export interface ITimeSeriesItemResponse {
 	entityId: string;
 	propertySetName: string;
 }
