@@ -1,17 +1,13 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { TimeSeriesDataItem } from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
+import { from, map, Observable } from 'rxjs';
 
 import { IGetTimeSeriesParams, IGetTimeseriesQuery } from '../interfaces/request.interface';
-
-type TimeSeriesDataItem = {
-	time: Date;
-	[key: string]: number | string | Date | boolean | null;
-};
-
-type TimeSeriesItem = {
-	entityId: string;
-	propertySetName: string;
-};
+import {
+	TimeSeriesDataItemResponse,
+	TimeSeriesItemResponse,
+} from '../interfaces/respons.interface';
 
 @Injectable()
 export class TimeseriesService {
@@ -22,37 +18,11 @@ export class TimeseriesService {
 		// private readonly configService: ConfigService,
 	) {}
 
-	async getTimeSeriesFromDB(
-		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
-	): Promise<TimeSeriesDataItem[]> {
-		/**
-		 * Extract the parameters and query from the request
-		 */
-		const { entityId, propertySetName } = args;
-		const { from, to, limit, select, sort, latestValue } = args;
-
-		/**
-		 * Get the time series data items based on the parameters and query
-		 */
-		const items = await this.prismaService.timeSeriesDataItem.findMany({
-			where: {
-				timeSeriesItementityId: entityId,
-				timeSeriesItempropertySetName: propertySetName,
-				time: {
-					gte: from,
-					lte: to,
-				},
-			},
-			take: limit,
-			orderBy: {
-				time: sort,
-			},
-		});
-
-		/**
-		 * Unjsonify the items and return them
-		 */
-		const unjsonifiedItems = items.map((item) => {
+	private unjsonifyItems(
+		items: TimeSeriesDataItem[],
+		select?: string[],
+	): TimeSeriesDataItemResponse[] {
+		return items.map((item) => {
 			if (!select) {
 				return {
 					time: item.time,
@@ -73,16 +43,45 @@ export class TimeseriesService {
 				...selectedData,
 			};
 		});
-
-		return unjsonifiedItems;
 	}
 
-	async getAllTimeSeries(): Promise<TimeSeriesItem[]> {
-		const items = await this.prismaService.timeSeriesItem.findMany();
+	public getTimeSeriesFromDB(
+		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
+	): Observable<TimeSeriesDataItemResponse[]> {
+		/**
+		 * Extract the parameters
+		 */
+		const { entityId, propertySetName } = args;
 
-		return items.map((item) => ({
-			entityId: item.entityId,
-			propertySetName: item.propertySetName,
-		}));
+		/**
+		 * Get the time series data items based on the parameters and query
+		 */
+		return from(
+			this.prismaService.timeSeriesDataItem.findMany({
+				where: {
+					timeSeriesItementityId: entityId,
+					timeSeriesItempropertySetName: propertySetName,
+					time: {
+						gte: args.from,
+						lte: args.to,
+					},
+				},
+				take: args.limit,
+				orderBy: {
+					time: args.sort,
+				},
+			}),
+		).pipe(map((items) => this.unjsonifyItems(items, args.select)));
+	}
+
+	public getAllTimeSeries(): Observable<TimeSeriesItemResponse[]> {
+		return from(this.prismaService.timeSeriesItem.findMany()).pipe(
+			map((items) =>
+				items.map((item) => ({
+					entityId: item.entityId,
+					propertySetName: item.propertySetName,
+				})),
+			),
+		);
 	}
 }
