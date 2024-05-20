@@ -107,7 +107,9 @@
 			"env": {
 				"jest": true
 			},
-			"rules": {}
+			"rules": {
+				"no-console": "off"
+			}
 		},
 		{
 			"files": ["*.component.ts", "*.layout.ts", "*.page.ts"],
