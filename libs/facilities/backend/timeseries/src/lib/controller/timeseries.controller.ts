@@ -6,13 +6,13 @@ import {
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
 } from '../interfaces/respons.interface';
-import { TimeseriesService } from '../services/timeseries.service';
+import { XdTimeseriesService } from '../services/timeseries.service';
 @Controller('timeseries')
 export class XdTimeseriesController {
-	constructor(private readonly timeseriesService: TimeseriesService) {}
+	constructor(private readonly timeseriesService: XdTimeseriesService) {}
 
 	@Get()
-	public getTimeseries(): Observable<ITimeSeriesItemResponse[]> {
+	public getAllTimeseries(): Observable<ITimeSeriesItemResponse[]> {
 		return this.timeseriesService.getAllTimeSeries();
 	}
 

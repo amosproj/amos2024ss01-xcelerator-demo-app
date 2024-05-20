@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { XdPrismaModule } from 'common-backend-prisma';
 
 import { XdTimeseriesController } from './controller/timeseries.controller';
-import { TimeseriesService } from './services/timeseries.service';
+import { XdTimeseriesService } from './services/timeseries.service';
 
 /*
 interface IXdPumpModuleOptions {
@@ -15,8 +15,8 @@ interface IXdPumpModuleOptions {
 @Module({
 	controllers: [XdTimeseriesController],
 	imports: [XdPrismaModule],
-	providers: [TimeseriesService],
-	exports: [TimeseriesService],
+	providers: [XdTimeseriesService],
+	exports: [XdTimeseriesService],
 })
 export class XdTimeseriesModule {
 	/*
