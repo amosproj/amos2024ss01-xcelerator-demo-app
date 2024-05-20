@@ -1,1 +1,1 @@
-export * from './lib/pump.module';
+export * from './lib/timeseries.module';
