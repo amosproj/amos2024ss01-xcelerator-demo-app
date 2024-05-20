@@ -5,10 +5,10 @@ import { PrismaService } from 'common-backend-prisma';
 import { lastValueFrom } from 'rxjs';
 
 import { IGetTimeSeriesParams, IGetTimeseriesQuery } from '../interfaces/request.interface';
-import { TimeseriesService } from './timeseries.service';
+import { XdTimeseriesService } from './timeseries.service';
 
 describe('TimeseriesService', () => {
-	let service: TimeseriesService;
+	let service: XdTimeseriesService;
 	let prisma: PrismaService;
 
 	beforeEach(async () => {
@@ -25,7 +25,7 @@ describe('TimeseriesService', () => {
 
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
-				TimeseriesService,
+				XdTimeseriesService,
 				{
 					provide: PrismaService,
 					useValue: prismaServiceMock,
@@ -33,7 +33,7 @@ describe('TimeseriesService', () => {
 			],
 		}).compile();
 
-		service = module.get<TimeseriesService>(TimeseriesService);
+		service = module.get<XdTimeseriesService>(XdTimeseriesService);
 		prisma = module.get<PrismaService>(PrismaService);
 	});
 

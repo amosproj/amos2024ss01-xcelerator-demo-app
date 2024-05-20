@@ -10,7 +10,7 @@ import {
 } from '../interfaces/respons.interface';
 
 @Injectable()
-export class TimeseriesService {
+export class XdTimeseriesService {
 	constructor(
 		@Inject(forwardRef(() => PrismaService))
 		private readonly prismaService: PrismaService,
