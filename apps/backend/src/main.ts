@@ -17,7 +17,7 @@ async function bootstrap() {
 	const port = configService.get('app', { infer: true }).port;
 	await app.listen(port);
 
-	Logger.log(`🚀 Application is running on: http://localhost:${port}/${API_BASE_SEGMENT}`);
+	Logger.log(`🚀 Application is running on: http://localhost:${port}${API_BASE_SEGMENT}`);
 }
 
 bootstrap();
