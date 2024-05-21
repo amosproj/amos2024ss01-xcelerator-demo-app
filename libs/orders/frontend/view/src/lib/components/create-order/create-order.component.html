@@ -1,53 +1,72 @@
 <ix-content>
 	<ix-content-header slot="header" header-title="Create order"> </ix-content-header>
 
-	<ix-card class="w-2/3">
-		<form
-			class="m-2 flex flex-col gap-y-16"
-			[formGroup]="createOrderForm"
-			(submit)="onSubmit()"
+	<form
+		class="needs-validation m-3 flex flex-col gap-y-10 w-2/3"
+		[ngClass]="{ 'was-validated': wasValidated }"
+		novalidate
+		#orderForm="ngForm"
+		(submit)="onSubmit(orderForm)"
+	>
+		<ix-select
+			i18nPlaceholder="Select a Facility"
+			i18nSelectListHeader="Please select a facility"
+			name="selectFacility"
+			[(ngModel)]="createOrderForm.selectFacility"
+			required
 		>
-			<ix-button #trigger>Open</ix-button>
-			<ix-dropdown [ixDropdownTrigger]="trigger">
-				<!-- TODO:Add for over facilities !-->
-				<ix-dropdown-header label="Category"></ix-dropdown-header>
-				<ix-dropdown-item label="Item 2"></ix-dropdown-item>
-				<ix-dropdown-item label="Item 3"></ix-dropdown-item>
-				<ix-dropdown-item label="Item 4"></ix-dropdown-item>
-			</ix-dropdown>
+			@for (facility of facilities; track facility.id) {
+				<ix-select-item [label]="facility.heading" [value]="facility.id"></ix-select-item>
+			}
+		</ix-select>
+		<div class="invalid-feedback">Please select a facility</div>
 
-			<div class="flex">
-				<p class="w-48">Email</p>
-				<ix-input-group>
-					<input placeholder="example@domain.com" type="email" />
-				</ix-input-group>
-			</div>
+		<ix-select
+			i18nPlaceholder="Select an Asset"
+			name="selectAsset"
+			[(ngModel)]="createOrderForm.selectAsset"
+			required
+		>
+			<!--TODO: insert assets here-->
+			<ix-select-item label="Item 1" value="1"></ix-select-item>
+			<ix-select-item label="Item 2" value="2"></ix-select-item>
+			<ix-select-item label="Item 3" value="3"></ix-select-item>
+		</ix-select>
+		<div class="invalid-feedback">Please select an asset</div>
 
-			<div class="flex">
-				<p class="w-48">Radio</p>
-				<ix-input-group class="flex flex-col gap-y-3">
-					<input checked id="checkbox_1_1" name="group_1" type="radio" />
-					<label for="checkbox_1_1">Option 1</label>
+		<ix-input-group>
+			<span slot="input-start">Telephone:</span>
+			<input
+				placeholder="111-111-111"
+				type="tel"
+				name="phone"
+				[(ngModel)]="createOrderForm.phone"
+				pattern="[+]?[0-9]+"
+				maxlength="16"
+				required
+			/>
+			<div class="valid-feedback">Looks good!</div>
+			<div class="invalid-feedback">Please provide a valid phone number</div>
+		</ix-input-group>
 
-					<input id="checkbox_1_2" name="group_1" type="radio" />
-					<label for="checkbox_1_2">Option 2</label>
+		<ix-input-group>
+			<span slot="input-start">Email:</span>
+			<input
+				placeholder="example@domain.com"
+				type="email"
+				name="email"
+				[(ngModel)]="createOrderForm.email"
+				required
+			/>
+			<div class="valid-feedback">Looks good!</div>
+			<div class="invalid-feedback">Please provide a valid email address</div>
+		</ix-input-group>
 
-					<input id="checkbox_1_3" name="group_1" type="radio" />
-					<label for="checkbox_1_3">Option 3</label>
-				</ix-input-group>
-			</div>
+		<ix-input-group>
+			<span slot="input-start">Additional Information:</span>
+			<input type="text" name="text" [(ngModel)]="createOrderForm.text" />
+		</ix-input-group>
 
-			<div class="flex">
-				<p class="w-48">Checkbox</p>
-				<ix-input-group>
-					<input type="checkbox" id="checkbox_02" />
-					<label for="checkbox_02">Example Checkbox</label>
-				</ix-input-group>
-			</div>
-
-			<ix-button type="submit" class="ix-button" variant="primary">
-				Create work order
-			</ix-button>
-		</form>
-	</ix-card>
+		<ix-button type="submit"> Create work order </ix-button>
+	</form>
 </ix-content>
