@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IxActiveModal } from '@siemens/ix-angular';
 
 import LockModalComponent from './lockModal.component';
 
@@ -8,7 +9,8 @@ describe('LockModalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ LockModalComponent ],
+			imports: [LockModalComponent],
+			providers: [{ provide: IxActiveModal, useValue: { data: { locked: true } } }],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(LockModalComponent);

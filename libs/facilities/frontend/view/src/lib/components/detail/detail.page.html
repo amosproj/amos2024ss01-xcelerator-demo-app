@@ -7,19 +7,6 @@
 	</ix-content-header>
 
 	<div class="flex flex-wrap gap-x-8">
-		<!-- TODO: Discuss if a basic information card is needed
-		<ix-card variant="insight" class="infoContainer nochart">
-			<ix-card-content>
-				<ix-card-title>
-					<ix-icon class="icon" [name]="facility.icon" size="32"></ix-icon>
-					<span class="notification"> {{ facility.notification }} </span>
-				</ix-card-title>
-				<ix-typography color="std" format="h4"> {{ facility.heading }} </ix-typography>
-				<ix-typography color="std"> {{ facility.subheading }} </ix-typography>
-			</ix-card-content>
-		</ix-card>
-		-->
-
 		<div echarts class="chart" [options]="pumpOptions" [theme]="theme"></div>
 
 		<div echarts class="chart" [options]="environmentOptions" [theme]="theme"></div>
@@ -54,8 +41,8 @@
 				</ix-typography>
 				<ix-typography color="std">
 					{{ (locked$ | async) ? 'Currently the doors are locked' : 'Currently the doors
-					are unlocked' }}</ix-typography
-				>
+					are unlocked' }}
+				</ix-typography>
 				<div class="pt-36">
 					<ix-button (click)="changeLocked()">
 						{{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
@@ -72,8 +59,8 @@
 				</ix-card-title>
 				<ix-typography color="std" format="h4"> Eco Score (SiGreen)</ix-typography>
 				<ix-typography color="std">
-					According to SiGreen this facility has an eco score of 80/100</ix-typography
-				>
+					According to SiGreen this facility has an eco score of 80/100
+				</ix-typography>
 			</ix-card-content>
 		</ix-card>
 	</div>
