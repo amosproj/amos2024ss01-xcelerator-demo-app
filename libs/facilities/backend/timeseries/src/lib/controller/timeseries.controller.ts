@@ -21,15 +21,9 @@ export class XdTimeseriesController {
 		@Param() params: GetTimeSeriesParamsDto,
 		@Query() query: GetTimeSeriesQueryDto,
 	): Observable<ITimeSeriesDataItemResponse[]> {
-		/**
-		 * Extract the parameters and query from the request
-		 */
 		const { entityId, propertySetName } = params;
 		const { from, to, limit, select, sort, latestValue } = query;
 
-		/**
-		 * Call the service to get the time series data
-		 */
 		return this.timeseriesService.getTimeSeriesFromDB({
 			entityId,
 			propertySetName,

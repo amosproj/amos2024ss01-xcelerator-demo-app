@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import {
 	IsBoolean,
 	IsDate,
+	IsDateString,
 	IsEnum,
 	IsNotEmpty,
 	IsNumber,
@@ -28,7 +29,7 @@ export class GetTimeSeriesQueryDto implements IGetTimeseriesQuery {
 	from?: Date;
 
 	@IsOptional()
-	@IsDate()
+	@IsDateString()
 	@Type(() => Date)
 	to?: Date;
 
