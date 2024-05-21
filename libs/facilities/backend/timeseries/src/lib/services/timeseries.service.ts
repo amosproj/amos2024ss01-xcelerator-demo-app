@@ -1,5 +1,4 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { TimeSeriesDataItem } from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
 import { catchError, from, map, Observable } from 'rxjs';
 
@@ -18,53 +17,11 @@ export class XdTimeseriesService {
 		// private readonly configService: ConfigService,
 	) {}
 
-	private unjsonifyItems({
-		items,
-		select,
-	}: {
-		items: TimeSeriesDataItem[];
-		select?: string[];
-	}): ITimeSeriesDataItemResponse[] {
-		return items.map(({ time, data: json }) => {
-			/**
-			 * Parse the JSON data
-			 * @tutorial
-			 * this is a workaround, since Prisma already returns the data as a object
-			 */
-			const data = typeof json === 'string' ? JSON.parse(json) : json;
-
-			if (!select) {
-				return {
-					time: time,
-					...data,
-				};
-			}
-
-			/**
-			 * Select only the selected data
-			 */
-			const selectedData = Object.fromEntries(
-				Object.entries(data).filter(([key]) => select.includes(key)),
-			);
-
-			return {
-				time: time,
-				...selectedData,
-			};
-		});
-	}
-
 	public getTimeSeriesFromDB(
 		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
 	): Observable<ITimeSeriesDataItemResponse[]> {
-		/**
-		 * Extract the parameters
-		 */
 		const { entityId, propertySetName } = args;
 
-		/**
-		 * Get the time series data items based on the parameters and query
-		 */
 		return from(
 			this.prismaService.timeSeriesDataItem.findMany({
 				where: {
@@ -81,7 +38,12 @@ export class XdTimeseriesService {
 				},
 			}),
 		).pipe(
-			map((items) => this.unjsonifyItems({ items, select: args.select })),
+			map((items) => {
+				return items.map((item) => ({
+					time: item.time,
+					data: this.prismaService.selectKeysFromJSON(item.data, args.select),
+				}));
+			}),
 			catchError((err: Error) => {
 				// eslint-disable-next-line no-console
 				console.log(err);
@@ -98,11 +60,6 @@ export class XdTimeseriesService {
 					propertySetName: item.propertySetName,
 				})),
 			),
-			catchError((err: Error) => {
-				// eslint-disable-next-line no-console
-				console.log(err);
-				throw err;
-			}),
 		);
 	}
 }

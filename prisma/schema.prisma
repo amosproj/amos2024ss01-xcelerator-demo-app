@@ -18,12 +18,13 @@ model TimeSeriesItem {
 }
 
 model TimeSeriesDataItem {
-    time DateTime @id
-
+    time DateTime
     data Json?
 
     // Foreign keys
     timeSeriesItementityId        String
     timeSeriesItempropertySetName String
     timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesItementityId, timeSeriesItempropertySetName], references: [entityId, propertySetName])
+
+    @@id([timeSeriesItementityId, timeSeriesItempropertySetName, time])
 }
