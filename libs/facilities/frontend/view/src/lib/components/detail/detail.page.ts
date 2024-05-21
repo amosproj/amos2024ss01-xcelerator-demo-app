@@ -148,23 +148,6 @@ export class XdDetailPage implements OnInit {
         themeSwitcher.themeChanged.on((theme: string) => {
             this.theme = convertThemeName(theme);
         });
-
-        /*fetch('./assets/PUMP-002_PumpData_20240422-220000000_20240423-220000000.json')
-            .then(response => response.json()).then(data => {
-                let environmentData = data.map((item: {
-                    _time: string,
-                    Flow: number;
-                }) => [item._time, item.Flow]);
-
-                environmentData = environmentData.slice(0, 100);
-                let msg = '[';
-                for (let i = 0; i < environmentData.length; i++) {
-                    msg += '[ "' + environmentData[i][0].toString() + '", ' + environmentData[i][1].toString() + '], ';
-                }
-                msg += ']';
-                console.log(msg);
-            },
-        ); */
     }
 
     getFacility(): IFacilityMock {
