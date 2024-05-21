@@ -5,11 +5,9 @@ $container-width: 500px;
 	height: $container-height;
 	width: $container-width;
 	padding: 1rem;
-	padding-top: 2rem;
-	padding-bottom: 2rem;
 }
 
-#pumpChart {
+.chart {
 	height: $container-height !important;
 	width: $container-width !important;
 }
