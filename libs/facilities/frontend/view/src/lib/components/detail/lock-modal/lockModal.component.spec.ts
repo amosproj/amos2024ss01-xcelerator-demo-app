@@ -9,8 +9,8 @@ describe('LockModalComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [LockModalComponent],
-			providers: [{ provide: IxActiveModal, useValue: { data: { locked: true } } }],
+			imports: [ LockModalComponent ],
+			providers: [ { provide: IxActiveModal, useValue: { data: { locked: true } } } ],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(LockModalComponent);
