@@ -13,7 +13,7 @@ CREATE TABLE "TimeSeriesDataItem" (
     "timeSeriesItementityId" TEXT NOT NULL,
     "timeSeriesItempropertySetName" TEXT NOT NULL,
 
-    CONSTRAINT "TimeSeriesDataItem_pkey" PRIMARY KEY ("time")
+    CONSTRAINT "TimeSeriesDataItem_pkey" PRIMARY KEY ("timeSeriesItementityId","timeSeriesItempropertySetName","time")
 );
 
 -- CreateIndex
