@@ -21,11 +21,12 @@ export class LoginPage {
 
 	onSubmit() {
 		// Mock authentication process
-		if (this.username === 'admin' && this.password === 'admin123') {
+		if (this.username === 'siemens' && this.password === 'siemens') {
 			// Redirect to dashboard on successful login
-			this.router.navigate(['/dashboard']);
+			this.router.navigate(['/facilities']);
 		} else {
 			// Display an error message for failed login
+			//alert(this.username);
 			alert('Invalid username or password');
 		}
 	}
