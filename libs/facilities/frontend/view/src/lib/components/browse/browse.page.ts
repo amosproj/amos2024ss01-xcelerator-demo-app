@@ -42,8 +42,4 @@ export class XdBrowsePage implements OnInit {
 	toggleView() {
 		this.showCardList = !this.showCardList;
 	}
-
-	trackByFacilityId(index: number, facility: IFacilityMock): string {
-		return facility.id;
-	}
 }

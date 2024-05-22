@@ -6,57 +6,32 @@
 		</div>
 	</ix-card-title>
 	<ix-card-content>
-		<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-			<div class="form-group">
-				<form class="needs-validation m-2">
-					<ix-input-group style="margin-bottom: 0.5rem">
-						<span slot="input-start"></span>
-						<input
-							[(ngModel)]="username"
-							placeholder="Enter Username"
-							type="text"
-							name="username"
-							required
-						/>
-					</ix-input-group>
-					<ix-input-group style="margin-bottom: 0.5rem">
-						<span slot="input-start"></span>
-						<input
-							[(ngModel)]="password"
-							placeholder="Enter password"
-							type="password"
-							name="password"
-							required
-						/>
-					</ix-input-group>
-				</form>
-			</div>
-
-			<div class="form-group"></div>
-			<div class="form-group">
-				<ix-button type="submit" variant="primary" [disabled]="!loginForm.valid">
-					Login
-				</ix-button>
-			</div>
+		<form class="needs-validation m-2" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+			<ix-input-group style="margin-bottom: 0.5rem">
+				<span slot="input-start"></span>
+				<input
+					[(ngModel)]="username"
+					placeholder="Enter Username"
+					type="text"
+					name="username"
+					required
+				/>
+			</ix-input-group>
+			<ix-input-group style="margin-bottom: 0.5rem">
+				<span slot="input-start"></span>
+				<input
+					[(ngModel)]="password"
+					placeholder="Enter password"
+					type="password"
+					name="password"
+					required
+				/>
+			</ix-input-group>
+			<ix-button type="submit" variant="primary" [disabled]="!loginForm.valid">
+				Login
+			</ix-button>
 		</form>
 	</ix-card-content>
 
 	<ix-button (click)="onForgotPassword()">Forgot Password?</ix-button>
 </ix-card>
-
-<style>
-	.login-card {
-		max-width: 400px;
-		margin: auto;
-		padding: 20px;
-		margin-top: 100px;
-	}
-	.login-title {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-	}
-	.form-group {
-		margin-bottom: 15px;
-	}
-</style>

@@ -32,7 +32,7 @@ export class LoginPage {
 	}
 
 	onForgotPassword() {
-		// Handle forgot password action
+		// TODO:  Handle forgot password action
 		alert('Forgot password functionality is not implemented yet.');
 	}
 }
