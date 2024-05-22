@@ -1,15 +1,13 @@
-export interface Order {
-	id: string;
-	icon: string;
-	notification: string;
-	heading: string;
-	subheading: string;
-	variant: string;
-}
+import { IOrderMock } from './order.interface';
 
-export const orders: Order[] = [
+/**
+ *  This is just a Mock Interface for the Facility Component
+ *  It has to be deleted once the actual implementation is done
+ * */
+export const orders: IOrderMock[] = [
 	{
 		id: '1',
+		facilityId: 1,
 		icon: 'battery-empty',
 		notification: '99+',
 		heading: 'Fix the Aquarium Pump',
@@ -17,6 +15,7 @@ export const orders: Order[] = [
 		variant: 'warning',
 	},
 	{
+		facilityId: 2,
 		id: '2',
 		icon: 'water-fish',
 		notification: '3',

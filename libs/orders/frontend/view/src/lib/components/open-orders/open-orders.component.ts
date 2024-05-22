@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { RouterLink } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
-import { orders } from '../orders';
+import { orders } from '../order.mocks/const';
 
 @Component({
 	selector: 'lib-open-orders',
