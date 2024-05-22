@@ -78,4 +78,20 @@ export class EnvironmentVariables implements IEnvironmentVariables {
 	@IsString()
 	@MinLength(1)
 	POSTGRES_PASSWORD: string;
+
+	/**
+	 * The URL of the API to use for the IotTimeSeriesService
+	 */
+	@IsDefined()
+	@IsString()
+	@MinLength(1)
+	INSIGHT_HUB_API_URL?: string;
+
+	/**
+	 * The API key to use for the IotTimeSeriesService
+	 */
+	@IsDefined()
+	@IsString()
+	@MinLength(1)
+	INSIGHT_HUB_API_KEY?: string;
 }
