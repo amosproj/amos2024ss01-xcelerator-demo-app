@@ -1,0 +1,20 @@
+{
+	"name": "account-frontend-shell",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/account/frontend/shell/src",
+	"prefix": "lib",
+	"projectType": "library",
+	"tags": ["kind:frontend", "type:shell", "domain:account"],
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/account/frontend/shell/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		}
+	}
+}
