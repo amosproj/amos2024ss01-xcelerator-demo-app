@@ -5,17 +5,24 @@ import { GetTimeSeriesParamsDto, GetTimeSeriesQueryDto } from '../dto/request.dt
 import {
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
-} from '../interfaces/respons.interface';
+} from '../interfaces/response.interface';
 import { XdTimeseriesService } from '../services/timeseries.service';
 @Controller('timeseries')
 export class XdTimeseriesController {
 	constructor(private readonly timeseriesService: XdTimeseriesService) {}
 
+	/**
+	 * Returns all timeseries items
+	 */
 	@Get()
 	public getAllTimeseries(): Observable<ITimeSeriesItemResponse[]> {
 		return this.timeseriesService.getAllTimeSeries();
 	}
 
+	/**
+	 * Returns timeseries data for a specific entity and property set.
+	 * Accepts query params for filtering, sorting and limiting the result.
+	 */
 	@Get(':entityId/:propertySetName')
 	public getTimeSeries(
 		@Param() params: GetTimeSeriesParamsDto,
