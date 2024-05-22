@@ -3,17 +3,13 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { RouterLink } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
-import { orders } from '../order.mocks/const';
-
 @Component({
-	selector: 'lib-open-orders',
+	selector: 'lib-register',
 	standalone: true,
-	imports: [ CommonModule, IxModule, RouterLink ],
-	templateUrl: './open-orders.component.html',
-	styleUrl: './open-orders.component.scss',
+	imports: [CommonModule, IxModule, RouterLink],
+	templateUrl: './register.page.html',
+	styleUrl: './register.page.scss',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OpenOrdersComponent {
-	protected readonly _orders = orders;
-}
+export class RegisterPage {}

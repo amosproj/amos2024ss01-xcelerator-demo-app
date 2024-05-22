@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { ActivatedRoute } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
-import { orders } from '../orders';
+import { orders } from '../order.mocks/const';
 
 @Component({
 	selector: 'lib-detail-order',
