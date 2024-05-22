@@ -1,0 +1,19 @@
+<ix-content>
+	<ix-content-header slot="header" header-title="Open Cases"> </ix-content-header>
+
+	<ix-card-list label="Case Overview" [showAllCount]="_cases.length" list-style="stack">
+		@for (case of _cases; track case.id) {
+			<ix-push-card
+				class="mb-7"
+				[icon]="case.icon"
+				[notification]="case.notification"
+				[heading]="case.heading"
+				[subheading]="case.subheading"
+				[variant]="case.variant"
+				[routerLink]="['/cases', case.id]"
+			></ix-push-card>
+		}
+	</ix-card-list>
+
+	<ix-button [routerLink]="['/cases/create']">Create case</ix-button>
+</ix-content>
