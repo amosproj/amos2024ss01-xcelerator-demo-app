@@ -46,8 +46,4 @@ const generateConfig = (config: IEnvironmentVariables): BackendConfig =>
 			user: config.POSTGRES_USER,
 			password: config.POSTGRES_PASSWORD,
 		},
-		insightHub: {
-			apiUrl: config.INSIGHT_HUB_API_URL,
-			apiKey: config.INSIGHT_HUB_API_KEY,
-		},
 	} as BackendConfig);
