@@ -38,12 +38,16 @@ const generateConfig = (config: IEnvironmentVariables): BackendConfig =>
 		app: {
 			port: config.BACKEND_PORT || 3333,
 			host: config.BACKEND_HOST || 'localhost',
-			name: config.BACKEND_NAME,
+			name: config.BACKEND_NAME || 'backend',
 		},
 		database: {
 			host: config.POSTGRES_HOST,
 			port: config.POSTGRES_PORT,
 			user: config.POSTGRES_USER,
 			password: config.POSTGRES_PASSWORD,
+		},
+		insightHub: {
+			apiUrl: config.INSIGHT_HUB_API_URL,
+			apiKey: config.INSIGHT_HUB_API_KEY,
 		},
 	} as BackendConfig);
