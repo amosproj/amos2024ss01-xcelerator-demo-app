@@ -1,8 +1,8 @@
-export type TimeSeriesData = string | number | Date | boolean | null;
+import { TTimeSeriesData } from 'common-backend-prisma';
 
 export interface ITimeSeriesDataItemResponse {
 	time: Date;
-	[key: string]: TimeSeriesData;
+	[key: string]: TTimeSeriesData;
 }
 
 export interface ITimeSeriesItemResponse {
