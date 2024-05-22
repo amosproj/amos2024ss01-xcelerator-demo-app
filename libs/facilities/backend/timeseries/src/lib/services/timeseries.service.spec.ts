@@ -9,10 +9,14 @@ import { XdTimeseriesService } from './timeseries.service';
 
 describe('TimeseriesService', () => {
 	let service: XdTimeseriesService;
-	let prisma: PrismaService;
+	let prisma: PrismaService = new PrismaService();
 
 	beforeEach(async () => {
 		const prismaServiceMock = {
+			onModuleInit: jest.fn(),
+
+			selectKeysFromJSON: prisma.selectKeysFromJSON,
+			isTTimeSeriesData: prisma.isTTimeSeriesData,
 			timeSeriesDataItem: {
 				findMany: jest.fn().mockImplementation(() => [
 					{
@@ -82,7 +86,7 @@ describe('TimeseriesService', () => {
 		]);
 	});
 
-	it('should return only the selected props', async () => {
+	it('should call selectKeysFromJSON only with the selected Props', async () => {
 		const flow = faker.string.sample();
 		const presure = faker.string.sample();
 		const findManyResult = {
@@ -116,7 +120,7 @@ describe('TimeseriesService', () => {
 
 		expect(result).toEqual([
 			{
-				time: expect.any(Date),
+				time: findManyResult.time,
 				flow: flow,
 			},
 		]);
