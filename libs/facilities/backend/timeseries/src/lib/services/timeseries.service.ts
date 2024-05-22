@@ -6,7 +6,7 @@ import { IGetTimeSeriesParams, IGetTimeseriesQuery } from '../interfaces/request
 import {
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
-} from '../interfaces/respons.interface';
+} from '../interfaces/response.interface';
 
 @Injectable()
 export class XdTimeseriesService {
@@ -17,6 +17,9 @@ export class XdTimeseriesService {
 		// private readonly configService: ConfigService,
 	) {}
 
+	/**
+	 * Get timeseries data based on the entityId and propertySetName
+	 */
 	public getTimeSeriesFromDB(
 		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
 	): Observable<ITimeSeriesDataItemResponse[]> {
