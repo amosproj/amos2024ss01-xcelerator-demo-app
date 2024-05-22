@@ -42,10 +42,16 @@ export class XdTimeseriesService {
 			}),
 		).pipe(
 			map((items) => {
-				return items.map((item) => ({
-					time: item.time,
-					data: this.prismaService.selectKeysFromJSON(item.data, args.select),
-				}));
+				return items.map((item) => {
+					const data = this.prismaService.selectKeysFromJSON(item.data, args.select);
+
+					const test = {
+						time: item.time,
+						...data,
+					};
+
+					return test;
+				});
 			}),
 			catchError((err: Error) => {
 				// eslint-disable-next-line no-console
