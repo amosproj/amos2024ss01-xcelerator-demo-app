@@ -9,10 +9,13 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 		await this.$connect();
 	}
 
-	public isTTimeSeriesData = (value: unknown) => {
+	public isTTimeSeriesData = (value: unknown): value is TTimeSeriesData => {
 		return (
-			['string', 'number', 'boolean'].includes(typeof value) &&
-			(value === null || typeof value !== 'object' || value instanceof Date)
+			typeof value === 'string' ||
+			typeof value === 'number' ||
+			typeof value === 'boolean' ||
+			value === null ||
+			value instanceof Date
 		);
 	};
 
@@ -25,16 +28,14 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 	): { [key: string]: TTimeSeriesData } {
 		const data = typeof json === 'string' ? JSON.parse(json) : json;
 
-		const selectedData = select
-			? Object.fromEntries(Object.entries(data).filter(([key]) => select.includes(key)))
-			: data;
+		return Object.fromEntries(
+			Object.entries(data).filter(([key, value]) => {
+				if (this.isTTimeSeriesData(value)) {
+					return select ? select.includes(key) : true;
+				}
 
-		const tmp = Object.fromEntries(
-			Object.entries(selectedData).filter(
-				([, value]) => this.isTTimeSeriesData(value) as TTimeSeriesData,
-			),
+				return false;
+			}),
 		) as { [key: string]: TTimeSeriesData };
-
-		return tmp;
 	}
 }
