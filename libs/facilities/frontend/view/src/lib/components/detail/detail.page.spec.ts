@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { provideEcharts } from 'ngx-echarts';
 
 import { XdDetailPage } from './detail.page';
 
@@ -7,14 +8,23 @@ describe('DetailComponent', () => {
 	let component: XdDetailPage;
 	let fixture: ComponentFixture<XdDetailPage>;
 
+	window.ResizeObserver =
+		window.ResizeObserver ||
+		jest.fn().mockImplementation(() => ({
+			disconnect: jest.fn(),
+			observe: jest.fn(),
+			unobserve: jest.fn(),
+		}));
+
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ XdDetailPage ],
+			imports: [XdDetailPage],
 			providers: [
 				{
 					provide: ActivatedRoute,
 					useValue: { snapshot: { params: { id: '1' } } },
 				},
+				provideEcharts(),
 			],
 		}).compileComponents();
 
