@@ -25,7 +25,6 @@
 			"common-backend-prisma": ["libs/common/backend/prisma/src/index.ts"],
 			"common-frontend-models": ["libs/common/frontend/models/src/index.ts"],
 			"common-shared-models": ["libs/common/shared/models/src/index.ts"],
-			"facilities-backend-insight-hub": ["libs/facilities/backend/insight-hub/src/index.ts"],
 			"facilities-backend-timeseries": ["libs/facilities/backend/timeseries/src/index.ts"],
 			"facilities-frontend-shell": ["libs/facilities/frontend/shell/src/index.ts"],
 			"facilities-frontend-view": ["libs/facilities/frontend/view/src/index.ts"],
