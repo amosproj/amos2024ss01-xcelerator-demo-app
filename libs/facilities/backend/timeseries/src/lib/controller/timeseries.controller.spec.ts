@@ -1,12 +1,12 @@
 import { Test } from '@nestjs/testing';
 import { Observable, of } from 'rxjs';
 
-import { XdTimeseriesController } from './controller/timeseries.controller';
 import {
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
-} from './interfaces/respons.interface';
-import { XdTimeseriesService } from './services/timeseries.service';
+} from '../interfaces/response.interface';
+import { XdTimeseriesService } from '../services/timeseries.service';
+import { XdTimeseriesController } from './timeseries.controller';
 describe('TimeseriesController ', () => {
 	let controller: XdTimeseriesController;
 	let service: XdTimeseriesService;
