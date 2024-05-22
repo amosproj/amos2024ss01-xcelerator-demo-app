@@ -10,7 +10,7 @@ import { IFacilityMock } from 'libs/facilities/frontend/view/src/lib/components/
 @Component({
 	selector: 'lib-create-order',
 	standalone: true,
-	imports: [CommonModule, IxModule, FormsModule],
+	imports: [ CommonModule, IxModule, FormsModule ],
 	templateUrl: './create-order.component.html',
 	styleUrl: './create-order.component.scss',
 	encapsulation: ViewEncapsulation.None,

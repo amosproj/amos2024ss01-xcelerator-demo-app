@@ -1,0 +1,19 @@
+$container-height: 360px;
+$container-width: 500px;
+
+.infoContainer {
+	height: $container-height;
+	width: $container-width;
+	padding: 1rem;
+}
+
+.chart {
+	height: $container-height !important;
+	width: $container-width !important;
+}
+
+ix-card-content {
+	border: 1px solid var(--ix-card-border-color, var(--theme-color-soft-bdr));
+	border-radius: var(--theme-default-border-radius);
+	border-color: var(--theme-color-soft-bdr);
+}

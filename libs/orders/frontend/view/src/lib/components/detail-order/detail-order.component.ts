@@ -8,7 +8,7 @@ import { orders } from '../order.mocks/const';
 @Component({
 	selector: 'lib-detail-order',
 	standalone: true,
-	imports: [CommonModule, IxModule],
+	imports: [ CommonModule, IxModule ],
 	templateUrl: './detail-order.component.html',
 	styleUrl: './detail-order.component.scss',
 	encapsulation: ViewEncapsulation.None,

@@ -9,9 +9,11 @@ module.exports = {
 	],
 	theme: {
 		extend: {
-			colors: {
-				// example for custom colors
-				'custom-pink': '#ff00ff',
+			height: {
+				card: '250px',
+			},
+			width: {
+				card: '320px',
 			},
 		},
 	},

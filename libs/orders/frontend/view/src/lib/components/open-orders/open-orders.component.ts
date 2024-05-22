@@ -8,7 +8,7 @@ import { orders } from '../order.mocks/const';
 @Component({
 	selector: 'lib-open-orders',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink],
+	imports: [ CommonModule, IxModule, RouterLink ],
 	templateUrl: './open-orders.component.html',
 	styleUrl: './open-orders.component.scss',
 	encapsulation: ViewEncapsulation.None,

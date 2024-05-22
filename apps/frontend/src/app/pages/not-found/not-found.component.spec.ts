@@ -9,7 +9,7 @@ describe('NotFoundComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [NotFoundComponent],
+			imports: [ NotFoundComponent ],
 			providers: [
 				{
 					provide: ActivatedRoute,
