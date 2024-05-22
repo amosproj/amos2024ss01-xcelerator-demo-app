@@ -5,7 +5,7 @@ describe('PrismaService', () => {
 
 	beforeEach(() => {
 		service = new PrismaService();
-		jest.spyOn(service, '$connect');
+		jest.spyOn(service, '$connect').mockImplementation();
 	});
 
 	it('should call $connect on module init', async () => {
