@@ -44,8 +44,8 @@
 								"onlyDependOnLibsWithTags": ["type:models"]
 							},
 							{
-								"sourceTag": "domain:orders",
-								"onlyDependOnLibsWithTags": ["domain:orders", "domain:orders"]
+								"sourceTag": "domain:cases",
+								"onlyDependOnLibsWithTags": ["domain:cases", "domain:cases"]
 							},
 							{
 								"sourceTag": "domain:facilities",
