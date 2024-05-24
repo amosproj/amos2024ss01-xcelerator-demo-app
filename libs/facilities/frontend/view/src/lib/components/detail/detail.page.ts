@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { themeSwitcher } from '@siemens/ix';
@@ -139,6 +139,7 @@ export class XdDetailPage implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private readonly modalService: ModalService,
+		private _location: Location,
 	) {}
 
 	ngOnInit() {
@@ -170,5 +171,9 @@ export class XdDetailPage implements OnInit {
 		instance.onClose.on(() => {
 			this.locked$.next(!this.locked$.getValue());
 		});
+	}
+
+	goBack() {
+		this._location.back();
 	}
 }
