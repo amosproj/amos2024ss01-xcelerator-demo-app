@@ -8,7 +8,7 @@ import { Route } from '@angular/router';
  *
  *  {
  *      path: '',
- *      loadComponent: () => import('@xd/orders/view').then(m => m.XdOrdersViewPage)
+ *      loadComponent: () => import('@xd/cases/view').then(m => m.XdCasesViewPage)
  *  },
  */
 export const CASES_SHELL_ROUTES: Route[] = [
@@ -21,7 +21,7 @@ export const CASES_SHELL_ROUTES: Route[] = [
 				data: {
 					breadcrumbs: {
 						label: 'Create',
-						url: 'create',
+						url: 'cases/create',
 					},
 				},
 				loadComponent: () =>
@@ -33,7 +33,7 @@ export const CASES_SHELL_ROUTES: Route[] = [
 				data: {
 					breadcrumbs: {
 						label: 'Open',
-						url: 'orders/open',
+						url: 'cases/open',
 					},
 				},
 				loadComponent: () =>
@@ -45,7 +45,7 @@ export const CASES_SHELL_ROUTES: Route[] = [
 				data: {
 					breadcrumbs: {
 						label: 'Details',
-						url: 'orders/:id',
+						url: 'cases/:id',
 					},
 				},
 				loadComponent: () =>
