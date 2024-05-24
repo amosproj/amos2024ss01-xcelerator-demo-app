@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
 /**
- * The routes for the orders domain.
+ * The routes for the cases domain.
  * Note they are lazy loaded!
  *
  * @example
