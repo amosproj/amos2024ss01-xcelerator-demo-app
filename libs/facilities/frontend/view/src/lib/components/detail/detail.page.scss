@@ -1,15 +1,6 @@
-$container-height: 360px;
-$container-width: 500px;
-
-.infoContainer {
-	height: $container-height;
-	width: $container-width;
-	padding: 1rem;
-}
-
-.chart {
-	height: $container-height !important;
-	width: $container-width !important;
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
 }
 
 ix-card-content {
