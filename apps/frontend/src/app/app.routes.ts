@@ -25,15 +25,15 @@ export const APP_ROUTES: Route[] = [
 					import('facilities-frontend-shell').then((m) => m.FACILITIES_SHELL_ROUTES),
 			},
 			{
-				path: 'orders',
+				path: 'cases',
 				data: {
 					breadcrumbs: {
-						label: 'Orders',
-						url: 'orders',
+						label: 'Cases',
+						url: 'cases',
 					},
 				},
 				loadChildren: () =>
-					import('orders-frontend-shell').then((m) => m.ORDERS_SHELL_ROUTES),
+					import('cases-frontend-shell').then((m) => m.CASES_SHELL_ROUTES),
 			},
 		],
 	},
@@ -41,6 +41,10 @@ export const APP_ROUTES: Route[] = [
 		path: 'not-found',
 		loadComponent: () =>
 			import('./pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
+	},
+	{
+		path: 'account',
+		loadChildren: () => import('account-frontend-shell').then((m) => m.ACCOUNT_SHELL_ROUTES),
 	},
 	{
 		path: '**',

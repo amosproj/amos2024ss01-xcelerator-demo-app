@@ -1,0 +1,72 @@
+<ix-content>
+	<ix-content-header slot="header" header-title="Create Case"> </ix-content-header>
+
+	<form
+		class="needs-validation m-3 flex flex-col gap-y-10 w-2/3"
+		[ngClass]="{ 'was-validated': wasValidated }"
+		novalidate
+		#caseForm="ngForm"
+		(submit)="onSubmit(caseForm)"
+	>
+		<ix-select
+			i18nPlaceholder="Select a Facility"
+			i18nSelectListHeader="Please select a facility"
+			name="selectFacility"
+			[(ngModel)]="createCaseForm.selectFacility"
+			required
+		>
+			@for (facility of facilities; track facility.id) {
+				<ix-select-item [label]="facility.heading" [value]="facility.id"></ix-select-item>
+			}
+		</ix-select>
+		<div class="invalid-feedback">Please select a facility</div>
+
+		<ix-select
+			i18nPlaceholder="Select an Asset"
+			name="selectAsset"
+			[(ngModel)]="createCaseForm.selectAsset"
+			required
+		>
+			<!--TODO: insert assets here-->
+			<ix-select-item label="Item 1" value="1"></ix-select-item>
+			<ix-select-item label="Item 2" value="2"></ix-select-item>
+			<ix-select-item label="Item 3" value="3"></ix-select-item>
+		</ix-select>
+		<div class="invalid-feedback">Please select an asset</div>
+
+		<ix-input-group>
+			<span slot="input-start">Telephone:</span>
+			<input
+				placeholder="111-111-111"
+				type="tel"
+				name="phone"
+				[(ngModel)]="createCaseForm.phone"
+				pattern="[+]?[0-9]+"
+				maxlength="16"
+				required
+			/>
+			<div class="valid-feedback">Looks good!</div>
+			<div class="invalid-feedback">Please provide a valid phone number</div>
+		</ix-input-group>
+
+		<ix-input-group>
+			<span slot="input-start">Email:</span>
+			<input
+				placeholder="example@domain.com"
+				type="email"
+				name="email"
+				[(ngModel)]="createCaseForm.email"
+				required
+			/>
+			<div class="valid-feedback">Looks good!</div>
+			<div class="invalid-feedback">Please provide a valid email address</div>
+		</ix-input-group>
+
+		<ix-input-group>
+			<span slot="input-start">Additional Information:</span>
+			<input type="text" name="text" [(ngModel)]="createCaseForm.text" />
+		</ix-input-group>
+
+		<ix-button type="submit"> Create Case </ix-button>
+	</form>
+</ix-content>

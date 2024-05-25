@@ -33,7 +33,7 @@ describe('HeaderComponent', () => {
 		} as unknown as Router;
 
 		await TestBed.configureTestingModule({
-			imports: [HeaderComponent],
+			imports: [ HeaderComponent ],
 			providers: [
 				{
 					provide: ActivatedRoute,

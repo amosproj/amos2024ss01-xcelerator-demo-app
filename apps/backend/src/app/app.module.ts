@@ -10,11 +10,11 @@ import { validateConfig } from './config/validation';
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			envFilePath: ['.env'],
+			envFilePath: [ '.env' ],
 			validate: validateConfig,
 		}),
 	],
-	controllers: [AppController],
-	providers: [AppService],
+	controllers: [ AppController ],
+	providers: [ AppService ],
 })
 export class AppModule {}

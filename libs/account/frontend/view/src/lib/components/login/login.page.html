@@ -1,0 +1,37 @@
+<ix-card class="login-card">
+	<ix-card-title>
+		<div class="login-title">
+			<ix-icon name="user" size="large"></ix-icon>
+			Xcelerator demo Login
+		</div>
+	</ix-card-title>
+	<ix-card-content>
+		<form class="needs-validation m-2" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+			<ix-input-group style="margin-bottom: 0.5rem">
+				<span slot="input-start"></span>
+				<input
+					[(ngModel)]="username"
+					placeholder="Enter Username"
+					type="text"
+					name="username"
+					required
+				/>
+			</ix-input-group>
+			<ix-input-group style="margin-bottom: 0.5rem">
+				<span slot="input-start"></span>
+				<input
+					[(ngModel)]="password"
+					placeholder="Enter password"
+					type="password"
+					name="password"
+					required
+				/>
+			</ix-input-group>
+			<ix-button type="submit" variant="primary" [disabled]="!loginForm.valid">
+				Login
+			</ix-button>
+		</form>
+	</ix-card-content>
+
+	<ix-button (click)="onForgotPassword()">Forgot Password?</ix-button>
+</ix-card>

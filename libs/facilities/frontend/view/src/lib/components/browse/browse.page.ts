@@ -15,7 +15,7 @@ import { IFacilityMock } from '../facility.mocks/facility.interface';
 @Component({
 	selector: 'lib-browse',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink],
+	imports: [ CommonModule, IxModule, RouterLink ],
 
 	templateUrl: './browse.page.html',
 	styleUrl: './browse.page.scss',
@@ -29,6 +29,7 @@ export class XdBrowsePage implements OnInit {
 	@Input()
 	subtitle = 'List of all facilities';
 
+	showCardList = true;
 	ngOnInit() {
 		if (this.facilities === undefined) {
 			this.facilities = facilities;
@@ -36,5 +37,9 @@ export class XdBrowsePage implements OnInit {
 		if (this.subtitle === undefined) {
 			this.subtitle = 'List of all facilities';
 		}
+	}
+
+	toggleView() {
+		this.showCardList = !this.showCardList;
 	}
 }

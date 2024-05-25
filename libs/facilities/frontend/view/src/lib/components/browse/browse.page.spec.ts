@@ -13,7 +13,7 @@ describe('BrowseComponent', () => {
 		await TestBed.configureTestingModule({
 			imports: [
 				XdBrowsePage,
-				RouterModule.forRoot([{ path: 'facilities/1', component: XdDetailPage }]),
+				RouterModule.forRoot([ { path: 'facilities/1', component: XdDetailPage } ]),
 			],
 			providers: [
 				{

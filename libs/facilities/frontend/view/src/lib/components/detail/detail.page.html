@@ -6,18 +6,62 @@
 	>
 	</ix-content-header>
 
-	<ix-card-list label="Facilities Overview" show-all-count="2" list-style="stack">
-		<ix-push-card
-			[icon]="facility.icon"
-			[notification]="facility.notification"
-			[heading]="facility.heading"
-			[subheading]="facility.subheading"
-			[variant]="facility.variant"
-		>
-			<p>Number of water pumps: {{facility.pumps}}</p>
-			<p>Location: {{facility.location}}</p>
-		</ix-push-card>
+	<div class="flex flex-wrap gap-x-8">
+		<div echarts class="chart" [options]="pumpOptions" [theme]="theme"></div>
 
-		<img src="../assets/diagram.png" class="max-h-[260px]" />
-	</ix-card-list>
+		<div echarts class="chart" [options]="environmentOptions" [theme]="theme"></div>
+
+		<ix-card variant="insight" class="infoContainer nochart">
+			<ix-card-content>
+				<ix-card-title>
+					<ix-icon class="icon" name="tasks-open" size="32"></ix-icon>
+					<span class="notification">3</span>
+				</ix-card-title>
+				<ix-typography color="std" format="h4"> Open Cases </ix-typography>
+				<ix-typography color="std"
+					>There are 3 open cases regarding this facility</ix-typography
+				>
+				<div class="pt-36">
+					<ix-button routerLink="/cases/create"> New Case </ix-button>
+				</div>
+			</ix-card-content>
+		</ix-card>
+
+		<ix-card variant="insight" class="infoContainer nochart">
+			<ix-card-content>
+				<ix-card-title>
+					<ix-icon
+						class="icon"
+						[name]="(locked$ | async) ? 'lock-filled' : 'unlock-filled'"
+						size="32"
+					></ix-icon>
+				</ix-card-title>
+				<ix-typography color="std" format="h4">
+					{{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
+				</ix-typography>
+				<ix-typography color="std">
+					{{ (locked$ | async) ? 'Currently the doors are locked' : 'Currently the doors
+					are unlocked' }}
+				</ix-typography>
+				<div class="pt-36">
+					<ix-button (click)="changeLocked()">
+						{{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
+					</ix-button>
+				</div>
+			</ix-card-content>
+		</ix-card>
+
+		<ix-card variant="insight" class="infoContainer nochart">
+			<ix-card-content>
+				<ix-card-title>
+					<ix-icon class="icon" name="earth-filled" size="32"></ix-icon>
+					<span class="notification">80</span>
+				</ix-card-title>
+				<ix-typography color="std" format="h4"> Eco Score (SiGreen)</ix-typography>
+				<ix-typography color="std">
+					According to SiGreen this facility has an eco score of 80/100
+				</ix-typography>
+			</ix-card-content>
+		</ix-card>
+	</div>
 </ix-content>

@@ -20,6 +20,7 @@ export const FACILITIES_SHELL_ROUTES: Route[] = [
 				path: '',
 				loadComponent: () => import('facilities-frontend-view').then((m) => m.XdBrowsePage),
 			},
+
 			{
 				// Route to facilities with issues
 				path: 'issues',
