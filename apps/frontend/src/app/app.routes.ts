@@ -25,15 +25,15 @@ export const APP_ROUTES: Route[] = [
 					import('facilities-frontend-shell').then((m) => m.FACILITIES_SHELL_ROUTES),
 			},
 			{
-				path: 'orders',
+				path: 'cases',
 				data: {
 					breadcrumbs: {
-						label: 'Orders',
-						url: 'orders',
+						label: 'Cases',
+						url: 'cases',
 					},
 				},
 				loadChildren: () =>
-					import('orders-frontend-shell').then((m) => m.ORDERS_SHELL_ROUTES),
+					import('cases-frontend-shell').then((m) => m.CASES_SHELL_ROUTES),
 			},
 		],
 	},
