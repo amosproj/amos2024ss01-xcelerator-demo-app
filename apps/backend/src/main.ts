@@ -9,7 +9,7 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
-
+	app.enableCors(); // allows fetching backend data from frontend
 	app.useGlobalPipes(
 		new ValidationPipe({
 			transform: true,

@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
@@ -12,6 +12,7 @@ export const appConfig: ApplicationConfig = {
 	providers: [
 		provideRouter(APP_ROUTES, withComponentInputBinding()),
 		importProvidersFrom(IxModule.forRoot()),
+		importProvidersFrom(HttpClientModule),
 		{ provide: APP_CONFIG, useValue: environment },
 		{ provide: HTTP_INTERCEPTORS, useClass: BackendUrlInterceptor, multi: true },
 	],
