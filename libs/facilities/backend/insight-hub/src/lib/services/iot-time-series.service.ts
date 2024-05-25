@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { IInsightHub } from 'common-backend-models';
 import { defaults } from 'lodash';
-import { catchError, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { ITimeSeriesRequestParameter } from '../models/interfaces/time-series-request.interface';
 import { INSIGHT_HUB_OPTIONS } from '../tokens';
@@ -21,11 +21,11 @@ export class IotTimeSeriesService {
 	/**
 	 * Allows to get the time series data from the IoT Time Series API.
 	 */
-	public getTimeSeriesData<SelectType, ReturnType>(
+	public getTimeSeriesData<SelectType extends Record<PropertyKey, any>, ITimeSeriesResponse>(
 		params: ITimeSeriesRequestParameter<SelectType>,
-	): Observable<ReturnType> {
+	): Observable<ITimeSeriesResponse> {
 		return this._httpClient
-			.get<ReturnType>(this._insightHubOptions.apiUrl, {
+			.get<ITimeSeriesResponse>(this._insightHubOptions.apiUrl, {
 				params: defaults(
 					{
 						apiKey: this._insightHubOptions.apiKey,
@@ -33,13 +33,6 @@ export class IotTimeSeriesService {
 					params,
 				),
 			})
-			.pipe(
-				map((response) => response.data),
-				catchError((err: Error) => {
-					// eslint-disable-next-line no-console
-					console.log(err);
-					throw err;
-				}),
-			);
+			.pipe(map((response) => response.data));
 	}
 }

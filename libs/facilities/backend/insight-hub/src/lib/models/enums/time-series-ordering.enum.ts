@@ -1,4 +1,4 @@
-export enum TimeSeriesOrdering {
+export enum ETimeSeriesOrdering {
 	/**
 	 * Ascending order f.e. 1, 2, 3, 4
 	 */

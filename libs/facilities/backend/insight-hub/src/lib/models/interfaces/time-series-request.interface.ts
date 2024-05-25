@@ -1,4 +1,4 @@
-import { TimeSeriesOrdering } from '../enums';
+import { ETimeSeriesOrdering } from '../enums';
 
 /**
  * Interface for the parameters of requesting time series data
@@ -10,7 +10,7 @@ export interface ITimeSeriesRequestParameter<SelectType> {
 	 *
 	 * @default "asc"
 	 */
-	sort?: TimeSeriesOrdering;
+	sort?: ETimeSeriesOrdering;
 
 	/**
 	 * The maximum number of data points to return
