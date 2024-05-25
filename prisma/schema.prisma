@@ -8,8 +8,8 @@ datasource db {
 }
 
 model TimeSeriesItem {
-    entityId        String //Example: Pump-002 - id
-    propertySetName String //Example: Environment | PumpData
+    entityId        String // Example: Pump-002 - id
+    propertySetName String // Example: Environment | PumpData
 
     data TimeSeriesDataItem[]
 
@@ -27,4 +27,25 @@ model TimeSeriesDataItem {
     timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesItementityId, timeSeriesItempropertySetName], references: [entityId, propertySetName])
 
     @@id([timeSeriesItementityId, timeSeriesItempropertySetName, time])
+}
+
+// TODO: Add User model
+model Case {
+    id           Int    @id @default(autoincrement())
+    handle       String
+    dueDate      DateTime
+    title        String 
+    type         String
+    status       String
+    // assignedTo   User   @relation(fields: [assignedToId], references: [id])
+    // assignedToId Int
+    description  String
+    source       String
+    priority     String
+    createdBy    String
+    createdDate  DateTime
+    eTag         String
+    modifiedBy   String
+    modifiedDate DateTime
+    overdue      Boolean
 }
