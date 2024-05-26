@@ -1,3 +1,11 @@
+# Project mission
+
+The mission of this project is to develop an application streamlining the monitoring and management of facilities, allowing managers to rapidly identify and address issues such as faulty pumps or tanks.
+
+Moreover, they will have access to comprehensive data on their assets, enabling them to make data-driven decisions about repairs, replacements, and upgrades.
+
+In addition, we aim to showcase how to employ the Siemens Xcelerator ecosystem to monitor and manage multiple facilities, highlighting key features such as real-time data integration, predictive maintenance, and streamlined operations.
+
 # Frontend
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
