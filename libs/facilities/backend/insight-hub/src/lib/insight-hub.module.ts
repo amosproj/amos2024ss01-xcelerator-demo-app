@@ -1,5 +1,5 @@
 import { HttpModule } from '@nestjs/axios';
-import { DynamicModule, Module, ModuleMetadata } from '@nestjs/common';
+import { DynamicModule, Logger, Module, ModuleMetadata } from '@nestjs/common';
 
 import { XdIotTimeSeriesService } from './services';
 import { XdAssetsService } from './services/assets.service';
@@ -30,7 +30,13 @@ interface IXdInsightHubModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'
 }
 
 @Module({
-	providers: [XdAssetsService, XdIotTimeSeriesService, XdTokenManagerService, XdUsersService],
+	providers: [
+		XdAssetsService,
+		XdIotTimeSeriesService,
+		XdTokenManagerService,
+		XdUsersService,
+		Logger,
+	],
 	imports: [HttpModule],
 	exports: [XdAssetsService, XdIotTimeSeriesService, XdUsersService],
 })
