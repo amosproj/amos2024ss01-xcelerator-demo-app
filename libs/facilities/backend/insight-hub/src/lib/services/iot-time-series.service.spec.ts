@@ -66,14 +66,20 @@ describe('XdIotTimeSeriesService', () => {
 				limit: faker.number.int(),
 				select: ['flow', 'pressure'],
 			};
+			const assetId = faker.string.uuid();
+			const propertySetName = faker.lorem.word(1);
 
 			const response = await firstValueFrom(
-				service.getTimeSeriesData<MockSelectParameter, any>(params),
+				service.getTimeSeriesData<MockSelectParameter, any>(
+					assetId,
+					propertySetName,
+					params,
+				),
 			);
 
 			expect(getSpy).toHaveBeenCalledTimes(1);
 			expect(getSpy).toHaveBeenCalledWith(
-				'https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries',
+				`https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries/${assetId}/${propertySetName}`,
 				{
 					headers: {
 						Authorization: 'Bearer test_token',

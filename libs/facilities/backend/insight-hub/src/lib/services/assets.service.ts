@@ -22,7 +22,7 @@ export class XdAssetsService {
 	// TODO - Remove this method before merging - demonstration functionality only
 	async onModuleInit() {
 		// eslint-disable-next-line no-console
-		console.log(await firstValueFrom(this.getAssetsData()));
+		// console.log(await firstValueFrom(this.getAssetsData()));
 	}
 
 	/**

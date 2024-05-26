@@ -54,7 +54,7 @@ describe('XdAssetsService', () => {
 				.spyOn(httpService, 'get')
 				.mockReturnValue(of({ data: mockResponse }) as Observable<AxiosResponse>);
 
-			const response = await firstValueFrom(service.getAssetsData<any>());
+			const response = await firstValueFrom(service.getAssetsData());
 
 			expect(getSpy).toHaveBeenCalledTimes(1);
 			expect(getSpy).toHaveBeenCalledWith(

@@ -22,11 +22,11 @@ export class XdUsersService implements OnModuleInit {
 	// TODO - Remove this method before merging - demonstration functionality only
 	async onModuleInit() {
 		// eslint-disable-next-line no-console
-		console.log(await firstValueFrom(this.getUsersData()));
+		// console.log(await firstValueFrom(this.getUsersData()));
 	}
 
 	/**
-	 * Allows to get the users data from the User Management API.
+	 * Allows to get the users data from the User API.
 	 */
 	public getUsersData(): Observable<IUsersResponse> {
 		return this._tokenManagerService.getOrCreateBearerToken().pipe(
