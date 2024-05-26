@@ -7,6 +7,7 @@ import {
 	ITimeSeriesItemResponse,
 } from '../interfaces/response.interface';
 import { XdTimeseriesService } from '../services/timeseries.service';
+
 @Controller('timeseries')
 export class XdTimeseriesController {
 	constructor(private readonly timeseriesService: XdTimeseriesService) {}

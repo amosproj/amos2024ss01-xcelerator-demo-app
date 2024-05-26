@@ -7,6 +7,7 @@ import {
 } from '../interfaces/response.interface';
 import { XdTimeseriesService } from '../services/timeseries.service';
 import { XdTimeseriesController } from './timeseries.controller';
+
 describe('TimeseriesController ', () => {
 	let controller: XdTimeseriesController;
 	let service: XdTimeseriesService;
