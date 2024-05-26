@@ -1,47 +1,38 @@
 import { HttpService } from '@nestjs/axios';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { IInsightHub } from 'common-backend-models';
-import { firstValueFrom, map, Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { IAssetsResponse } from '../models/interfaces/assets-response.interface';
 import { INSIGHT_HUB_OPTIONS } from '../tokens';
+import { XdBaseBearerInteractionService } from './base-bearer-interaction.service';
 import { XdTokenManagerService } from './token-manager.service';
 
 /**
  * Service to interact with the Asset Management API.
  */
 @Injectable()
-export class XdAssetsService {
+export class XdAssetsService extends XdBaseBearerInteractionService {
 	constructor(
-		private readonly _httpClient: HttpService,
+		private readonly httpClient: HttpService,
 		@Inject(INSIGHT_HUB_OPTIONS)
-		private readonly _insightHubOptions: IInsightHub,
-		private readonly _tokenManagerService: XdTokenManagerService,
-	) {}
-
-	// TODO - Remove this method before merging - demonstration functionality only
-	async onModuleInit() {
-		// eslint-disable-next-line no-console
-		// console.log(await firstValueFrom(this.getAssetsData()));
+		private readonly insightHubOptions: IInsightHub,
+		private readonly tokenManagerService: XdTokenManagerService,
+		private readonly logger: Logger,
+	) {
+		super(
+			httpClient,
+			insightHubOptions,
+			tokenManagerService,
+			logger,
+			'assetmanagement/v3/assets',
+		);
 	}
 
 	/**
 	 * Allows to get the assets data from the Asset Management API.
 	 */
 	public getAssetsData(): Observable<IAssetsResponse> {
-		return this._tokenManagerService.getOrCreateBearerToken().pipe(
-			switchMap((token) => {
-				return this._httpClient
-					.get<IAssetsResponse>(
-						`${this._insightHubOptions.apiUrl}/assetmanagement/v3/assets`,
-						{
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.pipe(map((response) => response.data));
-			}),
-		);
+		return super._getData<IAssetsResponse>();
 	}
 }

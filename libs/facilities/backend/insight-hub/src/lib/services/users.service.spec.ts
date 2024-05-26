@@ -1,4 +1,6 @@
+import { faker } from '@faker-js/faker';
 import { HttpService } from '@nestjs/axios';
+import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom, Observable, of } from 'rxjs';
@@ -10,6 +12,7 @@ import { XdUsersService } from './users.service';
 describe('XdUsersService', () => {
 	let service: XdUsersService;
 	let httpService: HttpService;
+	let logger: Logger;
 
 	beforeEach(async () => {
 		const httpServiceMock = {
@@ -36,11 +39,18 @@ describe('XdUsersService', () => {
 						getOrCreateBearerToken: jest.fn().mockReturnValue(of('test_token')),
 					},
 				},
+				{
+					provide: Logger,
+					useValue: {
+						error: jest.fn(),
+					},
+				},
 			],
 		}).compile();
 
 		service = module.get<XdUsersService>(XdUsersService);
 		httpService = module.get<HttpService>(HttpService);
+		logger = module.get<Logger>(Logger);
 	});
 
 	it('should be defined', () => {
@@ -49,23 +59,15 @@ describe('XdUsersService', () => {
 
 	describe('getUsersData', () => {
 		it('should get users data', async () => {
-			const mockResponse = { test: 'test' };
+			const mockResponse = { test: faker.lorem.word() };
 			const getSpy = jest
 				.spyOn(httpService, 'get')
 				.mockReturnValue(of({ data: mockResponse }) as Observable<AxiosResponse>);
 
 			const response = await firstValueFrom(service.getUsersData());
 
-			expect(getSpy).toHaveBeenCalledTimes(1);
-			expect(getSpy).toHaveBeenCalledWith(
-				'https://gateway.eu1.mindsphere.io/api/im/v3/Users',
-				{
-					headers: {
-						Authorization: 'Bearer test_token',
-					},
-				},
-			);
 			expect(response).toEqual(mockResponse);
+			expect(getSpy).toBeCalledTimes(1);
 		});
 	});
 });

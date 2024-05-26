@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { IInsightHub } from 'common-backend-models';
-import { firstValueFrom, map, Observable, of, switchMap, tap } from 'rxjs';
+import { map, Observable, of, switchMap, tap } from 'rxjs';
 
 import { ITokenManagerResponse } from '../models/interfaces/token-manager-response.interface';
 import { INSIGHT_HUB_OPTIONS } from '../tokens';
@@ -10,7 +10,10 @@ import { INSIGHT_HUB_OPTIONS } from '../tokens';
  * Service to manage the bearer token for the Insight Hub API.
  */
 @Injectable()
-export class XdTokenManagerService implements OnModuleInit {
+export class XdTokenManagerService {
+	/**
+	 * The cached bearer token.
+	 */
 	private _bearerToken$: Observable<{ token: string; expiresAt: Date } | undefined> =
 		of(undefined);
 
@@ -20,10 +23,9 @@ export class XdTokenManagerService implements OnModuleInit {
 		private readonly _insightHubOptions: IInsightHub,
 	) {}
 
-	async onModuleInit() {
-		await firstValueFrom(this.getOrCreateBearerToken());
-	}
-
+	/**
+	 * Either gets the bearer token from the cache or creates a new one. This is necessary to interact with the Insight Hub API.
+	 */
 	public getOrCreateBearerToken(): Observable<string> {
 		return this._bearerToken$.pipe(
 			switchMap((bearerToken) => {

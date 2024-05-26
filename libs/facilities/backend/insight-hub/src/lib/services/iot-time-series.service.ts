@@ -1,35 +1,31 @@
 import { HttpService } from '@nestjs/axios';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { IInsightHub } from 'common-backend-models';
-import { firstValueFrom, map, Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ITimeSeriesRequestParameter } from '../models/interfaces/time-series-request.interface';
 import { INSIGHT_HUB_OPTIONS } from '../tokens';
+import { XdBaseBearerInteractionService } from './base-bearer-interaction.service';
 import { XdTokenManagerService } from './token-manager.service';
 
 /**
  * Service to interact with the IoT Time Series API.
  */
 @Injectable()
-export class XdIotTimeSeriesService {
+export class XdIotTimeSeriesService extends XdBaseBearerInteractionService {
 	constructor(
-		private readonly _httpClient: HttpService,
+		private readonly httpClient: HttpService,
 		@Inject(INSIGHT_HUB_OPTIONS)
-		private readonly _insightHubOptions: IInsightHub,
-		private readonly _tokenManagerService: XdTokenManagerService,
-	) {}
-
-	// TODO - Remove this method before merging - demonstration functionality only
-	async onModuleInit() {
-		// eslint-disable-next-line no-console
-		console.log(
-			await firstValueFrom(
-				this.getTimeSeriesData(
-					'7c2bd45b10ee4481904d749427c2d26d',
-					'connectivityStatus',
-					{},
-				),
-			),
+		private readonly insightHubOptions: IInsightHub,
+		private readonly tokenManagerService: XdTokenManagerService,
+		private readonly logger: Logger,
+	) {
+		super(
+			httpClient,
+			insightHubOptions,
+			tokenManagerService,
+			logger,
+			'iottimeseries/v3/timeseries',
 		);
 	}
 
@@ -46,20 +42,6 @@ export class XdIotTimeSeriesService {
 		propertySetName: string,
 		params: ITimeSeriesRequestParameter<SelectType>,
 	): Observable<ITimeSeriesResponse> {
-		return this._tokenManagerService.getOrCreateBearerToken().pipe(
-			switchMap((token) => {
-				return this._httpClient
-					.get<ITimeSeriesResponse>(
-						`${this._insightHubOptions.apiUrl}/iottimeseries/v3/timeseries/${assetId}/${propertySetName}`,
-						{
-							params,
-							headers: {
-								Authorization: `Bearer ${token}`,
-							},
-						},
-					)
-					.pipe(map((response) => response.data));
-			}),
-		);
+		return super._getData<ITimeSeriesResponse>(`${assetId}/${propertySetName}`, params);
 	}
 }

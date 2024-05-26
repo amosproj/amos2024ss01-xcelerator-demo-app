@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { HttpService } from '@nestjs/axios';
+import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom, Observable, of } from 'rxjs';
@@ -41,6 +42,12 @@ describe('XdIotTimeSeriesService', () => {
 					provide: XdTokenManagerService,
 					useValue: {
 						getOrCreateBearerToken: jest.fn().mockReturnValue(of('test_token')),
+					},
+				},
+				{
+					provide: Logger,
+					useValue: {
+						error: jest.fn(),
 					},
 				},
 			],
