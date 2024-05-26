@@ -1,3 +1,4 @@
+import { CaseManagamentModule } from '@frontend/case-management';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BackendConfig } from 'common-backend-models';
@@ -13,12 +14,13 @@ import { validateConfig } from './config/validation';
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			envFilePath: ['.env'],
+			envFilePath: [ '.env' ],
 			validate: validateConfig,
 		}),
 		XdTimeseriesModule,
+		CaseManagamentModule,
 	],
-	controllers: [AppController],
-	providers: [AppService],
+	controllers: [ AppController ],
+	providers: [ AppService ],
 })
 export class AppModule {}
