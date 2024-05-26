@@ -8,8 +8,4 @@ export interface IEnvironmentVariables {
 	POSTGRES_PORT?: number;
 	POSTGRES_USER?: string;
 	POSTGRES_PASSWORD?: string;
-
-	/* Insight Hub */
-	INSIGHT_HUB_API_URL?: string;
-	INSIGHT_HUB_API_KEY?: string;
 }
