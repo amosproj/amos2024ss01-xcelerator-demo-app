@@ -35,6 +35,9 @@ jobs:
             - run: pnpm install --frozen-lockfile
               if: steps.cache.outputs.cache-hit != 'true'
 
+            - name: Generate prisma client
+              run: pnpm prisma generate
+
     lint:
         runs-on: ubuntu-latest
         needs: install-deps
