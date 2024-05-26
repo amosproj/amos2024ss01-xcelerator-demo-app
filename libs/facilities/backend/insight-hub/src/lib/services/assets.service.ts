@@ -1,17 +1,17 @@
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { IInsightHub } from 'common-backend-models';
-import { map, Observable, switchMap } from 'rxjs';
+import { firstValueFrom, map, Observable, switchMap } from 'rxjs';
 
-import { ITimeSeriesRequestParameter } from '../models/interfaces/time-series-request.interface';
+import { IAssetsResponse } from '../models/interfaces/assets-response.interface';
 import { INSIGHT_HUB_OPTIONS } from '../tokens';
 import { XdTokenManagerService } from './token-manager.service';
 
 /**
- * Service to interact with the IoT Time Series API.
+ * Service to interact with the Asset Management API.
  */
 @Injectable()
-export class XdIotTimeSeriesService {
+export class XdAssetsService {
 	constructor(
 		private readonly _httpClient: HttpService,
 		@Inject(INSIGHT_HUB_OPTIONS)
@@ -19,19 +19,22 @@ export class XdIotTimeSeriesService {
 		private readonly _tokenManagerService: XdTokenManagerService,
 	) {}
 
+	// TODO - Remove this method before merging - demonstration functionality only
+	async onModuleInit() {
+		// eslint-disable-next-line no-console
+		console.log(await firstValueFrom(this.getAssetsData()));
+	}
+
 	/**
-	 * Allows to get the time series data from the IoT Time Series API.
+	 * Allows to get the assets data from the Asset Management API.
 	 */
-	public getTimeSeriesData<SelectType extends Record<PropertyKey, any>, ITimeSeriesResponse>(
-		params: ITimeSeriesRequestParameter<SelectType>,
-	): Observable<ITimeSeriesResponse> {
+	public getAssetsData(): Observable<IAssetsResponse> {
 		return this._tokenManagerService.getOrCreateBearerToken().pipe(
 			switchMap((token) => {
 				return this._httpClient
-					.get<ITimeSeriesResponse>(
-						`${this._insightHubOptions.apiUrl}/iottimeseries/v3/timeseries`,
+					.get<IAssetsResponse>(
+						`${this._insightHubOptions.apiUrl}/assetmanagement/v3/assets`,
 						{
-							params,
 							headers: {
 								Authorization: `Bearer ${token}`,
 							},

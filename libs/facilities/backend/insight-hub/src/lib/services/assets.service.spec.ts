@@ -1,21 +1,14 @@
-import { faker } from '@faker-js/faker';
 import { HttpService } from '@nestjs/axios';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom, Observable, of } from 'rxjs';
 
-import { ITimeSeriesRequestParameter } from '../models';
 import { INSIGHT_HUB_OPTIONS } from '../tokens';
-import { XdIotTimeSeriesService } from './iot-time-series.service';
+import { XdAssetsService } from './assets.service';
 import { XdTokenManagerService } from './token-manager.service';
 
-interface MockSelectParameter {
-	flow: number;
-	pressure: number;
-}
-
-describe('XdIotTimeSeriesService', () => {
-	let service: XdIotTimeSeriesService;
+describe('XdAssetsService', () => {
+	let service: XdAssetsService;
 	let httpService: HttpService;
 
 	beforeEach(async () => {
@@ -25,7 +18,7 @@ describe('XdIotTimeSeriesService', () => {
 
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
-				XdIotTimeSeriesService,
+				XdAssetsService,
 				{
 					provide: HttpService,
 					useValue: httpServiceMock,
@@ -46,7 +39,7 @@ describe('XdIotTimeSeriesService', () => {
 			],
 		}).compile();
 
-		service = module.get<XdIotTimeSeriesService>(XdIotTimeSeriesService);
+		service = module.get<XdAssetsService>(XdAssetsService);
 		httpService = module.get<HttpService>(HttpService);
 	});
 
@@ -54,32 +47,21 @@ describe('XdIotTimeSeriesService', () => {
 		expect(service).toBeDefined();
 	});
 
-	describe('getTimeSeriesData', () => {
-		it('should get time series data', async () => {
+	describe('getAssetsData', () => {
+		it('should get assets data', async () => {
 			const mockResponse = { test: 'test' };
 			const getSpy = jest
 				.spyOn(httpService, 'get')
 				.mockReturnValue(of({ data: mockResponse }) as Observable<AxiosResponse>);
-			const params: ITimeSeriesRequestParameter<MockSelectParameter> = {
-				from: faker.date.past(),
-				to: faker.date.recent(),
-				limit: faker.number.int(),
-				select: ['flow', 'pressure'],
-			};
 
-			const response = await firstValueFrom(
-				service.getTimeSeriesData<MockSelectParameter, any>(params),
-			);
+			const response = await firstValueFrom(service.getAssetsData<any>());
 
 			expect(getSpy).toHaveBeenCalledTimes(1);
 			expect(getSpy).toHaveBeenCalledWith(
-				'https://gateway.eu1.mindsphere.io/api/iottimeseries/v3/timeseries',
+				'https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets',
 				{
 					headers: {
 						Authorization: 'Bearer test_token',
-					},
-					params: {
-						...params,
 					},
 				},
 			);
