@@ -5,11 +5,9 @@ import { ValidateNested } from 'class-validator';
 import { IAppConfig } from '../interfaces/app.interface';
 import { IBackendConfig } from '../interfaces/config.interface';
 import { IDatabaseConfig } from '../interfaces/database.interface';
-import { IInsightHub } from '../interfaces/insight-hub.interface';
 /* Classes */
 import { AppConfig } from './app.class';
 import { DatabaseConfig } from './database.class';
-import { InsightHub } from './insight-hub.class';
 
 /**
  * The Backend configuration class
@@ -30,12 +28,4 @@ export class BackendConfig implements IBackendConfig {
 	@ValidateNested()
 	@Type(() => DatabaseConfig)
 	database: IDatabaseConfig;
-
-	/**
-	 * The Insight configuration
-	 * @type {IInsightHub}
-	 */
-	@ValidateNested()
-	@Type(() => InsightHub)
-	insightHub: IInsightHub;
 }
