@@ -1,6 +1,8 @@
+import { faker } from '@faker-js/faker';
 import { Test } from '@nestjs/testing';
-import { Observable, of } from 'rxjs';
+import { firstValueFrom, Observable, of } from 'rxjs';
 
+import { ESortOrder } from '../interfaces/query.interface';
 import {
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
@@ -11,20 +13,23 @@ import { XdTimeseriesController } from './timeseries.controller';
 describe('TimeseriesController ', () => {
 	let controller: XdTimeseriesController;
 	let service: XdTimeseriesService;
+
+	let serviceMock;
 	beforeAll(async () => {
 		const serviceMock = {
 			getAllTimeSeries: jest.fn().mockReturnValue(
 				of([
 					{
-						entityId: 'test',
-						propertySetName: 'test',
+						entityId: faker.string.uuid(),
+						propertySetName: faker.string.uuid(),
 					} as ITimeSeriesItemResponse,
 				]) as Observable<ITimeSeriesItemResponse[]>,
 			),
 			getTimeSeriesFromDB: jest.fn().mockReturnValue(
 				of([
-					{ time: new Date(), test: 'test' },
-					{ time: new Date(), test: 'test' },
+					{ time: faker.date.recent(), test: faker.string.sample() },
+
+					{ time: faker.date.recent(), test: faker.string.sample() },
 				] as ITimeSeriesDataItemResponse[]) as Observable<ITimeSeriesDataItemResponse[]>,
 			),
 		};
@@ -52,7 +57,70 @@ describe('TimeseriesController ', () => {
 	});
 
 	it('should call getAllTimeseries', async () => {
-		const result = await controller.getAllTimeseries();
-		expect(service.getAllTimeSeries).toHaveBeenCalled();
+		const retunValue = [
+			{
+				entityId: faker.string.uuid(),
+				propertySetName: faker.string.uuid(),
+			},
+		] as ITimeSeriesItemResponse[];
+
+		const spy = jest
+			.spyOn(service, 'getAllTimeSeries')
+			.mockReturnValue(of(retunValue) as Observable<ITimeSeriesItemResponse[]>);
+
+		const result = await firstValueFrom(controller.getAllTimeseries());
+
+		expect(spy).toHaveBeenCalledTimes(1);
+		expect(result).toEqual(retunValue);
+	});
+
+	it('should return timeseriesDataItems when called with entityId and propertysetName', async () => {
+		const entityId = faker.string.uuid();
+		const propertySetName = faker.string.uuid();
+		const from = faker.date.recent();
+		const to = faker.date.recent();
+		const limit = faker.number.int(10);
+		const select = ['test'];
+		const sort = ESortOrder.ASC;
+		const latestValue = true;
+
+		const returnValue = [
+			{ time: faker.date.recent(), test: faker.string.sample() },
+			{ time: faker.date.recent(), test: faker.string.sample() },
+		] as ITimeSeriesDataItemResponse[];
+
+		const spy = jest
+			.spyOn(service, 'getTimeSeriesFromDB')
+			.mockReturnValue(of(returnValue) as Observable<ITimeSeriesDataItemResponse[]>);
+
+		const result = await firstValueFrom(
+			controller.getTimeSeries(
+				{
+					entityId,
+					propertySetName,
+				},
+				{
+					from,
+					to,
+					limit,
+					select,
+					sort,
+					latestValue,
+				},
+			),
+		);
+
+		expect(spy).toHaveBeenCalledTimes(1);
+		expect(spy).toHaveBeenCalledWith({
+			entityId,
+			propertySetName,
+			from,
+			to,
+			limit,
+			select,
+			sort,
+			latestValue,
+		});
+		expect(result).toEqual(returnValue);
 	});
 });

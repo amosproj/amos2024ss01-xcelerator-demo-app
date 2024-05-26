@@ -1,7 +1,3 @@
 # facilities-backend-timeseries
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test facilities-backend-timeseries` to execute the unit tests via [Jest](https://jestjs.io).
+This libary implements a controller to expose the timeseries data to the frontend. It uses the different providers to fetch the data and expose it to the frontend. Furthermore, it uses params and filters to filter the data, based on the request from the frontend.

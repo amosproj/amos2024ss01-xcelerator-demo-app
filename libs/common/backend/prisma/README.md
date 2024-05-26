@@ -1,7 +1,3 @@
 # common-backend-prisma
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test common-backend-prisma` to execute the unit tests via [Jest](https://jestjs.io).
+This library is a wrapper around Prisma ORM. It provides a set of utilities to work with Prisma ORM. It is used to interact with the database. It implements the prisma client and provides a set of utilities to work with the prisma client.

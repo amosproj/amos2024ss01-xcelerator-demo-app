@@ -1,7 +1,8 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
-import { GetTimeSeriesParamsDto, GetTimeSeriesQueryDto } from '../dto/request.dto';
+import { GetTimeSeriesParamsDto } from '../dto/params.dto';
+import { GetTimeSeriesQueryDto } from '../dto/query.dto';
 import {
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,

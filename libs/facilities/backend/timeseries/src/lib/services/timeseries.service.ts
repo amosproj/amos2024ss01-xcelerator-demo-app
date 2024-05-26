@@ -2,7 +2,8 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from 'common-backend-prisma';
 import { catchError, from, map, Observable } from 'rxjs';
 
-import { IGetTimeSeriesParams, IGetTimeseriesQuery } from '../interfaces/request.interface';
+import { IGetTimeSeriesParams } from '../interfaces/params.interface';
+import { IGetTimeseriesQuery } from '../interfaces/query.interface';
 import {
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
@@ -13,8 +14,6 @@ export class XdTimeseriesService {
 	constructor(
 		@Inject(forwardRef(() => PrismaService))
 		private readonly prismaService: PrismaService,
-		// @Inject(ConfigService)
-		// private readonly configService: ConfigService,
 	) {}
 
 	/**
@@ -48,8 +47,6 @@ export class XdTimeseriesService {
 				}));
 			}),
 			catchError((err: Error) => {
-				// eslint-disable-next-line no-console
-				console.log(err);
 				throw err;
 			}),
 		);

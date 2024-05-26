@@ -1,36 +1,7 @@
 import { Type } from 'class-transformer';
-import {
-	IsBoolean,
-	IsDate,
-	IsDateString,
-	IsEnum,
-	IsNotEmpty,
-	IsNumber,
-	IsOptional,
-	IsString,
-} from 'class-validator';
+import { IsBoolean, IsDate, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 
-import { IGetTimeSeriesParams, IGetTimeseriesQuery } from '../interfaces/request.interface';
-
-/**
- * The DTO for the time series parameters,
- * this is to validate the path parameters.
- */
-export class GetTimeSeriesParamsDto implements IGetTimeSeriesParams {
-	/**
-	 * The entity id for an asset
-	 */
-	@IsNotEmpty()
-	@IsString()
-	entityId: string;
-
-	/**
-	 * The name of the aspect
-	 */
-	@IsNotEmpty()
-	@IsString()
-	propertySetName: string;
-}
+import { ESortOrder, IGetTimeseriesQuery } from '../interfaces/query.interface';
 
 /**
  * The DTO for the time series query,
@@ -49,7 +20,7 @@ export class GetTimeSeriesQueryDto implements IGetTimeseriesQuery {
 	 * The end date for the time series data
 	 */
 	@IsOptional()
-	@IsDateString()
+	@IsDate()
 	@Type(() => Date)
 	to?: Date;
 
@@ -57,8 +28,8 @@ export class GetTimeSeriesQueryDto implements IGetTimeseriesQuery {
 	 * The amount of data entries to return
 	 */
 	@IsOptional()
-	@Type(() => Number)
 	@IsNumber()
+	@Type(() => Number)
 	limit?: number;
 
 	/**
@@ -72,8 +43,8 @@ export class GetTimeSeriesQueryDto implements IGetTimeseriesQuery {
 	 * The sort order for the data entries
 	 */
 	@IsOptional()
-	@IsEnum(['asc', 'desc'])
-	sort?: 'asc' | 'desc';
+	@IsEnum(ESortOrder)
+	sort?: ESortOrder;
 
 	@IsOptional()
 	@IsBoolean()
