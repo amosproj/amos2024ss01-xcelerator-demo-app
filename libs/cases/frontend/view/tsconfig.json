@@ -7,7 +7,12 @@
 		"noImplicitOverride": true,
 		"noPropertyAccessFromIndexSignature": true,
 		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+		"paths": {
+			"@xD/facilities": [
+				"../../../../../../../../facilities/frontend/view/src/lib/components/facility.mocks/const"
+			]
+		}
 	},
 	"files": [],
 	"include": [],

@@ -4,11 +4,30 @@
  * */
 
 export interface ICaseMock {
+	//Push-Card
 	id: string;
 	facilityId: number;
 	icon: string;
 	notification: string;
-	heading: string;
-	subheading: string;
-	variant: string;
+	//heading: string;
+	//subheading: string;
+	//variant: string;
+
+	//Case
+	handle: string;
+	dueDate: Date;
+	notifyAssignee: boolean;
+	title: string;
+	type: string;
+	status: string;
+	assignedTo: string;
+	description: string;
+	source: string;
+	priority: string;
+	createdBy: string;
+	createdDate: Date;
+	eTag: string;
+	modifiedBy: string;
+	modifiedDate: Date;
+	overdue: true;
 }
