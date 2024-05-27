@@ -1,7 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
-import { ICaseRequest } from '../interfaces/request.interface';
+import { createCaseBodyDto, updateCaseBodyDto } from '../dto/body.dto';
+import { caseParamsDto } from '../dto/params.dto';
 import { ICaseResponse } from '../interfaces/response.interface';
 import { CaseService } from '../services/case.service';
 
@@ -27,8 +28,8 @@ export class CaseController {
 	 * @returns {Observable<ICaseResponse>}
 	 */
 	@Get(':id')
-	public getCaseById(@Param('id') id: number): Observable<ICaseResponse> {
-		return this.caseService.getCaseById(id);
+	public getCaseById(@Param() params: caseParamsDto): Observable<ICaseResponse> {
+		return this.caseService.getCaseById(params.id);
 	}
 
 	/**
@@ -37,7 +38,7 @@ export class CaseController {
 	 * @returns {Observable<ICaseResponse>}
 	 */
 	@Post()
-	public createCase(@Body() caseRequest: ICaseRequest): Observable<ICaseResponse> {
+	public createCase(@Body() caseRequest: createCaseBodyDto): Observable<ICaseResponse> {
 		return this.caseService.createCase(caseRequest);
 	}
 
@@ -49,10 +50,10 @@ export class CaseController {
 	 */
 	@Put(':id')
 	public updateCaseById(
-		@Param('id') id: number,
-		@Body() caseRequest: ICaseRequest,
+		@Param() params: caseParamsDto,
+		@Body() body: updateCaseBodyDto,
 	): Observable<ICaseResponse> {
-		return this.caseService.updateCaseById(id, caseRequest);
+		return this.caseService.updateCaseById(params.id, body);
 	}
 
 	/**
@@ -62,7 +63,7 @@ export class CaseController {
 	 * @returns {Observable<ICaseResponse>}
 	 */
 	@Delete(':id')
-	public deleteCaseById(@Param('id') id: number, @Body() caseRequest: ICaseRequest) {
-		return this.caseService.deleteCaseById(id, caseRequest);
+	public deleteCaseById(@Param() params: caseParamsDto) {
+		return this.caseService.deleteCaseById(params.id);
 	}
 }

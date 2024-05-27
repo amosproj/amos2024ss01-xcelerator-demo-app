@@ -11,6 +11,9 @@
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true
 	},
-	"include": ["src/**/*.ts"],
+	"include": [
+		"src/**/*.ts",
+		"../../../cases/backend/case-management/src/lib/types/cases.types.ts"
+	],
 	"exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

@@ -66,12 +66,10 @@ async function main() {
 			description: data.description,
 			source: data.source,
 			priority: data.priority,
-			createdDate: data.createdDate,
 			createdBy: data.createdBy,
 			eTag: data.eTag,
 			modifiedBy: data.modifiedBy,
 			modifiedDate: data.modifiedDate,
-			overdue: data.overdue,
 		};
 	});
 

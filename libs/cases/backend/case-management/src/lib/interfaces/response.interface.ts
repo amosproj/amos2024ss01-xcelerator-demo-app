@@ -1,20 +1,22 @@
+import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
+
 // TODO: Add User model
 export interface ICaseResponse {
 	id: number;
 	handle: string;
 	dueDate: Date;
 	title: string;
-	type: string;
-	status: string;
+	type: CaseType;
+	status: CaseStatus;
 	// assignedTo: User,
 	// assignedToId: Int,
 	description: string;
 	source: string;
-	priority: string;
+	priority: CasePriority;
 	createdBy: string;
-	createdDate: Date;
+	createdAt: Date;
 	eTag: string;
 	modifiedBy: string;
-	modifiedDate: Date;
-	overdue: boolean;
+	updatedAt: Date;
+	overdue?: boolean;
 }

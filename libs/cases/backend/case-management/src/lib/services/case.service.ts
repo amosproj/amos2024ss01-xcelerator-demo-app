@@ -1,8 +1,9 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {} from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
 import { from, map, Observable } from 'rxjs';
 
-import { ICaseRequest } from '../interfaces/request.interface';
+import { ICreateCaseBody, IUpdateCaseBody } from '../interfaces/body.interface';
 import { ICaseResponse } from '../interfaces/response.interface';
 
 /**
@@ -25,7 +26,7 @@ export class CaseService {
 			map((items) =>
 				items.map((item) => ({
 					...item,
-					dueDate: new Date(item.dueDate),
+					overdue: Date.now() > new Date(item.dueDate).getTime(),
 				})),
 			),
 		);
@@ -43,9 +44,10 @@ export class CaseService {
 				if (!item) {
 					throw new Error('Case not found');
 				}
+
 				return {
 					...item,
-					dueDate: new Date(item.dueDate),
+					overdue: Date.now() > new Date(item.dueDate).getTime(),
 				};
 			}),
 		);
@@ -56,7 +58,7 @@ export class CaseService {
 	 * @param {ICaseRequest} caseData represents a case
 	 * @returns {Observable<Case>}
 	 */
-	public createCase(caseData: ICaseRequest): Observable<ICaseResponse> {
+	public createCase(caseData: ICreateCaseBody): Observable<ICaseResponse> {
 		return from(
 			this.prismaService.case.create({
 				data: {
@@ -64,6 +66,11 @@ export class CaseService {
 					dueDate: new Date(caseData.dueDate),
 				},
 			}),
+		).pipe(
+			map((item) => ({
+				...item,
+				overdue: Date.now() > new Date(item.dueDate).getTime(),
+			})),
 		);
 	}
 
@@ -72,26 +79,11 @@ export class CaseService {
 	 * @param {ICaseRequest} caseData contains the updated data for the case
 	 * @returns {Observable<Case>} contains an Observable that emits the updated case
 	 */
-	public updateCaseById(id: number, caseData: ICaseRequest): Observable<ICaseResponse> {
+	public updateCaseById(id: number, caseData: IUpdateCaseBody): Observable<ICaseResponse> {
 		return from(
 			this.prismaService.case.update({
 				where: { id },
-				data: {
-					handle: caseData.handle,
-					dueDate: new Date(caseData.dueDate),
-					title: caseData.title,
-					type: caseData.type,
-					status: caseData.status,
-					description: caseData.description,
-					source: caseData.source,
-					priority: caseData.priority,
-					createdBy: caseData.createdBy,
-					createdDate: caseData.createdDate,
-					eTag: caseData.eTag,
-					modifiedBy: caseData.modifiedBy,
-					modifiedDate: caseData.modifiedDate,
-					overdue: caseData.overdue,
-				},
+				data: caseData,
 			}),
 		);
 	}
@@ -99,10 +91,9 @@ export class CaseService {
 	/**
 	 * deletes an existing case by ID
 	 * @param {number} id
-	 * @param {ICaseRequest} caseData
 	 * @returns {Observable<Case>}
 	 */
-	public deleteCaseById(id: number, caseData: ICaseRequest): Observable<ICaseResponse> {
+	public deleteCaseById(id: number): Observable<ICaseResponse> {
 		return from(
 			this.prismaService.case.delete({
 				where: { id },
