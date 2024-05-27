@@ -16,5 +16,4 @@ import { cases } from '../case.mocks/const';
 })
 export class OpenCasesComponent {
 	protected readonly _cases = cases;
-	//protected readonly facilities = facilities;
 }

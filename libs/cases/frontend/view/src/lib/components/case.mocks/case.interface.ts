@@ -5,7 +5,7 @@
 
 export interface ICaseMock {
 	//Push-Card
-	id: string;
+	//id: string;
 	facilityId: number;
 	icon: string;
 	notification: string;
@@ -15,7 +15,7 @@ export interface ICaseMock {
 
 	//Case
 	handle: string;
-	dueDate: Date;
+	dueDate: string;
 	notifyAssignee: boolean;
 	title: string;
 	type: string;
@@ -25,9 +25,9 @@ export interface ICaseMock {
 	source: string;
 	priority: string;
 	createdBy: string;
-	createdDate: Date;
+	createdDate: string;
 	eTag: string;
 	modifiedBy: string;
-	modifiedDate: Date;
+	modifiedDate: string;
 	overdue: true;
 }

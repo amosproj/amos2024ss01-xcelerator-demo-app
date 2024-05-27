@@ -8,7 +8,7 @@ import { ICaseMock } from './case.interface';
 export const cases: ICaseMock[] = [
 	{
 		//Push Card
-		id: 'AA-000',
+		//id: 'AA-000',
 		facilityId: 1,
 		icon: 'battery-empty',
 		notification: '99+',
@@ -18,26 +18,26 @@ export const cases: ICaseMock[] = [
 
 		//Case
 		handle: 'AA-000',
-		dueDate: new Date(1990, 4, 7),
+		dueDate: '2023-08-10T03:52:14.301Z',
 		notifyAssignee: false,
 		title: 'test WOM 1',
 		type: 'warning',
 		status: '0',
-		assignedTo: 'No One',
+		assignedTo: 'Mike Jefferson von Schmitz man',
 		description:
-			'test womizzvipzgpguphpouhuguzpgf97df8gg7gigfizfzfzfzfp6jfjfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj',
+			'this case is for changing and cleaning the floppy disks for the nuclear launch codes',
 		source: 'AHM',
 		priority: '0',
 		createdBy: 'test@test.com',
-		createdDate: new Date(1990, 4, 7),
+		createdDate: '2023-08-10T03:52:14.301Z',
 		eTag: '1702540787672',
 		modifiedBy: 'test@test.com',
-		modifiedDate: new Date(1990, 4, 7),
+		modifiedDate: '2023-08-10T03:52:14.301Z',
 		overdue: true,
 	},
 	{
 		//Push Card
-		id: 'AA-001',
+		//id: 'AA-001',
 		facilityId: 1,
 		icon: 'battery-empty',
 		notification: '99+',
@@ -46,8 +46,8 @@ export const cases: ICaseMock[] = [
 		//variant: 'warning',
 
 		//Case
-		handle: 'AA-000',
-		dueDate: new Date(1990, 4, 7),
+		handle: 'AA-001',
+		dueDate: '2023-08-10T03:52:14.301Z',
 		notifyAssignee: false,
 		title: 'test WOM 1',
 		type: 'warning',
@@ -57,10 +57,10 @@ export const cases: ICaseMock[] = [
 		source: 'AHM',
 		priority: '0',
 		createdBy: 'test@test.com',
-		createdDate: new Date(1990, 4, 7),
+		createdDate: '2023-08-10T03:52:14.301Z',
 		eTag: '1702540787672',
 		modifiedBy: 'test@test.com',
-		modifiedDate: new Date(1990, 4, 7),
+		modifiedDate: '2023-08-10T03:52:14.301Z',
 		overdue: true,
 	},
 ];

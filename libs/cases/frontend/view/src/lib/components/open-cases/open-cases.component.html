@@ -1,5 +1,7 @@
 <ix-content>
-	<ix-content-header slot="header" header-title="Open Cases"> </ix-content-header>
+	<ix-content-header slot="header" header-title="Open Cases">
+		<ix-button [routerLink]="['/cases/create']">Create Case</ix-button>
+	</ix-content-header>
 
 	<table class="table">
 		<thead>
@@ -14,19 +16,17 @@
 			</tr>
 		</thead>
 		<tbody>
-			@for (case of _cases; track case.id) {
-				<tr [routerLink]="['/cases', case.id]">
-					<th scope="row">{{ case.id }}</th>
-					<th scope="col">{{ case.title }}</th>
-					<th scope="col">{{ case.priority }}</th>
-					<th scope="col">{{ case.status }}</th>
-					<th scope="col">{{ case.assignedTo }}</th>
-					<th scope="col">{{ case.dueDate }}</th>
-					<th scope="col">{{ case.description }}</th>
+			@for (_case of _cases; track _case.handle) {
+				<tr [routerLink]="['/cases', _case.handle]">
+					<th scope="row">{{ _case.handle }}</th>
+					<th scope="col">{{ _case.title }}</th>
+					<th scope="col">{{ _case.priority }}</th>
+					<th scope="col">{{ _case.status }}</th>
+					<th scope="col">{{ _case.assignedTo }}</th>
+					<th scope="col">{{ _case.dueDate }}</th>
+					<th scope="col">{{ _case.description }}</th>
 				</tr>
 			}
 		</tbody>
 	</table>
-
-	<ix-button [routerLink]="['/cases/create']">Create Case</ix-button>
 </ix-content>
