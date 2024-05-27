@@ -3,41 +3,64 @@ import { Observable } from 'rxjs';
 
 import { ICaseResponse } from '../interfaces/response.interface';
 import { CaseService } from '../services/case.service';
+import { ICaseRequest } from '../interfaces/request.interface';
 
 /**
  * handles incoming HTTP-requests
  */
 @Controller('case')
 export class CaseController {
+
 	constructor(private readonly caseService: CaseService) {}
 
 	/**
-	 * returns all cases (work orders)
+	 * retrieves all cases (work orders)
+     * does not take any parameters
 	 */
 	@Get()
 	public getAllCases(): Observable<ICaseResponse[]> {
 		return this.caseService.getAllCases();
 	}
 
-	/**
-    @Get(':id'): Observable<ICaseResponse>
-    public getCaseById(@Param('id') id: string) {
+    /**
+     * retrieves a single case (work order) by its ID
+     * @param {number} id unique identifier of the case to retrieve
+     * @returns {Observable<ICaseResponse>}
+     */
+    @Get(':id')
+    public getCaseById(@Param('id') id: number): Observable<ICaseResponse> {
         return this.caseService.getCaseById(id);
     }
 
+    /**
+     * creates a new case (work order)
+     * @param {ICaseRequest} caseRequest 
+     * @returns {Observable<ICaseResponse>}
+     */
     @Post()
-    public createCase(@Body() user: User) {
-        return this.caseService.createCase(user);
+    public createCase(@Body() caseRequest: ICaseRequest): Observable<ICaseResponse> {
+        return this.caseService.createCase(caseRequest);
     }
 
+    /**
+     * updates an existing case (work order)
+     * @param {number} id unique identifier of the case to retrieve 
+     * @param {ICaseRequest} caseRequest  
+     * @returns {Observable<ICaseResponse>}
+     */
     @Put(':id')
-    public updateCaseById(@Param('id') id: string, @Body() case: Case) {
-        return this.caseService.updateCase(id, case);
+    public updateCaseById(@Param('id') id: number, @Body() caseRequest: ICaseRequest): Observable<ICaseResponse> {
+        return this.caseService.updateCaseById(id, caseRequest);
     }
 
+    /**
+     * deletes an existing case (work order) by ID
+     * @param {number} id unique identifier of the case to retrieve
+     * @param {ICaseRequest} caseRequest 
+     * @returns {Observable<ICaseResponse>}
+     */
     @Delete(':id')
-    public deleteCaseById(@Param('id') id: string) {
-        return this.caseService.deleteCase(id);
+    public deleteCaseById(@Param('id') id: number, @Body() caseRequest: ICaseRequest) {
+        return this.caseService.deleteCaseById(id, caseRequest);
     }
-    */
 }

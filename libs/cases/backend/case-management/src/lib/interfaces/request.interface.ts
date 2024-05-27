@@ -1,5 +1,5 @@
 export interface ICaseRequest {
-	id: string;
+	id: number;
 	handle: string;
 	dueDate: string;
 	title: string;

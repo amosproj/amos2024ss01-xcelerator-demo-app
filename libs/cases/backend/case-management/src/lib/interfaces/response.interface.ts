@@ -1,6 +1,6 @@
 // TODO: Add User model
 export interface ICaseResponse {
-	id: string;
+	id: number;
 	handle: string;
 	dueDate: string;
 	title: string;
