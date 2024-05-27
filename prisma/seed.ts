@@ -1,4 +1,5 @@
 import { Prisma, PrismaClient } from '@prisma/client';
+import caseData from './demo_data/CASE-EXAMPLE.json';
 import envData from './demo_data/PUMP-002_Environment_20240422-220000000_20240423-220000000.json';
 import pumpData from './demo_data/PUMP-002_PumpData_20240422-220000000_20240423-220000000.json';
 
@@ -54,18 +55,35 @@ async function main() {
 		};
 	});
 
+	// create new case data from JSON file
+	const newCaseData = caseData.map((data: any) => {
+		return {
+			handle: data.handle,
+			dueDate: new Date(data.dueDate), // See https://stackoverflow.com/a/52823241
+			title: data.title,
+			type: data.type,
+			status: data.status,
+			description: data.description,
+			source: data.source,
+			priority: data.priority,
+			createdBy: data.createdBy,
+			eTag: data.eTag,
+		};
+	});
+
+	// Seed database with timeseries data
 	await prisma.timeSeriesDataItem.createMany({
 		data: [newPumpData, newEnvData].flat(),
 	});
+
+	// Seed database with case data
+	await prisma.case.createMany({
+		data: newCaseData,
+	});
 }
 
-main()
-	.catch((e) => {
-		console.error(e);
+main().catch((e) => {
+	console.error(e);
 
-		process.exit(1);
-	})
-
-	.finally(async () => {
-		await prisma.$disconnect();
-	});
+	process.exit(1);
+});

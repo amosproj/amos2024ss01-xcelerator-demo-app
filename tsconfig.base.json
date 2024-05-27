@@ -16,6 +16,7 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
+			"@frontend/case-management": ["libs/cases/backend/case-management/src/index.ts"],
 			"@frontend/common/shared/models": ["libs/common/shared/models/src/index.ts"],
 			"@frontend/facilities/shared/models": ["libs/facilities/shared/models/src/index.ts"],
 			"account-frontend-shell": ["libs/account/frontend/shell/src/index.ts"],

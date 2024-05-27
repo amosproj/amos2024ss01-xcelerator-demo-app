@@ -1,3 +1,4 @@
+import { XdCaseManagamentModule } from '@frontend/case-management';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BackendConfig } from 'common-backend-models';
@@ -17,6 +18,7 @@ import { validateConfig } from './config/validation';
 			validate: validateConfig,
 		}),
 		XdTimeseriesModule,
+		XdCaseManagamentModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

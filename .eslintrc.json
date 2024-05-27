@@ -54,7 +54,7 @@
 							},
 							{
 								"sourceTag": "domain:cases",
-								"onlyDependOnLibsWithTags": ["domain:cases", "domain:cases"]
+								"onlyDependOnLibsWithTags": ["domain:cases", "domain:common"]
 							},
 							{
 								"sourceTag": "domain:facilities",
