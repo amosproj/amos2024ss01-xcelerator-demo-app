@@ -68,8 +68,6 @@ async function main() {
 			priority: data.priority,
 			createdBy: data.createdBy,
 			eTag: data.eTag,
-			modifiedBy: data.modifiedBy,
-			modifiedDate: data.modifiedDate,
 		};
 	});
 
