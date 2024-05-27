@@ -1,6 +1,6 @@
 import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { Type } from 'class-transformer';
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 import { ICreateCaseBody, IUpdateCaseBody } from '../interfaces/body.interface';
 
@@ -22,7 +22,7 @@ export class createCaseBodyDto implements ICreateCaseBody {
 	 * deadline for work order
 	 * @example: "2021-11-25"
 	 */
-	@IsString()
+	@IsDate()
 	@IsNotEmpty()
 	@Type(() => Date)
 	dueDate: Date;
@@ -41,14 +41,14 @@ export class createCaseBodyDto implements ICreateCaseBody {
 	 */
 	@IsString()
 	@IsEnum(CaseType, {
-		message: 'OTP Type must be one of these values: ' + Object.values(CaseType).join(', '),
+		message: 'Type must be one of these values: ' + Object.values(CaseType).join(', '),
 	})
 	type: CaseType;
 
 	@IsString()
 	@IsNotEmpty()
 	@IsEnum(CaseStatus, {
-		message: 'OTP Type must be one of these values: ' + Object.values(CaseStatus).join(', '),
+		message: 'Status must be one of these values: ' + Object.values(CaseStatus).join(', '),
 	})
 	status: CaseStatus;
 
@@ -75,7 +75,7 @@ export class createCaseBodyDto implements ICreateCaseBody {
 	@IsString()
 	@IsNotEmpty()
 	@IsEnum(CasePriority, {
-		message: 'OTP Type must be one of these values: ' + Object.values(CasePriority).join(', '),
+		message: 'Priority must be one of these values: ' + Object.values(CasePriority).join(', '),
 	})
 	priority: CasePriority;
 
@@ -116,7 +116,7 @@ export class updateCaseBodyDto implements IUpdateCaseBody {
 	 * deadline for work order
 	 * @example: "2021-11-25"
 	 */
-	@IsString()
+	@IsDate()
 	@IsOptional()
 	@Type(() => Date)
 	dueDate: Date;
@@ -136,7 +136,7 @@ export class updateCaseBodyDto implements IUpdateCaseBody {
 	@IsString()
 	@IsOptional()
 	@IsEnum(CaseType, {
-		message: 'OTP Type must be one of these values: ' + Object.values(CaseType).join(', '),
+		message: 'Type must be one of these values: ' + Object.values(CaseType).join(', '),
 	})
 	type: CaseType;
 
@@ -147,7 +147,7 @@ export class updateCaseBodyDto implements IUpdateCaseBody {
 	@IsString()
 	@IsOptional()
 	@IsEnum(CaseStatus, {
-		message: 'OTP Type must be one of these values: ' + Object.values(CaseStatus).join(', '),
+		message: 'Status must be one of these values: ' + Object.values(CaseStatus).join(', '),
 	})
 	status: CaseStatus;
 
@@ -186,7 +186,7 @@ export class updateCaseBodyDto implements IUpdateCaseBody {
 	@IsString()
 	@IsOptional()
 	@IsEnum(CasePriority, {
-		message: 'OTP Type must be one of these values: ' + Object.values(CasePriority).join(', '),
+		message: 'Priority must be one of these values: ' + Object.values(CasePriority).join(', '),
 	})
 	priority: CasePriority;
 
