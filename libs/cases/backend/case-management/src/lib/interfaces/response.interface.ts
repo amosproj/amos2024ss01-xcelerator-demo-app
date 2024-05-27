@@ -2,7 +2,7 @@
 export interface ICaseResponse {
 	id: number;
 	handle: string;
-	dueDate: string;
+	dueDate: Date;
 	title: string;
 	type: string;
 	status: string;

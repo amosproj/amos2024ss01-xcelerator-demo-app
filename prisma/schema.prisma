@@ -34,7 +34,7 @@ model TimeSeriesDataItem {
 model Case {
     id           Int    @id @default(autoincrement())
     handle       String
-    dueDate      String // see https://stackoverflow.com/a/52823241
+    dueDate      DateTime // see https://stackoverflow.com/a/52823241
     title        String 
     type         String
     status       String
@@ -44,7 +44,7 @@ model Case {
     source       String
     priority     String
     createdBy    String
-    createdDate  DateTime
+    createdDate  DateTime @default(now())
     eTag         String
     modifiedBy   String
     modifiedDate DateTime

@@ -10,7 +10,7 @@ CREATE TABLE "Case" (
     "source" TEXT NOT NULL,
     "priority" TEXT NOT NULL,
     "createdBy" TEXT NOT NULL,
-    "createdDate" TIMESTAMP(3) NOT NULL,
+    "createdDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "eTag" TEXT NOT NULL,
     "modifiedBy" TEXT NOT NULL,
     "modifiedDate" TIMESTAMP(3) NOT NULL,

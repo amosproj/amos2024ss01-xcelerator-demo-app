@@ -1,8 +1,7 @@
 import { Prisma, PrismaClient } from '@prisma/client';
+import caseData from './demo_data/CASE-EXAMPLE.json';
 import envData from './demo_data/PUMP-002_Environment_20240422-220000000_20240423-220000000.json';
 import pumpData from './demo_data/PUMP-002_PumpData_20240422-220000000_20240423-220000000.json';
-import caseData from './demo_data/CASE-EXAMPLE.json';
-import { timestamp } from 'rxjs';
 
 const prisma = new PrismaClient();
 
@@ -56,23 +55,23 @@ async function main() {
 		};
 	});
 
-	// create new case data from JSON file 
+	// create new case data from JSON file
 	const newCaseData = caseData.map((data: any) => {
 		return {
 			handle: data.handle,
-      		dueDate: data.dueDate, // (new Date(data.dueDate)).toISOString(), // See https://stackoverflow.com/a/52823241
-      		title: data.title,
-      		type: data.type,
-      		status: data.status,
-      		description: data.description,
-      		source: data.source,
-      		priority: data.priority,
-      		createdDate: data.createdDate,
+			dueDate: new Date(data.dueDate), // See https://stackoverflow.com/a/52823241
+			title: data.title,
+			type: data.type,
+			status: data.status,
+			description: data.description,
+			source: data.source,
+			priority: data.priority,
+			createdDate: data.createdDate,
 			createdBy: data.createdBy,
-      		eTag: data.eTag,
-      		modifiedBy: data.modifiedBy,
-      		modifiedDate: data.modifiedDate,
-      		overdue: data.overdue,
+			eTag: data.eTag,
+			modifiedBy: data.modifiedBy,
+			modifiedDate: data.modifiedDate,
+			overdue: data.overdue,
 		};
 	});
 
@@ -87,13 +86,8 @@ async function main() {
 	});
 }
 
-main()
-	.catch((e) => {
-		console.error(e);
+main().catch((e) => {
+	console.error(e);
 
-		process.exit(1);
-	})
-
-	.finally(async () => {
-		await prisma.$disconnect();
-	});
+	process.exit(1);
+});
