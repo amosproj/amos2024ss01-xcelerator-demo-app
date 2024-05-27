@@ -9,6 +9,7 @@ import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
 
+import { BackButtonDirective } from '../../directives/back-button.directive';
 import { facilities } from '../facility.mocks/const';
 import { IFacilityMock } from '../facility.mocks/facility.interface';
 import LockModalComponent from './lock-modal/lockModal.component';
@@ -16,7 +17,7 @@ import LockModalComponent from './lock-modal/lockModal.component';
 @Component({
 	selector: 'lib-detail',
 	standalone: true,
-	imports: [CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink],
+    imports: [ CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink, BackButtonDirective ],
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -171,9 +172,5 @@ export class XdDetailPage implements OnInit {
 		instance.onClose.on(() => {
 			this.locked$.next(!this.locked$.getValue());
 		});
-	}
-
-	goBack() {
-		this._location.back();
 	}
 }
