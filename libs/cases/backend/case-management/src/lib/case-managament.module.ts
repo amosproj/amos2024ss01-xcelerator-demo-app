@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { XdPrismaModule } from 'common-backend-prisma';
 
-import { CaseController } from './controller/case.controller';
-import { CaseService } from './services/case.service';
+import { XdCaseController } from './controller/case.controller';
+import { XdCaseService } from './services/case.service';
 
 @Module({
-	controllers: [CaseController],
+	controllers: [XdCaseController],
 	imports: [XdPrismaModule],
-	providers: [CaseService],
-	exports: [CaseService],
+	providers: [XdCaseService],
+	exports: [XdCaseService],
 })
-export class CaseManagamentModule {}
+export class XdCaseManagamentModule {}

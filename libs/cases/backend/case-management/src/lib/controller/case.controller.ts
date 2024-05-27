@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { createCaseBodyDto, updateCaseBodyDto } from '../dto/body.dto';
 import { caseParamsDto } from '../dto/params.dto';
 import { ICaseResponse } from '../interfaces/response.interface';
-import { CaseService } from '../services/case.service';
+import { XdCaseService } from '../services/case.service';
 
 /**
  * handles incoming HTTP-requests
  */
 @Controller('case')
-export class CaseController {
-	constructor(private readonly caseService: CaseService) {}
+export class XdCaseController {
+	constructor(private readonly caseService: XdCaseService) {}
 
 	/**
 	 * retrieves all cases (work orders)

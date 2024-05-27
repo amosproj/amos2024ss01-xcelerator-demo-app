@@ -14,7 +14,6 @@ describe('TimeseriesController ', () => {
 	let controller: XdTimeseriesController;
 	let service: XdTimeseriesService;
 
-	let serviceMock;
 	beforeAll(async () => {
 		const serviceMock = {
 			getAllTimeSeries: jest.fn().mockReturnValue(

@@ -18,5 +18,5 @@ export interface ICaseResponse {
 	eTag: string;
 	modifiedBy: string;
 	updatedAt: Date;
-	overdue?: boolean;
+	overdue: boolean;
 }

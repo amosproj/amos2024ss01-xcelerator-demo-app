@@ -10,7 +10,7 @@ import { ICaseResponse } from '../interfaces/response.interface';
  * handles database operations and contains business logic
  */
 @Injectable()
-export class CaseService {
+export class XdCaseService {
 	constructor(
 		@Inject(forwardRef(() => PrismaService))
 		private readonly prismaService: PrismaService,
@@ -85,6 +85,11 @@ export class CaseService {
 				where: { id },
 				data: caseData,
 			}),
+		).pipe(
+			map((item) => ({
+				...item,
+				overdue: Date.now() > new Date(item.dueDate).getTime(),
+			})),
 		);
 	}
 
@@ -98,6 +103,11 @@ export class CaseService {
 			this.prismaService.case.delete({
 				where: { id },
 			}),
+		).pipe(
+			map((item) => ({
+				...item,
+				overdue: Date.now() > new Date(item.dueDate).getTime(),
+			})),
 		);
 	}
 }
