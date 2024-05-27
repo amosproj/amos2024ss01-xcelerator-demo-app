@@ -1,45 +1,30 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
-model Pump {
-  id Int @id @default(autoincrement())
-  name String
-  environment Environment[]
-  data Data[]
+model TimeSeriesItem {
+    entityId        String //Example: Pump-002 - id
+    propertySetName String //Example: Environment | PumpData
 
-  @@unique([name])
+    data TimeSeriesDataItem[]
+
+    @@id([entityId, propertySetName])
+    @@unique([entityId, propertySetName])
 }
 
+model TimeSeriesDataItem {
+    time DateTime
+    data Json?
 
-model Environment {
-  id Int @id @default(autoincrement())
-  pressureQc Int
-  temperature Float
-  temperatureQc Int
-  humidityQc Int
-  humidity Int
-  pressure Int
-  time DateTime
-  pumpId Int
-  pump Pump @relation(fields: [pumpId], references: [id])
+    // Foreign keys
+    timeSeriesItementityId        String
+    timeSeriesItempropertySetName String
+    timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesItementityId, timeSeriesItempropertySetName], references: [entityId, propertySetName])
+
+    @@id([timeSeriesItementityId, timeSeriesItempropertySetName, time])
 }
-
-model Data {
-  id Int @id @default(autoincrement())
-  motorCurrent Int
-  pressureOut Float
-  stuffingBoxTemperature Int
-  pressureIn Float
-  time DateTime
-  flow Float
-  pumpId Int
-  pump Pump @relation(fields: [pumpId], references: [id])
-}
-
-

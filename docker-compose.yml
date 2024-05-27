@@ -1,6 +1,6 @@
 version: '3.8'
 
-name: maintenance-automation-compose
+name: xcelerator-demo-app
 
 services:
     postgres:
