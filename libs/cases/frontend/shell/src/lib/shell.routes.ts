@@ -16,7 +16,7 @@ export const CASES_SHELL_ROUTES: Route[] = [
 		path: '',
 		children: [
 			{
-				// Route to create an order
+				// Route to create a case
 				path: 'create',
 				data: {
 					breadcrumbs: {
@@ -28,7 +28,7 @@ export const CASES_SHELL_ROUTES: Route[] = [
 					import('cases-frontend-view').then((m) => m.CreateCaseComponent),
 			},
 			{
-				// Route to order which are open - later this should be a query param!!!
+				// Route to cases which are open - later this should be a query param!!!
 				path: 'open',
 				data: {
 					breadcrumbs: {
@@ -40,12 +40,12 @@ export const CASES_SHELL_ROUTES: Route[] = [
 					import('cases-frontend-view').then((m) => m.OpenCasesComponent),
 			},
 			{
-				// Route to detail order
-				path: ':id',
+				// Route to detail case
+				path: ':handle',
 				data: {
 					breadcrumbs: {
 						label: 'Details',
-						url: 'cases/:id',
+						url: 'cases/:handle',
 					},
 				},
 				loadComponent: () =>
