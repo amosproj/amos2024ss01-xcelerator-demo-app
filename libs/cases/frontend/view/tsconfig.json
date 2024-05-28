@@ -8,27 +8,22 @@
 		"noPropertyAccessFromIndexSignature": true,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
-		"paths": {
-			"@xD/facilities": [
-				"../../../../../../../../facilities/frontend/view/src/lib/components/facility.mocks/const"
-			]
+		"files": [],
+		"include": [],
+		"references": [
+			{
+				"path": "./tsconfig.lib.json"
+			},
+			{
+				"path": "./tsconfig.spec.json"
+			}
+		],
+		"extends": "../../../../tsconfig.base.json",
+		"angularCompilerOptions": {
+			"enableI18nLegacyMessageIdFormat": false,
+			"strictInjectionParameters": true,
+			"strictInputAccessModifiers": true,
+			"strictTemplates": true
 		}
-	},
-	"files": [],
-	"include": [],
-	"references": [
-		{
-			"path": "./tsconfig.lib.json"
-		},
-		{
-			"path": "./tsconfig.spec.json"
-		}
-	],
-	"extends": "../../../../tsconfig.base.json",
-	"angularCompilerOptions": {
-		"enableI18nLegacyMessageIdFormat": false,
-		"strictInjectionParameters": true,
-		"strictInputAccessModifiers": true,
-		"strictTemplates": true
 	}
 }
