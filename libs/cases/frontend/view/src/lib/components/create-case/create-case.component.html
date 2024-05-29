@@ -25,19 +25,6 @@
 			</ix-select>
 			<div class="invalid-feedback">Please select a facility</div>
 
-			<ix-select
-				i18nPlaceholder="Select an Asset"
-				name="selectAsset"
-				[(ngModel)]="createCaseForm.selectAsset"
-				required
-			>
-				<!--TODO: insert assets here-->
-				<ix-select-item label="Item 1" value="1"></ix-select-item>
-				<ix-select-item label="Item 2" value="2"></ix-select-item>
-				<ix-select-item label="Item 3" value="3"></ix-select-item>
-			</ix-select>
-			<div class="invalid-feedback">Please select an asset</div>
-
 			<ix-input-group>
 				<span slot="input-start">Telephone:</span>
 				<input
@@ -74,23 +61,16 @@
 			<ix-button type="submit"> Create Case </ix-button>
 		</form>
 
-		<div *ngIf="getFacilityValue() !== undefined">
+		<div *ngIf="getFacilityValue() as facility">
 			<ix-tile size="big" class="mr-1">
-				<div class="mt-4" slot="header">{{ getFacilityValue()?.heading }}</div>
-				<div class="mt-7 text-l">{{ getFacilityValue()?.subheading }}</div>
+				<div class="mt-4" slot="header">{{ facility.heading }}</div>
+				<div class="mt-7 text-l">{{ facility.subheading }}</div>
 			</ix-tile>
 
-			<ix-tile class="mt-2" size="small"
-				>Location: {{ getFacilityValue()?.location }}</ix-tile
-			>
-			<ix-tile class="mt-2" size="small"
-				>Number of pumps: {{ getFacilityValue()?.pumps }}</ix-tile
-			>
+			<ix-tile class="mt-2" size="small">Location: {{ facility.location }}</ix-tile>
+			<ix-tile class="mt-2" size="small">Number of pumps: {{ facility.pumps }}</ix-tile>
 
-			<ix-button
-				class="mt-4"
-				variant="secondary"
-				[routerLink]="['/facilities', getFacilityValue()?.id]"
+			<ix-button class="mt-4" variant="secondary" [routerLink]="['/facilities', facility.id]"
 				>View Facility</ix-button
 			>
 		</div>

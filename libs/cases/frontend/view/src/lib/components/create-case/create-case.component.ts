@@ -25,7 +25,6 @@ export class CreateCaseComponent {
 
 	createCaseForm = {
 		selectFacility: '',
-		selectAsset: '',
 		phone: '',
 		email: '',
 		text: '',
@@ -43,10 +42,6 @@ export class CreateCaseComponent {
 		this.createCaseForm.selectFacility = value;
 	}
 
-	public setAssetValue(value: string) {
-		this.createCaseForm.selectAsset = value;
-	}
-
 	public setPhoneValue(value: string) {
 		this.createCaseForm.phone = value;
 	}
@@ -59,10 +54,6 @@ export class CreateCaseComponent {
 		return this.facilities.find(
 			(facility) => facility.id === this.createCaseForm.selectFacility,
 		);
-	}
-
-	public getAssetValue() {
-		return this.createCaseForm.selectAsset;
 	}
 
 	public getPhoneValue() {
