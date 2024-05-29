@@ -1,5 +1,9 @@
 import { Route } from '@angular/router';
 
+// This should not be done, usually just export the const from the lib
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { facilities } from '../../../view/src/lib/components/facility.mocks/const';
+
 /**
  * The routes for the facilities domain.
  * Note they are lazy loaded!
@@ -18,6 +22,10 @@ export const FACILITIES_SHELL_ROUTES: Route[] = [
 			{
 				// Route to list page
 				path: '',
+				data: {
+					facilities: facilities,
+					subtitle: 'List of all facilities',
+				},
 				loadComponent: () => import('facilities-frontend-view').then((m) => m.XdBrowsePage),
 			},
 

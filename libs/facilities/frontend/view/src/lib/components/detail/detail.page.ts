@@ -9,10 +9,10 @@ import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
 
+import { TimeseriesFetchService } from '../../services/timeseries-fetch.service';
 import { facilities } from '../facility.mocks/const';
 import { IFacilityMock } from '../facility.mocks/facility.interface';
 import LockModalComponent from './lock-modal/lockModal.component';
-import { TimeseriesFetchService } from '../../services/timeseries-fetch.service';
 
 @Component({
 	selector: 'lib-detail',
@@ -174,10 +174,7 @@ export class XdDetailPage implements OnInit {
 		});
 	}
 
-	fetchData(){
-		this.fetchService.fetchTimeSeriesData().subscribe((data) => {
-			console.log(data);
-		});
+	fetchData() {
+		this.fetchService.fetchTimeSeriesData().subscribe();
 	}
-
 }
