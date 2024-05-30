@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { facilities } from 'libs/facilities/frontend/view/src/lib/components/facility.mocks/const';
@@ -10,7 +11,7 @@ import { IFacilityMock } from 'libs/facilities/frontend/view/src/lib/components/
 @Component({
 	selector: 'lib-create-case',
 	standalone: true,
-	imports: [CommonModule, IxModule, FormsModule],
+	imports: [CommonModule, IxModule, FormsModule, RouterLink],
 	templateUrl: './create-case.component.html',
 	styleUrl: './create-case.component.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -24,7 +25,6 @@ export class CreateCaseComponent {
 
 	createCaseForm = {
 		selectFacility: '',
-		selectAsset: '',
 		phone: '',
 		email: '',
 		text: '',
@@ -42,10 +42,6 @@ export class CreateCaseComponent {
 		this.createCaseForm.selectFacility = value;
 	}
 
-	public setAssetValue(value: string) {
-		this.createCaseForm.selectAsset = value;
-	}
-
 	public setPhoneValue(value: string) {
 		this.createCaseForm.phone = value;
 	}
@@ -54,12 +50,10 @@ export class CreateCaseComponent {
 		this.createCaseForm.email = value;
 	}
 
-	public getFacilityValue() {
-		return this.createCaseForm.selectFacility;
-	}
-
-	public getAssetValue() {
-		return this.createCaseForm.selectAsset;
+	public getFacilityValue(): IFacilityMock | undefined {
+		return this.facilities.find(
+			(facility) => facility.id === this.createCaseForm.selectFacility,
+		);
 	}
 
 	public getPhoneValue() {

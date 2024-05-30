@@ -1,19 +1,32 @@
 <ix-content>
-	<ix-content-header slot="header" header-title="Open Cases"> </ix-content-header>
+	<ix-content-header slot="header" header-title="Open Cases">
+		<ix-button [routerLink]="['/cases/create']">Create Case</ix-button>
+	</ix-content-header>
 
-	<ix-card-list label="Case Overview" [showAllCount]="_cases.length" list-style="stack">
-		@for (case of _cases; track case.id) {
-			<ix-push-card
-				class="mb-7"
-				[icon]="case.icon"
-				[notification]="case.notification"
-				[heading]="case.heading"
-				[subheading]="case.subheading"
-				[variant]="case.variant"
-				[routerLink]="['/cases', case.id]"
-			></ix-push-card>
-		}
-	</ix-card-list>
-
-	<ix-button [routerLink]="['/cases/create']">Create Case</ix-button>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Title</th>
+				<th scope="col">Priority</th>
+				<th scope="col">Status</th>
+				<th scope="col">Assigned to</th>
+				<th scope="col">Due to</th>
+				<th scope="col">Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (_case of _cases; track _case.handle) {
+				<tr [routerLink]="['/cases', _case.handle]">
+					<th scope="row">{{ _case.handle }}</th>
+					<th scope="col">{{ _case.title }}</th>
+					<th scope="col">{{ _case.priority }}</th>
+					<th scope="col">{{ _case.status }}</th>
+					<th scope="col">{{ _case.assignedTo }}</th>
+					<th scope="col">{{ _case.dueDate }}</th>
+					<th scope="col">{{ _case.description }}</th>
+				</tr>
+			}
+		</tbody>
+	</table>
 </ix-content>

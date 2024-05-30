@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { IxModule, ModalService } from '@siemens/ix-angular';
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { envData } from '../facility.mocks/charts/envData';
 import { pumpData } from '../facility.mocks/charts/pumpData';
+import { BehaviorSubject } from 'rxjs';
 import { facilities } from '../facility.mocks/const';
 import { IFacilityMock } from '../facility.mocks/facility.interface';
 import { ChartComponent } from './chart/chart.component';
@@ -15,7 +16,7 @@ import LockModalComponent from './lock-modal/lockModal.component';
 @Component({
 	selector: 'lib-detail',
 	standalone: true,
-    imports: [ CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink, ChartComponent ],
+  imports: [ CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink, ChartComponent ],
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -31,6 +32,7 @@ export class XdDetailPage {
 	constructor(
 		private route: ActivatedRoute,
 		private readonly modalService: ModalService,
+		protected _location: Location,
 	) {}
 
 	getFacility(): IFacilityMock {

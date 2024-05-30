@@ -1,45 +1,78 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
-model Pump {
-  id Int @id @default(autoincrement())
-  name String
-  environment Environment[]
-  data Data[]
+// see https://developer.siemens.com/insights-hub/docs/apis/iot-iottimeseries/api-iottimeseries-overview.html
+model TimeSeriesItem {
+    entityId        String // Example: Pump-002 - id
+    propertySetName String // Example: Environment | PumpData
 
-  @@unique([name])
+    data TimeSeriesDataItem[]
+
+    @@id([entityId, propertySetName])
+    @@unique([entityId, propertySetName])
 }
 
+// see https://developer.siemens.com/insights-hub/docs/apis/iot-iottimeseries/api-iottimeseries-overview.html
+model TimeSeriesDataItem {
+    time DateTime
+    data Json?
 
-model Environment {
-  id Int @id @default(autoincrement())
-  pressureQc Int
-  temperature Float
-  temperatureQc Int
-  humidityQc Int
-  humidity Int
-  pressure Int
-  time DateTime
-  pumpId Int
-  pump Pump @relation(fields: [pumpId], references: [id])
+    // Foreign keys
+    timeSeriesItementityId        String
+    timeSeriesItempropertySetName String
+    timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesItementityId, timeSeriesItempropertySetName], references: [entityId, propertySetName])
+
+    @@id([timeSeriesItementityId, timeSeriesItempropertySetName, time])
 }
 
-model Data {
-  id Int @id @default(autoincrement())
-  motorCurrent Int
-  pressureOut Float
-  stuffingBoxTemperature Int
-  pressureIn Float
-  time DateTime
-  flow Float
-  pumpId Int
-  pump Pump @relation(fields: [pumpId], references: [id])
+// TODO: Add User model + relation
+// TODO: Save dueDate as DateTime
+// see https://developer.siemens.com/insights-hub/docs/apis/advanced-casemanagement/api-casemanagement-api.html
+model Case {
+    id          Int      @id @default(autoincrement())
+    handle      String
+    dueDate     DateTime // see https://stackoverflow.com/a/52823241
+    title       String
+    type        CaseType     @default(PLANNED)
+    status      CaseStatus   @default(OPEN)
+    // assignedTo   User   @relation(fields: [assignedToId], references: [id])
+    // assignedToId Int
+    description String
+    source      String
+    priority    CasePriority
+    createdBy   String
+    eTag        String
+    modifiedBy  String   @default("")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
+enum CaseStatus {
+    OPEN
+    INPROGRESS
+    ONHOLD
+    DONE
+    OVERDUE
+    CANCELLED
+    ARCHIVED
+}
 
+enum CasePriority {
+    LOW
+    MEDIUM
+    HIGH
+    EMERGENCY
+}
+
+enum CaseType {
+    PLANNED
+    INCIDENT
+    ANNOTATION
+}

@@ -21,7 +21,7 @@ export class DetailCaseComponent {
 
 	getCaseDetail() {
 		const casedetail = cases.find(
-			(casedetail) => casedetail.id === this.route.snapshot.params['id'],
+			(casedetail) => casedetail.handle === this.route.snapshot.params['handle'],
 		);
 		if (casedetail === undefined) {
 			throw new Error('Facility not found');

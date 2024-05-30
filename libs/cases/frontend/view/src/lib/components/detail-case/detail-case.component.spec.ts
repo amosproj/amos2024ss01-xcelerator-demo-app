@@ -13,7 +13,7 @@ describe('DetailCaseComponent', () => {
 			providers: [
 				{
 					provide: ActivatedRoute,
-					useValue: { snapshot: { params: { id: '1' } } },
+					useValue: { snapshot: { params: { handle: 'AA-000' } } },
 				},
 			],
 		}).compileComponents();

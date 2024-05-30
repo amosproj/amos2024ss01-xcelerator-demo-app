@@ -3,6 +3,8 @@
 		slot="header"
 		[headerTitle]="'Details of Facility ' + facility.heading"
 		headerSubtitle="On this page you can see all our data about this facility"
+		hasBackButton="true"
+		(backButtonClick)="_location.back()"
 	>
 	</ix-content-header>
 
