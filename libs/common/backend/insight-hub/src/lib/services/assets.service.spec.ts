@@ -12,7 +12,6 @@ import { XdTokenManagerService } from './token-manager.service';
 describe('XdAssetsService', () => {
 	let service: XdAssetsService;
 	let httpService: HttpService;
-	let logger: Logger;
 
 	beforeEach(async () => {
 		const httpServiceMock = {
@@ -50,7 +49,6 @@ describe('XdAssetsService', () => {
 
 		service = module.get<XdAssetsService>(XdAssetsService);
 		httpService = module.get<HttpService>(HttpService);
-		logger = module.get<Logger>(Logger);
 	});
 
 	it('should be defined', () => {

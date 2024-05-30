@@ -58,6 +58,7 @@
 		"@commitlint/cli": "^19.3.0",
 		"@commitlint/config-conventional": "^19.2.2",
 		"@commitlint/config-nx-scopes": "^19.3.0",
+		"@nestjs/axios": "^3.0.2",
 		"@nestjs/schematics": "^10.1.1",
 		"@nestjs/testing": "^10.3.8",
 		"@nx/angular": "18.3.4",

@@ -12,7 +12,6 @@ import { XdUsersService } from './users.service';
 describe('XdUsersService', () => {
 	let service: XdUsersService;
 	let httpService: HttpService;
-	let logger: Logger;
 
 	beforeEach(async () => {
 		const httpServiceMock = {
@@ -50,7 +49,6 @@ describe('XdUsersService', () => {
 
 		service = module.get<XdUsersService>(XdUsersService);
 		httpService = module.get<HttpService>(HttpService);
-		logger = module.get<Logger>(Logger);
 	});
 
 	it('should be defined', () => {

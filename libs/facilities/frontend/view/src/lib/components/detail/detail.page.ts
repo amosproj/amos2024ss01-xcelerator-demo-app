@@ -4,8 +4,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { themeSwitcher } from '@siemens/ix';
 import { IxModule, ModalService } from '@siemens/ix-angular';
 import { convertThemeName, registerTheme } from '@siemens/ix-echarts';
-import { EChartsOption } from 'echarts';
 import * as echarts from 'echarts';
+import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
 
