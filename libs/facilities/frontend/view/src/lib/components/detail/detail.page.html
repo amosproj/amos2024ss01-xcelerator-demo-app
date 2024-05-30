@@ -8,28 +8,29 @@
 	>
 	</ix-content-header>
 
-	<div class="flex flex-wrap gap-x-8">
-		<div echarts class="chart" [options]="pumpOptions" [theme]="theme"></div>
+	<div class="details-grid gap-x-6 gap-y-4 pb-12">
 
-		<div echarts class="chart" [options]="environmentOptions" [theme]="theme"></div>
+        <lib-chart [data]="pumpData" [title]="'Pump Data'" [yname]="'Flow'" [color]="'#07dbc7'"></lib-chart>
 
-		<ix-card variant="insight" class="infoContainer nochart">
+        <lib-chart [data]="envData" [title]="'Environment Data'" [yname]="'Humidity'" [color]="'#07a307'"></lib-chart>
+
+		<ix-card variant="insight" class="h-full w-full p-4">
 			<ix-card-content>
 				<ix-card-title>
 					<ix-icon class="icon" name="tasks-open" size="32"></ix-icon>
-					<span class="notification">3</span>
+					<span class="notification text-2xl">3</span>
 				</ix-card-title>
 				<ix-typography color="std" format="h4"> Open Cases </ix-typography>
-				<ix-typography color="std"
-					>There are 3 open cases regarding this facility</ix-typography
-				>
-				<div class="pt-36">
-					<ix-button routerLink="/cases/create"> New Case </ix-button>
-				</div>
+				<ix-typography color="std">
+                    There are 3 open cases regarding this facility
+                </ix-typography>
+                <div class="mt-auto p-2">
+                    <ix-button routerLink="/cases/create"> New Case </ix-button>
+                </div>
 			</ix-card-content>
 		</ix-card>
 
-		<ix-card variant="insight" class="infoContainer nochart">
+		<ix-card variant="insight" class="h-full w-full p-4">
 			<ix-card-content>
 				<ix-card-title>
 					<ix-icon
@@ -42,26 +43,27 @@
 					{{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
 				</ix-typography>
 				<ix-typography color="std">
-					{{ (locked$ | async) ? 'Currently the doors are locked' : 'Currently the doors
-					are unlocked' }}
+					{{ (locked$ | async) ? 'Currently the doors are locked' :
+                    'Currently the doors are unlocked' }}
 				</ix-typography>
-				<div class="pt-36">
+
+                <div class="mt-auto p-2">
 					<ix-button (click)="changeLocked()">
 						{{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
 					</ix-button>
-				</div>
+                </div>
 			</ix-card-content>
 		</ix-card>
 
-		<ix-card variant="insight" class="infoContainer nochart">
+		<ix-card variant="insight" class="h-full w-full p-4">
 			<ix-card-content>
 				<ix-card-title>
 					<ix-icon class="icon" name="earth-filled" size="32"></ix-icon>
-					<span class="notification">80</span>
+					<span class="notification text-2xl">80%</span>
 				</ix-card-title>
 				<ix-typography color="std" format="h4"> Eco Score (SiGreen)</ix-typography>
 				<ix-typography color="std">
-					According to SiGreen this facility has an eco score of 80/100
+					According to SiGreen this facility has an eco score of 80%
 				</ix-typography>
 			</ix-card-content>
 		</ix-card>
