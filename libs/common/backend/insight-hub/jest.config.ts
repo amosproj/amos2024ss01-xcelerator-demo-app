@@ -1,11 +1,12 @@
 /* eslint-disable */
 export default {
-	displayName: 'facilities-backend-timeseries',
+	displayName: 'common-backend-insight-hub',
 	preset: '../../../../jest.preset.js',
 	testEnvironment: 'node',
 	transform: {
 		'^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
 	},
 	moduleFileExtensions: ['ts', 'js', 'html'],
-	coverageDirectory: '../../../../coverage/libs/facilities/backend/timeseries',
+
+	coverageDirectory: '../../../../coverage/libs/common/backend/insight-hub',
 };
