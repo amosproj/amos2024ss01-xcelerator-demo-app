@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { themeSwitcher } from '@siemens/ix';
@@ -9,6 +9,7 @@ import { EChartsOption } from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
 
+import { BackButtonDirective } from '../../directives/back-button.directive';
 import { facilities } from '../facility.mocks/const';
 import { IFacilityMock } from '../facility.mocks/facility.interface';
 import LockModalComponent from './lock-modal/lockModal.component';
@@ -16,7 +17,14 @@ import LockModalComponent from './lock-modal/lockModal.component';
 @Component({
 	selector: 'lib-detail',
 	standalone: true,
-	imports: [CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink],
+	imports: [
+		CommonModule,
+		IxModule,
+		NgxEchartsModule,
+		LockModalComponent,
+		RouterLink,
+		BackButtonDirective,
+	],
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -139,6 +147,7 @@ export class XdDetailPage implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private readonly modalService: ModalService,
+		protected _location: Location,
 	) {}
 
 	ngOnInit() {
