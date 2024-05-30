@@ -1,4 +1,4 @@
-import { TTimeSeriesData } from 'common-backend-prisma';
+import { TTimeSeriesData } from 'common-backend-models';
 
 /**
  * Interface for a time series data item response

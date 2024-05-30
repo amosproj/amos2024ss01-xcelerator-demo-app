@@ -1,13 +1,13 @@
+import {
+	ITimeSeriesDataItemResponse,
+	ITimeSeriesItemResponse,
+} from '@frontend/facilities/shared/models';
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 import { GetTimeSeriesParamsDto } from '../dto/params.dto';
 import { GetTimeSeriesQueryDto } from '../dto/query.dto';
-import {
-	ITimeSeriesDataItemResponse,
-	ITimeSeriesItemResponse,
-} from '../interfaces/response.interface';
-import { XdTimeseriesService } from '../services/timeseries.service';
+import { XdTimeseriesService } from '../services';
 
 @Controller('timeseries')
 export class XdTimeseriesController {

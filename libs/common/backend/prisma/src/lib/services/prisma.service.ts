@@ -1,7 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Prisma, PrismaClient } from '@prisma/client';
-
-import { TTimeSeriesData } from '../types';
+import { TTimeSeriesData } from 'common-backend-models';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {

@@ -1,13 +1,12 @@
+import {
+	IGetTimeSeriesParams,
+	IGetTimeseriesQuery,
+	ITimeSeriesDataItemResponse,
+	ITimeSeriesItemResponse,
+} from '@frontend/facilities/shared/models';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from 'common-backend-prisma';
 import { catchError, from, map, Observable } from 'rxjs';
-
-import { IGetTimeSeriesParams } from '../interfaces/params.interface';
-import { IGetTimeseriesQuery } from '../interfaces/query.interface';
-import {
-	ITimeSeriesDataItemResponse,
-	ITimeSeriesItemResponse,
-} from '../interfaces/response.interface';
 
 @Injectable()
 export class XdTimeseriesService {
