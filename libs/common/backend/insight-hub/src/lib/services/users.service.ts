@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
-import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { IInsightHub } from 'common-backend-models';
-import { firstValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { IUsersResponse } from '../models/interfaces/users-response.interface';
 import { INSIGHT_HUB_OPTIONS } from '../tokens';

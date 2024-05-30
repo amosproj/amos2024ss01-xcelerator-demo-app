@@ -1,0 +1,26 @@
+{
+<<<<<<<< HEAD:libs/facilities/backend/timeseries/project.json
+	"name": "facilities-backend-timeseries",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/facilities/backend/timeseries/src",
+========
+	"name": "common-backend-insight-hub",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/common/backend/insight-hub/src",
+>>>>>>>> 08884c1 (refactor: move @frontend/common/backend/insight-hub):libs/common/backend/insight-hub/project.json
+	"projectType": "library",
+	"tags": ["domain:common", "kind:backend", "type:feature"],
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+<<<<<<<< HEAD:libs/facilities/backend/timeseries/project.json
+				"jestConfig": "libs/facilities/backend/timeseries/jest.config.ts"
+========
+				"jestConfig": "libs/common/backend/insight-hub/jest.config.ts"
+>>>>>>>> 08884c1 (refactor: move @frontend/common/backend/insight-hub):libs/common/backend/insight-hub/project.json
+			}
+		}
+	}
+}
