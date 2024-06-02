@@ -20,7 +20,7 @@ export function processPumpData(data: Array<IPumpDataItem>): Array<Array<[string
     const Flow = data.map((d) => [ d._time, d.Flow ]);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    return [ MotorCurrent, PressureOut, StuffingBoxTemperature, PressureIn, Flow ];
+    return [ Flow, MotorCurrent, StuffingBoxTemperature, PressureIn, PressureOut ];
 }
 
 /**
@@ -41,14 +41,14 @@ export const processEnvData = (data: Array<IEnvDataItem>): Array<Array<[string, 
 
 export const pumpChart : IChart = {
     title: 'Pump Data',
-    names: [ 'MotorCurrent', 'PressureOut', 'StuffingBoxTemperature', 'PressureIn', 'Flow' ],
-    colors: [ '#1E90FF', '#3CB371', '#40E0D0', '#bd11bd', '#FFD700' ],
+    names: [ 'Flow (l/s)', 'MotorCurrent (V)', 'StuffingBoxTemperature (°C)', 'PressureIn (hPa)', 'PressureOut (hPa)' ],
+    colors: [ '#bd11bd', '#1E90FF', '#3CB371', '#40E0D0',  '#FFD700' ],
     data: processPumpData(pumpData),
 }
 
 export const envChart: IChart = {
     title: 'Environment Data',
-    names: [ 'Temperature', 'Humidity', 'Pressure' ],
+    names: [ 'Temperature (°C)', 'Humidity (%)', 'Pressure (kPa)' ],
     colors: [ '#ffbf00', '#00FF00', '#00ffd9' ],
     data: processEnvData(envData),
 }

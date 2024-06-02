@@ -6,6 +6,7 @@ import { EChartsOption, SeriesOption } from 'echarts';
 import * as echarts from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
+import { IChart } from '../../facility.mocks/charts/chart.interfaces';
 import { envChart } from '../../facility.mocks/charts/processData';
 @Component({
 	selector: 'lib-chart',
@@ -19,7 +20,7 @@ export class ChartComponent implements OnInit {
 
     theme = convertThemeName(themeSwitcher.getCurrentTheme());
 
-    @Input({required: true}) chart: { title: string; names: string[]; colors: string[]; data: any[][][]; }  = envChart;
+    @Input({required: true}) chart: IChart  = envChart;
 
     options: EChartsOption = {
         animationDuration: 1000,
@@ -41,7 +42,12 @@ export class ChartComponent implements OnInit {
         },
         legend: {
             top: 30,
+            left: 20,
+            right: 20,
         },
+        grid: {
+            top: 80,
+        }
     };
 
     ngOnInit() {
@@ -54,7 +60,6 @@ export class ChartComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         this.options.title.text = this.chart.title;
-
 
         const series: SeriesOption[] = [];
         for(let i = 0; i < this.chart.names.length; i++) {
