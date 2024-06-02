@@ -1,4 +1,6 @@
-export const envData = [
+import { IEnvDataItem } from './chart.interfaces';
+
+export const envData: Array<IEnvDataItem> = [
     {
         'Pressure_qc': 1,
         'Temperature': 2.19,

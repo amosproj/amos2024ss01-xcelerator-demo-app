@@ -1,4 +1,6 @@
-export const pumpData = [
+import { IPumpDataItem } from './chart.interfaces';
+
+export const pumpData: Array<IPumpDataItem> = [
     {
         "MotorCurrent": 29,
         "PressureOut": 0.0002,

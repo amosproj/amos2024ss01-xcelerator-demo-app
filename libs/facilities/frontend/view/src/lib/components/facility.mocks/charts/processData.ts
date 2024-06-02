@@ -1,42 +1,52 @@
-/**
- *  processes pump/env Data to be used in charts
- *  @param {Array} data - the data to be processed, f.e. pumpData/envData
- *  @output {Array} - the processed data as an array of elements like this:
- *      [[time, value], time,value], ...]
- *      so each element is an array of tuples [time, value]
- */
+import { IChart, IEnvDataItem, IPumpDataItem } from './chart.interfaces';
 import { envData } from './envData';
 import { pumpData } from './pumpData';
 
-export function processPumpData(data: any[]) {
-    // for every variable
+/**
+ * The function processPumpData processes pump data to be used in the chart.
+ * Each data item (IPumpDataItem) has measurements (MotorCurrent, PressureOut, etc.) and a timestamp (_time).
+ * The function creates an array of tuples for each measurement type.
+ * Each tuple consists of the timestamp and the measurement value.
+ * The result is an array of these arrays - one for each measurement type.
+ *
+ * @param {Array<IPumpDataItem>} data - An array of pump data items.
+ * @returns {Array<Array<[string, number]>>} - An array of arrays. Each inner array represents a measurement type.
+ */
+export function processPumpData(data: Array<IPumpDataItem>): Array<Array<[string, number]>> {
     const MotorCurrent = data.map((d) => [ d._time, d.MotorCurrent ]);
-    const PressureOut = data.map((d) => [ d._time, d.PressureOut ]);
+    const PressureOut= data.map((d) => [ d._time, d.PressureOut ]);
     const StuffingBoxTemperature = data.map((d) => [ d._time, d.StuffingBoxTemperature ]);
-    const PressureIn = data.map((d) => [ d._time, d.PressureIn ]);
+    const PressureIn= data.map((d) => [ d._time, d.PressureIn ]);
     const Flow = data.map((d) => [ d._time, d.Flow ]);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     return [ MotorCurrent, PressureOut, StuffingBoxTemperature, PressureIn, Flow ];
 }
 
-export const processEnvData = (data: any[]) => {
+/**
+ * similar to the processPumpData function just for IEnvDataItem
+ */
+export const processEnvData = (data: Array<IEnvDataItem>): Array<Array<[string, number]>> => {
     const Temperature = data.map((d) => [ d._time, d.Temperature ]);
     const Humidity = data.map((d) => [ d._time, d.Humidity ]);
     const Pressure = data.map((d) => [ d._time, d.Pressure ]);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     return [ Temperature, Humidity, Pressure ];
 }
 
 /**
- * export data that looks exactly like we need it
+ * export the charts, so they can be used in the detail page
  * **/
 
-export const pumpChart = {
+export const pumpChart : IChart = {
     title: 'Pump Data',
     names: [ 'MotorCurrent', 'PressureOut', 'StuffingBoxTemperature', 'PressureIn', 'Flow' ],
-    colors: [ '#1E90FF', '#3CB371', '#40E0D0', '#bd11bd', '#FFD700' ], //
+    colors: [ '#1E90FF', '#3CB371', '#40E0D0', '#bd11bd', '#FFD700' ],
     data: processPumpData(pumpData),
 }
 
-export const envChart = {
+export const envChart: IChart = {
     title: 'Environment Data',
     names: [ 'Temperature', 'Humidity', 'Pressure' ],
     colors: [ '#ffbf00', '#00FF00', '#00ffd9' ],
