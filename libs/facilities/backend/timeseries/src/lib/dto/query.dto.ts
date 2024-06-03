@@ -1,4 +1,4 @@
-import { ESortOrder, IGetTimeseriesQuery } from '@frontend/facilities/shared/models';
+import { ESortOrder, IGetTimeseriesQuery } from 'facilities-shared-models';
 import { Type } from 'class-transformer';
 import { IsBoolean, IsDate, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 

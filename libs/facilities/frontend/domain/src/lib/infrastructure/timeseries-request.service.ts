@@ -4,7 +4,7 @@ import {
 	IGetTimeSeriesParams,
 	IGetTimeseriesQuery,
 	ITimeSeriesItemResponse,
-} from '@frontend/facilities/shared/models';
+} from 'facilities-shared-models';
 import { isNull, omitBy } from 'lodash';
 import { Observable } from 'rxjs';
 

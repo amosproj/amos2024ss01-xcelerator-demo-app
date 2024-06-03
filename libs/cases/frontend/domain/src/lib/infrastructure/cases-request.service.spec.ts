@@ -13,7 +13,7 @@ describe('XdCasesRequestService', () => {
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [ HttpClientTestingModule ],
+			imports: [HttpClientTestingModule],
 			providers: [
 				XdCasesRequestService,
 				{
@@ -45,7 +45,7 @@ describe('XdCasesRequestService', () => {
 	describe('getTimeSeries', () => {
 		it('should forward the request to the backend', async () => {
 			const params = { id: faker.number.int() } as ICaseParams;
-			const mockResponse: ICaseParams[] = [ { id: faker.number.int() } ] as ICaseParams[];
+			const mockResponse: ICaseParams[] = [{ id: faker.number.int() }] as ICaseParams[];
 
 			const spy = jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResponse));
 

@@ -1,4 +1,4 @@
-import { TTimeSeriesData } from 'common-backend-models';
+import { TTimeSeriesData } from 'common-shared-models';
 
 /**
  * Interface for a time series data item response

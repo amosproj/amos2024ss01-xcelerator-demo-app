@@ -1,9 +1,5 @@
 import { faker } from '@faker-js/faker';
-import {
-	ESortOrder,
-	IGetTimeSeriesParams,
-	IGetTimeseriesQuery,
-} from '@frontend/facilities/shared/models';
+import { ESortOrder, IGetTimeSeriesParams, IGetTimeseriesQuery } from 'facilities-shared-models';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';

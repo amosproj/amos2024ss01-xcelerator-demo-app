@@ -3,7 +3,7 @@ import {
 	IGetTimeseriesQuery,
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
-} from '@frontend/facilities/shared/models';
+} from 'facilities-shared-models';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from 'common-backend-prisma';
 import { catchError, from, map, Observable } from 'rxjs';

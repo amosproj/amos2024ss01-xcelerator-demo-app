@@ -3,7 +3,7 @@ import {
 	ESortOrder,
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
-} from '@frontend/facilities/shared/models';
+} from 'facilities-shared-models';
 import { Test } from '@nestjs/testing';
 import { firstValueFrom, Observable, of } from 'rxjs';
 

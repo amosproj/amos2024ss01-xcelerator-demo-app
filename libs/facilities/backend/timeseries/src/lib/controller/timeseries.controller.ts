@@ -1,7 +1,4 @@
-import {
-	ITimeSeriesDataItemResponse,
-	ITimeSeriesItemResponse,
-} from '@frontend/facilities/shared/models';
+import { ITimeSeriesDataItemResponse, ITimeSeriesItemResponse } from 'facilities-shared-models';
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { Observable } from 'rxjs';
 

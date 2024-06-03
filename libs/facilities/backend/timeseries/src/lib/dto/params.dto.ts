@@ -1,4 +1,4 @@
-import { IGetTimeSeriesParams } from '@frontend/facilities/shared/models';
+import { IGetTimeSeriesParams } from 'facilities-shared-models';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 /**
