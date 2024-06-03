@@ -19,13 +19,59 @@ const seedFacilities = [
 ];
 
 async function main() {
-	for (const facility of seedFacilities) {
-		const tsItemPumpData = await prisma.timeSeriesItem.create({
+
+	const asset = await prisma.asset.create({
+		data: {
+			name: 'Pump002',
+			typeId: 'Pump',
+			description: 'Pump 002',
+		},
+	});
+
+
+
+	const tsItemPumpData = await prisma.timeSeriesItem.create({
+		data: {
+			entityId: 'Pump002',
+			propertySetName: 'PumpData',
+
+
+			assetId: asset.id,
+		},
+	});
+
+	const newPumpData = pumpData.map((data: any) => {
+		return {
+			time: data._time,
+
+			timeSeriesItementityId: tsItemPumpData.entityId,
+			timeSeriesItempropertySetName: tsItemPumpData.propertySetName,
+
 			data: {
-				entityId: facility,
-				propertySetName: 'PumpData',
-			},
-		});
+				motorCurrent: data.MotorCurrent,
+				pressureOut: data.PressureOut,
+				stuffingBoxTemperature: data.StuffingBoxTemperature,
+				pressureIn: data.PressureIn,
+				flow: data.Flow,
+			} as Prisma.JsonObject,
+		};
+	});
+
+	const tSItemEnv = await prisma.timeSeriesItem.create({
+		data: {
+			entityId: 'Pump002',
+			propertySetName: 'Environment',
+
+			assetId: asset.id,
+		},
+	});
+
+	const newEnvData = envData.map((data: any) => {
+		return {
+			time: data._time,
+
+			timeSeriesItementityId: tSItemEnv.entityId,
+			timeSeriesItempropertySetName: tSItemEnv.propertySetName,
 
 		const tSItemEnv = await prisma.timeSeriesItem.create({
 			data: {

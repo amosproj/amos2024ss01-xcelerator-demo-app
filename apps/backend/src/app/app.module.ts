@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { XdCaseManagementModule } from 'cases-backend-case-management';
 import { BackendConfig } from 'common-backend-models';
+import { XdFacilitiesBackendFacilitiesModule } from 'facilities-backend-facilities';
 import { XdTimeseriesModule } from 'facilities-backend-timeseries';
 
 /* Libraries */
@@ -26,6 +27,7 @@ import { validateConfig } from './config/validation';
 		}),
 		XdTimeseriesModule,
 		XdCaseManagementModule,
+		XdFacilitiesBackendFacilitiesModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

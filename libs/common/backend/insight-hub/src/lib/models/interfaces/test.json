@@ -1,0 +1,650 @@
+{
+    "_embedded": {
+        "assets": [
+            {
+                "assetId": "f54f670afca749fabd0ad290d8afd1ec",
+                "tenantId": "castidev",
+                "name": "Agent1670938259087",
+                "etag": 0,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": null,
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "2c3886151c984024abea2f8a7b27bca1",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f54f670afca749fabd0ad290d8afd1ec"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f54f670afca749fabd0ad290d8afd1ec/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f54f670afca749fabd0ad290d8afd1ec/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/2c3886151c984024abea2f8a7b27bca1"
+                    }
+                }
+            },
+            {
+                "assetId": "f6a78ca1ebb74b9f813073ec83aeeb73",
+                "tenantId": "castidev",
+                "name": "Agent1672926537724",
+                "etag": 0,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": "Agent created via mindconnect CLI",
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "6167e32dc97a4cb9a750c79f9f887276",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f6a78ca1ebb74b9f813073ec83aeeb73"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f6a78ca1ebb74b9f813073ec83aeeb73/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f6a78ca1ebb74b9f813073ec83aeeb73/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276"
+                    }
+                }
+            },
+            {
+                "assetId": "fec47314b6f04da6bea3aa488b470144",
+                "tenantId": "castidev",
+                "name": "Agent1676813017575",
+                "etag": 4,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": null,
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "2c3886151c984024abea2f8a7b27bca1",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            },
+                            {
+                                "name": "lastUpdated",
+                                "value": "2023-02-19T13:26:51Z"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/fec47314b6f04da6bea3aa488b470144"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/fec47314b6f04da6bea3aa488b470144/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/fec47314b6f04da6bea3aa488b470144/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/2c3886151c984024abea2f8a7b27bca1"
+                    }
+                }
+            },
+            {
+                "assetId": "e84f27d3dd3445ee963f1ffa1592db81",
+                "tenantId": "castidev",
+                "name": "Agent1677849803900",
+                "etag": 0,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": null,
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "2c3886151c984024abea2f8a7b27bca1",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/e84f27d3dd3445ee963f1ffa1592db81"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/e84f27d3dd3445ee963f1ffa1592db81/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/e84f27d3dd3445ee963f1ffa1592db81/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/2c3886151c984024abea2f8a7b27bca1"
+                    }
+                }
+            },
+            {
+                "assetId": "1c6f88753f0c4f0bb06f6d1f9e05c295",
+                "tenantId": "castidev",
+                "name": "Agent1680702786134",
+                "etag": 2,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": null,
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "2c3886151c984024abea2f8a7b27bca1",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/1c6f88753f0c4f0bb06f6d1f9e05c295"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/1c6f88753f0c4f0bb06f6d1f9e05c295/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/1c6f88753f0c4f0bb06f6d1f9e05c295/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/2c3886151c984024abea2f8a7b27bca1"
+                    }
+                }
+            },
+            {
+                "assetId": "5e3307453aae4055a1be4c808a57b512",
+                "tenantId": "castidev",
+                "name": "Agent1684329658753",
+                "etag": 2,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": null,
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "2c3886151c984024abea2f8a7b27bca1",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/5e3307453aae4055a1be4c808a57b512"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/5e3307453aae4055a1be4c808a57b512/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/5e3307453aae4055a1be4c808a57b512/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/2c3886151c984024abea2f8a7b27bca1"
+                    }
+                }
+            },
+            {
+                "assetId": "7c2bd45b10ee4481904d749427c2d26d",
+                "tenantId": "castidev",
+                "name": "Agent1688044987767",
+                "etag": 0,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": null,
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "2c3886151c984024abea2f8a7b27bca1",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/7c2bd45b10ee4481904d749427c2d26d"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/7c2bd45b10ee4481904d749427c2d26d/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/7c2bd45b10ee4481904d749427c2d26d/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/2c3886151c984024abea2f8a7b27bca1"
+                    }
+                }
+            },
+            {
+                "assetId": "344e99518a584574bc28e9e4a7ff02a3",
+                "tenantId": "castidev",
+                "name": "Agent1696513589770",
+                "etag": 1,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": null,
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "2c3886151c984024abea2f8a7b27bca1",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [
+                    {
+                        "service": "AgentManagement",
+                        "reason": "Agent is onboarded, agent cannot be deleted. Only offboarded agents can be deleted.",
+                        "reasonCode": "agentmanagement.agent.onboarded",
+                        "_links": {
+                            "self": {
+                                "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/344e99518a584574bc28e9e4a7ff02a3/locks/25adaf2ba076420bb54497709f888f9a"
+                            }
+                        },
+                        "id": "25adaf2ba076420bb54497709f888f9a"
+                    }
+                ],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/344e99518a584574bc28e9e4a7ff02a3"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/344e99518a584574bc28e9e4a7ff02a3/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/344e99518a584574bc28e9e4a7ff02a3/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/2c3886151c984024abea2f8a7b27bca1"
+                    }
+                }
+            },
+            {
+                "assetId": "830c526a964d4bf2a616a1320c3a1587",
+                "tenantId": "castidev",
+                "name": "Agent1703088561640",
+                "etag": 1,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": "Agent created via mindconnect CLI",
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "6167e32dc97a4cb9a750c79f9f887276",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [
+                    {
+                        "service": "AgentManagement",
+                        "reason": "Agent is onboarded, agent cannot be deleted. Only offboarded agents can be deleted.",
+                        "reasonCode": "agentmanagement.agent.onboarded",
+                        "_links": {
+                            "self": {
+                                "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/830c526a964d4bf2a616a1320c3a1587/locks/e7a66e68cb554b6a87bf3c13a28b72b1"
+                            }
+                        },
+                        "id": "e7a66e68cb554b6a87bf3c13a28b72b1"
+                    }
+                ],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/830c526a964d4bf2a616a1320c3a1587"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/830c526a964d4bf2a616a1320c3a1587/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/830c526a964d4bf2a616a1320c3a1587/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276"
+                    }
+                }
+            },
+            {
+                "assetId": "f1b9e4e018e648d4b85a50bac8048101",
+                "tenantId": "castidev",
+                "name": "Agent1703760630167",
+                "etag": 3,
+                "externalId": null,
+                "t2Tenant": null,
+                "subTenant": null,
+                "description": "Agent created via mindconnect CLI",
+                "timezone": "Europe/Berlin",
+                "twinType": "performance",
+                "parentId": "6167e32dc97a4cb9a750c79f9f887276",
+                "typeId": "core.mclib",
+                "location": {
+                    "country": "Germany",
+                    "region": "",
+                    "locality": "Erlangen",
+                    "streetAddress": "Schuhstrasse 60",
+                    "postalCode": "",
+                    "longitude": null,
+                    "latitude": null
+                },
+                "fileAssignments": [],
+                "variables": [],
+                "aspects": [
+                    {
+                        "name": "connectivityStatus",
+                        "variables": [
+                            {
+                                "name": "connected",
+                                "value": "false"
+                            },
+                            {
+                                "name": "lastUpdated",
+                                "value": "2023-12-28T11:58:34Z"
+                            }
+                        ]
+                    }
+                ],
+                "locks": [
+                    {
+                        "service": "AgentManagement",
+                        "reason": "Agent is onboarded, agent cannot be deleted. Only offboarded agents can be deleted.",
+                        "reasonCode": "agentmanagement.agent.onboarded",
+                        "_links": {
+                            "self": {
+                                "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f1b9e4e018e648d4b85a50bac8048101/locks/92281b4f205e44869ec5e57ad7ea24c0"
+                            }
+                        },
+                        "id": "92281b4f205e44869ec5e57ad7ea24c0"
+                    }
+                ],
+                "deleted": null,
+                "sharing": {
+                    "modes": []
+                },
+                "_links": {
+                    "self": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f1b9e4e018e648d4b85a50bac8048101"
+                    },
+                    "aspects": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f1b9e4e018e648d4b85a50bac8048101/aspects"
+                    },
+                    "variables": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/f1b9e4e018e648d4b85a50bac8048101/variables"
+                    },
+                    "location": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276/location"
+                    },
+                    "parent": {
+                        "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets/6167e32dc97a4cb9a750c79f9f887276"
+                    }
+                }
+            }
+        ]
+    },
+    "_links": {
+        "first": {
+            "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets?nativeFlow=true&basicFieldsOnly=false&essentials=false&page=0&size=10&sort=name,id,asc"
+        },
+        "self": {
+            "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets?nativeFlow=true&basicFieldsOnly=false&essentials=false&page=0&size=10&sort=name,id,asc"
+        },
+        "next": {
+            "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets?nativeFlow=true&basicFieldsOnly=false&essentials=false&page=1&size=10&sort=name,id,asc"
+        },
+        "last": {
+            "href": "https://gateway.eu1.mindsphere.io/api/assetmanagement/v3/assets?nativeFlow=true&basicFieldsOnly=false&essentials=false&page=12&size=10&sort=name,id,asc"
+        }
+    },
+    "page": {
+        "size": 10,
+        "totalElements": 124,
+        "totalPages": 13,
+        "number": 0
+    }
+}
