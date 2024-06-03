@@ -8,3 +8,15 @@ ix-card-content {
 	border-radius: var(--theme-default-border-radius);
 	border-color: var(--theme-color-soft-bdr);
 }
+
+.success {
+	color: green;
+}
+
+.warning {
+	color: orange;
+}
+
+.critical {
+	color: red;
+}
