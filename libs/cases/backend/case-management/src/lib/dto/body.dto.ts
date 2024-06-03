@@ -1,8 +1,7 @@
+import { ICreateCaseBody, IUpdateCaseBody } from '@frontend/cases/shared/models';
 import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { Type } from 'class-transformer';
 import { IsDate, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-
-import { ICreateCaseBody, IUpdateCaseBody } from '../interfaces/body.interface';
 
 /**
  * The DTO (Data Transfer Object) for Case (Work Order)

@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
+import { ICreateCaseBody } from '@frontend/cases/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
 import { firstValueFrom } from 'rxjs';
 
 import { XdCaseController } from '../controller/case.controller';
-import { ICreateCaseBody } from '../interfaces/body.interface';
 import { XdCaseService } from './case.service';
 
 describe('CaseController', () => {

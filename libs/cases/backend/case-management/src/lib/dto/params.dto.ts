@@ -1,7 +1,6 @@
+import { ICaseParams } from '@frontend/cases/shared/models';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber } from 'class-validator';
-
-import { ICaseParams } from '../interfaces/params.interface';
 
 /**
  * The DTO for the case parameters,

@@ -1,10 +1,7 @@
+import { ICaseResponse, ICreateCaseBody, IUpdateCaseBody } from '@frontend/cases/shared/models';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import {} from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
 import { from, map, Observable } from 'rxjs';
-
-import { ICreateCaseBody, IUpdateCaseBody } from '../interfaces/body.interface';
-import { ICaseResponse } from '../interfaces/response.interface';
 
 /**
  * handles database operations and contains business logic
