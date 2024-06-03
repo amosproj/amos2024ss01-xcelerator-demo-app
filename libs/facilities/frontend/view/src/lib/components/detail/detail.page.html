@@ -27,6 +27,18 @@
 			<ix-card variant="insight" class="h-full w-full p-4">
 				<ix-card-content>
 					<ix-card-title>
+						<ix-icon class="icon" name="{{facility.icon}}" size="32"></ix-icon>
+						<span class="notification text-2xl">Details</span>
+					</ix-card-title>
+					<ix-typography color="std">{{ facility.heading }}</ix-typography>
+					<ix-typography color="std">{{ facility.subheading }}</ix-typography>
+					<ix-typography color="std">{{ facility.location }}</ix-typography>
+				</ix-card-content>
+			</ix-card>
+
+			<ix-card variant="insight" class="h-full w-full p-4">
+				<ix-card-content>
+					<ix-card-title>
 						<ix-icon class="icon" name="tasks-open" size="32"></ix-icon>
 						<span class="notification text-2xl">3</span>
 					</ix-card-title>
@@ -53,8 +65,8 @@
 						{{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
 					</ix-typography>
 					<ix-typography color="std">
-						{{ (locked$ | async) ? 'Currently the doors are locked' : 'Currently the
-						doors are unlocked' }}
+						{{ (locked$ | async) ? 'Currently the doors are locked' : 'Currently
+						thedoors are unlocked' }}
 					</ix-typography>
 
 					<div class="mt-auto p-2">
@@ -77,16 +89,6 @@
 					</ix-typography>
 				</ix-card-content>
 			</ix-card>
-		</div>
-
-		<div class="tile-container">
-			<ix-tile size="big" class="mr-1">
-				<div class="mt-4" slot="header">{{ facility.heading }}</div>
-				<div class="mt-7 text-l">{{ facility.subheading }}</div>
-			</ix-tile>
-
-			<ix-tile class="mt-2" size="small">Location: {{ facility.location }}</ix-tile>
-			<ix-tile class="mt-2" size="small">Number of pumps: {{ facility.pumps }}</ix-tile>
 		</div>
 	</div>
 </ix-content>
