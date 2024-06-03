@@ -14,6 +14,9 @@ model TimeSeriesItem {
 
     data TimeSeriesDataItem[]
 
+    assetId Int
+    Asset   Asset @relation(fields: [assetId], references: [id])
+
     @@id([entityId, propertySetName])
     @@unique([entityId, propertySetName])
 }
@@ -22,6 +25,9 @@ model TimeSeriesItem {
 model TimeSeriesDataItem {
     time DateTime
     data Json?
+    name String?
+    location Json?
+
 
     // Foreign keys
     timeSeriesItementityId        String
@@ -30,6 +36,41 @@ model TimeSeriesDataItem {
 
     @@id([timeSeriesItementityId, timeSeriesItempropertySetName, time])
 }
+
+
+model Asset {
+    id          Int      @id @default(autoincrement())
+    name        String
+    description String?
+    location    AssetLocation?
+    typeId      String
+    Variables   Json?
+
+    timeSeriesItems TimeSeriesItem[] 
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+}
+
+model AssetLocation {
+    id            Int      @id @default(autoincrement())
+    country       String
+    region        String
+    locality      String
+    streetAddress String
+    postalCode    String
+    longitude     Float
+    latitude      Float
+
+
+    Assetid Int @unique
+    Asset   Asset @relation(fields: [Assetid], references: [id])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
 
 // TODO: Add User model + relation
 // TODO: Save dueDate as DateTime

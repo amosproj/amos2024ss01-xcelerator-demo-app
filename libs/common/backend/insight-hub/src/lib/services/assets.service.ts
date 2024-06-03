@@ -3,6 +3,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { IInsightHub } from 'common-backend-models';
 import { Observable } from 'rxjs';
 
+import { IAspectResponse } from '../models/interfaces/aspect-response.interface';
 import { IAssetsResponse } from '../models/interfaces/assets-response.interface';
 import { INSIGHT_HUB_OPTIONS } from '../tokens';
 import { XdBaseBearerInteractionService } from './base-bearer-interaction.service';
@@ -32,7 +33,26 @@ export class XdAssetsService extends XdBaseBearerInteractionService {
 	/**
 	 * Allows to get the assets data from the Asset Management API.
 	 */
-	public getAssetsData(): Observable<IAssetsResponse> {
-		return super._getData<IAssetsResponse>();
+	public getAssetsData(
+		pageSize = 150,
+		page = 0,
+	): Observable<IAssetsResponse> {
+		return super._getData<IAssetsResponse>(
+			undefined,
+			{
+				size: pageSize,
+				page: page,
+			},
+		);
 	}
+
+	public getAssetAspectsData(assetId: string): Observable<IAspectResponse> {
+
+		return super._getData<any>(
+			`${assetId}/aspects`,
+		);
+	}	
+
+
+
 }

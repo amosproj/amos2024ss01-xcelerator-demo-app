@@ -37,8 +37,8 @@ interface IXdInsightHubModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'
 		XdUsersService,
 		Logger,
 	],
-	imports: [HttpModule],
-	exports: [XdAssetsService, XdIotTimeSeriesService, XdUsersService],
+	imports: [ HttpModule ],
+	exports: [ XdAssetsService, XdIotTimeSeriesService, XdUsersService ],
 })
 export class XdInsightHubModule {
 	static register(options: IXdInsightHubModuleOptions): DynamicModule {
@@ -51,7 +51,7 @@ export class XdInsightHubModule {
 					useValue: options,
 				},
 			],
-			exports: [INSIGHT_HUB_OPTIONS],
+			exports: [ INSIGHT_HUB_OPTIONS ],
 		};
 	}
 
@@ -67,7 +67,7 @@ export class XdInsightHubModule {
 					inject: options.inject,
 				},
 			],
-			exports: [INSIGHT_HUB_OPTIONS],
+			exports: [ INSIGHT_HUB_OPTIONS ],
 		};
 	}
 }
