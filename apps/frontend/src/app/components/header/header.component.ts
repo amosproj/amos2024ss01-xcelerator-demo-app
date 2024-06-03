@@ -46,55 +46,22 @@ export class HeaderComponent {
 		return HeaderComponent.buildBreadcrumbRecursively(this._activatedRoute.root);
 	});
 
-	readonly headerData = computed(() => {
-		const breadcrumbs = this.breadcrumbs();
-		let tempHeader = '';
-
-		const headerMap = new Map<string, string>([
-			['Issues', 'Open Issues'],
-			['Facilities', 'Facilities Dashboard'],
-			['Home', 'Homepage'],
-			['Cases', 'Cases'],
-			['Open', 'Open Cases'],
-		]);
-
-		const titleMap = new Map<string, string>([
-			['Issues', 'List of all Facilities with Issues'],
-			['Facilities', 'List of all Facilities'],
-			['Home', ''],
-			['Cases', ''],
-			['Open', 'List of all Open Cases'],
-		]);
-
-		if (breadcrumbs.length > 0) {
-			tempHeader = breadcrumbs[breadcrumbs.length - 1].label;
-		} else {
-			return { title: '', subtitle: '' };
+	readonly title = computed(() => {
+		this.routerEvents();
+		let currentRoute = this._activatedRoute.root;
+		while (currentRoute.firstChild) {
+			currentRoute = currentRoute.firstChild;
 		}
+		return currentRoute.snapshot.data['title'];
+	});
 
-		// Check for special case where label is "Details"
-		if (tempHeader === 'Details') {
-			const previousBreadcrumb =
-				breadcrumbs.length > 1 ? breadcrumbs[breadcrumbs.length - 2].label : '';
-
-			if (previousBreadcrumb === 'Facilities') {
-				return {
-					title: 'Facility Details Page',
-					subtitle: 'Detailed information about a specific facility',
-				};
-			} else if (previousBreadcrumb === 'Cases') {
-				return {
-					title: 'Case Details Page',
-					subtitle: 'Detailed information about a specific case',
-				};
-			}
+	readonly subtitle = computed(() => {
+		this.routerEvents();
+		let curentRoute = this._activatedRoute.root;
+		while (curentRoute.firstChild) {
+			curentRoute = curentRoute.firstChild;
 		}
-
-		if (headerMap.has(tempHeader)) {
-			return { title: headerMap.get(tempHeader), subtitle: titleMap.get(tempHeader) || '' };
-		} else {
-			return { title: tempHeader, subtitle: '' };
-		}
+		return curentRoute.snapshot.data['subtitle'];
 	});
 
 	/**

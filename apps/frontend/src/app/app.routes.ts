@@ -11,6 +11,8 @@ export const APP_ROUTES: Route[] = [
 				label: 'Home',
 				url: '/',
 			},
+			title: 'Home Page',
+			subtitle: 'This is the home page',
 		},
 		children: [
 			{
@@ -20,6 +22,8 @@ export const APP_ROUTES: Route[] = [
 						label: 'Facilities',
 						url: 'facilities',
 					},
+					title: 'Facilities Dashboard',
+					subtitle: 'These are the facilities',
 				},
 				loadChildren: () =>
 					import('facilities-frontend-shell').then((m) => m.FACILITIES_SHELL_ROUTES),

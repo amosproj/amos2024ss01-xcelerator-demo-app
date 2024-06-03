@@ -12,13 +12,6 @@
 		<ix-avatar username="John Doe" extra="Administrator"> </ix-avatar>
 	</ix-application-header>
 
-	<ix-content-header
-		hasBackButton="true"
-		[headerTitle]="headerData().title"
-		[headerSubtitle]="headerData().subtitle"
-		(backButtonClick)="goBack()"
-	></ix-content-header>
-
 	<ix-breadcrumb visibleItemCount="3" class="ml-8">
 		<ix-breadcrumb-item
 			*ngFor="let breadcrumb of breadcrumbs()"
@@ -26,6 +19,14 @@
 			[label]="breadcrumb.label"
 		></ix-breadcrumb-item>
 	</ix-breadcrumb>
+
+	<ix-content-header
+		class="pl-4 pt-4"
+		hasBackButton="true"
+		[headerTitle]="title()"
+		[headerSubtitle]="subtitle()"
+		(backButtonClick)="goBack()"
+	></ix-content-header>
 
 	<ix-menu>
 		<ix-menu-item icon="anomaly-found" [routerLink]="['/facilities/issues']">
