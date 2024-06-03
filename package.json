@@ -7,7 +7,7 @@
 		"npm": ">=9.x.x"
 	},
 	"scripts": {
-		"prepare": "bash -c 'if [[ $NODE_ENVIRONMENT != \"production\" ]]; then husky install; fi'",
+		"prepare": "if [[ $NODE_ENVIRONMENT != \"production\" ]]; then husky install; fi",
 		"lint-staged": "lint-staged",
 		"pre-commit": "lint-staged"
 	},
