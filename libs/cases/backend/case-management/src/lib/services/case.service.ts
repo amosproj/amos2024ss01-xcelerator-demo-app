@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import {} from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
 import { from, map, Observable } from 'rxjs';
@@ -42,7 +42,7 @@ export class XdCaseService {
 		return from(this.prismaService.case.findUnique({ where: { id } })).pipe(
 			map((item) => {
 				if (!item) {
-					throw new Error('Case not found');
+					throw new NotFoundException(`Case with ${id} does not exist.`);
 				}
 
 				return {
