@@ -18,7 +18,7 @@ describe('backendUrlInterceptor', () => {
 						apiUrl: 'http://localhost:3000',
 					},
 				},
-				provideHttpClient(withInterceptors([backendUrlInterceptor])),
+				provideHttpClient(withInterceptors([ backendUrlInterceptor ])),
 				provideHttpClientTesting(),
 			],
 		});

@@ -17,7 +17,7 @@ describe('TimeseriesRequestService', () => {
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [HttpClientTestingModule],
+			imports: [ HttpClientTestingModule ],
 			providers: [
 				TimeseriesRequestService,
 				{

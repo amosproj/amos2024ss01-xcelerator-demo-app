@@ -16,7 +16,7 @@ describe('BrowseComponent', () => {
 			imports: [
 				XdBrowsePage,
 				HttpClientTestingModule,
-				RouterModule.forRoot([{ path: 'facilities/1', component: XdDetailPage }]),
+				RouterModule.forRoot([ { path: 'facilities/1', component: XdDetailPage } ]),
 			],
 			providers: [
 				{
@@ -24,7 +24,7 @@ describe('BrowseComponent', () => {
 					useValue: {
 						getAllTimeseries: jest
 							.fn()
-							.mockReturnValue(of([{ id: '1', propertySetName: 'test' }])),
+							.mockReturnValue(of([ { id: '1', propertySetName: 'test' } ])),
 					},
 				},
 				{
