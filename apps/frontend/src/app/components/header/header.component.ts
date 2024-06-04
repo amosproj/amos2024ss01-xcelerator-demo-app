@@ -64,6 +64,20 @@ export class HeaderComponent {
 		return curentRoute.snapshot.data['subtitle'];
 	});
 
+	readonly backButtonPresent = computed(() => {
+		const breadcrumbs = this.breadcrumbs();
+		let tempHeader = '';
+		if (breadcrumbs.length > 0) {
+			tempHeader = breadcrumbs[breadcrumbs.length - 1].label;
+		}
+
+		if (tempHeader === 'Home') {
+			return false;
+		}
+
+		return true;
+	});
+
 	/**
 	 * Build breadcrumbs recursively
 	 * @param route

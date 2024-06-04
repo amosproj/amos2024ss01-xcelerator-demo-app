@@ -1,48 +1,42 @@
 <ix-content>
-    <ix-content-header slot="header" header-title="Main Dashboard" [headerSubtitle]="subtitle">
-        <ix-button (click)="toggleView()">
-            Switch to {{ showCardList ? 'Event List' : 'Card List' }}
-        </ix-button>
-    </ix-content-header>
+	<ix-button (click)="toggleView()" class="absolute -top-0 right-4 z-10">
+		Switch to {{ showCardList ? 'Event List' : 'Card List' }}
+	</ix-button>
 
-    <div *ngIf="showCardList">
-        <ix-card-list
-            label="Facilities Overview"
-            [showAllCount]="facilities.length"
-            list-style="stack"
-        >
-            @for (facility of facilities; track facility.id){
-                <ix-push-card
-                    [icon]="facility.icon"
-                    [notification]="facility.notification"
-                    [heading]="facility.heading"
-                    [subheading]="facility.subheading"
-                    [variant]="facility.variant"
-                    [routerLink]="['/facilities', facility.id]"
-                >
-                    <p>Number of water pumps: {{facility.pumps}}</p>
-                    <p>Location: {{facility.location}}</p>
-                    </ix-push-card>
-                    }
-        </ix-card-list>
-    </div>
+	<div *ngIf="showCardList">
+		<ix-card-list
+			label="Facilities Overview"
+			[showAllCount]="facilities.length"
+			list-style="stack"
+		>
+			@for (facility of facilities; track facility.id){
+			<ix-push-card
+				[icon]="facility.icon"
+				[notification]="facility.notification"
+				[heading]="facility.heading"
+				[subheading]="facility.subheading"
+				[variant]="facility.variant"
+				[routerLink]="['/facilities', facility.id]"
+			>
+				<p>Number of water pumps: {{facility.pumps}}</p>
+				<p>Location: {{facility.location}}</p>
+			</ix-push-card>
+			}
+		</ix-card-list>
+	</div>
 
-    <div *ngIf="!showCardList">
-        <ix-event-list item-height="L">
-            @for (facility of facilities; track facility.id){
-                <ix-event-list-item
-                    color="color-primary"
-                    [routerLink]="['/facilities', facility.id]"
-                >
-                    <div>
-                        <strong>{{ facility.heading }}</strong>
-                        <p>{{ facility.subheading }}</p>
-                        <p>Number of water pumps: {{ facility.pumps }}</p>
-                        <p>Location: {{ facility.location }}</p>
-                    </div>
-
-                </ix-event-list-item>
-            }
-        </ix-event-list>
-    </div>
+	<div *ngIf="!showCardList">
+		<ix-event-list item-height="L">
+			@for (facility of facilities; track facility.id){
+			<ix-event-list-item color="color-primary" [routerLink]="['/facilities', facility.id]">
+				<div>
+					<strong>{{ facility.heading }}</strong>
+					<p>{{ facility.subheading }}</p>
+					<p>Number of water pumps: {{ facility.pumps }}</p>
+					<p>Location: {{ facility.location }}</p>
+				</div>
+			</ix-event-list-item>
+			}
+		</ix-event-list>
+	</div>
 </ix-content>

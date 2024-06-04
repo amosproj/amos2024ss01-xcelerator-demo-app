@@ -1,4 +1,4 @@
-<ix-application class="h-screen">
+<ix-application class="h-screen z-0">
 	<ix-application-header name="Xcelerator Demo App">
 		<button class="placeholder-logo" slot="logo" [routerLink]="['/']">
 			<img
@@ -13,16 +13,17 @@
 	</ix-application-header>
 
 	<ix-breadcrumb visibleItemCount="3" class="ml-8">
-		<ix-breadcrumb-item
-			*ngFor="let breadcrumb of breadcrumbs()"
-			[routerLink]="[breadcrumb.url]"
-			[label]="breadcrumb.label"
-		></ix-breadcrumb-item>
+		@for (breadcrumb of breadcrumbs(); track breadcrumb.url) {
+			<ix-breadcrumb-item
+				[routerLink]="[breadcrumb.url]"
+				[label]="breadcrumb.label"
+			></ix-breadcrumb-item>
+		}
 	</ix-breadcrumb>
 
 	<ix-content-header
 		class="pl-4 pt-4"
-		hasBackButton="true"
+		[hasBackButton]="backButtonPresent()"
 		[headerTitle]="title()"
 		[headerSubtitle]="subtitle()"
 		(backButtonClick)="goBack()"

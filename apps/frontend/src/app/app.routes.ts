@@ -12,7 +12,7 @@ export const APP_ROUTES: Route[] = [
 				url: '/',
 			},
 			title: 'Home Page',
-			subtitle: 'This is the home page',
+			subtitle: '',
 		},
 		children: [
 			{
@@ -23,7 +23,7 @@ export const APP_ROUTES: Route[] = [
 						url: 'facilities',
 					},
 					title: 'Facilities Dashboard',
-					subtitle: 'These are the facilities',
+					subtitle: 'List of all Facilities',
 				},
 				loadChildren: () =>
 					import('facilities-frontend-shell').then((m) => m.FACILITIES_SHELL_ROUTES),
@@ -35,6 +35,8 @@ export const APP_ROUTES: Route[] = [
 						label: 'Cases',
 						url: 'cases',
 					},
+					title: 'Cases',
+					subtitle: '',
 				},
 				loadChildren: () =>
 					import('cases-frontend-shell').then((m) => m.CASES_SHELL_ROUTES),
