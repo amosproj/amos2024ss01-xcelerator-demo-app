@@ -26,6 +26,22 @@
 		<ix-card variant="insight" class="h-full w-full p-4">
 			<ix-card-content>
 				<ix-card-title>
+					<ix-icon class="icon" name="{{facility.icon}}" size="32"></ix-icon>
+					<span class="notification text-2xl">Basic information</span>
+				</ix-card-title>
+				<ix-typography color="std">{{ facility.heading }}</ix-typography>
+				<ix-typography color="std">{{ facility.subheading }}</ix-typography>
+				<ix-typography color="std">{{ facility.location }}</ix-typography>
+				<div class="flex gap-x-2">
+					<ix-typography color="std">status: </ix-typography>
+					<p [ngClass]="facility.variant">{{ facility.variant }}</p>
+				</div>
+			</ix-card-content>
+		</ix-card>
+
+		<ix-card variant="insight" class="h-full w-full p-4">
+			<ix-card-content>
+				<ix-card-title>
 					<ix-icon class="icon" name="tasks-open" size="32"></ix-icon>
 					<span class="notification text-2xl">3</span>
 				</ix-card-title>
@@ -52,8 +68,8 @@
 					{{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
 				</ix-typography>
 				<ix-typography color="std">
-					{{ (locked$ | async) ? 'Currently the doors are locked' :
-                    'Currently the doors are unlocked' }}
+					{{ (locked$ | async) ? 'Currently the doors are locked' : 'Currently the doors
+					are unlocked' }}
 				</ix-typography>
 
 				<div class="mt-auto p-2">
