@@ -1,57 +1,56 @@
-import { HttpEvent, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+    HTTP_INTERCEPTORS,
+    HttpClient,
+    HttpHandler,
+    HttpRequest,
+} from '@angular/common/http';
+import {
+    HttpClientTestingModule,
+    HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { APP_CONFIG } from 'common-frontend-models';
-import { API_BASE_SEGMENT } from 'common-shared-models';
-import { Observable, of } from 'rxjs';
 
-import { BackendUrlInterceptor } from './backend-url.interceptor';
+describe('backendUrlInterceptor', () => {
+    let httpTestingController: HttpTestingController;
+    let httpClient: HttpClient;
 
-describe('BackendUrlInterceptor', () => {
-	let interceptor: BackendUrlInterceptor;
-	let mockHttpHandler: HttpHandler;
-	let mockHttpHandlerSpy: jest.SpyInstance;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [ HttpClientTestingModule ],
+            providers: [
+                {
+                    provide: APP_CONFIG,
+                    useValue: {
+                        apiUrl: 'http://localhost:3000'
+                    }
+                },
+            ],
+        });
 
-	beforeEach(() => {
-		mockHttpHandler = {
-			handle: (req: HttpRequest<object>): Observable<HttpEvent<object>> =>
-				of(new HttpResponse(req)),
-		} as HttpHandler;
+        httpTestingController = TestBed.inject(HttpTestingController);
+        httpClient = TestBed.inject(HttpClient);
+    });
 
-		TestBed.configureTestingModule({
-			providers: [
-				BackendUrlInterceptor,
-				{ provide: APP_CONFIG, useValue: { apiUrl: 'http://localhost:3000' } },
-				{ provide: API_BASE_SEGMENT, useValue: '/api' },
-			],
-		});
+    afterEach(() => {
+        httpTestingController.verify();
+    });
 
-		interceptor = TestBed.inject(BackendUrlInterceptor);
-		mockHttpHandlerSpy = jest.spyOn(mockHttpHandler, 'handle');
-	});
+    it('should return the original request if the request URL does not start with the API base segment', () => {
+        const url = '/non-api/resource';
 
-	it('should be created', () => {
-		expect(interceptor).toBeTruthy();
-	});
+        httpClient.get(url).subscribe();
 
-	it('should return the original request if the request URL does not start with the API base segment', () => {
-		const req = new HttpRequest<object>('GET', '/test');
+        const req = httpTestingController.expectOne(url);
+        expect(req.request.url).toEqual(url);
+    });
 
-		interceptor.intercept(req, mockHttpHandler);
+    it('should return a new request with the backend URL if the request URL starts with the API base segment', () => {
+        const url = '/api/resource';
 
-		expect(mockHttpHandlerSpy).toHaveBeenCalledTimes(1);
-		expect(mockHttpHandlerSpy).toHaveBeenCalledWith(req);
-	});
+        httpClient.get(url).subscribe();
 
-	it('should return a new request with the backend URL if the request URL starts with the API base segment', () => {
-		const req = new HttpRequest<object>('GET', '/api/test');
-
-		interceptor.intercept(req, mockHttpHandler);
-
-		expect(mockHttpHandlerSpy).toHaveBeenCalledTimes(1);
-		expect(mockHttpHandlerSpy).toHaveBeenCalledWith(
-			req.clone({
-				url: 'http://localhost:3000/api/test',
-			}),
-		);
-	});
+        const req = httpTestingController.expectOne('http://localhost:3000/api/resource');
+        expect(req.request.url).toEqual('http://localhost:3000/api/resource');
+    });
 });
