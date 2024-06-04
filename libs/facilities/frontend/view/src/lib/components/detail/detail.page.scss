@@ -1,4 +1,5 @@
 .details-grid {
+
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
 
@@ -11,4 +12,16 @@ ix-card-content {
 	border: 1px solid var(--ix-card-border-color, var(--theme-color-soft-bdr));
 	border-radius: var(--theme-default-border-radius);
 	border-color: var(--theme-color-soft-bdr);
+}
+
+.success {
+	color: green;
+}
+
+.warning {
+	color: orange;
+}
+
+.critical {
+	color: red;
 }

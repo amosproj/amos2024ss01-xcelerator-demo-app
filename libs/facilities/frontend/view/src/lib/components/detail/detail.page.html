@@ -22,11 +22,11 @@
 				</ix-card-title>
 				<ix-typography color="std" format="h4"> Open Cases </ix-typography>
 				<ix-typography color="std">
-                    There are 3 open cases regarding this facility
-                </ix-typography>
-                <div class="mt-auto p-2">
-                    <ix-button routerLink="/cases/create"> New Case </ix-button>
-                </div>
+					There are 3 open cases regarding this facility
+				</ix-typography>
+				<div class="mt-auto p-2">
+					<ix-button routerLink="/cases/create"> New Case </ix-button>
+				</div>
 			</ix-card-content>
 		</ix-card>
 
@@ -43,15 +43,15 @@
 					{{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
 				</ix-typography>
 				<ix-typography color="std">
-					{{ (locked$ | async) ? 'Currently the doors are locked' :
-                    'Currently the doors are unlocked' }}
+					{{ (locked$ | async) ? 'Currently the doors are locked' : 'Currently the doors
+					are unlocked' }}
 				</ix-typography>
 
-                <div class="mt-auto p-2">
+				<div class="mt-auto p-2">
 					<ix-button (click)="changeLocked()">
 						{{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
 					</ix-button>
-                </div>
+				</div>
 			</ix-card-content>
 		</ix-card>
 

@@ -16,7 +16,7 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@frontend/case-management": ["libs/cases/backend/case-management/src/index.ts"],
+
 			"@frontend/common/backend/insight-hub": [
 				"libs/common/backend/insight-hub/src/index.ts"
 			],
@@ -34,7 +34,8 @@
 			"facilities-frontend-shell": ["libs/facilities/frontend/shell/src/index.ts"],
 			"facilities-frontend-view": ["libs/facilities/frontend/view/src/index.ts"],
 			"orders-frontend-shell": ["libs/orders/frontend/shell/src/index.ts"],
-			"orders-frontend-view": ["libs/orders/frontend/view/src/index.ts"]
+			"orders-frontend-view": ["libs/orders/frontend/view/src/index.ts"],
+			"cases-backend-management": ["libs/cases/backend/case-management/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

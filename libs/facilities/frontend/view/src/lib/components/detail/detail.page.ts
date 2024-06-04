@@ -14,7 +14,15 @@ import LockModalComponent from './lock-modal/lockModal.component';
 @Component({
 	selector: 'lib-detail',
 	standalone: true,
-    imports: [ CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink, ChartComponent ],
+	imports: [
+		CommonModule,
+		IxModule,
+		NgxEchartsModule,
+		LockModalComponent,
+		RouterLink,
+		ChartComponent,
+	],
+  
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -22,8 +30,9 @@ import LockModalComponent from './lock-modal/lockModal.component';
 })
 export class XdDetailPage {
 	facility: IFacilityMock = this.getFacility();
-    pumpChart = pumpChart;
-    envChart = envChart;
+
+	pumpData = pumpData;
+	envData = envData;
 
 	protected locked$ = new BehaviorSubject<boolean>(true);
 
