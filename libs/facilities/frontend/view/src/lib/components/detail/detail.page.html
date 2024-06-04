@@ -9,35 +9,10 @@
 	</ix-content-header>
 
 	<div class="details-grid gap-x-6 gap-y-4 pb-12">
-		<lib-chart
-			[data]="pumpData"
-			[title]="'Pump Data'"
-			[yname]="'Flow'"
-			[color]="'#07dbc7'"
-		></lib-chart>
 
-		<lib-chart
-			[data]="envData"
-			[title]="'Environment Data'"
-			[yname]="'Humidity'"
-			[color]="'#07a307'"
-		></lib-chart>
+        <lib-chart [chart]="pumpChart"></lib-chart>
 
-		<ix-card variant="insight" class="h-full w-full p-4">
-			<ix-card-content>
-				<ix-card-title>
-					<ix-icon class="icon" name="{{facility.icon}}" size="32"></ix-icon>
-					<span class="notification text-2xl">Basic information</span>
-				</ix-card-title>
-				<ix-typography color="std">{{ facility.heading }}</ix-typography>
-				<ix-typography color="std">{{ facility.subheading }}</ix-typography>
-				<ix-typography color="std">{{ facility.location }}</ix-typography>
-				<div class="flex gap-x-2">
-					<ix-typography color="std">status: </ix-typography>
-					<p [ngClass]="facility.variant">{{ facility.variant }}</p>
-				</div>
-			</ix-card-content>
-		</ix-card>
+        <lib-chart [chart]="envChart"></lib-chart>
 
 		<ix-card variant="insight" class="h-full w-full p-4">
 			<ix-card-content>
