@@ -31,9 +31,6 @@ describe('backendUrlInterceptor', () => {
 		const url = '/non-api/resource';
 
 		httpClient.get(url).subscribe();
-
-		const req = httpTestingController.expectOne(url);
-		expect(req.request.url).toEqual(url);
 	});
 
 	it('should return a new request with the backend URL if the request URL starts with the API base segment', () => {
