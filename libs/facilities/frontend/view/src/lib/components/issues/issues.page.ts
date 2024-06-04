@@ -5,6 +5,7 @@ import { IxModule } from '@siemens/ix-angular';
 
 import { XdBrowsePage } from '../browse';
 
+// TODO - Discuss how meaningful this component is since it is basically a copy of the browse page, currently not even the issue filter is applied
 @Component({
 	selector: 'lib-issues',
 	standalone: true,

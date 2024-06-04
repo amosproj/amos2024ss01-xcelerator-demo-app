@@ -13,9 +13,10 @@ import { Observable } from 'rxjs';
 })
 export class TimeseriesRequestService {
 	private readonly _httpClient = inject(HttpClient);
+	private readonly _baseRoute = '/api/timeseries';
 
 	public getAllTimeseries(): Observable<ITimeSeriesItemResponse[]> {
-		return this._httpClient.get<ITimeSeriesItemResponse[]>('/api/timeseries');
+		return this._httpClient.get<ITimeSeriesItemResponse[]>(this._baseRoute);
 	}
 
 	public getTimeSeries(
@@ -27,7 +28,7 @@ export class TimeseriesRequestService {
 		});
 
 		return this._httpClient.get<ITimeSeriesItemResponse[]>(
-			`/api/timeseries/${params.entityId}/${params.propertySetName}`,
+			`${this._baseRoute}/${params.entityId}/${params.propertySetName}`,
 			{
 				params: httpParams,
 			},

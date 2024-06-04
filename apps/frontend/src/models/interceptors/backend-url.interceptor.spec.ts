@@ -1,5 +1,5 @@
 import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { APP_CONFIG } from 'common-frontend-models';
 
@@ -11,15 +11,15 @@ describe('backendUrlInterceptor', () => {
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [HttpClientTestingModule],
 			providers: [
-				provideHttpClient(withInterceptors([backendUrlInterceptor])),
 				{
 					provide: APP_CONFIG,
 					useValue: {
 						apiUrl: 'http://localhost:3000',
 					},
 				},
+				provideHttpClient(withInterceptors([backendUrlInterceptor])),
+				provideHttpClientTesting(),
 			],
 		});
 
@@ -31,11 +31,17 @@ describe('backendUrlInterceptor', () => {
 		const url = '/non-api/resource';
 
 		httpClient.get(url).subscribe();
+
+		const req = httpTestingController.expectOne(url);
+		expect(req.request.url).toEqual(url);
 	});
 
 	it('should return a new request with the backend URL if the request URL starts with the API base segment', () => {
 		const url = '/api/resource';
 
 		httpClient.get(url).subscribe();
+
+		const req = httpTestingController.expectOne('http://localhost:3000/api/resource');
+		expect(req.request.url).toEqual('http://localhost:3000/api/resource');
 	});
 });

@@ -13,6 +13,8 @@ export class XdBrowseFacade {
 
 	/**
 	 * Get all timeseries.
+	 *
+	 * @TODO: This method should NOT map the response data and add fake data. In a later ticket, we will provide a meaningful implementation.
 	 */
 	public getAllTimeseries() {
 		return this._scanService.getAllTimeseries().pipe(
