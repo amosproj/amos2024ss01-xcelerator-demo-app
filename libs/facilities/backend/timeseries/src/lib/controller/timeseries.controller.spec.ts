@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
+import { Test } from '@nestjs/testing';
 import {
 	ESortOrder,
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
 } from 'facilities-shared-models';
-import { Test } from '@nestjs/testing';
 import { firstValueFrom, Observable, of } from 'rxjs';
 
 import { XdTimeseriesService } from '../services';

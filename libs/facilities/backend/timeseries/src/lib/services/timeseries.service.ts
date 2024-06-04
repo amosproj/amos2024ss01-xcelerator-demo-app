@@ -1,11 +1,11 @@
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { PrismaService } from 'common-backend-prisma';
 import {
 	IGetTimeSeriesParams,
 	IGetTimeseriesQuery,
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
 } from 'facilities-shared-models';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { PrismaService } from 'common-backend-prisma';
 import { catchError, from, map, Observable } from 'rxjs';
 
 @Injectable()

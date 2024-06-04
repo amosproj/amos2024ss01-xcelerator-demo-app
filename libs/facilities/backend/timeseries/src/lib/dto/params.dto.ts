@@ -1,5 +1,5 @@
-import { IGetTimeSeriesParams } from 'facilities-shared-models';
 import { IsNotEmpty, IsString } from 'class-validator';
+import { IGetTimeSeriesParams } from 'facilities-shared-models';
 
 /**
  * The DTO for the time series parameters,

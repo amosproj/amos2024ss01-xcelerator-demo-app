@@ -1,5 +1,5 @@
-import { ITimeSeriesDataItemResponse, ITimeSeriesItemResponse } from 'facilities-shared-models';
 import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ITimeSeriesDataItemResponse, ITimeSeriesItemResponse } from 'facilities-shared-models';
 import { Observable } from 'rxjs';
 
 import { GetTimeSeriesParamsDto } from '../dto/params.dto';

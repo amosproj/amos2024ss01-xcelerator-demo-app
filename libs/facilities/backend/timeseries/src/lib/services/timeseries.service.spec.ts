@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import { ESortOrder, IGetTimeSeriesParams, IGetTimeseriesQuery } from 'facilities-shared-models';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
+import { ESortOrder, IGetTimeSeriesParams, IGetTimeseriesQuery } from 'facilities-shared-models';
 import { lastValueFrom } from 'rxjs';
 
 import { XdTimeseriesService } from './timeseries.service';
