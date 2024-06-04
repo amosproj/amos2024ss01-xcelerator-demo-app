@@ -1,7 +1,9 @@
 import { XdInsightHubModule } from '@frontend/common/backend/insight-hub';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { XdCaseManagamentModule } from 'cases-backend-management';
 import { BackendConfig } from 'common-backend-models';
+import { XdTimeseriesModule } from 'facilities-backend-timeseries';
 
 /* Libraries */
 import { AppController } from './app.controller';
@@ -13,17 +15,19 @@ import { validateConfig } from './config/validation';
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			envFilePath: ['.env'],
+			envFilePath: [ '.env' ],
 			validate: validateConfig,
 		}),
 		XdInsightHubModule.registerAsync({
-			imports: [ConfigModule],
+			imports: [ ConfigModule ],
 			useFactory: (configService: ConfigService<BackendConfig>) =>
 				configService.get('insightHub'),
-			inject: [ConfigService],
+			inject: [ ConfigService ],
 		}),
+		XdTimeseriesModule,
+		XdCaseManagamentModule,
 	],
-	controllers: [AppController],
-	providers: [AppService],
+	controllers: [ AppController ],
+	providers: [ AppService ],
 })
 export class AppModule {}

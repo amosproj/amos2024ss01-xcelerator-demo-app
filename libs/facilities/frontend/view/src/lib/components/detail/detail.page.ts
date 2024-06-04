@@ -5,8 +5,7 @@ import { IxModule, ModalService } from '@siemens/ix-angular';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
 
-import { envData } from '../facility.mocks/charts/envData';
-import { pumpData } from '../facility.mocks/charts/pumpData';
+import { envChart, pumpChart } from '../facility.mocks/charts/processData';
 import { facilities } from '../facility.mocks/const';
 import { IFacilityMock } from '../facility.mocks/facility.interface';
 import { ChartComponent } from './chart/chart.component';
@@ -15,7 +14,14 @@ import LockModalComponent from './lock-modal/lockModal.component';
 @Component({
 	selector: 'lib-detail',
 	standalone: true,
-   imports: [ CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink, ChartComponent ],
+	imports: [
+		CommonModule,
+		IxModule,
+		NgxEchartsModule,
+		LockModalComponent,
+		RouterLink,
+		ChartComponent,
+	],
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -23,8 +29,9 @@ import LockModalComponent from './lock-modal/lockModal.component';
 })
 export class XdDetailPage {
 	facility: IFacilityMock = this.getFacility();
-    pumpData = pumpData;
-    envData = envData;
+
+	pumpChart = pumpChart;
+	envChart = envChart;
 
 	protected locked$ = new BehaviorSubject<boolean>(true);
 
