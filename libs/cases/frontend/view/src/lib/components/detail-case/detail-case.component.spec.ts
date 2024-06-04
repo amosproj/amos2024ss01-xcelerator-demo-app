@@ -9,7 +9,7 @@ describe('DetailCaseComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [DetailCaseComponent],
+			imports: [ DetailCaseComponent ],
 			providers: [
 				{
 					provide: ActivatedRoute,

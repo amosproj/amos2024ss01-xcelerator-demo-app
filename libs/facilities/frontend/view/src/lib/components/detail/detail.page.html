@@ -1,18 +1,8 @@
 <ix-content>
-	<ix-content-header
-		slot="header"
-		[headerTitle]="'Details of Facility ' + facility.heading"
-		headerSubtitle="On this page you can see all our data about this facility"
-		hasBackButton="true"
-		(backButtonClick)="_location.back()"
-	>
-	</ix-content-header>
-
 	<div class="details-grid gap-x-6 gap-y-4 pb-12">
 
-        <lib-chart [chart]="pumpChart"></lib-chart>
-
-        <lib-chart [chart]="envChart"></lib-chart>
+    <lib-chart [chart]="pumpChart"></lib-chart>
+    <lib-chart [chart]="envChart"></lib-chart>
 
 		<ix-card variant="insight" class="h-full w-full p-4">
 			<ix-card-content>

@@ -23,6 +23,8 @@ export const CASES_SHELL_ROUTES: Route[] = [
 						label: 'Create',
 						url: 'cases/create',
 					},
+					title: 'Create a Case',
+					subtitle: '',
 				},
 				loadComponent: () =>
 					import('cases-frontend-view').then((m) => m.CreateCaseComponent),
@@ -35,6 +37,8 @@ export const CASES_SHELL_ROUTES: Route[] = [
 						label: 'Open',
 						url: 'cases/open',
 					},
+					title: 'Open cases',
+					subtitle: 'List of all open cases',
 				},
 				loadComponent: () =>
 					import('cases-frontend-view').then((m) => m.OpenCasesComponent),
@@ -47,6 +51,8 @@ export const CASES_SHELL_ROUTES: Route[] = [
 						label: 'Details',
 						url: 'cases/:handle',
 					},
+					title: 'Detail of case',
+					subtitle: '',
 				},
 				loadComponent: () =>
 					import('cases-frontend-view').then((m) => m.DetailCaseComponent),
