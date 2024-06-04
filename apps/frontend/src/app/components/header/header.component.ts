@@ -26,7 +26,7 @@ export interface IBreadcrumbData {
 @Component({
 	selector: 'app-header',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink, RouterOutlet],
+	imports: [ CommonModule, IxModule, RouterLink, RouterOutlet ],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -101,6 +101,6 @@ export class HeaderComponent {
 	}
 
 	goBack() {
-		this._router.navigate([this._router.url.split('/').slice(0, -1).join('/')]);
+		this._router.navigate([ this._router.url.split('/').slice(0, -1).join('/') ]);
 	}
 }

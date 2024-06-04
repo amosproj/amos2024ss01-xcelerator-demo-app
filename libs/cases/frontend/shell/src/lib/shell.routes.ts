@@ -51,7 +51,7 @@ export const CASES_SHELL_ROUTES: Route[] = [
 						label: 'Details',
 						url: 'cases/:handle',
 					},
-					title: 'See the details of case',
+					title: 'Detail of case',
 					subtitle: '',
 				},
 				loadComponent: () =>
