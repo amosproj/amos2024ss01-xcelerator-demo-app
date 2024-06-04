@@ -22,7 +22,6 @@ import LockModalComponent from './lock-modal/lockModal.component';
 		RouterLink,
 		ChartComponent,
 	],
-  
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -31,8 +30,8 @@ import LockModalComponent from './lock-modal/lockModal.component';
 export class XdDetailPage {
 	facility: IFacilityMock = this.getFacility();
 
-	pumpData = pumpData;
-	envData = envData;
+	pumpChart = pumpChart;
+	envChart = envChart;
 
 	protected locked$ = new BehaviorSubject<boolean>(true);
 
