@@ -11,7 +11,7 @@ import { IFacilityMock } from 'libs/facilities/frontend/view/src/lib/components/
 @Component({
 	selector: 'lib-create-case',
 	standalone: true,
-	imports: [CommonModule, IxModule, FormsModule, RouterLink],
+	imports: [ CommonModule, IxModule, FormsModule, RouterLink ],
 	templateUrl: './create-case.component.html',
 	styleUrl: './create-case.component.scss',
 	encapsulation: ViewEncapsulation.None,
