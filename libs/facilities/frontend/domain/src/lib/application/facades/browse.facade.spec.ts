@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { TimeseriesRequestService } from '../../infrastructure/timeseries-request.service';
-import { XdBrowseFacadesService } from './browse.facades';
+import { XdBrowseFacade } from './browse.facade';
 
-describe('XdBrowseFacadesService', () => {
-	let service: XdBrowseFacadesService;
+describe('XdBrowseFacadeService', () => {
+	let service: XdBrowseFacade;
 	let timeseriesRequestService: TimeseriesRequestService;
 
 	beforeEach(() => {
@@ -16,12 +16,12 @@ describe('XdBrowseFacadesService', () => {
 
 		TestBed.configureTestingModule({
 			providers: [
-				XdBrowseFacadesService,
+				XdBrowseFacade,
 				{ provide: TimeseriesRequestService, useValue: timeseriesRequestServiceMock },
 			],
 		});
 
-		service = TestBed.inject(XdBrowseFacadesService);
+		service = TestBed.inject(XdBrowseFacade);
 		timeseriesRequestService = TestBed.inject(TimeseriesRequestService);
 	});
 

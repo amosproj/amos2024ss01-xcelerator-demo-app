@@ -1,6 +1,14 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	inject,
+	ViewEncapsulation,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { IxModule, ModalService } from '@siemens/ix-angular';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
@@ -28,10 +36,20 @@ import LockModalComponent from './lock-modal/lockModal.component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class XdDetailPage {
-	facility: IFacilityMock = this.getFacility();
+	private readonly _browseFacade = inject(XdBrowseFacade);
 
-	pumpChart = pumpChart;
-	envChart = envChart;
+	protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
+	protected readonly facility = computed(() => {
+		const facility = this.facilities();
+		if (facility === undefined) {
+			return;
+		}
+
+		return facility.find((facility) => facility.id === this.route.snapshot.params['id']);
+	});
+
+    pumpData = pumpData;
+    envData = envData;
 
 	protected locked$ = new BehaviorSubject<boolean>(true);
 
