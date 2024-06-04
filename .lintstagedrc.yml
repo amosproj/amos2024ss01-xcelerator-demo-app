@@ -1,3 +1,6 @@
+'*.{html,ts,js,mjs}':
+    - nx affected --target eslint --fix
+    - nx format:write --uncommitted
 '*.{json,md,yml}':
     - nx format:write --uncommitted
 '*.{scss,css}':

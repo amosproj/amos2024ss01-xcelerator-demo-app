@@ -18,21 +18,21 @@ export class XdBrowseFacade {
 		return this._scanService.getAllTimeseries().pipe(
 			map((timeSeriesItem) => {
 				return timeSeriesItem.map((timeSeriesItem) => {
-                    return {
-                        id: timeSeriesItem.entityId,
-                        icon: faker.helpers.arrayElement([
-                            'battery-empty',
-                            'water-fish',
-                            'water-plant',
-                            'truck',
-                        ]),
-                        notification: `${faker.number.int({ min: 0, max: 99 })}`,
-                        heading: timeSeriesItem.entityId,
-                        subheading: timeSeriesItem.propertySetName,
-                        variant: 'success',
-                        pumps: faker.number.int({ min: 0, max: 99 }),
-                        location: faker.location.city(),
-                    };
+					return {
+						id: timeSeriesItem.entityId,
+						icon: faker.helpers.arrayElement([
+							'battery-empty',
+							'water-fish',
+							'water-plant',
+							'truck',
+						]),
+						notification: `${faker.number.int({ min: 0, max: 99 })}`,
+						heading: timeSeriesItem.entityId,
+						subheading: timeSeriesItem.propertySetName,
+						variant: 'success',
+						pumps: faker.number.int({ min: 0, max: 99 }),
+						location: faker.location.city(),
+					};
 				});
 			}),
 		);
