@@ -10,15 +10,18 @@ import { Observable } from 'rxjs';
  * @param req
  * @param next
  */
-export function backendUrlInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-    const apiUrl = inject(APP_CONFIG).apiUrl;
+export function backendUrlInterceptor(
+	req: HttpRequest<unknown>,
+	next: HttpHandlerFn,
+): Observable<HttpEvent<unknown>> {
+	const apiUrl = inject(APP_CONFIG).apiUrl;
 
-    if (!req.url.startsWith(API_BASE_SEGMENT)) {
-        return next(req);
-    }
+	if (!req.url.startsWith(API_BASE_SEGMENT)) {
+		return next(req);
+	}
 
-    const backendReq = req.clone({
-        url: `${apiUrl}${req.url}`,
-    });
-    return next(backendReq);
+	const backendReq = req.clone({
+		url: `${apiUrl}${req.url}`,
+	});
+	return next(backendReq);
 }
