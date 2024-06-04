@@ -1,5 +1,6 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 import { APP_CONFIG } from 'common-frontend-models';
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
 	providers: [
 		provideRouter(APP_ROUTES, withComponentInputBinding()),
 		importProvidersFrom(IxModule.forRoot()),
+        provideAnimations(),
         provideEcharts(),
 		{ provide: APP_CONFIG, useValue: environment },
 		{ provide: HTTP_INTERCEPTORS, useClass: BackendUrlInterceptor, multi: true },

@@ -8,7 +8,7 @@ import { cases } from '../case.mocks/const';
 @Component({
 	selector: 'lib-detail-case',
 	standalone: true,
-	imports: [CommonModule, IxModule],
+	imports: [ CommonModule, IxModule ],
 	templateUrl: './detail-case.component.html',
 	styleUrl: './detail-case.component.scss',
 	encapsulation: ViewEncapsulation.None,

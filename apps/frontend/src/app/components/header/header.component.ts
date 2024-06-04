@@ -40,9 +40,42 @@ export class HeaderComponent {
 		this._router.events.pipe(filter((e) => e instanceof NavigationEnd)),
 		{ initialValue: null },
 	);
+
 	readonly breadcrumbs = computed(() => {
 		this.routerEvents();
 		return HeaderComponent.buildBreadcrumbRecursively(this._activatedRoute.root);
+	});
+
+	readonly title = computed(() => {
+		this.routerEvents();
+		let currentRoute = this._activatedRoute.root;
+		while (currentRoute.firstChild) {
+			currentRoute = currentRoute.firstChild;
+		}
+		return currentRoute.snapshot.data['title'];
+	});
+
+	readonly subtitle = computed(() => {
+		this.routerEvents();
+		let curentRoute = this._activatedRoute.root;
+		while (curentRoute.firstChild) {
+			curentRoute = curentRoute.firstChild;
+		}
+		return curentRoute.snapshot.data['subtitle'];
+	});
+
+	readonly backButtonPresent = computed(() => {
+		const breadcrumbs = this.breadcrumbs();
+		let tempHeader = '';
+		if (breadcrumbs.length > 0) {
+			tempHeader = breadcrumbs[breadcrumbs.length - 1].label;
+		}
+
+		if (tempHeader === 'Home') {
+			return false;
+		}
+
+		return true;
 	});
 
 	/**
@@ -65,5 +98,9 @@ export class HeaderComponent {
 		}
 
 		return this.buildBreadcrumbRecursively(route.firstChild, breadcrumbs);
+	}
+
+	goBack() {
+		this._router.navigate([ this._router.url.split('/').slice(0, -1).join('/') ]);
 	}
 }
