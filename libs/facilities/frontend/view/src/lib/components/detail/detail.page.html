@@ -13,9 +13,9 @@
                 <ix-typography color="std">{{ facility.heading }}</ix-typography>
                 <ix-typography color="std">{{ facility.subheading }}</ix-typography>
                 <ix-typography color="std">{{ facility.location }}</ix-typography>
-                <div class="flex gap-x-2">
-                    <ix-typography color="std">status: </ix-typography>
-                    <p [ngClass]="facility.variant">{{ facility.variant }}</p>
+                <div class="flex">
+                    <ix-typography color="std">status:&nbsp;</ix-typography>
+                    <ix-typography [ngClass]="facility.variant">{{ facility.variant }}</ix-typography>
                 </div>
             </ix-card-content>
         </ix-card>
