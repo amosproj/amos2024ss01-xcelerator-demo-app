@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
-})
+}) 	
 export class TimeseriesRequestService {
 	private readonly _httpClient = inject(HttpClient);
 	private readonly _baseRoute = '/api/timeseries';
