@@ -2,12 +2,6 @@
     Switch to {{ showCardList ? 'Event List' : 'Card List' }}
 </ix-button>
 <ix-content>
-	<ix-content-header [headerSubtitle]="subtitle" header-title="Main Dashboard" slot="header">
-		<ix-button (click)="toggleView()">
-			Switch to {{ showCardList ? 'Event List' : 'Card List' }}
-		</ix-button>
-	</ix-content-header>
-
 	@if (showCardList) {
         @if (facilities(); as facilities) {
             <ix-card-list label="Facilities Overview" [showAllCount]="facilities.length" list-style="stack">

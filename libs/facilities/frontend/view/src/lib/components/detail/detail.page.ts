@@ -48,8 +48,8 @@ export class XdDetailPage {
 		return facility.find((facility) => facility.id === this.route.snapshot.params['id']);
 	});
 
-	pumpData = pumpData;
-	envData = envData;
+    pumpChart = pumpChart;
+    envChart = envChart;
 
 	protected locked$ = new BehaviorSubject<boolean>(true);
 
