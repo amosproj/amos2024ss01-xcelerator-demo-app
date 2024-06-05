@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
 import { XdBrowsePage } from '../browse';
-import { facilities } from '../facility.mocks/const';
 
+// TODO - Discuss how meaningful this component is since it is basically a copy of the browse page, currently not even the issue filter is applied
 @Component({
 	selector: 'lib-issues',
 	standalone: true,
@@ -15,8 +15,4 @@ import { facilities } from '../facility.mocks/const';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdIssuesPage {
-	protected readonly _issueFacilities = facilities.filter(
-		(facility) => facility.variant != 'success',
-	);
-}
+export class XdIssuesPage {}

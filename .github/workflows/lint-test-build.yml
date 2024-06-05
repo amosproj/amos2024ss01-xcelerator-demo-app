@@ -41,9 +41,9 @@ jobs:
               with:
                   main-branch-name: ${{ inputs.main-branch-name }}
                   last-successful-event: ${{ inputs.last-successful-event }}
-                  
+
             - name: Generate prisma client
-              run: pnpm prisma generate
+              run: pnpm nx run backend:"prisma:generate"
 
     lint:
         runs-on: ubuntu-latest

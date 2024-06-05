@@ -13,7 +13,7 @@ The models are inside the common domain, this domain is shared between all apps 
 The example below shows how to use the models to type the config fields. The `BackendConfig` class is used to type the config fields. The `app` const is typed due to the infer option set to true.
 
 ```typescript
-import { BackendConfig } from 'common-backend-models';
+import { BackendConfig } from 'common-backend-interfaces';
 ...
 
 function main() {

@@ -1,9 +1,9 @@
+import { ICaseResponse } from '@frontend/cases/shared/models';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 import { createCaseBodyDto, updateCaseBodyDto } from '../dto/body.dto';
 import { caseParamsDto } from '../dto/params.dto';
-import { ICaseResponse } from '../interfaces/response.interface';
 import { XdCaseService } from '../services/case.service';
 
 /**
@@ -24,8 +24,8 @@ export class XdCaseController {
 
 	/**
 	 * retrieves a single case (work order) by its ID
-	 * @param {number} id unique identifier of the case to retrieve
 	 * @returns {Observable<ICaseResponse>}
+	 * @param params
 	 */
 	@Get(':id')
 	public getCaseById(@Param() params: caseParamsDto): Observable<ICaseResponse> {

@@ -2,21 +2,20 @@ import { CommonModule } from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
+	inject,
 	Input,
 	OnInit,
 	ViewEncapsulation,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { IxModule } from '@siemens/ix-angular';
-
-import { facilities } from '../facility.mocks/const';
-import { IFacilityMock } from '../facility.mocks/facility.interface';
 
 @Component({
 	selector: 'lib-browse',
 	standalone: true,
 	imports: [ CommonModule, IxModule, RouterLink ],
-
 	templateUrl: './browse.page.html',
 	styleUrl: './browse.page.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -24,16 +23,12 @@ import { IFacilityMock } from '../facility.mocks/facility.interface';
 })
 export class XdBrowsePage implements OnInit {
 	@Input()
-	facilities: IFacilityMock[] = facilities;
-
-	@Input()
 	subtitle = 'List of all facilities';
-
 	showCardList = true;
-	ngOnInit() {
-		if (this.facilities === undefined) {
-			this.facilities = facilities;
-		}
+	private readonly _browseFacade = inject(XdBrowseFacade);
+	protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
+
+	async ngOnInit() {
 		if (this.subtitle === undefined) {
 			this.subtitle = 'List of all facilities';
 		}

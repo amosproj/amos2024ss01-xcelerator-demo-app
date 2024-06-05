@@ -5,55 +5,75 @@ import pumpData from './demo_data/PUMP-002_PumpData_20240422-220000000_20240423-
 
 const prisma = new PrismaClient();
 
+const seedFacilities = [
+	'Pump001',
+	'Pump002',
+	'Pump003',
+	'Pump004',
+	'Pump005',
+	'Pump006',
+	'Pump007',
+	'Pump008',
+	'Pump009',
+	'Pump010',
+];
+
 async function main() {
-	const tsItemPumpData = await prisma.timeSeriesItem.create({
-		data: {
-			entityId: 'Pump002',
-			propertySetName: 'PumpData',
-		},
-	});
-
-	const newPumpData = pumpData.map((data: any) => {
-		return {
-			time: data._time,
-
-			timeSeriesItementityId: tsItemPumpData.entityId,
-			timeSeriesItempropertySetName: tsItemPumpData.propertySetName,
-
+	for (const facility of seedFacilities) {
+		const tsItemPumpData = await prisma.timeSeriesItem.create({
 			data: {
-				motorCurrent: data.MotorCurrent,
-				pressureOut: data.PressureOut,
-				stuffingBoxTemperature: data.StuffingBoxTemperature,
-				pressureIn: data.PressureIn,
-				flow: data.Flow,
-			} as Prisma.JsonObject,
-		};
-	});
+				entityId: facility,
+				propertySetName: 'PumpData',
+			},
+		});
 
-	const tSItemEnv = await prisma.timeSeriesItem.create({
-		data: {
-			entityId: 'Pump002',
-			propertySetName: 'Environment',
-		},
-	});
-
-	const newEnvData = envData.map((data: any) => {
-		return {
-			time: data._time,
-
-			timeSeriesItementityId: tSItemEnv.entityId,
-			timeSeriesItempropertySetName: tSItemEnv.propertySetName,
-
+		const tSItemEnv = await prisma.timeSeriesItem.create({
 			data: {
-				pressureQc: data.Pressure_qc,
-				temperature: data.Temperature,
-				temperatureQc: data.Temperature_qc,
-				humidityQc: data.Humidity_qc,
-				humidity: data.Humidity,
-				pressure: data.Pressure,
-			} as Prisma.JsonObject,
-		};
-	});
+				entityId: facility,
+				propertySetName: 'Environment',
+			},
+		});
+
+		const newPumpData = pumpData.map((data: any) => {
+			return {
+				time: data._time as Date,
+
+				timeSeriesItementityId: tsItemPumpData.entityId,
+				timeSeriesItempropertySetName: tsItemPumpData.propertySetName,
+
+				data: {
+					motorCurrent: data.MotorCurrent,
+					pressureOut: data.PressureOut,
+					stuffingBoxTemperature: data.StuffingBoxTemperature,
+					pressureIn: data.PressureIn,
+					flow: data.Flow,
+				} as Prisma.JsonObject,
+			};
+		});
+
+		const newEnvData = envData.map((data: any) => {
+			return {
+				time: data._time as Date,
+
+				timeSeriesItementityId: tSItemEnv.entityId,
+				timeSeriesItempropertySetName: tSItemEnv.propertySetName,
+
+				data: {
+					pressureQc: data.Pressure_qc,
+					temperature: data.Temperature,
+					temperatureQc: data.Temperature_qc,
+					humidityQc: data.Humidity_qc,
+					humidity: data.Humidity,
+					pressure: data.Pressure,
+				} as Prisma.JsonObject,
+			};
+		});
+
+		// Seed database with timeseries data
+		await prisma.timeSeriesDataItem.createMany({
+			data: [newPumpData, newEnvData].flat(),
+		});
+	}
 
 	// create new case data from JSON file
 	const newCaseData = caseData.map((data: any) => {
@@ -69,11 +89,6 @@ async function main() {
 			createdBy: data.createdBy,
 			eTag: data.eTag,
 		};
-	});
-
-	// Seed database with timeseries data
-	await prisma.timeSeriesDataItem.createMany({
-		data: [newPumpData, newEnvData].flat(),
 	});
 
 	// Seed database with case data
