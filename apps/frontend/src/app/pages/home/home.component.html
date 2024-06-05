@@ -1,0 +1,61 @@
+<ix-content class="p-8 ml-5 mt-44 items-center">
+	<div class="flex items-center gap-x-32">
+		<div>
+			<img
+				class="size-32"
+				ngSrc="assets/Xcelerator.jpg"
+				height="343"
+				width="250"
+				alt="Xcelerator logo"
+			/>
+			<h1 class="text-6xl font-bold mt-6">
+				Welcome to the
+				<br />
+				Xcelerator Demo App
+			</h1>
+			<div class="mt-10">
+				<p class="text-xl">With this app, you can:</p>
+				<ul class="mt-2 text-l">
+					<li class="mt-1">
+						- Monitor your water tanks and associated devices like pumps
+					</li>
+					<li class="mt-1">
+						- View the status of tanks and devices in an interactive user interface
+					</li>
+					<li class="mt-1">- Create cases for servicing your water tanks</li>
+				</ul>
+			</div>
+		</div>
+		<div>
+			<div class="flex items-center mt-5">
+				<ix-icon-button
+					icon="anomaly-found"
+					class="mt-4"
+					[routerLink]="['/facilities/issues']"
+				></ix-icon-button>
+				<p class="ml-4 mt-4 text-l">
+					Here, you can locate all your facilities experiencing issues, such as a
+					malfunctioning pump
+				</p>
+			</div>
+			<div class="flex items-center mt-5">
+				<ix-icon-button
+					icon="building1"
+					class="mt-4"
+					[routerLink]="['/facilities']"
+				></ix-icon-button>
+				<p class="ml-4 mt-4 text-l">
+					Here you can find is a brief summary of all your facilities
+				</p>
+			</div>
+			<div class="flex items-center mt-5">
+				<ix-icon-button
+					icon="tasks-open"
+					class="mt-4"
+					[routerLink]="['/cases/open']"
+				></ix-icon-button>
+				<p class="ml-4 mt-4 text-l">Here you can view all open cases and create new one</p>
+			</div>
+		</div>
+	</div>
+</ix-content>

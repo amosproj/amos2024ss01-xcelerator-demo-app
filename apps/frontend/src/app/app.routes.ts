@@ -14,6 +14,11 @@ export const APP_ROUTES: Route[] = [
 		},
 		children: [
 			{
+				path: '',
+				loadComponent: () =>
+					import('./pages/home/home.component').then((m) => m.HomeComponent),
+			},
+			{
 				path: 'facilities',
 				data: {
 					breadcrumbs: {
