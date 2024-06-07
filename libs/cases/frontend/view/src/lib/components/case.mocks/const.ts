@@ -63,4 +63,32 @@ export const cases: ICaseMock[] = [
 		modifiedDate: '2023-08-10T03:52:14.301Z',
 		overdue: true,
 	},
+    {
+        //Push Card
+        //id: 'AA-001',
+        facilityId: 1,
+        icon: 'battery-empty',
+        notification: '99+',
+        //heading: 'Fix the Aquarium Pump',
+        //subheading: 'The pump in the aquarium is not working properly',
+        //variant: 'warning',
+
+        //Case
+        handle: 'AA-099',
+        dueDate: '2024-09-10T03:52:14.301Z',
+        notifyAssignee: false,
+        title: 'Is this overdue?',
+        type: 'warning',
+        status: '0',
+        assignedTo: 'Dan the man',
+        description: 'Dan has to stop the water pipe from leaking',
+        source: 'AHM',
+        priority: '0',
+        createdBy: 'why@care.su',
+        createdDate: '2023-08-10T03:52:14.301Z',
+        eTag: '1702540787672',
+        modifiedBy: 'test@test.com',
+        modifiedDate: '2023-08-10T03:52:14.301Z',
+        overdue: true,
+    },
 ];
