@@ -7,9 +7,9 @@ import { IxModule } from '@siemens/ix-angular';
 @Component({
 	selector: 'lib-login',
 	standalone: true,
-	imports: [ CommonModule, FormsModule, IxModule ],
+	imports: [CommonModule, FormsModule, IxModule],
 	templateUrl: './login.page.html',
-	styleUrls: [ './login.page.scss' ],
+	styleUrls: ['./login.page.scss'],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -23,7 +23,7 @@ export class LoginPage {
 		// Mock authentication process
 		if (this.username === 'siemens' && this.password === 'siemens') {
 			// Redirect to dashboard on successful login
-			this.router.navigate([ '/facilities' ]);
+			this.router.navigate(['/facilities']);
 		} else {
 			// Display an error message for failed login
 			alert('Invalid username or password');

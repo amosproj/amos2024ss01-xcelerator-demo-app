@@ -14,9 +14,9 @@ export const appConfig: ApplicationConfig = {
 	providers: [
 		provideRouter(APP_ROUTES, withComponentInputBinding()),
 		importProvidersFrom(IxModule.forRoot()),
-        provideAnimations(),
-        provideEcharts(),
+		provideAnimations(),
+		provideEcharts(),
 		{ provide: APP_CONFIG, useValue: environment },
-        provideHttpClient(withInterceptors([ backendUrlInterceptor ])),
+		provideHttpClient(withInterceptors([backendUrlInterceptor])),
 	],
 };
