@@ -38,13 +38,13 @@ describe('XdBrowseFacadeService', () => {
 
 	describe('getTimeSeries', () => {
 		it('should call getTimeSeries of TimeseriesRequestService with correct parameters', () => {
-			const entityId = 'testEntityId';
+			const assetId = 'testAssetId';
 			const propertySetName = 'testPropertySetName';
 			const queryParams = { test: 'test' };
 
-			service.getTimeSeries(entityId, propertySetName, queryParams);
+			service.getTimeSeries(assetId, propertySetName, queryParams);
 			expect(timeseriesRequestService.getTimeSeries).toHaveBeenCalledWith(
-				{ entityId, propertySetName },
+				{ assetId, propertySetName },
 				queryParams,
 			);
 		});

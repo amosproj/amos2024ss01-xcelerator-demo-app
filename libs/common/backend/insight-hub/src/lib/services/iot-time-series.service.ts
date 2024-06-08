@@ -33,7 +33,7 @@ export class XdIotTimeSeriesService extends XdBaseBearerInteractionService {
 	 * Allows to get the time series data from the IoT Time Series API.
 	 * @see https://documentation.mindsphere.io/MindSphere/apis/iot-iottimeseries/api-iottimeseries-api.html
 	 *
-	 * @param assetId The id of the asset entity
+	 * @param assetId The id of the asset asset
 	 * @param propertySetName The property set name of the time series data
 	 * @param params The parameters of the time series data
 	 */
