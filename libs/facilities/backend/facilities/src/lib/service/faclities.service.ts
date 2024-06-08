@@ -9,24 +9,25 @@ export class XdFacilitesService {
 		private readonly assetService: XdAssetsService,
 	) {}
 
-	public seedTheDB() {
-		const allASsets = this.assetService.getAssetsData().pipe(
+	public getAllPumps() {
+		return this.assetService.getAssetsData().pipe(
 			map((response) => {
-				console.log(response._embedded.assets.length);
-
 				const onlyPumps = response._embedded.assets.filter(
 					(asset) => asset.typeId === 'castidev.Pump',
 				);
 
-
-				return onlyPumps.map((pump) => {
-					return firstValueFrom(this.assetService.getAssetAspectsData(pump.assetId));
-				});
+				return onlyPumps;
 			}),
 		);
+	}
 
+	public getAspect() {
+		return this.assetService.getAssetAspectsData('d743a8d8a2784132ba95deeace41efa8');
+	}
 
+	public async seedTheDB() {
+		const pumps = await firstValueFrom(this.getAllPumps());
 
-		return firstValueFrom(allASsets);
+		return this.getAspect();
 	}
 }
