@@ -1,5 +1,5 @@
 {
-	"name": "case-management",
+	"name": "cases-backend-case-management",
 	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "libs/cases/backend/case-management/src",
 	"projectType": "library",

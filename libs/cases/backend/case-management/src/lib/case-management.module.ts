@@ -10,4 +10,4 @@ import { XdCaseService } from './services/case.service';
 	providers: [ XdCaseService ],
 	exports: [ XdCaseService ],
 })
-export class XdCaseManagamentModule {}
+export class XdCaseManagementModule {}

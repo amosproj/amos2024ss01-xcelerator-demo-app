@@ -1,1 +1,1 @@
-export * from './lib/case-managament.module';
+export * from './lib/case-management.module';

@@ -1,29 +1,54 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit  } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { themeSwitcher } from '@siemens/ix';
 import { convertThemeName, registerTheme } from '@siemens/ix-echarts';
-import { EChartsOption } from 'echarts';
+import { EChartsOption, SeriesOption } from 'echarts';
 import * as echarts from 'echarts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
+import { IChart } from '../../facility.mocks/charts/chart.interfaces';
+import { envChart } from '../../facility.mocks/charts/processData';
 @Component({
 	selector: 'lib-chart',
 	standalone: true,
     imports: [ CommonModule, NgxEchartsDirective ],
 	templateUrl: './chart.component.html',
 	styleUrl: './chart.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent implements OnInit {
 
     theme = convertThemeName(themeSwitcher.getCurrentTheme());
 
-    // this is how the values are supposed to look but these values are never used
-    @Input({required: true}) data = [ [ '2024-04-22T22:06:03.695Z', 69 ] ]
-    @Input({required: true}) title = 'sample title';
-    @Input({required: true}) yname = 'sample yname';
-    @Input({required: true}) color = 'sample color';
+    @Input({required: true}) chart: IChart  = envChart;
 
-    options!: EChartsOption;
+    options: EChartsOption = {
+        animationDuration: 1000,
+        animation: true,
+        title: {
+            left: 'center',
+        },
+        xAxis: {
+            type: 'time',
+            name: 'Time',
+            nameLocation: 'middle',
+            nameGap: 30,
+        },
+        yAxis: {
+            type: 'value',
+            name: 'Value',
+            nameLocation: 'middle',
+            nameGap: 30,
+        },
+        legend: {
+            top: 30,
+            left: 20,
+            right: 20,
+        },
+        grid: {
+            top: 80,
+        }
+    };
 
     ngOnInit() {
         registerTheme(echarts);
@@ -32,31 +57,23 @@ export class ChartComponent implements OnInit {
             this.theme = convertThemeName(theme);
         });
 
-        this.options = {
-            title: {
-                text: this.title,
-                left: 'center',
-            },
-            xAxis: {
-                type: 'time',
-                name: 'Time',
-                nameLocation: 'middle',
-                nameGap: 30,
-            },
-            yAxis: {
-                type: 'value',
-                name: this.yname,
-                nameLocation: 'middle',
-                nameGap: 30,
-            },
-            series: [
-                {
-                    data: this.data,
-                    type: 'line',
-                    itemStyle: { color: this.color },
-                    lineStyle: { color: this.color },
-                },
-            ],
-        };
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        this.options.title.text = this.chart.title;
+
+        const series: SeriesOption[] = [];
+        for(let i = 0; i < this.chart.names.length; i++) {
+            series.push({
+                name: this.chart.names[i],
+                type: 'line',
+                data: this.chart.data[i],
+                itemStyle: { color: this.chart.colors[i] },
+                lineStyle: { color: this.chart.colors[i] },
+                animationDuration: 1000,
+                animation: true,
+            });
+        }
+
+        this.options.series = series;
     }
 }

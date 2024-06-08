@@ -1,0 +1,20 @@
+{
+	"name": "facilities-frontend-domain",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/facilities/frontend/domain/src",
+	"prefix": "lib",
+	"projectType": "library",
+	"tags": ["domain:facilities", "kind:frontend", "type:util-feature"],
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/facilities/frontend/domain/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		}
+	}
+}

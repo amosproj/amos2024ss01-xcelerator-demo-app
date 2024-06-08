@@ -30,18 +30,25 @@
 		"lint": {
 			"executor": "@nx/eslint:lint"
 		},
-		"prisma-migrate": {
+		"prisma:migrate": {
 			"executor": "nx:run-commands",
 			"outputs": [],
 			"options": {
 				"command": "pnpm prisma migrate dev --name ${migrationName:=dev}"
 			}
 		},
-		"prisma-seed": {
+		"prisma:seed": {
 			"executor": "nx:run-commands",
 			"outputs": [],
 			"options": {
 				"command": "pnpm prisma db seed"
+			}
+		},
+		"prisma:generate": {
+			"executor": "nx:run-commands",
+			"outputs": [],
+			"options": {
+				"command": "pnpm prisma generate"
 			}
 		}
 	}

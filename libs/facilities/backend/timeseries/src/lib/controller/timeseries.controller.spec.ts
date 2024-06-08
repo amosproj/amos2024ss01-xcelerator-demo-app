@@ -1,13 +1,13 @@
 import { faker } from '@faker-js/faker';
 import { Test } from '@nestjs/testing';
-import { firstValueFrom, Observable, of } from 'rxjs';
-
-import { ESortOrder } from '../interfaces/query.interface';
 import {
+	ESortOrder,
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
-} from '../interfaces/response.interface';
-import { XdTimeseriesService } from '../services/timeseries.service';
+} from 'facilities-shared-models';
+import { firstValueFrom, Observable, of } from 'rxjs';
+
+import { XdTimeseriesService } from '../services';
 import { XdTimeseriesController } from './timeseries.controller';
 
 describe('TimeseriesController ', () => {

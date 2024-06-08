@@ -1,10 +1,26 @@
 .details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(580px, 1fr));
+
+	@media (max-width: 700px) {
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	}
 }
 
 ix-card-content {
 	border: 1px solid var(--ix-card-border-color, var(--theme-color-soft-bdr));
 	border-radius: var(--theme-default-border-radius);
 	border-color: var(--theme-color-soft-bdr);
+}
+
+.success {
+	color: #60dc24;
+}
+
+.warning {
+	color: #ffbc04;
+}
+
+.critical {
+	color: #f07c0c;
 }

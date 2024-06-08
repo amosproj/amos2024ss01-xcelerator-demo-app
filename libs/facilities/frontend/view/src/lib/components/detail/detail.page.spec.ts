@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { provideEcharts } from 'ngx-echarts';
@@ -18,7 +19,7 @@ describe('DetailComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ XdDetailPage ],
+			imports: [ XdDetailPage, HttpClientTestingModule ],
 			providers: [
 				{
 					provide: ActivatedRoute,

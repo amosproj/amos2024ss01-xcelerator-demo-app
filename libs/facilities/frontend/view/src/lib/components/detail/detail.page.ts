@@ -1,12 +1,19 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	inject,
+	ViewEncapsulation,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { IxModule, ModalService } from '@siemens/ix-angular';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
 
-import { envData } from '../facility.mocks/charts/envData';
-import { pumpData } from '../facility.mocks/charts/pumpData';
+import { envChart, pumpChart } from '../facility.mocks/charts/processData';
 import { facilities } from '../facility.mocks/const';
 import { IFacilityMock } from '../facility.mocks/facility.interface';
 import { ChartComponent } from './chart/chart.component';
@@ -15,16 +22,34 @@ import LockModalComponent from './lock-modal/lockModal.component';
 @Component({
 	selector: 'lib-detail',
 	standalone: true,
-   imports: [ CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink, ChartComponent ],
+	imports: [
+		CommonModule,
+		IxModule,
+		NgxEchartsModule,
+		LockModalComponent,
+		RouterLink,
+		ChartComponent,
+	],
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class XdDetailPage {
-	facility: IFacilityMock = this.getFacility();
-    pumpData = pumpData;
-    envData = envData;
+	private readonly _browseFacade = inject(XdBrowseFacade);
+
+	protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
+	protected readonly facility = computed(() => {
+		const facility = this.facilities();
+		if (facility === undefined) {
+			return;
+		}
+
+		return facility.find((facility) => facility.id === this.route.snapshot.params['id']);
+	});
+
+    pumpChart = pumpChart;
+    envChart = envChart;
 
 	protected locked$ = new BehaviorSubject<boolean>(true);
 

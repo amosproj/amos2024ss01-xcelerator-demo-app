@@ -2,10 +2,9 @@ import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
+import { ESortOrder, IGetTimeSeriesParams, IGetTimeseriesQuery } from 'facilities-shared-models';
 import { lastValueFrom } from 'rxjs';
 
-import { IGetTimeSeriesParams } from '../interfaces/params.interface';
-import { ESortOrder, IGetTimeseriesQuery } from '../interfaces/query.interface';
 import { XdTimeseriesService } from './timeseries.service';
 
 describe('TimeseriesService', () => {

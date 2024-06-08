@@ -1,7 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsBoolean, IsDate, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
-
-import { ESortOrder, IGetTimeseriesQuery } from '../interfaces/query.interface';
+import { ESortOrder, IGetTimeseriesQuery } from 'facilities-shared-models';
 
 /**
  * The DTO for the time series query,
