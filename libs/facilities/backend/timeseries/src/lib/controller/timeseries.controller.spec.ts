@@ -19,7 +19,7 @@ describe('TimeseriesController ', () => {
 			getAllTimeSeries: jest.fn().mockReturnValue(
 				of([
 					{
-						entityId: faker.string.uuid(),
+						assetId: faker.string.uuid(),
 						propertySetName: faker.string.uuid(),
 					} as ITimeSeriesItemResponse,
 				]) as Observable<ITimeSeriesItemResponse[]>,
@@ -58,7 +58,7 @@ describe('TimeseriesController ', () => {
 	it('should call getAllTimeseries', async () => {
 		const retunValue = [
 			{
-				entityId: faker.string.uuid(),
+				assetId: faker.string.uuid(),
 				propertySetName: faker.string.uuid(),
 			},
 		] as ITimeSeriesItemResponse[];
@@ -73,8 +73,8 @@ describe('TimeseriesController ', () => {
 		expect(result).toEqual(retunValue);
 	});
 
-	it('should return timeseriesDataItems when called with entityId and propertysetName', async () => {
-		const entityId = faker.string.uuid();
+	it('should return timeseriesDataItems when called with assetId and propertysetName', async () => {
+		const assetId = faker.string.uuid();
 		const propertySetName = faker.string.uuid();
 		const from = faker.date.recent();
 		const to = faker.date.recent();
@@ -95,7 +95,7 @@ describe('TimeseriesController ', () => {
 		const result = await firstValueFrom(
 			controller.getTimeSeries(
 				{
-					entityId,
+					assetId,
 					propertySetName,
 				},
 				{
@@ -111,7 +111,7 @@ describe('TimeseriesController ', () => {
 
 		expect(spy).toHaveBeenCalledTimes(1);
 		expect(spy).toHaveBeenCalledWith({
-			entityId,
+			assetId,
 			propertySetName,
 			from,
 			to,

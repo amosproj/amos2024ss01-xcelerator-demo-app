@@ -32,10 +32,10 @@ CREATE TABLE "TimeSeriesDataItem" (
     "data" JSONB,
     "name" TEXT,
     "location" JSONB,
-    "timeSeriesAssetId" TEXT NOT NULL,
+    "timeSeriesItemAssetId" TEXT NOT NULL,
     "timeSeriesItemPropertySetName" TEXT NOT NULL,
 
-    CONSTRAINT "TimeSeriesDataItem_pkey" PRIMARY KEY ("timeSeriesAssetId","timeSeriesItemPropertySetName","time")
+    CONSTRAINT "TimeSeriesDataItem_pkey" PRIMARY KEY ("timeSeriesItemAssetId","timeSeriesItemPropertySetName","time")
 );
 
 -- CreateTable
@@ -113,7 +113,7 @@ CREATE INDEX "_TimeSeriesItemToTimeSeriesVariable_B_index" ON "_TimeSeriesItemTo
 ALTER TABLE "TimeSeriesItem" ADD CONSTRAINT "TimeSeriesItem_assetId_fkey" FOREIGN KEY ("assetId") REFERENCES "Asset"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "TimeSeriesDataItem" ADD CONSTRAINT "TimeSeriesDataItem_timeSeriesAssetId_timeSeriesItemPropert_fkey" FOREIGN KEY ("timeSeriesAssetId", "timeSeriesItemPropertySetName") REFERENCES "TimeSeriesItem"("assetId", "propertySetName") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "TimeSeriesDataItem" ADD CONSTRAINT "TimeSeriesDataItem_timeSeriesItemAssetId_timeSeriesItemPro_fkey" FOREIGN KEY ("timeSeriesItemAssetId", "timeSeriesItemPropertySetName") REFERENCES "TimeSeriesItem"("assetId", "propertySetName") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "AssetLocation" ADD CONSTRAINT "AssetLocation_Assetid_fkey" FOREIGN KEY ("Assetid") REFERENCES "Asset"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

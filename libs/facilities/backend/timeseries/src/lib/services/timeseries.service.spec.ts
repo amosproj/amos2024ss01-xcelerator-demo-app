@@ -54,9 +54,11 @@ describe('TimeseriesService', () => {
 			const flow = faker.string.sample();
 			const presure = faker.string.sample();
 			const findManyResult = {
+				name: faker.string.sample(),
+				location: {},
 				time: faker.date.recent(),
-				timeSeriesItementityId: faker.string.uuid(),
-				timeSeriesItempropertySetName: faker.string.sample(),
+				timeSeriesItemAssetId: faker.string.uuid(),
+				timeSeriesItemPropertySetName: faker.string.sample(),
 				data: JSON.stringify({ flow: flow, presure: presure }) as Prisma.JsonValue,
 			};
 
@@ -65,8 +67,8 @@ describe('TimeseriesService', () => {
 				.mockResolvedValue([findManyResult]);
 
 			const params: IGetTimeSeriesParams = {
-				entityId: findManyResult.timeSeriesItementityId,
-				propertySetName: findManyResult.timeSeriesItempropertySetName,
+				assetId: findManyResult.timeSeriesItemAssetId,
+				propertySetName: findManyResult.timeSeriesItemPropertySetName,
 			};
 
 			const result = await lastValueFrom(
@@ -91,9 +93,11 @@ describe('TimeseriesService', () => {
 			const flow = faker.string.sample();
 			const presure = faker.string.sample();
 			const findManyResult = {
+				name: faker.string.sample(),
+				location: {},
 				time: new Date(),
-				timeSeriesItementityId: faker.string.uuid(),
-				timeSeriesItempropertySetName: faker.string.sample(),
+				timeSeriesItemAssetId: faker.string.uuid(),
+				timeSeriesItemPropertySetName: faker.string.sample(),
 				data: JSON.stringify({ flow: flow, presure: presure }) as Prisma.JsonValue,
 			};
 
@@ -102,8 +106,8 @@ describe('TimeseriesService', () => {
 				.mockResolvedValue([findManyResult]);
 
 			const params: IGetTimeSeriesParams = {
-				entityId: findManyResult.timeSeriesItementityId,
-				propertySetName: findManyResult.timeSeriesItempropertySetName,
+				assetId: findManyResult.timeSeriesItemAssetId,
+				propertySetName: findManyResult.timeSeriesItemPropertySetName,
 			};
 
 			const query: IGetTimeseriesQuery = {
@@ -133,7 +137,7 @@ describe('TimeseriesService', () => {
 				.mockResolvedValue([]);
 
 			const params: IGetTimeSeriesParams = {
-				entityId: faker.string.uuid(),
+				assetId: faker.string.uuid(),
 				propertySetName: faker.string.sample(),
 			};
 
@@ -155,7 +159,7 @@ describe('TimeseriesService', () => {
 
 			expect(findManySpy).toHaveBeenCalledWith({
 				where: {
-					timeSeriesItementityId: params.entityId,
+					timeSeriesItementityId: params.assetId,
 					timeSeriesItempropertySetName: params.propertySetName,
 					time: {
 						gte: query.from,

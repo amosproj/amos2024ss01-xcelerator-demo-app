@@ -16,18 +16,18 @@ export class XdTimeseriesService {
 	) {}
 
 	/**
-	 * Get timeseries data based on the entityId and propertySetName
+	 * Get timeseries data based on the assetId and propertySetName
 	 */
 	public getTimeSeriesFromDB(
 		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
 	): Observable<ITimeSeriesDataItemResponse[]> {
-		const { entityId, propertySetName } = args;
+		const { assetId, propertySetName } = args;
 
 		return from(
 			this.prismaService.timeSeriesDataItem.findMany({
 				where: {
-					timeSeriesItementityId: entityId,
-					timeSeriesItempropertySetName: propertySetName,
+					timeSeriesItemAssetId: assetId,
+					timeSeriesItemPropertySetName: propertySetName,
 					time: {
 						gte: args.from,
 						lte: args.to,
@@ -55,7 +55,7 @@ export class XdTimeseriesService {
 		return from(this.prismaService.timeSeriesItem.findMany()).pipe(
 			map((items) =>
 				items.map((item) => ({
-					entityId: item.entityId,
+					assetId: item.assetId,
 					propertySetName: item.propertySetName,
 				})),
 			),

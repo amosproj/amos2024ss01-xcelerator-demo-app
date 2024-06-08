@@ -40,11 +40,11 @@ model TimeSeriesDataItem {
     location Json?
 
     // Foreign keys
-    timeSeriesAssetId             String
+    timeSeriesItemAssetId         String
     timeSeriesItemPropertySetName String
-    timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesAssetId, timeSeriesItemPropertySetName], references: [assetId, propertySetName])
+    timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesItemAssetId, timeSeriesItemPropertySetName], references: [assetId, propertySetName])
 
-    @@id([timeSeriesAssetId, timeSeriesItemPropertySetName, time])
+    @@id([timeSeriesItemAssetId, timeSeriesItemPropertySetName, time])
 }
 
 model Asset {

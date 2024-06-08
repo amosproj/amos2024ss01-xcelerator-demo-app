@@ -20,9 +20,9 @@ export interface ITimeSeriesDataItemResponse {
  */
 export interface ITimeSeriesItemResponse {
 	/**
-	 * The entity id for an asset
+	 * The assetId id for an asset
 	 */
-	entityId: string;
+	assetId: string;
 
 	/**
 	 * The name of the aspect

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
-}) 	
+})
 export class TimeseriesRequestService {
 	private readonly _httpClient = inject(HttpClient);
 	private readonly _baseRoute = '/api/timeseries';
@@ -28,7 +28,7 @@ export class TimeseriesRequestService {
 		});
 
 		return this._httpClient.get<ITimeSeriesItemResponse[]>(
-			`${this._baseRoute}/${params.entityId}/${params.propertySetName}`,
+			`${this._baseRoute}/${params.assetId}/${params.propertySetName}`,
 			{
 				params: httpParams,
 			},
