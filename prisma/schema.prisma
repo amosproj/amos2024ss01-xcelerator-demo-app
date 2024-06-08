@@ -41,10 +41,10 @@ model TimeSeriesDataItem {
 
     // Foreign keys
     timeSeriesAssetId             String
-    timeSeriesItempropertySetName String
-    timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesAssetId, timeSeriesItempropertySetName], references: [assetId, propertySetName])
+    timeSeriesItemPropertySetName String
+    timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesAssetId, timeSeriesItemPropertySetName], references: [assetId, propertySetName])
 
-    @@id([timeSeriesAssetId, timeSeriesItempropertySetName, time])
+    @@id([timeSeriesAssetId, timeSeriesItemPropertySetName, time])
 }
 
 model Asset {

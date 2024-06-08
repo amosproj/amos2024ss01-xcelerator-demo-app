@@ -21,6 +21,7 @@ const seedFacilities = [
 async function main() {
 	const asset = await prisma.asset.create({
 		data: {
+			id: 'Pump002',
 			name: 'Pump002',
 			typeId: 'Pump',
 			description: 'Pump 002',
@@ -29,19 +30,17 @@ async function main() {
 
 	const tsItemPumpData = await prisma.timeSeriesItem.create({
 		data: {
-			entityId: 'Pump002',
-			propertySetName: 'PumpData',
-
 			assetId: asset.id,
+			propertySetName: 'PumpData',
 		},
 	});
 
 	const newPumpData = pumpData.map((data: any) => {
 		return {
-			time: data._time,
+			time: new Date(data._time),
 
-			timeSeriesItementityId: tsItemPumpData.entityId,
-			timeSeriesItempropertySetName: tsItemPumpData.propertySetName,
+			timeSeriesAssetId: tsItemPumpData.assetId,
+			timeSeriesItemPropertySetName: tsItemPumpData.propertySetName,
 
 			data: {
 				motorCurrent: data.MotorCurrent,
@@ -55,19 +54,17 @@ async function main() {
 
 	const tSItemEnv = await prisma.timeSeriesItem.create({
 		data: {
-			entityId: 'Pump002',
-			propertySetName: 'Environment',
-
 			assetId: asset.id,
+			propertySetName: 'Environment',
 		},
 	});
 
 	const newEnvData = envData.map((data: any) => {
 		return {
-			time: data._time,
+			time: new Date(data._time),
 
-			timeSeriesItementityId: tSItemEnv.entityId,
-			timeSeriesItempropertySetName: tSItemEnv.propertySetName,
+			timeSeriesAssetId: asset.id,
+			timeSeriesItemPropertySetName: tSItemEnv.propertySetName,
 
 		const tSItemEnv = await prisma.timeSeriesItem.create({
 			data: {
