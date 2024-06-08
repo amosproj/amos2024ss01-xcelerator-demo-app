@@ -19,7 +19,6 @@ const seedFacilities = [
 ];
 
 async function main() {
-
 	const asset = await prisma.asset.create({
 		data: {
 			name: 'Pump002',
@@ -28,13 +27,10 @@ async function main() {
 		},
 	});
 
-
-
 	const tsItemPumpData = await prisma.timeSeriesItem.create({
 		data: {
 			entityId: 'Pump002',
 			propertySetName: 'PumpData',
-
 
 			assetId: asset.id,
 		},
