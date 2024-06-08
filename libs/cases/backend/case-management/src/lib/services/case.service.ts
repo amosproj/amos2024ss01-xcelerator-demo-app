@@ -1,15 +1,7 @@
 import { ICaseResponse, ICreateCaseBody, IUpdateCaseBody } from '@frontend/cases/shared/models';
-import {
-	BadRequestException,
-	ConflictException,
-	forwardRef,
-	Inject,
-	Injectable,
-	NotFoundException,
-} from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'common-backend-prisma';
-import { catchError, from, map, Observable } from 'rxjs';
+import { from, map, Observable } from 'rxjs';
 
 /**
  * handles database operations and contains business logic
@@ -29,9 +21,6 @@ export class XdCaseService {
 	public getAllCases(): Observable<ICaseResponse[]> {
 		return from(this.prismaService.case.findMany()).pipe(
 			map((items) => {
-				if (items.length === 0) {
-					throw new NotFoundException('No Cases found.');
-				}
 				return items.map((item) => ({
 					...item,
 					overdue: Date.now() > new Date(item.dueDate).getTime(),
@@ -52,7 +41,6 @@ export class XdCaseService {
 				if (!item) {
 					throw new NotFoundException(`Case with ${id} does not exist.`);
 				}
-
 				return {
 					...item,
 					overdue: Date.now() > new Date(item.dueDate).getTime(),
@@ -79,11 +67,6 @@ export class XdCaseService {
 				...item,
 				overdue: Date.now() > new Date(item.dueDate).getTime(),
 			})),
-			catchError((error) => {
-				throw new BadRequestException(
-					'Failed to create Case. Please check the provided data.',
-				);
-			}),
 		);
 	}
 
@@ -103,14 +86,6 @@ export class XdCaseService {
 				...item,
 				overdue: Date.now() > new Date(item.dueDate).getTime(),
 			})),
-			catchError((error) => {
-				if (error instanceof Prisma.PrismaClientKnownRequestError) {
-					if (error.code === 'P2025') {
-						throw new NotFoundException(`Case with ID ${id} does not exist.`);
-					}
-				}
-				throw new ConflictException('An error occurred while deleting the case.');
-			}),
 		);
 	}
 
@@ -129,9 +104,6 @@ export class XdCaseService {
 				...item,
 				overdue: Date.now() > new Date(item.dueDate).getTime(),
 			})),
-			catchError((error) => {
-				throw new NotFoundException(`Case with ID ${id} does not exist.`);
-			}),
 		);
 	}
 }
