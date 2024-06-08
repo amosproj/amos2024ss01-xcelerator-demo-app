@@ -3,9 +3,9 @@
  */
 export interface IGetTimeSeriesParams {
 	/**
-	 * The entity id for an asset
+	 * The asset id for an asset
 	 */
-	entityId: string;
+	assetId: string;
 
 	/**
 	 * The name of the aspect

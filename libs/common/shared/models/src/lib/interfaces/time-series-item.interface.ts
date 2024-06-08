@@ -5,9 +5,9 @@ export interface ITimeSeriesItem {
 	id: string;
 
 	/**
-	 * The connected entity id
+	 * The connected asset id
 	 */
-	entityId: string;
+	assetId: string;
 
 	/**
 	 * The property set name

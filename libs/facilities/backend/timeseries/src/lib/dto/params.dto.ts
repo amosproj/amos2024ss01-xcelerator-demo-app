@@ -7,11 +7,11 @@ import { IGetTimeSeriesParams } from 'facilities-shared-models';
  */
 export class GetTimeSeriesParamsDto implements IGetTimeSeriesParams {
 	/**
-	 * The entity id for an asset
+	 * The asset id for an asset
 	 */
 	@IsNotEmpty()
 	@IsString()
-	entityId: string;
+	assetId: string;
 
 	/**
 	 * The name of the aspect

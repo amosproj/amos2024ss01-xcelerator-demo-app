@@ -6,7 +6,7 @@ import { ETimeSeriesOrdering } from '../enums';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ITimeSeriesRequestParameter<SelectType> {
 	/**
-	 * The entity id of the time series data
+	 * The asset id of the time series data
 	 *
 	 * @default "asc"
 	 */
