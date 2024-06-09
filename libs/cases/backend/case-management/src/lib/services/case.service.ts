@@ -10,7 +10,7 @@ import { from, map, Observable } from 'rxjs';
 export class XdCaseService {
 	constructor(
 		@Inject(forwardRef(() => PrismaService))
-		private readonly prismaService: PrismaService,
+		private readonly prismaService: PrismaService
 	) {}
 
 	/**
@@ -23,9 +23,9 @@ export class XdCaseService {
 			map((items) => {
 				return items.map((item) => ({
 					...item,
-					overdue: Date.now() > new Date(item.dueDate).getTime(),
+					overdue: Date.now() > new Date(item.dueDate).getTime()
 				}));
-			}),
+			})
 		);
 	}
 
@@ -43,9 +43,9 @@ export class XdCaseService {
 				}
 				return {
 					...item,
-					overdue: Date.now() > new Date(item.dueDate).getTime(),
+					overdue: Date.now() > new Date(item.dueDate).getTime()
 				};
-			}),
+			})
 		);
 	}
 
@@ -65,8 +65,8 @@ export class XdCaseService {
 		).pipe(
 			map((item) => ({
 				...item,
-				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			})),
+				overdue: Date.now() > new Date(item.dueDate).getTime()
+			}))
 		);
 	}
 
@@ -79,13 +79,13 @@ export class XdCaseService {
 		return from(
 			this.prismaService.case.update({
 				where: { id },
-				data: caseData,
+				data: caseData
 			}),
 		).pipe(
 			map((item) => ({
 				...item,
-				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			})),
+				overdue: Date.now() > new Date(item.dueDate).getTime()
+			}))
 		);
 	}
 
@@ -97,13 +97,13 @@ export class XdCaseService {
 	public deleteCaseById(id: number): Observable<ICaseResponse> {
 		return from(
 			this.prismaService.case.delete({
-				where: { id },
+				where: { id }
 			}),
 		).pipe(
 			map((item) => ({
 				...item,
-				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			})),
+				overdue: Date.now() > new Date(item.dueDate).getTime()
+			}))
 		);
 	}
 }

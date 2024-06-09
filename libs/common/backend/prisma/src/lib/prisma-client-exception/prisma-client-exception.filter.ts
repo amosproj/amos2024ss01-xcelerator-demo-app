@@ -3,12 +3,14 @@ import { BaseExceptionFilter } from '@nestjs/core';
 import { Prisma } from '@prisma/client';
 
 /**
+ * Custom exception filter for handling Prisma client known request errors
  * @see https://www.prisma.io/blog/nestjs-prisma-error-handling-7D056s1kOop2
  */
 @Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaClientExceptionFilter extends BaseExceptionFilter {
+
 	/**
-	 *
+	 * handles PrismaClientKnownRequestError exceptions specifically
 	 * @param exception
 	 * @param host
 	 */
@@ -17,15 +19,27 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
 		const response = context.getResponse<any>();
 		const message = exception.message.replace(/\n/g, '');
 
-		const status = this.getStatus(exception);
+		let status = HttpStatus.INTERNAL_SERVER_ERROR;
 
-		response.status(status).json({
-			statusCode: status,
-			message: message,
-		});
+		if(process.env['DEBUG_MODE'] === 'true') {
+			
+			status = this.getStatus(exception);
+
+			response.status(status).json({
+				statusCode: status,
+				message: message,
+			});
+		}
+		else {
+			response.status(status).json({
+				statusCode: status,
+				message: "Internal Server Error"
+			});
+		}
 	}
 
 	/**
+	 * determines the HTTP status code based on the PrismaClientKnownRequestError code
 	 * @see https://www.prisma.io/docs/orm/reference/error-reference#common
 	 * @param exception
 	 * @returns {number} HTTP Status code
