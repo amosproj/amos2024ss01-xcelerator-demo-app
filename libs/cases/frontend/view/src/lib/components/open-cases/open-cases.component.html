@@ -1,7 +1,10 @@
 <ix-content>
-	<ix-button [routerLink]="['/cases/create']" class="absolute top-0 right-4"
-		>Create Case</ix-button
+	<ix-button 
+		[routerLink]="['/cases/create']" 
+		class="absolute top-0 right-4"
 	>
+		Create Case
+	</ix-button>
 
 	<table class="table">
 		<thead>
@@ -16,13 +19,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			@for (_case of _cases; track _case.handle) {
+			@for (_case of _cases(); track _case.handle) {
 				<tr [routerLink]="['/cases', _case.handle]">
 					<th scope="row">{{ _case.handle }}</th>
 					<th scope="col">{{ _case.title }}</th>
 					<th scope="col">{{ _case.priority }}</th>
 					<th scope="col">{{ _case.status }}</th>
+					<!-- TODO: Add assignedTo to the case model
+					 
 					<th scope="col">{{ _case.assignedTo }}</th>
+					-->
 					<th scope="col">{{ _case.dueDate }}</th>
 					<th scope="col">{{ _case.description }}</th>
 				</tr>

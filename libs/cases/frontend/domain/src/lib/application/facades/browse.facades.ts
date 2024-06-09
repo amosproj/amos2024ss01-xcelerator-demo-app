@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ICaseParams, ICaseResponse } from '@frontend/cases/shared/models';
+import { ICaseParams, ICaseResponse, ICreateCaseBody } from '@frontend/cases/shared/models';
 import { Observable } from 'rxjs';
 
 import { XdCasesRequestService } from '../../infrastructure/cases-request.service';
@@ -25,5 +25,9 @@ export class XdBrowseFacadesService {
 	 */
 	public getTimeSeries(params: ICaseParams): Observable<ICaseResponse[]> {
 		return this._scanService.getTimeSeries(params);
+	}
+
+	public createCase(body: ICreateCaseBody) {
+		return this._scanService.createCase(body);
 	}
 }
