@@ -16,11 +16,12 @@ export const CASES_SHELL_ROUTES: Route[] = [
 	{
 		path: '',
 		children: [
-            {
-                // Route to list page
-                path: '',
-                loadComponent: () => import('cases-frontend-view').then((m) => m.CaseBrowsComponent),
-            },
+			{
+				// Route to list page
+				path: '',
+				loadComponent: () =>
+					import('cases-frontend-view').then((m) => m.CaseBrowsComponent),
+			},
 			{
 				// Route to create a case
 				path: 'create',

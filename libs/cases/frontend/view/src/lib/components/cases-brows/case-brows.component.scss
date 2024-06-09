@@ -1,0 +1,34 @@
+.table {
+	color: grey;
+	& .emergency {
+		background-color: darkred;
+	}
+
+	& .status-open {
+		color: white;
+	}
+
+	& .status-inprogress {
+		color: yellow;
+	}
+
+	& .status-overdue {
+		color: red;
+	}
+
+	& .status-onhold {
+		color: lightblue;
+	}
+
+	& .status-done {
+		color: limegreen;
+	}
+
+	& .status-cancelled {
+		color: gray;
+	}
+
+	& .status-archived {
+		color: grey;
+	}
+}

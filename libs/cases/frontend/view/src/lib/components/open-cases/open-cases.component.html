@@ -16,17 +16,22 @@
 			</tr>
 		</thead>
 		<tbody>
-			@for (_case of _cases; track _case.handle) {
-				<tr [routerLink]="['/cases', _case.handle]">
-					<th scope="row">{{ _case.handle }}</th>
-					<th scope="col">{{ _case.title }}</th>
-					<th scope="col">{{ _case.priority }}</th>
-					<th scope="col">{{ _case.status }}</th>
-					<th scope="col">{{ _case.assignedTo }}</th>
-					<th scope="col">{{ _case.dueDate }}</th>
-					<th scope="col">{{ _case.description }}</th>
-				</tr>
-			}
+			<tr
+				*ngFor="let _case of filteredCases"
+				[routerLink]="['/cases', _case.handle]"
+				[ngClass]="{
+					emergency: _case.priority === 'EMERGENCY',
+					'status-open': _case.status === 'OPEN'
+				}"
+			>
+				<th scope="row">{{ _case.handle }}</th>
+				<td>{{ _case.title }}</td>
+				<td>{{ _case.priority }}</td>
+				<td>{{ _case.status }}</td>
+				<td>{{ _case.assignedTo }}</td>
+				<td>{{ _case.dueDate }}</td>
+				<td>{{ _case.description }}</td>
+			</tr>
 		</tbody>
 	</table>
 </ix-content>
