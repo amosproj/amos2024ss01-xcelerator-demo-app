@@ -1,5 +1,5 @@
 import { ICaseResponse, ICreateCaseBody, IUpdateCaseBody } from '@frontend/cases/shared/models';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'common-backend-prisma';
 import { from, map, Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { from, map, Observable } from 'rxjs';
 export class XdCaseService {
 	constructor(
 		@Inject(forwardRef(() => PrismaService))
-		private readonly prismaService: PrismaService,
+		private readonly prismaService: PrismaService
 	) {}
 
 	/**
@@ -20,12 +20,12 @@ export class XdCaseService {
 	 */
 	public getAllCases(): Observable<ICaseResponse[]> {
 		return from(this.prismaService.case.findMany()).pipe(
-			map((items) =>
-				items.map((item) => ({
+			map((items) => {
+				return items.map((item) => ({
 					...item,
-					overdue: Date.now() > new Date(item.dueDate).getTime(),
-				})),
-			),
+					overdue: Date.now() > new Date(item.dueDate).getTime()
+				}));
+			})
 		);
 	}
 
@@ -39,14 +39,13 @@ export class XdCaseService {
 		return from(this.prismaService.case.findUnique({ where: { id } })).pipe(
 			map((item) => {
 				if (!item) {
-					throw new Error('Case not found');
+					throw new NotFoundException(`Case with ${id} does not exist.`);
 				}
-
 				return {
 					...item,
-					overdue: Date.now() > new Date(item.dueDate).getTime(),
+					overdue: Date.now() > new Date(item.dueDate).getTime()
 				};
-			}),
+			})
 		);
 	}
 
@@ -66,8 +65,8 @@ export class XdCaseService {
 		).pipe(
 			map((item) => ({
 				...item,
-				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			})),
+				overdue: Date.now() > new Date(item.dueDate).getTime()
+			}))
 		);
 	}
 
@@ -80,13 +79,13 @@ export class XdCaseService {
 		return from(
 			this.prismaService.case.update({
 				where: { id },
-				data: caseData,
+				data: caseData
 			}),
 		).pipe(
 			map((item) => ({
 				...item,
-				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			})),
+				overdue: Date.now() > new Date(item.dueDate).getTime()
+			}))
 		);
 	}
 
@@ -98,13 +97,13 @@ export class XdCaseService {
 	public deleteCaseById(id: number): Observable<ICaseResponse> {
 		return from(
 			this.prismaService.case.delete({
-				where: { id },
+				where: { id }
 			}),
 		).pipe(
 			map((item) => ({
 				...item,
-				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			})),
+				overdue: Date.now() > new Date(item.dueDate).getTime()
+			}))
 		);
 	}
 }

@@ -9,7 +9,7 @@ describe('OpenCasesComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ OpenCasesComponent ],
+			imports: [OpenCasesComponent],
 			providers: [
 				{
 					provide: ActivatedRoute,

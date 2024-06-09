@@ -1,7 +1,8 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { BackendConfig } from 'common-backend-models';
+import { PrismaClientExceptionFilter } from 'common-backend-prisma';
 import { API_BASE_SEGMENT } from 'common-shared-models';
 
 /* Modules */
@@ -21,6 +22,9 @@ async function bootstrap() {
 	const configService = app.get(ConfigService<BackendConfig>);
 
 	app.setGlobalPrefix(API_BASE_SEGMENT);
+
+	const { httpAdapter } = app.get(HttpAdapterHost);
+	app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
 
 	const port = configService.get('app', { infer: true }).port;
 	await app.listen(port);
