@@ -1,15 +1,15 @@
 import { faker } from '@faker-js/faker';
+import { XdInsightHubModule, XdIotTimeSeriesService } from '@frontend/common/backend/insight-hub';
+import { HttpService } from '@nestjs/axios';
+import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma } from '@prisma/client';
+import { XdTokenManagerService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import { ESortOrder, IGetTimeSeriesParams, IGetTimeseriesQuery } from 'facilities-shared-models';
 import { lastValueFrom, of } from 'rxjs';
 
 import { XdTimeseriesService } from './timeseries.service';
-import { XdInsightHubModule, XdIotTimeSeriesService } from '@frontend/common/backend/insight-hub';
-import { HttpService } from '@nestjs/axios';
-import { XdTokenManagerService } from 'libs/common/backend/insight-hub/src/lib/services/token-manager.service';
-import { Logger } from '@nestjs/common';
 
 const INSIGHT_HUB_OPTIONS = 'INSIGHT_HUB_OPTIONS';
 
