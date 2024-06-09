@@ -1,4 +1,5 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { ETimeSeriesOrdering, XdIotTimeSeriesService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import {
 	IGetTimeSeriesParams,
@@ -13,7 +14,21 @@ export class XdTimeseriesService {
 	constructor(
 		@Inject(forwardRef(() => PrismaService))
 		private readonly prismaService: PrismaService,
+
+		private readonly iotTimeSeriesService: XdIotTimeSeriesService,
 	) {}
+
+	public getTimeSeriesFromApi(
+		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
+	): Observable<ITimeSeriesDataItemResponse[]> {
+		const { assetId, propertySetName, sort, ...params } = args;
+
+		return this.iotTimeSeriesService.getTimeSeriesData(assetId, propertySetName, {
+			...params,
+			// Todo: Fix this in a future PR
+			sort: sort as unknown as ETimeSeriesOrdering,
+		});
+	}
 
 	/**
 	 * Get timeseries data based on the assetId and propertySetName
