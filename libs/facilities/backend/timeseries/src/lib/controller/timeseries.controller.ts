@@ -27,18 +27,14 @@ export class XdTimeseriesController {
 		@Param() params: GetTimeSeriesParamsDto,
 		@Query() query: GetTimeSeriesQueryDto,
 	): Observable<ITimeSeriesDataItemResponse[]> {
-		const { assetId, propertySetName } = params;
-		const { from, to, limit, select, sort, latestValue } = query;
+		const { local = true } = query;
+		const args = {
+			...params,
+			...query,
+		};
 
-		return this.timeseriesService.getTimeSeriesFromDB({
-			assetId,
-			propertySetName,
-			from,
-			to,
-			limit,
-			select,
-			sort,
-			latestValue,
-		});
+		return local
+			? this.timeseriesService.getTimeSeriesFromDB(args)
+			: this.timeseriesService.getTimeSeriesFromApi(args);
 	}
 }

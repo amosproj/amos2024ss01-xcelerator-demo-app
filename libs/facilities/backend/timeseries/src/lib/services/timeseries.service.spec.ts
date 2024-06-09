@@ -3,9 +3,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
 import { ESortOrder, IGetTimeSeriesParams, IGetTimeseriesQuery } from 'facilities-shared-models';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, of } from 'rxjs';
 
 import { XdTimeseriesService } from './timeseries.service';
+import { XdInsightHubModule, XdIotTimeSeriesService } from '@frontend/common/backend/insight-hub';
+import { HttpService } from '@nestjs/axios';
+import { XdTokenManagerService } from 'libs/common/backend/insight-hub/src/lib/services/token-manager.service';
+import { Logger } from '@nestjs/common';
+
+const INSIGHT_HUB_OPTIONS = 'INSIGHT_HUB_OPTIONS';
 
 describe('TimeseriesService', () => {
 	let service: XdTimeseriesService;
@@ -27,12 +33,49 @@ describe('TimeseriesService', () => {
 			},
 		};
 
+		const httpServiceMock = {
+			get: jest.fn().mockImplementation(() => of({ data: {} })),
+		};
+
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				XdTimeseriesService,
 				{
 					provide: PrismaService,
 					useValue: prismaServiceMock,
+				},
+				{
+					provide: HttpService,
+					useValue: httpServiceMock,
+				},
+				{
+					provide: XdIotTimeSeriesService,
+					useValue: {
+						getTimeSeriesData: jest.fn().mockReturnValue(of([])),
+					},
+				},
+				{
+					provide: HttpService,
+					useValue: httpServiceMock,
+				},
+				{
+					provide: INSIGHT_HUB_OPTIONS,
+					useValue: {
+						apiUrl: 'https://gateway.eu1.mindsphere.io/api',
+						apiKey: 'test',
+					},
+				},
+				{
+					provide: XdTokenManagerService,
+					useValue: {
+						getOrCreateBearerToken: jest.fn().mockReturnValue(of('test_token')),
+					},
+				},
+				{
+					provide: Logger,
+					useValue: {
+						error: jest.fn(),
+					},
 				},
 			],
 		}).compile();
@@ -145,7 +188,7 @@ describe('TimeseriesService', () => {
 				from: faker.date.past(),
 				to: faker.date.recent(),
 				limit: faker.number.int(10),
-				sort: ESortOrder.ASC,
+				sort: ESortOrder.ASCENDING,
 			};
 
 			await lastValueFrom(
@@ -159,8 +202,8 @@ describe('TimeseriesService', () => {
 
 			expect(findManySpy).toHaveBeenCalledWith({
 				where: {
-					timeSeriesItementityId: params.assetId,
-					timeSeriesItempropertySetName: params.propertySetName,
+					timeSeriesItemAssetId: params.assetId,
+					timeSeriesItemPropertySetName: params.propertySetName,
 					time: {
 						gte: query.from,
 						lte: query.to,
