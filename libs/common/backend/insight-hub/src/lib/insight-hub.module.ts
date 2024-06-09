@@ -30,15 +30,9 @@ interface IXdInsightHubModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'
 }
 
 @Module({
-	providers: [
-		XdAssetsService,
-		XdIotTimeSeriesService,
-		XdTokenManagerService,
-		XdUsersService,
-		Logger,
-	],
-	imports: [ HttpModule ],
-	exports: [ XdAssetsService, XdIotTimeSeriesService, XdUsersService ],
+	providers: [XdAssetsService, XdIotTimeSeriesService, Xdervice, XdUsersService, Logger],
+	imports: [HttpModule],
+	exports: [XdAssetsService, XdIotTimeSeriesService, XdUsersService],
 })
 export class XdInsightHubModule {
 	static register(options: IXdInsightHubModuleOptions): DynamicModule {
@@ -51,7 +45,7 @@ export class XdInsightHubModule {
 					useValue: options,
 				},
 			],
-			exports: [ INSIGHT_HUB_OPTIONS ],
+			exports: [INSIGHT_HUB_OPTIONS],
 		};
 	}
 
@@ -67,7 +61,7 @@ export class XdInsightHubModule {
 					inject: options.inject,
 				},
 			],
-			exports: [ INSIGHT_HUB_OPTIONS ],
+			exports: [INSIGHT_HUB_OPTIONS],
 		};
 	}
 }
