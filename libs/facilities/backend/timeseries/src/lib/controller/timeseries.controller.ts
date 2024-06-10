@@ -18,9 +18,14 @@ export class XdTimeseriesController {
 		return this.timeseriesService.getAllTimeSeries();
 	}
 
+	/**
+	 * Returns timeseries data for a specific facility.
+	 * @tutorial
+	 * In our context we define a facility as an asset.
+	 */
 	@Get(':assetId')
 	public getTimeseriesForAsset(
-		@Param('assetId') assetId: string,
+		@Param() { assetId }: GetTimeSeriesParamsDto,
 	): Observable<ITimeSeriesItemResponse[]> {
 		return this.timeseriesService.getTimeSeriesForAsset(assetId);
 	}
