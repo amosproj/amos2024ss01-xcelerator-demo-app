@@ -16,6 +16,7 @@ const INSIGHT_HUB_OPTIONS = 'INSIGHT_HUB_OPTIONS';
 describe('TimeseriesService', () => {
 	let service: XdTimeseriesService;
 	let prisma: PrismaService = new PrismaService();
+	let iothub: XdIotTimeSeriesService;
 
 	beforeEach(async () => {
 		const prismaServiceMock = {
@@ -82,6 +83,7 @@ describe('TimeseriesService', () => {
 
 		service = module.get<XdTimeseriesService>(XdTimeseriesService);
 		prisma = module.get<PrismaService>(PrismaService);
+		iothub = module.get<XdIotTimeSeriesService>(XdIotTimeSeriesService);
 	});
 
 	afterAll(() => {
@@ -172,6 +174,56 @@ describe('TimeseriesService', () => {
 					flow: flow,
 				},
 			]);
+		});
+
+		it('should call the iothub service if the local param is set to true', async () => {
+			const getTimeSeriesDataSpy = jest
+				.spyOn(iothub, 'getTimeSeriesData')
+				.mockReturnValue(of([]));
+
+			const findManySpy = jest
+				.spyOn(prisma.timeSeriesDataItem, 'findMany')
+				.mockResolvedValue([]);
+
+			const params: IGetTimeSeriesParams = {
+				assetId: faker.string.uuid(),
+				propertySetName: faker.string.sample(),
+			};
+
+			const query: IGetTimeseriesQuery = {};
+
+			await lastValueFrom(
+				service.getTimeSeriesFromApi({
+					...params,
+					...query,
+				}),
+			);
+
+			expect(getTimeSeriesDataSpy).toHaveBeenCalledTimes(1);
+
+			expect(findManySpy).toHaveBeenCalledTimes(0);
+
+			expect(getTimeSeriesDataSpy).toHaveBeenCalledWith(
+				params.assetId,
+				params.propertySetName,
+				query,
+			);
+
+			await lastValueFrom(
+				service.getTimeSeriesFromDB({
+					...params,
+					...query,
+				}),
+			);
+
+			expect(getTimeSeriesDataSpy).toHaveBeenCalledTimes(1);
+			expect(findManySpy).toHaveBeenCalledTimes(1);
+
+			expect(getTimeSeriesDataSpy).toHaveBeenCalledWith(
+				params.assetId,
+				params.propertySetName,
+				query,
+			);
 		});
 
 		it('should use the correct args to query the time series data', async () => {
