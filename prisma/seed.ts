@@ -6,6 +6,7 @@ import pumpData from './demo_data/PUMP-002_PumpData_20240422-220000000_20240423-
 const prisma = new PrismaClient();
 
 async function main() {
+	throw new Error('Seed script not Updated yet');
 	const asset = await prisma.asset.create({
 		data: {
 			id: 'Pump002',
