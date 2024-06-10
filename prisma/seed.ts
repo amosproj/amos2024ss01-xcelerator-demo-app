@@ -6,7 +6,6 @@ import pumpData from './demo_data/PUMP-002_PumpData_20240422-220000000_20240423-
 const prisma = new PrismaClient();
 
 async function main() {
-	throw new Error('Seed script not Updated yet');
 	const asset = await prisma.asset.create({
 		data: {
 			id: 'Pump002',
@@ -27,7 +26,7 @@ async function main() {
 		return {
 			time: new Date(data._time),
 
-			timeSeriesAssetId: tsItemPumpData.assetId,
+			timeSeriesItemAssetId: tsItemPumpData.assetId,
 			timeSeriesItemPropertySetName: tsItemPumpData.propertySetName,
 
 			data: {
@@ -51,7 +50,7 @@ async function main() {
 		return {
 			time: new Date(data._time),
 
-			timeSeriesAssetId: asset.id,
+			timeSeriesItemAssetId: asset.id,
 			timeSeriesItemPropertySetName: tSItemEnv.propertySetName,
 
 			data: {
