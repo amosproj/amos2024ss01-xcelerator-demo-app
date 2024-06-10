@@ -14,6 +14,7 @@ export class GetTimeSeriesQueryDto implements IGetTimeseriesQuery {
 	@IsBoolean()
 	@Transform(({ value }) => value === 'true')
 	local?: boolean;
+
 	/**
 	 * The start date for the time series data
 	 */
