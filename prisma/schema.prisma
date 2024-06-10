@@ -9,27 +9,16 @@ datasource db {
 
 // see https://developer.siemens.com/insights-hub/docs/apis/iot-iottimeseries/api-iottimeseries-overview.html
 model TimeSeriesItem {
-    // this id needs to be set to achieve the many-to-many relation between TimeSeriesItem and TimeSeriesVariable
-    id              Int    @id @default(autoincrement())
     propertySetName String
 
     data TimeSeriesDataItem[]
 
     assetId   String
-    Variables TimeSeriesVariable[]
-    Asset     Asset                @relation(fields: [assetId], references: [id])
+    Variables Json?
+    Asset     Asset  @relation(fields: [assetId], references: [id])
 
+    @@id([assetId, propertySetName])
     @@unique([assetId, propertySetName])
-}
-
-model TimeSeriesVariable {
-    id             Int              @id @default(autoincrement())
-    name           String
-    dataType       String
-    unit           String
-    TimeSeriesItem TimeSeriesItem[]
-
-    @@unique([name, dataType, unit])
 }
 
 // see https://developer.siemens.com/insights-hub/docs/apis/iot-iottimeseries/api-iottimeseries-overview.html
