@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
+import { GetFacilityParamsDto } from '../dto/params.dto';
 import { XdFacilitesService } from '../service/faclities.service';
 
 @Controller('facilities')
@@ -16,8 +17,8 @@ export class XdFacilitiesController {
 		return this.facilitiesService.seedTheDB();
 	}
 
-	@Get(':id')
-	public getFacilityById(id: string) {
-		return this.facilitiesService.getFacilityById(id);
+	@Get(':assetId')
+	public getFacilityById(@Param('assetId') params: GetFacilityParamsDto) {
+		return this.facilitiesService.getFacilityById(params.assetId);
 	}
 }
