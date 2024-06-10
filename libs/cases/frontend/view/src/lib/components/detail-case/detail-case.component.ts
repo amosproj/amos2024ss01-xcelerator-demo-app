@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IxModule } from '@siemens/ix-angular';
+import { IxModule, ModalService } from '@siemens/ix-angular';
 
 import { cases } from '../case.mocks/const';
 
@@ -15,9 +15,17 @@ import { cases } from '../case.mocks/const';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailCaseComponent {
+
+	@ViewChild('customModal', { read: TemplateRef })
+	customModalRef!: TemplateRef<any>;
+  
+
 	casedetail = this.getCaseDetail();
 
-	constructor(private route: ActivatedRoute) {}
+	constructor(
+		private route: ActivatedRoute,
+		private readonly modalService: ModalService
+	) {}
 
 	getCaseDetail() {
 		const casedetail = cases.find(
@@ -29,4 +37,11 @@ export class DetailCaseComponent {
 			return casedetail;
 		}
 	}
+
+	async openModal() {
+		await this.modalService.open({
+			content: this.customModalRef
+		});
+	}
+	
 }

@@ -1,5 +1,9 @@
 <ix-content>
-	<ix-card-list label="Case Overview" show-all-count="1" list-style="stack">
+	<ix-card-list 
+		label="Case Overview" 
+		show-all-count="1" 
+		list-style="stack"
+	>
 		<ix-push-card
 			[icon]="casedetail.icon"
 			[notification]="casedetail.notification"
@@ -10,4 +14,30 @@
 			<p>More case details</p>
 		</ix-push-card>
 	</ix-card-list>
+
+	
+	<ix-button 
+		icon="trashcan" 
+		(click)="openModal()"
+	>
+		Delete Case
+	</ix-button>	
+
+	<ng-template #customModal let-modal>
+		<div>
+			<ix-modal-header>Delete Case</ix-modal-header>
+			<ix-modal-content>
+				Are you sure you would like to delete this Case?
+			</ix-modal-content>
+			<ix-modal-footer>
+				<ix-button outline class="dismiss-modal" (click)="modal.dismiss('dismiss')"> 
+					Cancel
+				</ix-button>
+				<ix-button class="close-modal" (click)="modal.close('okay')">
+					Delete
+				</ix-button>
+			</ix-modal-footer>
+		</div>
+	</ng-template>
+
 </ix-content>

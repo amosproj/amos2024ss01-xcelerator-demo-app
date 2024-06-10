@@ -71,8 +71,8 @@ export class CreateCaseComponent {
 
 	async showSuccessToast() {
 		this.toastService.show({
-			icon: "success-filled",
-		  	message: 'Successfully created Case',
+			type: "success",
+		  	message: 'Successfully created Case'
 		});
 	}
 
