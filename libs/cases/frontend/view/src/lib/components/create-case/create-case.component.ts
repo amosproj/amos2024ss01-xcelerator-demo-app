@@ -8,11 +8,7 @@ import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { IxModule } from '@siemens/ix-angular';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { facilities } from 'libs/facilities/frontend/view/src/lib/components/facility.mocks/const';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { IFacilityMock } from 'libs/facilities/frontend/view/src/lib/components/facility.mocks/facility.interface';
-import { fromPairs } from 'lodash';
-import { map } from 'rxjs';
 
 @Component({
 	selector: 'lib-create-case',
@@ -25,9 +21,8 @@ import { map } from 'rxjs';
 })
 export class CreateCaseComponent {
 	private readonly _browseFacade = inject(XdBrowseFacade);
-	protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
-
 	protected readonly _browseFacade2 = inject(XdBrowseFacadesService);
+	protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
 	
 	casePriority = CasePriority;
 	caseType = CaseType;
@@ -37,7 +32,7 @@ export class CreateCaseComponent {
 	createCaseForm = {
 		selectFacility: '',
 		title: '',
-		dueDate: '',
+		dueDate: new Date().toISOString().split('T')[0],
 		selectPriority: '',
 		selectType: '',
 		phone: '',
@@ -49,21 +44,26 @@ export class CreateCaseComponent {
 	 * called when the user presses the Create Case Button
 	 */
 	onSubmit(form: NgForm): void {
+		
 		this.wasValidated = true;
 
-		if(!form.valid) {
+		if(form.valid) {
+			const caseData = this.mapFormData(form.form.value);
+
+			this._browseFacade2.createCase(caseData).subscribe({
+				next: (response) => {
+					console.log('Successfully created Case:', response);
+				},
+				error: (error) => {
+					console.error('Failed to create Case:', error);
+					console.log(caseData);
+				}
+			});
+		}
+		else {
 			console.error('Form is invalid');
 			return;
 		}
-		const caseData = this.mapFormData(form.form.value);
-		this._browseFacade2.createCase(caseData).subscribe({
-			next: (response) => {
-				console.log('Case created successfully:', response);
-			},
-			error: (error) => {
-				console.error('Failed to create case:', error);
-			}
-		});
 	}
 
 	public setFacilityValue(value: string) {
@@ -95,19 +95,16 @@ export class CreateCaseComponent {
 	public getTextValue() {
 		return this.createCaseForm.text;
 	}
-
-	onDateChange($event: any) {
-		this.createCaseForm.dueDate = $event.value.from;
-	}
 	
 	/**
 	 * 
-	 * @param formData 
-	 * @returns 
+	 * @param formData case data in the form filled in by the user
+	 * @returns {JSON} 
 	 */
 	private mapFormData(formData: any) {
+		
 		return {
-			handle: 'CASE123456789',
+			handle: 'AA-000',
     		dueDate: formData.dueDate,
     		title: formData.title,
     		type: formData.selectType,

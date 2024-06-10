@@ -39,42 +39,44 @@
 			</ix-input-group>
 
 			<ix-input-group class="flex flex-row gap-4">
-			<ix-input-group>
-				<ix-date-dropdown
-					range="false"
-					[(ngModel)]="createCaseForm.dueDate"
-					name="dueDate"
-					required
-					(dateRangeChange)="onDateChange($event)"
-				></ix-date-dropdown>
-			</ix-input-group>
+				<ix-input-group>
+					<ix-date-dropdown						
+						range="false"
+						[(ngModel)]="createCaseForm.dueDate"
+						name="dueDate"
+						format="yyyy-LL-dd"
+						required
+					>
+					</ix-date-dropdown>
+				</ix-input-group>
 			
-			<ix-select 
-				name="selectType" 
-				i18nPlaceholder="Type" 
-				i18nSelectListHeader="Select type" 
-				[(ngModel)]="createCaseForm.selectType" 
-				required
-			>
-				<ix-select-item label="Planned" [value]="caseType.PLANNED"></ix-select-item>
-				<ix-select-item label="Incident" [value]="caseType.INCIDENT"></ix-select-item>
-				<ix-select-item label="Annotation" [value]="caseType.ANNOTATION"></ix-select-item>
-			  </ix-select>
+				<ix-select 
+					name="selectType" 
+					i18nPlaceholder="Type" 
+					i18nSelectListHeader="Select type" 
+					[(ngModel)]="createCaseForm.selectType" 
+					required
+				>
+					<ix-select-item label="Planned" [value]="caseType.PLANNED"></ix-select-item>
+					<ix-select-item label="Incident" [value]="caseType.INCIDENT"></ix-select-item>
+					<ix-select-item label="Annotation" [value]="caseType.ANNOTATION"></ix-select-item>
+				</ix-select>
 
-			<ix-select 
-				name="selectPriority" 
-				i18nPlaceholder="Priority" 
-				i18nSelectListHeader="Select the priority" 
-				[(ngModel)]="createCaseForm.selectPriority" 
-				required
-			>
-				<ix-select-item label="Low" [value]="casePriority.LOW"></ix-select-item>
-				<ix-select-item label="Medium" [value]="casePriority.MEDIUM"></ix-select-item>
-				<ix-select-item label="High" [value]="casePriority.HIGH"></ix-select-item>
-				<ix-select-item label="Emergency" [value]="casePriority.EMERGENCY"></ix-select-item>
-			</ix-select>
+				<ix-select 
+					name="selectPriority" 
+					i18nPlaceholder="Priority" 
+					i18nSelectListHeader="Select the priority" 
+					[(ngModel)]="createCaseForm.selectPriority" 
+					required
+				>
+					<ix-select-item label="Low" [value]="casePriority.LOW"></ix-select-item>
+					<ix-select-item label="Medium" [value]="casePriority.MEDIUM"></ix-select-item>
+					<ix-select-item label="High" [value]="casePriority.HIGH"></ix-select-item>
+					<ix-select-item label="Emergency" [value]="casePriority.EMERGENCY"></ix-select-item>
+				</ix-select>
 			</ix-input-group>
 
+			<!-- Cases don't contain Phone Numbers
 			<ix-input-group>
 				<span slot="input-start">Telephone:</span>
 				<input
@@ -89,7 +91,8 @@
 				<div class="valid-feedback">Looks good!</div>
 				<div class="invalid-feedback">Please provide a valid phone number</div>
 			</ix-input-group>
-
+			-->
+			
 			<ix-input-group>
 				<span slot="input-start">Email:</span>
 				<input

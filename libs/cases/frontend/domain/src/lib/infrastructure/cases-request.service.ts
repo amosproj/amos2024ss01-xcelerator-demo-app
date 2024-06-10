@@ -27,8 +27,9 @@ export class XdCasesRequestService {
 
 	/**
 	 * Create new Case 
+	 * @param {ICreateCaseBody} body
 	 * 
-	*/
+	 */
 	public createCase(body: ICreateCaseBody) {
 		return this._httpClient.post<ICaseResponse>('/api/case', body);
 	}
