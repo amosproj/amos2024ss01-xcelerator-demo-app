@@ -14,6 +14,11 @@ export class XdFacilitesService {
 		private readonly prismaService: PrismaService,
 	) {}
 
+	/**
+	 * This method gets all the pumps from the Asset Management API.
+	 *
+	 * @returns An observable of the assets.
+	 */
 	public getAllPumps(): Observable<Asset[]> {
 		return this.assetService.getAssetsData().pipe(
 			map((response) => {
@@ -26,6 +31,12 @@ export class XdFacilitesService {
 		);
 	}
 
+	/**
+	 * This method gets the aspects for the assets from the Asset Management API.
+	 *
+	 * @param assets An observable of the assets, for which the aspects are to be fetched.
+	 * @returns An observable of the assets with their aspects.
+	 */
 	public getAspectsForAssets(assets: Observable<Asset[]>): Observable<
 		{
 			asset: Asset;
@@ -54,6 +65,13 @@ export class XdFacilitesService {
 		);
 	}
 
+	/**
+	 * This method upserts a single asset and its aspects in the database.
+	 *
+	 * @param asset the asset to be upserted
+	 * @param aspects the aspects of the asset
+	 * @returns the upserted asset
+	 */
 	private upsertAsset(asset: Asset, aspects: Aspect[]) {
 		return this.prismaService.asset.upsert({
 			where: {
@@ -83,6 +101,14 @@ export class XdFacilitesService {
 			},
 		});
 	}
+
+	/**
+	 * This method filters the existing assets from the assets. An asset is considered existing if it is already present in the database.
+	 *
+	 *
+	 * @param assets the assets to be filtered
+	 * @returns The assets that are not present in the database.
+	 */
 	private filterExistingAssets(assets: Observable<Asset[]>) {
 		return assets.pipe(
 			switchMap((assets) => {
@@ -108,6 +134,9 @@ export class XdFacilitesService {
 		);
 	}
 
+	/**
+	 * This method seeds the database with the pumps from the Asset Management API.
+	 */
 	public seedTheDB() {
 		const assets = this.getAllPumps();
 		const filteredAssets = this.filterExistingAssets(assets);
@@ -122,10 +151,18 @@ export class XdFacilitesService {
 		);
 	}
 
+	/**
+	 * This method gets all the facilities from the database.
+	 *
+	 * @returns All the facilities from the database.
+	 */
 	public getAllFacilitiesFromDB() {
 		return this.prismaService.asset.findMany();
 	}
 
+	/**
+	 * This method gets a facility by its id.
+	 */
 	public getFacilityById(id: string) {
 		return this.prismaService.asset.findUnique({
 			where: {
