@@ -43,9 +43,9 @@
 					<ix-date-dropdown						
 						range="false"
 						[(ngModel)]="createCaseForm.dueDate"
-						name="dueDate"
 						format="yyyy-LL-dd"
 						required
+						(dateRangeChange)="onDateRangeChange($event)"
 					>
 					</ix-date-dropdown>
 				</ix-input-group>

@@ -34,7 +34,7 @@ export class CreateCaseComponent {
 	createCaseForm = {
 		selectFacility: '',
 		title: '',
-		dueDate: new Date().toISOString().split('T')[0],
+		dueDate: '',
 		selectPriority: '',
 		selectType: '',
 		phone: '',
@@ -42,6 +42,11 @@ export class CreateCaseComponent {
 		text: '',
 	};
 	
+	onDateRangeChange(event: any) {
+		const fromDate = new Date(event.detail.from);
+		this.createCaseForm.dueDate = fromDate.toISOString().slice(0, 10);;
+	}
+
 	/**
 	 * called when the user presses the Create Case Button
 	 */
@@ -49,7 +54,10 @@ export class CreateCaseComponent {
 		
 		this.wasValidated = true;
 
+		form.form.value.dueDate = this.createCaseForm.dueDate;
+
 		if(form.valid) {
+			console.log('dueDate: ', form.form.value.dueDate);
 			const caseData = this.mapFormData(form.form.value);
 
 			this._browseFacade2.createCase(caseData).subscribe({
@@ -112,7 +120,7 @@ export class CreateCaseComponent {
 	 * @returns {JSON} 
 	 */
 	private mapFormData(formData: any) {
-		
+
 		return {
 			handle: 'AA-000',
     		dueDate: formData.dueDate,
