@@ -1,7 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
 import { XdFacilitesService } from '../service/faclities.service';
-import { firstValueFrom } from 'rxjs';
 
 @Controller('facilities')
 export class XdFacilitiesController {
