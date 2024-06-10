@@ -22,59 +22,53 @@
 				}
 			</ix-select>
 			<div class="invalid-feedback">Please select a facility</div>
-			
+
 			<ix-input-group>
 				<span slot="input-start">Title:</span>
 				<input type="text" name="title" [(ngModel)]="createCaseForm.title" required/>
 				<div class="invalid-feedback">Please insert a title</div>
 			</ix-input-group>
 
-			<ix-input-group>
-				<textarea
-					placeholder="Enter your Description"
-					name="text"
-					[(ngModel)]="createCaseForm.text"
-					required
-				></textarea>
-			</ix-input-group>
+            <textarea
+                placeholder="Enter your Description"
+                name="text"
+                [(ngModel)]="createCaseForm.text"
+                required
+            ></textarea>
 
-			<ix-input-group class="flex flex-row gap-4">
-				<ix-input-group>
-					<ix-date-dropdown						
-						range="false"
-						[(ngModel)]="createCaseForm.dueDate"
-						format="yyyy-LL-dd"
-						required
-						(dateRangeChange)="onDateRangeChange($event)"
-					>
-					</ix-date-dropdown>
-				</ix-input-group>
-			
-				<ix-select 
-					name="selectType" 
-					i18nPlaceholder="Type" 
-					i18nSelectListHeader="Select type" 
-					[(ngModel)]="createCaseForm.selectType" 
-					required
-				>
-					<ix-select-item label="Planned" [value]="caseType.PLANNED"></ix-select-item>
-					<ix-select-item label="Incident" [value]="caseType.INCIDENT"></ix-select-item>
-					<ix-select-item label="Annotation" [value]="caseType.ANNOTATION"></ix-select-item>
-				</ix-select>
+            <div class="flex flex-row gap-4">
 
-				<ix-select 
-					name="selectPriority" 
-					i18nPlaceholder="Priority" 
-					i18nSelectListHeader="Select the priority" 
-					[(ngModel)]="createCaseForm.selectPriority" 
-					required
-				>
-					<ix-select-item label="Low" [value]="casePriority.LOW"></ix-select-item>
-					<ix-select-item label="Medium" [value]="casePriority.MEDIUM"></ix-select-item>
-					<ix-select-item label="High" [value]="casePriority.HIGH"></ix-select-item>
-					<ix-select-item label="Emergency" [value]="casePriority.EMERGENCY"></ix-select-item>
-				</ix-select>
-			</ix-input-group>
+                <lib-date-dropdown-wrapper
+                    [(ngModel)]="createCaseForm.dueDate"
+                    name="dueDate"
+                    required
+                ></lib-date-dropdown-wrapper>
+
+                <ix-select
+                    name="selectType"
+                    i18nPlaceholder="Type"
+                    i18nSelectListHeader="Select type"
+                    [(ngModel)]="createCaseForm.selectType"
+                    required
+                >
+                    <ix-select-item label="Planned" [value]="caseType.PLANNED"></ix-select-item>
+                    <ix-select-item label="Incident" [value]="caseType.INCIDENT"></ix-select-item>
+                    <ix-select-item label="Annotation" [value]="caseType.ANNOTATION"></ix-select-item>
+                </ix-select>
+
+                <ix-select
+                    name="selectPriority"
+                    i18nPlaceholder="Priority"
+                    i18nSelectListHeader="Select the priority"
+                    [(ngModel)]="createCaseForm.selectPriority"
+                    required
+                >
+                    <ix-select-item label="Low" [value]="casePriority.LOW"></ix-select-item>
+                    <ix-select-item label="Medium" [value]="casePriority.MEDIUM"></ix-select-item>
+                    <ix-select-item label="High" [value]="casePriority.HIGH"></ix-select-item>
+                    <ix-select-item label="Emergency" [value]="casePriority.EMERGENCY"></ix-select-item>
+                </ix-select>
+            </div>
 
 			<!-- Cases don't contain Phone Numbers
 			<ix-input-group>
@@ -93,38 +87,38 @@
 			</ix-input-group>
 			-->
 
-			<ix-input-group>
-				<span slot="input-start">Email:</span>
-				<input
-					placeholder="example@domain.com"
-					type="email"
-					name="email"
-					[(ngModel)]="createCaseForm.email"
-					required
-				/>
-				<div class="valid-feedback">Looks good!</div>
-				<div class="invalid-feedback">Please provide a valid email address</div>
-			</ix-input-group>
+            <ix-input-group>
+                <span slot="input-start">Email:</span>
+                <input
+                    placeholder="example@domain.com"
+                    type="email"
+                    name="email"
+                    [(ngModel)]="createCaseForm.email"
+                    required
+                />
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please provide a valid email address</div>
+            </ix-input-group>
 
 			<ix-button type="submit">Create Case</ix-button>
 		</form>
 
-		<div *ngIf="getFacilityValue() as facility">
-			<ix-tile size="big" class="mr-1">
-				<div class="mt-4" slot="header">{{ facility.heading }}</div>
-				<div class="mt-7 text-l">{{ facility.subheading }}</div>
-			</ix-tile>
+        <div *ngIf="getFacilityValue() as facility">
+            <ix-tile size="big" class="mr-1">
+                <div class="mt-4" slot="header">{{ facility.heading }}</div>
+                <div class="mt-7 text-l">{{ facility.subheading }}</div>
+            </ix-tile>
 
-			<ix-tile class="mt-2" size="small">Location: {{ facility.location }}</ix-tile>
-			<ix-tile class="mt-2" size="small">Number of pumps: {{ facility.pumps }}</ix-tile>
+            <ix-tile class="mt-2" size="small">Location: {{ facility.location }}</ix-tile>
+            <ix-tile class="mt-2" size="small">Number of pumps: {{ facility.pumps }}</ix-tile>
 
-			<ix-button 
-				class="mt-4" 
-				variant="secondary" 
-				[routerLink]="['/facilities', facility.id]"
-			>
-				View Facility
-			</ix-button>
-		</div>
-	</div>
+            <ix-button
+                class="mt-4"
+                variant="secondary"
+                [routerLink]="['/facilities', facility.id]"
+            >
+                View Facility
+            </ix-button>
+        </div>
+    </div>
 </ix-content>

@@ -17,8 +17,8 @@ import { cases } from '../case.mocks/const';
 export class DetailCaseComponent {
 
 	@ViewChild('customModal', { read: TemplateRef })
-	customModalRef!: TemplateRef<any>;
-  
+	customModalRef!: TemplateRef<boolean>;
+
 
 	casedetail = this.getCaseDetail();
 
@@ -43,5 +43,5 @@ export class DetailCaseComponent {
 			content: this.customModalRef
 		});
 	}
-	
+
 }
