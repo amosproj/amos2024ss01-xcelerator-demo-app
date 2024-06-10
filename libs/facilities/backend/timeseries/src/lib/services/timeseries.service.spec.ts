@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { XdInsightHubModule, XdIotTimeSeriesService } from '@frontend/common/backend/insight-hub';
+import { XdIotTimeSeriesService } from '@frontend/common/backend/insight-hub';
 import { HttpService } from '@nestjs/axios';
 import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
