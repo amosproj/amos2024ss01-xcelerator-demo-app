@@ -1,34 +1,35 @@
 .table {
-	color: grey;
+	color: #777784;
 	& .emergency {
-		background-color: darkred;
+		background-color: #ff26401a;
+		color: #ffffffbf;
 	}
 
 	& .status-open {
-		color: white;
+		color: #ffffffbf;
 	}
 
 	& .status-inprogress {
-		color: yellow;
+		color: #ff9000;
 	}
 
 	& .status-overdue {
-		color: red;
+		color: #ff2640;
 	}
 
 	& .status-onhold {
-		color: lightblue;
+		color: #00b5d1;
 	}
 
 	& .status-done {
-		color: limegreen;
+		color: #01c151;
 	}
 
 	& .status-cancelled {
-		color: gray;
+		color: #777784;
 	}
 
 	& .status-archived {
-		color: grey;
+		color: #777784;
 	}
 }

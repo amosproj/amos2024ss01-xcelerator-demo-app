@@ -1,11 +1,11 @@
 .table {
-	color: grey;
-
+	color: #777784;
 	& .emergency {
-		background-color: darkred;
+		background-color: #ff26401a;
+		color: #ffffffbf;
 	}
 
 	& .status-open {
-		color: white;
+		color: #ffffffbf;
 	}
 }
