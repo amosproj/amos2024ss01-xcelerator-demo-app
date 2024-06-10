@@ -9,7 +9,7 @@ import { cases } from '../case.mocks/const';
 @Component({
 	selector: 'lib-open-cases',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink],
+	imports: [ CommonModule, IxModule, RouterLink ],
 	templateUrl: './case-brows.component.html',
 	styleUrl: './case-brows.component.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -20,10 +20,10 @@ export class CaseBrowsComponent {
     sortedCases: ICaseMock[];
 
     ngOnInit(): void {
-        const statusOrder = ['OPEN', 'INPROGRESS', 'OVERDUE', 'ONHOLD', 'DONE', 'CANCELLED', 'ARCHIVED'];
-        const priorityOrder = ['EMERGENCY', 'HIGH', 'MEDIUM', 'LOW'];
+        const statusOrder = [ 'OPEN', 'INPROGRESS', 'OVERDUE', 'ONHOLD', 'DONE', 'CANCELLED', 'ARCHIVED' ];
+        const priorityOrder = [ 'EMERGENCY', 'HIGH', 'MEDIUM', 'LOW' ];
 
-        this.sortedCases = [...this._cases].sort((a, b) => {
+        this.sortedCases = [ ...this._cases ].sort((a, b) => {
             const statusAIndex = statusOrder.indexOf(a.status);
             const statusBIndex = statusOrder.indexOf(b.status);
 

@@ -1,5 +1,4 @@
 import { Route } from '@angular/router';
-import { CaseBrowsComponent } from 'cases-frontend-view';
 
 /**
  * The routes for the cases domain.
