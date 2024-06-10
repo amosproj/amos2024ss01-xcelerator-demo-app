@@ -18,8 +18,7 @@
             <div class="form-group">
                 <label for="dueDate">Due date (UTC)</label>
                 <input type="text" id="dueDate" [(ngModel)]="casedetail.dueDate" name="dueDate" readonly>
-                <input type="checkbox" id="overDue" name="overDue" [checked]="isOverdue" onclick="return false;"/>
-                <label for="overDue">Overdue</label>
+                <label *ngIf="isOverdue" [style.color]="'red'">Overdue</label>
             </div>
         </div>
         <div class="form-row">

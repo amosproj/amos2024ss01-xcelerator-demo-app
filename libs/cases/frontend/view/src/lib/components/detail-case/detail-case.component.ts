@@ -17,7 +17,12 @@ import { cases } from '../case.mocks/const';
 })
 export class DetailCaseComponent {
     casedetail = this.getCaseDetail();
-    isOverdue = this.checkIfOverdue(this.casedetail.dueDate);
+    isOverdue = false;
+
+    ngOnInit(): void {
+        this.checkIfOverdue(this.casedetail.dueDate);
+    }
+
 
     constructor(private route: ActivatedRoute) {}
 
@@ -35,6 +40,7 @@ export class DetailCaseComponent {
     checkIfOverdue(dueDate: string): boolean {
         const dueDateTime = new Date(dueDate).getTime();
         const currentDateTime = new Date().getTime();
-        return dueDateTime < currentDateTime;
+        this.isOverdue = dueDateTime < currentDateTime;
+        return this.isOverdue;
     }
 }
