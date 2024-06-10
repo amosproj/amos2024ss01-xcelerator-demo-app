@@ -9,21 +9,11 @@ CREATE TYPE "CaseType" AS ENUM ('PLANNED', 'INCIDENT', 'ANNOTATION');
 
 -- CreateTable
 CREATE TABLE "TimeSeriesItem" (
-    "id" SERIAL NOT NULL,
     "propertySetName" TEXT NOT NULL,
     "assetId" TEXT NOT NULL,
+    "Variables" JSONB,
 
-    CONSTRAINT "TimeSeriesItem_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "TimeSeriesVariable" (
-    "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-    "dataType" TEXT NOT NULL,
-    "unit" TEXT NOT NULL,
-
-    CONSTRAINT "TimeSeriesVariable_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "TimeSeriesItem_pkey" PRIMARY KEY ("assetId","propertySetName")
 );
 
 -- CreateTable
@@ -88,26 +78,11 @@ CREATE TABLE "Case" (
     CONSTRAINT "Case_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "_TimeSeriesItemToTimeSeriesVariable" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "TimeSeriesItem_assetId_propertySetName_key" ON "TimeSeriesItem"("assetId", "propertySetName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "TimeSeriesVariable_name_dataType_unit_key" ON "TimeSeriesVariable"("name", "dataType", "unit");
-
--- CreateIndex
 CREATE UNIQUE INDEX "AssetLocation_Assetid_key" ON "AssetLocation"("Assetid");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_TimeSeriesItemToTimeSeriesVariable_AB_unique" ON "_TimeSeriesItemToTimeSeriesVariable"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_TimeSeriesItemToTimeSeriesVariable_B_index" ON "_TimeSeriesItemToTimeSeriesVariable"("B");
 
 -- AddForeignKey
 ALTER TABLE "TimeSeriesItem" ADD CONSTRAINT "TimeSeriesItem_assetId_fkey" FOREIGN KEY ("assetId") REFERENCES "Asset"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -117,9 +92,3 @@ ALTER TABLE "TimeSeriesDataItem" ADD CONSTRAINT "TimeSeriesDataItem_timeSeriesIt
 
 -- AddForeignKey
 ALTER TABLE "AssetLocation" ADD CONSTRAINT "AssetLocation_Assetid_fkey" FOREIGN KEY ("Assetid") REFERENCES "Asset"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_TimeSeriesItemToTimeSeriesVariable" ADD CONSTRAINT "_TimeSeriesItemToTimeSeriesVariable_A_fkey" FOREIGN KEY ("A") REFERENCES "TimeSeriesItem"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_TimeSeriesItemToTimeSeriesVariable" ADD CONSTRAINT "_TimeSeriesItemToTimeSeriesVariable_B_fkey" FOREIGN KEY ("B") REFERENCES "TimeSeriesVariable"("id") ON DELETE CASCADE ON UPDATE CASCADE;

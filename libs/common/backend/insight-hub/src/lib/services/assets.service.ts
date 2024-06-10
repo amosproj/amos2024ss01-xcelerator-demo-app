@@ -33,26 +33,16 @@ export class XdAssetsService extends XdBaseBearerInteractionService {
 	/**
 	 * Allows to get the assets data from the Asset Management API.
 	 */
-	public getAssetsData(
-		pageSize = 150,
-		page = 0,
-	): Observable<IAssetsResponse> {
-		return super._getData<IAssetsResponse>(
-			undefined,
-			{
-				size: pageSize,
-				page: page,
-			},
-		);
+	public getAssetsData(pageSize = 150, page = 0): Observable<IAssetsResponse> {
+		return super._getData<IAssetsResponse>(undefined, {
+			size: pageSize,
+			page: page,
+		});
 	}
 
 	public getAssetAspectsData(assetId: string): Observable<IAspectResponse> {
-
-		return super._getData<any>(
-			`${assetId}/aspects`,
-		);
-	}	
-
-
-
+		return super._getData<any>(`${assetId}/aspects`, {
+			size: 100,
+		});
+	}
 }
