@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
-import { IxModule } from '@siemens/ix-angular';
+import { IxModule, ToastService } from '@siemens/ix-angular';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 // eslint-disable-next-line @nx/enforce-module-boundaries
 
@@ -24,6 +24,8 @@ export class CreateCaseComponent {
 	protected readonly _browseFacade2 = inject(XdBrowseFacadesService);
 	protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
 	
+	constructor(private readonly toastService: ToastService) {}
+
 	casePriority = CasePriority;
 	caseType = CaseType;
 	wasValidated = false;
@@ -52,6 +54,7 @@ export class CreateCaseComponent {
 
 			this._browseFacade2.createCase(caseData).subscribe({
 				next: (response) => {
+					this.showSuccessToast();
 					console.log('Successfully created Case:', response);
 				},
 				error: (error) => {
@@ -64,6 +67,13 @@ export class CreateCaseComponent {
 			console.error('Form is invalid');
 			return;
 		}
+	}
+
+	async showSuccessToast() {
+		this.toastService.show({
+			icon: "success-filled",
+		  	message: 'Successfully created Case',
+		});
 	}
 
 	public setFacilityValue(value: string) {
