@@ -80,7 +80,7 @@ describe('TimeseriesController ', () => {
 		const to = faker.date.recent();
 		const limit = faker.number.int(10);
 		const select = ['test'];
-		const sort = ESortOrder.ASC;
+		const sort = ESortOrder.ASCENDING;
 		const latestValue = true;
 
 		const returnValue = [

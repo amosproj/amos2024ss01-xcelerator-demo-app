@@ -18,6 +18,13 @@ export class XdTimeseriesController {
 		return this.timeseriesService.getAllTimeSeries();
 	}
 
+	@Get(':assetId')
+	public getTimeseriesForAsset(
+		@Param('assetId') assetId: string,
+	): Observable<ITimeSeriesItemResponse[]> {
+		return this.timeseriesService.getTimeSeriesForAsset(assetId);
+	}
+
 	/**
 	 * Returns timeseries data for a specific asset and property set.
 	 * Accepts query params for filtering, sorting and limiting the result.

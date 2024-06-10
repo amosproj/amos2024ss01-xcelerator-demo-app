@@ -30,7 +30,13 @@ interface IXdInsightHubModuleAsyncOptions extends Pick<ModuleMetadata, 'imports'
 }
 
 @Module({
-	providers: [XdAssetsService, XdIotTimeSeriesService, Xdervice, XdUsersService, Logger],
+	providers: [
+		XdAssetsService,
+		XdIotTimeSeriesService,
+		XdTokenManagerService,
+		XdUsersService,
+		Logger,
+	],
 	imports: [HttpModule],
 	exports: [XdAssetsService, XdIotTimeSeriesService, XdUsersService],
 })
