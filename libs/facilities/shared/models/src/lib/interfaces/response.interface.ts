@@ -28,4 +28,12 @@ export interface ITimeSeriesItemResponse {
 	 * The name of the aspect
 	 */
 	propertySetName: string;
+
+	/**
+	 * The variables of the aspect
+	 */
+	variables?: {
+		name: string;
+		unit: string;
+	}[];
 }

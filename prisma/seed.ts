@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 async function main() {
 	const asset = await prisma.asset.create({
 		data: {
-			id: 'Pump002',
+			assetId: 'Pump002',
 			name: 'Pump002',
 			typeId: 'Pump',
 			description: 'Pump 002',
@@ -17,7 +17,7 @@ async function main() {
 
 	const tsItemPumpData = await prisma.timeSeriesItem.create({
 		data: {
-			assetId: asset.id,
+			assetId: asset.assetId,
 			propertySetName: 'PumpData',
 		},
 	});
@@ -41,7 +41,7 @@ async function main() {
 
 	const tSItemEnv = await prisma.timeSeriesItem.create({
 		data: {
-			assetId: asset.id,
+			assetId: asset.assetId,
 			propertySetName: 'Environment',
 		},
 	});
@@ -50,7 +50,7 @@ async function main() {
 		return {
 			time: new Date(data._time),
 
-			timeSeriesItemAssetId: asset.id,
+			timeSeriesItemAssetId: asset.assetId,
 			timeSeriesItemPropertySetName: tSItemEnv.propertySetName,
 
 			data: {

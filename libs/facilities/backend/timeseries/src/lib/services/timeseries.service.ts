@@ -72,13 +72,15 @@ export class XdTimeseriesService {
 				items.map((item) => ({
 					assetId: item.assetId,
 					propertySetName: item.propertySetName,
+					variables: item.variables as {
+						name: string;
+						unit: string;
+					}[],
 				})),
 			),
 		);
 	}
-	public getTimeSeriesForAsset(
-		assetId: string,
-	): Observable<{ assetId: string; propertySetName: string }[]> {
+	public getTimeSeriesForAsset(assetId: string): Observable<ITimeSeriesItemResponse[]> {
 		return from(
 			this.prismaService.timeSeriesItem.findMany({
 				where: {
@@ -90,7 +92,10 @@ export class XdTimeseriesService {
 				items.map((item) => ({
 					assetId: item.assetId,
 					propertySetName: item.propertySetName,
-					variables: item.Variables,
+					variables: item.variables as {
+						name: string;
+						unit: string;
+					}[],
 				})),
 			),
 		);
