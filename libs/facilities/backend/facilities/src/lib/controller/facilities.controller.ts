@@ -18,7 +18,7 @@ export class XdFacilitiesController {
 	}
 
 	@Get(':assetId')
-	public getFacilityById(@Param('assetId') params: GetFacilityParamsDto) {
+	public getFacilityById(@Param() params: GetFacilityParamsDto) {
 		return this.facilitiesService.getFacilityById(params.assetId);
 	}
 }
