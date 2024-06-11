@@ -25,7 +25,7 @@ export class XdTimeseriesController {
 	 */
 	@Get(':assetId')
 	public getTimeseriesForAsset(
-		@Param() { assetId }: GetTimeSeriesParamsDto,
+		@Param() { assetId }: Omit<GetTimeSeriesParamsDto, 'propertySetName'>,
 	): Observable<ITimeSeriesItemResponse[]> {
 		return this.timeseriesService.getTimeSeriesForAsset(assetId);
 	}
