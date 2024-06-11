@@ -11,7 +11,7 @@ CREATE TYPE "CaseType" AS ENUM ('PLANNED', 'INCIDENT', 'ANNOTATION');
 CREATE TABLE "TimeSeriesItem" (
     "propertySetName" TEXT NOT NULL,
     "assetId" TEXT NOT NULL,
-    "Variables" JSONB,
+    "variables" JSONB,
 
     CONSTRAINT "TimeSeriesItem_pkey" PRIMARY KEY ("assetId","propertySetName")
 );
@@ -34,7 +34,7 @@ CREATE TABLE "Asset" (
     "name" TEXT NOT NULL,
     "description" TEXT,
     "typeId" TEXT NOT NULL,
-    "Variables" JSONB,
+    "variables" JSONB,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

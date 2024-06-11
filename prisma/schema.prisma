@@ -14,7 +14,7 @@ model TimeSeriesItem {
     data TimeSeriesDataItem[]
 
     assetId   String
-    Variables Json?
+    variables Json?
     Asset     Asset  @relation(fields: [assetId], references: [assetId])
 
     @@id([assetId, propertySetName])
@@ -42,7 +42,7 @@ model Asset {
     description String?
     location    AssetLocation?
     typeId      String
-    Variables   Json?
+    variables   Json?
 
     timeSeriesItems TimeSeriesItem[]
 

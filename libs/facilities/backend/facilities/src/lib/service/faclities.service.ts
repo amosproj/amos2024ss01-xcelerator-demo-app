@@ -88,7 +88,7 @@ export class XdFacilitesService {
 						data: aspects.map((aspect) => {
 							return {
 								propertySetName: aspect.name,
-								Variables: aspect.variables.map((variable) => {
+								variables: aspect.variables.map((variable) => {
 									return {
 										name: variable.name,
 										unit: variable.unit,
