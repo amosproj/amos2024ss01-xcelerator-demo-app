@@ -75,11 +75,11 @@ export class XdFacilitesService {
 	private upsertAsset(asset: Asset, aspects: Aspect[]) {
 		return this.prismaService.asset.upsert({
 			where: {
-				id: asset.assetId,
+				assetId: asset.assetId,
 			},
 			update: {},
 			create: {
-				id: asset.assetId,
+				assetId: asset.assetId,
 				name: asset.name,
 				typeId: asset.typeId,
 				description: asset.description,
@@ -121,7 +121,7 @@ export class XdFacilitesService {
 						from(
 							this.prismaService.asset.findUnique({
 								where: {
-									id: asset.assetId,
+									assetId: asset.assetId,
 								},
 							}),
 						).pipe(map((existingAsset) => !existingAsset)),
@@ -163,10 +163,10 @@ export class XdFacilitesService {
 	/**
 	 * This method gets a facility by its id.
 	 */
-	public getFacilityById(id: string) {
+	public getFacilityById(assetId: string) {
 		return this.prismaService.asset.findUnique({
 			where: {
-				id,
+				assetId,
 			},
 		});
 	}
