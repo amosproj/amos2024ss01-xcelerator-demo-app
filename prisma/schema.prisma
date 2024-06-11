@@ -15,7 +15,7 @@ model TimeSeriesItem {
 
     assetId   String
     Variables Json?
-    Asset     Asset  @relation(fields: [assetId], references: [id])
+    Asset     Asset  @relation(fields: [assetId], references: [assetId])
 
     @@id([assetId, propertySetName])
     @@unique([assetId, propertySetName])
@@ -37,7 +37,7 @@ model TimeSeriesDataItem {
 }
 
 model Asset {
-    id          String         @id
+    assetId     String         @id
     name        String
     description String?
     location    AssetLocation?
@@ -61,7 +61,7 @@ model AssetLocation {
     latitude      Float
 
     Assetid String @unique
-    Asset   Asset  @relation(fields: [Assetid], references: [id])
+    Asset   Asset  @relation(fields: [Assetid], references: [assetId])
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
