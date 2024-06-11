@@ -1,35 +1,5 @@
-.table {
-	color: #777784;
-	& .emergency {
-		background-color: #ff26401a;
-		color: #ffffffbf;
-	}
+@import 'libs/cases/shared/models/src/lib/styles/case.scss';
 
-	& .status-open {
-		color: #ffffffbf;
-	}
-
-	& .status-inprogress {
-		color: #ff9000;
-	}
-
-	& .status-overdue {
-		color: #ff2640;
-	}
-
-	& .status-onhold {
-		color: #00b5d1;
-	}
-
-	& .status-done {
-		color: #01c151;
-	}
-
-	& .status-cancelled {
-		color: #777784;
-	}
-
-	& .status-archived {
-		color: #777784;
-	}
+.table .clickable-row {
+	cursor: pointer; /* Changes the cursor to a hand */
 }
