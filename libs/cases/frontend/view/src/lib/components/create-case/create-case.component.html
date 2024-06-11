@@ -103,7 +103,7 @@
 			<ix-button type="submit">Create Case</ix-button>
 		</form>
 
-        <div *ngIf="getFacilityValue() as facility">
+        <div *ngIf="getFacility() as facility">
             <ix-tile size="big" class="mr-1">
                 <div class="mt-4" slot="header">{{ facility.heading }}</div>
                 <div class="mt-7 text-l">{{ facility.subheading }}</div>

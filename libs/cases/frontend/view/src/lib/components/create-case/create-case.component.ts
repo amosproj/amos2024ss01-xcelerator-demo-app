@@ -9,6 +9,7 @@ import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { IxModule, ToastService } from '@siemens/ix-angular';
 
+import { CaseFormData } from '../interfaces/case-form-data.interface';
 import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
 
 @Component({
@@ -71,39 +72,39 @@ export class CreateCaseComponent {
 
     async showSuccessToast() {
         await this.toastService.show({
-            type: "success",
+            type: 'success',
             message: 'Successfully created Case'
         });
     }
 
-    public setFacilityValue(value: string) {
+    public set facilityValue(value: string) {
         this.createCaseForm.selectFacility = value;
     }
 
-    public setPhoneValue(value: string) {
+    public get facilityValue() {
+        return this.createCaseForm.selectFacility;
+    }
+
+    public set phoneValue(value: string) {
         this.createCaseForm.phone = value;
     }
 
-    public setEmailValue(value: string) {
-        this.createCaseForm.email = value;
-    }
-
-    public getFacilityValue() {
-        return this.facilities()?.find(
-            (facility) => facility.id === this.createCaseForm.selectFacility,
-        );
-    }
-
-    public getPhoneValue() {
+    public get phoneValue() {
         return this.createCaseForm.phone;
     }
 
-    public getEmailValue() {
+    public set emailValue(value: string) {
+        this.createCaseForm.email = value;
+    }
+
+    public get emailValue() {
         return this.createCaseForm.email;
     }
 
-    public getTextValue() {
-        return this.createCaseForm.text;
+    public getFacility() {
+        return this.facilities()?.find(
+            (facility) => facility.id === this.createCaseForm.selectFacility,
+        );
     }
 
     /**
@@ -111,7 +112,7 @@ export class CreateCaseComponent {
      * @param formData case data in the form filled in by the user
      * @returns {JSON}
      */
-    private mapFormData(formData: {selectFacility: string; title: string; dueDate: Date; selectPriority: CasePriority; selectType: CaseType; phone: string; email: string; text: string; }) {
+    private mapFormData(formData: CaseFormData) {
 
         return {
             handle: 'AA-000',
