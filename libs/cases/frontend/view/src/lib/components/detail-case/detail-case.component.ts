@@ -1,47 +1,46 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IxModule, ModalService } from '@siemens/ix-angular';
 
 import { cases } from '../case.mocks/const';
 
 @Component({
-	selector: 'lib-detail-case',
-	standalone: true,
-	imports: [ CommonModule, IxModule ],
-	templateUrl: './detail-case.component.html',
-	styleUrl: './detail-case.component.scss',
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lib-detail-case',
+    standalone: true,
+    imports: [CommonModule, FormsModule, IxModule],
+    templateUrl: './detail-case.component.html',
+    styleUrls: ['./detail-case.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailCaseComponent {
+    casedetail = this.getCaseDetail();
+    isOverdue = false;
 
-	@ViewChild('customModal', { read: TemplateRef })
-	customModalRef!: TemplateRef<boolean>;
+    ngOnInit(): void {
+        this.checkIfOverdue(this.casedetail.dueDate);
+    }
 
 
-	casedetail = this.getCaseDetail();
+    constructor(private route: ActivatedRoute) {}
 
-	constructor(
-		private route: ActivatedRoute,
-		private readonly modalService: ModalService
-	) {}
+    getCaseDetail() {
+        const casedetail = cases.find(
+            (casedetail) => casedetail.handle === this.route.snapshot.params['handle'],
+        );
+        if (casedetail === undefined) {
+            throw new Error('Facility not found');
+        } else {
+            return casedetail;
+        }
+    }
 
-	getCaseDetail() {
-		const casedetail = cases.find(
-			(casedetail) => casedetail.handle === this.route.snapshot.params['handle'],
-		);
-		if (casedetail === undefined) {
-			throw new Error('Facility not found');
-		} else {
-			return casedetail;
-		}
-	}
-
-	async openModal() {
-		await this.modalService.open({
-			content: this.customModalRef
-		});
-	}
-
+    checkIfOverdue(dueDate: string): boolean {
+        const dueDateTime = new Date(dueDate).getTime();
+        const currentDateTime = new Date().getTime();
+        this.isOverdue = dueDateTime < currentDateTime;
+        return this.isOverdue;
+    }
 }
