@@ -111,6 +111,7 @@ describe('TimeseriesController ', () => {
 					select,
 					sort,
 					latestValue,
+					local: true,
 				},
 			),
 		);

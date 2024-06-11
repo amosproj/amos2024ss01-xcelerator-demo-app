@@ -39,7 +39,7 @@ export class XdTimeseriesController {
 		@Param() params: GetTimeSeriesParamsDto,
 		@Query() query: GetTimeSeriesQueryDto,
 	): Observable<ITimeSeriesDataItemResponse[]> {
-		const { local = true, ...rest } = query;
+		const { local = false, ...rest } = query;
 		const args = {
 			...params,
 			...rest,
