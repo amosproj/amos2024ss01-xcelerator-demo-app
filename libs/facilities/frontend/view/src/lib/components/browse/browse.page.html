@@ -1,0 +1,38 @@
+<ix-button (click)="toggleView()" class="absolute top-20 right-4 !z-[50]">
+    Switch to {{ showCardList ? 'Event List' : 'Card List' }}
+</ix-button>
+<ix-content>
+	@if (showCardList) {
+        @if (facilities(); as facilities) {
+            <ix-card-list label="Facilities Overview" [showAllCount]="facilities.length" list-style="stack">
+                @for (facility of facilities; track facility.id) {
+                <ix-push-card
+                    [icon]="facility.icon"
+                    [notification]="facility.notification"
+                    [heading]="facility.heading"
+                    [subheading]="facility.subheading"
+                    [variant]="facility.variant"
+                    [routerLink]="['/facilities', facility.id]"
+                >
+                    <p>Number of water pumps: {{ facility.pumps }}</p>
+                    <p>Location: {{ facility.location }}</p>
+                </ix-push-card>
+                }
+            </ix-card-list>
+        }
+    }
+    @else {
+        <ix-event-list item-height="L">
+            @for (facility of facilities(); track facility.id){
+                <ix-event-list-item color="color-primary" [routerLink]="['/facilities', facility.id]">
+                    <div>
+                        <strong>{{ facility.heading }}</strong>
+                        <p>{{ facility.subheading }}</p>
+                        <p>Number of water pumps: {{ facility.pumps }}</p>
+                        <p>Location: {{ facility.location }}</p>
+                    </div>
+                </ix-event-list-item>
+            }
+        </ix-event-list>
+    }
+</ix-content>

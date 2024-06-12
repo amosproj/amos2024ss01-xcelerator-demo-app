@@ -1,0 +1,14 @@
+.app-not-found {
+	a {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+
+		background-image: url('/assets/not-found.gif');
+		background-repeat: repeat;
+
+		cursor: pointer;
+	}
+}

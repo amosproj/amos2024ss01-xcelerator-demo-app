@@ -1,26 +1,24 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { APP_CONFIG } from 'common-frontend-models';
 
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 
 describe('AppComponent', () => {
+	let component: AppComponent;
+	let fixture: ComponentFixture<AppComponent>;
+
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [AppComponent, NxWelcomeComponent, RouterTestingModule],
+			imports: [ AppComponent ],
+			providers: [ { provide: APP_CONFIG, useValue: { apiUrl: 'http://localhost:3333/api' } } ],
 		}).compileComponents();
-	});
 
-	it('should render title', () => {
-		const fixture = TestBed.createComponent(AppComponent);
+		fixture = TestBed.createComponent(AppComponent);
+		component = fixture.componentInstance;
 		fixture.detectChanges();
-		const compiled = fixture.nativeElement as HTMLElement;
-		expect(compiled.querySelector('h1')?.textContent).toContain('Welcome frontend');
 	});
 
-	it(`should have as title 'frontend'`, () => {
-		const fixture = TestBed.createComponent(AppComponent);
-		const app = fixture.componentInstance;
-		expect(app.title).toEqual('frontend');
+	it('should create the app', () => {
+		expect(component).toBeTruthy();
 	});
 });

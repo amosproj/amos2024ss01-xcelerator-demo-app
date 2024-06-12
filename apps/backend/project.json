@@ -1,31 +1,55 @@
 {
-    "name": "backend",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "sourceRoot": "apps/backend/src",
-    "projectType": "application",
-    "tags": ["tier:backend", "type:app"],
-    "targets": {
-        "serve": {
-            "executor": "@nx/js:node",
-            "defaultConfiguration": "development",
-            "options": {
-                "buildTarget": "backend:build"
-            },
-            "configurations": {
-                "development": {
-                    "buildTarget": "backend:build:development"
-                },
-                "production": {
-                    "buildTarget": "backend:build:production"
-                }
-            }
-        },
-        "test": {
-            "executor": "@nx/jest:jest",
-            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-            "options": {
-                "jestConfig": "apps/backend/jest.config.ts"
-            }
-        }
-    }
+	"name": "backend",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/backend/src",
+	"projectType": "application",
+	"tags": ["kind:backend", "type:app"],
+	"targets": {
+		"serve": {
+			"executor": "@nx/js:node",
+			"defaultConfiguration": "development",
+			"options": {
+				"buildTarget": "backend:build"
+			},
+			"configurations": {
+				"development": {
+					"buildTarget": "backend:build:development"
+				},
+				"production": {
+					"buildTarget": "backend:build:production"
+				}
+			}
+		},
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "apps/backend/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		},
+		"prisma:migrate": {
+			"executor": "nx:run-commands",
+			"outputs": [],
+			"options": {
+				"command": "pnpm prisma migrate dev --name ${migrationName:=dev}"
+			}
+		},
+		"prisma:seed": {
+			"executor": "nx:run-commands",
+			"outputs": [],
+			"options": {
+				"command": "pnpm prisma db seed"
+			}
+		},
+		"prisma:generate": {
+			"executor": "nx:run-commands",
+			"outputs": [],
+			"options": {
+				"command": "pnpm prisma generate"
+			}
+		}
+	}
 }

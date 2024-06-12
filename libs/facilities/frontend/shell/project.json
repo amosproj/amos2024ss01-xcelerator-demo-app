@@ -1,0 +1,20 @@
+{
+	"name": "facilities-frontend-shell",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/facilities/frontend/shell/src",
+	"prefix": "lib",
+	"projectType": "library",
+	"tags": ["kind:frontend", "type:shell", "domain:facilities"],
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/facilities/frontend/shell/jest.config.ts"
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:lint"
+		}
+	}
+}

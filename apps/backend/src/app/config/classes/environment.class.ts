@@ -16,7 +16,7 @@ export class EnvironmentVariables implements IEnvironmentVariables {
 	 */
 	@IsDefined()
 	@IsNumber()
-	APP_PORT: number;
+	BACKEND_PORT?: number;
 
 	/**
 	 * Application host for the backend
@@ -26,7 +26,7 @@ export class EnvironmentVariables implements IEnvironmentVariables {
 	@IsDefined()
 	@IsString()
 	@MinLength(1)
-	APP_HOST: string;
+	BACKEND_HOST?: string;
 
 	/**
 	 * Application name for the backend
@@ -36,7 +36,7 @@ export class EnvironmentVariables implements IEnvironmentVariables {
 	@IsDefined()
 	@IsString()
 	@MinLength(1)
-	APP_NAME: string;
+	BACKEND_NAME?: string;
 
 	/* DATABASE */
 
@@ -78,4 +78,20 @@ export class EnvironmentVariables implements IEnvironmentVariables {
 	@IsString()
 	@MinLength(1)
 	POSTGRES_PASSWORD: string;
+
+	/**
+	 * The URL of the API to use for the IotTimeSeriesService
+	 */
+	@IsDefined()
+	@IsString()
+	@MinLength(1)
+	INSIGHT_HUB_API_URL?: string;
+
+	/**
+	 * The API key to use for the IotTimeSeriesService
+	 */
+	@IsDefined()
+	@IsString()
+	@MinLength(1)
+	INSIGHT_HUB_API_KEY?: string;
 }

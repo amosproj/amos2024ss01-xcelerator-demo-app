@@ -24,6 +24,7 @@ COPY --from=installer /usr/src/app/node_modules ./node_modules
 COPY . .
 
 RUN pnpm install --frozen-lockfile
+RUN pnpm prisma generate
 RUN pnpm nx build backend
 
 FROM node:20-alpine as production

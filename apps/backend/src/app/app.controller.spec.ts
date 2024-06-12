@@ -8,8 +8,8 @@ describe('AppController', () => {
 
 	beforeAll(async () => {
 		app = await Test.createTestingModule({
-			controllers: [AppController],
-			providers: [AppService],
+			controllers: [ AppController ],
+			providers: [ AppService ],
 		}).compile();
 	});
 

@@ -1,0 +1,25 @@
+.login-card {
+	max-width: 400px;
+	margin: auto;
+	padding: 20px;
+	margin-top: 100px;
+}
+.login-title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 20px;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+.form-group {
+	margin-bottom: 15px;
+}
+.github-login {
+	border: 300px grey;
+	margin-top: 15px;
+	display: flex;
+	align-items: center;
+	font-size: 20px;
+	gap: 10px;
+}

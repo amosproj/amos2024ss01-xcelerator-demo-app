@@ -1,8 +1,5 @@
-'*.{html,ts,js,mjs}':
-        - nx affected --target lint --uncommitted
-        - nx format:write --uncommitted
 '*.{json,md,yml}':
-        - nx format:write --uncommitted
+    - nx format:write --uncommitted
 '*.{scss,css}':
-        - nx affected --target stylelint --fix
-        - nx format:write --uncommitted
+    - nx affected --target stylelint --fix
+    - nx format:write --uncommitted
