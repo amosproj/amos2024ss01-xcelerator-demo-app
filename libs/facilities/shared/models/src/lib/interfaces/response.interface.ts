@@ -81,35 +81,35 @@ interface IFacilityLocation {
 	/**
 	 * The country of the facility location
 	 */
-	country: string;
+	country?: string;
 
 	/**
 	 * The region of the facility location
 	 */
-	region: string;
+	region?: string;
 
 	/**
 	 * The locality of the facility location
 	 */
-	locality: string;
+	locality?: string;
 
 	/**
 	 * The street address of the facility location
 	 */
-	streetAddress: string;
+	streetAddress?: string;
 
 	/**
 	 * The postal code of the facility location
 	 */
-	postalCode: string;
+	postalCode?: string;
 
 	/**
 	 * The longitude of the facility location
 	 */
-	longitude: number;
+	longitude?: number;
 
 	/**
 	 * The latitude of the facility location
 	 */
-	latitude: number;
+	latitude?: number;
 }

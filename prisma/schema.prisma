@@ -51,14 +51,14 @@ model Asset {
 }
 
 model AssetLocation {
-    id            Int    @id @default(autoincrement())
-    country       String
-    region        String
-    locality      String
-    streetAddress String
-    postalCode    String
-    longitude     Float
-    latitude      Float
+    id            Int     @id @default(autoincrement())
+    country       String?
+    region        String?
+    locality      String?
+    streetAddress String?
+    postalCode    String?
+    longitude     Float?
+    latitude      Float?
 
     Assetid String @unique
     Asset   Asset  @relation(fields: [Assetid], references: [assetId])
