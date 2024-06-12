@@ -37,7 +37,7 @@ export class XdDetailPage {
 
 	protected readonly facility = toSignal(this._detailsFacade.getFacility(this._route.snapshot.params['id']))
 
-	protected $locked = new BehaviorSubject<boolean>(true);
+	protected locked$ = new BehaviorSubject<boolean>(true);
 
     pumpChart = pumpChart;
     envChart = envChart;
@@ -51,12 +51,12 @@ export class XdDetailPage {
 	async changeLocked() {
 		const instance = await this._modalService.open({
 			content: LockModalComponent,
-			data: { locked: this.$locked.getValue() },
+			data: { locked: this.locked$.getValue() },
 		});
 
 		// modal closes on confirm and dismisses on cancel
 		instance.onClose.on(() => {
-			this.$locked.next(!this.$locked.getValue());
+			this.locked$.next(!this.locked$.getValue());
 		});
 	}
 }
