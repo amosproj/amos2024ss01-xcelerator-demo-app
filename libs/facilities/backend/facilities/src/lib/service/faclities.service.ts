@@ -1,5 +1,5 @@
-import { IFacilitiesResponse } from '@frontend/facilities/shared/models';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { IFacilitiesResponse, IFacilityLocation } from '@frontend/facilities/shared/models';
+import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Aspect, XdAssetsService } from 'common-backend-insight-hub';
 import { Asset } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
@@ -164,7 +164,7 @@ export class XdFacilitesService {
 	/**
 	 * This method gets a facility by its id.
 	 */
-	public getFacilityById(assetId: string): Observable<IFacilitiesResponse | null> {
+	public getFacilityById(assetId: string): Observable<IFacilitiesResponse> {
 		return from(
 			this.prismaService.asset.findUnique({
 				where: {
@@ -177,27 +177,34 @@ export class XdFacilitesService {
 		).pipe(
 			map((asset) => {
 				if (asset === null) {
-					return null;
+					throw new HttpException('Facility not Found', HttpStatus.NOT_FOUND);
 				}
 
+				const { assetId, name, typeId, description, variables, createdAt, updatedAt } =
+					asset;
+
+				const location: IFacilityLocation | undefined = asset.location
+					? {
+							country: asset.location.country || undefined,
+							latitude: asset.location.latitude || undefined,
+							longitude: asset.location.longitude || undefined,
+							locality: asset.location.locality || undefined,
+							postalCode: asset.location.postalCode || undefined,
+							region: asset.location.region || undefined,
+							streetAddress: asset.location.streetAddress || undefined,
+						}
+					: undefined;
+
 				return {
-					assetId: asset.assetId,
-					name: asset.name,
-					typeId: asset.typeId,
-					description: asset.description,
-					variables: asset.variables,
-					location: asset.location && {
-						country: asset.location.country,
-						latitude: asset.location.latitude,
-						longitude: asset.location.longitude,
-						locality: asset.location.locality,
-						postalCode: asset.location.postalCode,
-						region: asset.location.region,
-						streetAddress: asset.location.streetAddress,
-					},
-					createdAt: asset.createdAt.toISOString(),
-					updatedAt: asset.updatedAt.toISOString(),
-				} as IFacilitiesResponse;
+					assetId,
+					name,
+					typeId,
+					description: description || '',
+					variables,
+					location: location,
+					createdAt: createdAt.toISOString(),
+					updatedAt: updatedAt.toISOString(),
+				};
 			}),
 		);
 	}

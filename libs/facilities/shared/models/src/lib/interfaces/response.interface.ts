@@ -77,7 +77,7 @@ export interface IFacilitiesResponse {
 	updatedAt: string;
 }
 
-interface IFacilityLocation {
+export interface IFacilityLocation {
 	/**
 	 * The country of the facility location
 	 */
