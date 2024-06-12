@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
@@ -15,7 +15,7 @@ import { cases } from '../case.mocks/fackerMock';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailCaseComponent {
+export class DetailCaseComponent implements OnInit{
     casedetail = this.getCaseDetail();
     isOverdue = false;
 

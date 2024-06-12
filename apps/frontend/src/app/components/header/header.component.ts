@@ -12,6 +12,8 @@ import { IxModule } from '@siemens/ix-angular';
 import { find } from 'lodash';
 import { filter } from 'rxjs';
 
+import { LegalInformationComponent } from './legal-information/legal-information.component';
+
 /**
  * Breadcrumb data interface
  */
@@ -26,7 +28,7 @@ export interface IBreadcrumbData {
 @Component({
 	selector: 'app-header',
 	standalone: true,
-	imports: [ CommonModule, IxModule, RouterLink, RouterOutlet ],
+	imports: [CommonModule, IxModule, RouterLink, RouterOutlet, LegalInformationComponent],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.scss',
 	encapsulation: ViewEncapsulation.None,

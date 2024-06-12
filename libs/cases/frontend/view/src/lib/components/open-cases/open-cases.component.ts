@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 import { IxModule } from '@siemens/ix-angular';
+
 
 import { ICaseMock } from '../case.mocks/case.interface';
 import { cases } from '../case.mocks/fackerMock';
@@ -15,6 +17,7 @@ import { cases } from '../case.mocks/fackerMock';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class OpenCasesComponent implements OnInit {
     protected readonly _cases = cases;
     filteredCases: ICaseMock[];
