@@ -30,7 +30,7 @@ import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
 export class CreateCaseComponent {
     private readonly _browseFacade = inject(XdBrowseFacade);
     protected readonly _browseFacade2 = inject(XdBrowseFacadesService);
-    protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
+    protected readonly facilities = toSignal(this._browseFacade.getAllFacilities());
 
     constructor(private readonly toastService: ToastService) {
     }
