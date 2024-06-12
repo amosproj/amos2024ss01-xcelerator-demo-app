@@ -43,7 +43,7 @@ export class XdDetailPage {
 			return;
 		}
 
-		return facility.find((facility) => facility.id === this.route.snapshot.params['id']);
+		return facility.find((facility) => facility.id === this._route.snapshot.params['id']);
 	});
 
     pumpChart = pumpChart;
@@ -52,14 +52,13 @@ export class XdDetailPage {
 	protected $locked = new BehaviorSubject<boolean>(true);
 
 	constructor(
-		private route: ActivatedRoute,
-		private readonly modalService: ModalService,
-		protected _location: Location,
+		private _route: ActivatedRoute,
+		private readonly _modalService: ModalService
 	) {}
 
 
 	async changeLocked() {
-		const instance = await this.modalService.open({
+		const instance = await this._modalService.open({
 			content: LockModalComponent,
 			data: { locked: this.$locked.getValue() },
 		});
