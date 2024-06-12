@@ -157,8 +157,44 @@ export class XdFacilitesService {
 	 *
 	 * @returns All the facilities from the database.
 	 */
-	public getAllFacilitiesFromDB() {
-		return this.prismaService.asset.findMany();
+	public getAllFacilitiesFromDB(): Observable<IFacilitiesResponse[]> {
+		return from(
+			this.prismaService.asset.findMany({
+				include: {
+					location: true,
+				},
+			}),
+		).pipe(
+			map((assets) => {
+				return assets.map((asset) => {
+					const { assetId, name, typeId, description, createdAt, updatedAt, variables } =
+						asset;
+
+					const location: IFacilityLocation | undefined = asset.location
+						? {
+								country: asset.location.country || undefined,
+								latitude: asset.location.latitude || undefined,
+								longitude: asset.location.longitude || undefined,
+								locality: asset.location.locality || undefined,
+								postalCode: asset.location.postalCode || undefined,
+								region: asset.location.region || undefined,
+								streetAddress: asset.location.streetAddress || undefined,
+							}
+						: undefined;
+
+					return {
+						assetId,
+						name,
+						typeId,
+						location: location,
+						variables: variables || undefined,
+						description: description || '',
+						createdAt: createdAt.toISOString(),
+						updatedAt: updatedAt.toISOString(),
+					};
+				});
+			}),
+		);
 	}
 
 	/**
@@ -200,7 +236,7 @@ export class XdFacilitesService {
 					name,
 					typeId,
 					description: description || '',
-					variables,
+					variables: variables || undefined,
 					location: location,
 					createdAt: createdAt.toISOString(),
 					updatedAt: updatedAt.toISOString(),
