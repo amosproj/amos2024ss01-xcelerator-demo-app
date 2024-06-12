@@ -100,23 +100,4 @@ export class XdTimeseriesService {
 			),
 		);
 	}
-	public getTimeSeriesForAsset(
-		assetId: string,
-	): Observable<{ assetId: string; propertySetName: string }[]> {
-		return from(
-			this.prismaService.timeSeriesItem.findMany({
-				where: {
-					assetId,
-				},
-			}),
-		).pipe(
-			map((items) =>
-				items.map((item) => ({
-					assetId: item.assetId,
-					propertySetName: item.propertySetName,
-					variables: item.Variables,
-				})),
-			),
-		);
-	}
 }
