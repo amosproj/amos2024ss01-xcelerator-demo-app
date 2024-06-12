@@ -6,7 +6,6 @@ import { IxModule } from '@siemens/ix-angular';
 import { ICaseMock } from '../case.mocks/case.interface';
 //import { cases } from '../case.mocks/const';
 import { cases } from '../case.mocks/fackerMock';
-//import { CaseRowComponent } from '../caseRow';
 
 @Component({
     selector: 'lib-brows-cases',
