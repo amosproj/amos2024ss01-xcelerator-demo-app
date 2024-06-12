@@ -2,8 +2,12 @@
 <ix-content>
     <div class="details-grid gap-x-6 gap-y-4 pb-12">
 
-        <lib-chart [chart]="pumpChart"></lib-chart>
-        <lib-chart [chart]="envChart"></lib-chart>
+        @if(this.pumpChart(); as pumpChart){
+            <div echarts [options]="pumpChart" [theme]="theme"></div>
+        }
+        @if(this.envChart(); as envChart){
+            <div echarts [options]="envChart" [theme]="theme"></div>
+        }
 
         <ix-card variant="insight" class="h-full w-full p-4">
             <ix-card-content>
