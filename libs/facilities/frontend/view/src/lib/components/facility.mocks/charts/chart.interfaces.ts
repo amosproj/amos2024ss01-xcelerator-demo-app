@@ -6,21 +6,21 @@ export interface IChart {
 }
 
 export interface IPumpDataItem {
-    'MotorCurrent': number,
-    'PressureOut': number,
-    'StuffingBoxTemperature': number,
-    'PressureIn': number,
-    'Flow': number,
-    '_time': string,
+    MotorCurrent: number;
+    PressureOut: number;
+    StuffingBoxTemperature: number;
+    PressureIn: number;
+    Flow: number;
+    _time: string;
 }
 
 export interface IEnvDataItem {
-    'Pressure_qc': number,
-    'Temperature': number,
-    'Temperature_qc': number,
-    'Humidity_qc': number,
-    'Humidity': number,
-    'Pressure': number,
-    '_time': string,
+    Pressure_qc: number;
+    Temperature: number;
+    Temperature_qc: number;
+    Humidity_qc: number;
+    Humidity: number;
+    Pressure: number;
+    _time: string;
 }
 

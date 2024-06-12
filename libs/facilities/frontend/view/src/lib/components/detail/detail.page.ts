@@ -1,4 +1,4 @@
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -14,8 +14,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
 
 import { envChart, pumpChart } from '../facility.mocks/charts/processData';
-import { facilities } from '../facility.mocks/const';
-import { IFacilityMock } from '../facility.mocks/facility.interface';
 import { ChartComponent } from './chart/chart.component';
 import LockModalComponent from './lock-modal/lockModal.component';
 
@@ -51,7 +49,7 @@ export class XdDetailPage {
     pumpChart = pumpChart;
     envChart = envChart;
 
-	protected locked$ = new BehaviorSubject<boolean>(true);
+	protected $locked = new BehaviorSubject<boolean>(true);
 
 	constructor(
 		private route: ActivatedRoute,
@@ -59,26 +57,16 @@ export class XdDetailPage {
 		protected _location: Location,
 	) {}
 
-	getFacility(): IFacilityMock {
-		const facility = facilities.find(
-			(facility) => facility.id === this.route.snapshot.params['id'],
-		);
-		if (facility === undefined) {
-			throw new Error('Facility not found');
-		} else {
-			return facility;
-		}
-	}
 
 	async changeLocked() {
 		const instance = await this.modalService.open({
 			content: LockModalComponent,
-			data: { locked: this.locked$.getValue() },
+			data: { locked: this.$locked.getValue() },
 		});
 
 		// modal closes on confirm and dismisses on cancel
 		instance.onClose.on(() => {
-			this.locked$.next(!this.locked$.getValue());
+			this.$locked.next(!this.$locked.getValue());
 		});
 	}
 }
