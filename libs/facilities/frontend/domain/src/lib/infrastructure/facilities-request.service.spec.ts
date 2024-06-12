@@ -4,14 +4,12 @@ import { TestBed } from '@angular/core/testing';
 import { faker } from '@faker-js/faker';
 import {
     IGetFacilitiesParams,
-    IGetTimeSeriesParams,
-    IGetTimeseriesQuery,
     ITimeSeriesItemResponse,
 } from 'facilities-shared-models';
 import { firstValueFrom, of } from 'rxjs';
 
 import { FacilitiesRequestService } from './facilities-request.service';
-import { TimeseriesRequestService } from './timeseries-request.service';
+import { TimeSeriesRequestService } from './timeseries-request.service';
 
 describe('FacilitiesRequestService', () => {
     let service: FacilitiesRequestService;
@@ -21,7 +19,7 @@ describe('FacilitiesRequestService', () => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [
-                TimeseriesRequestService,
+                TimeSeriesRequestService,
                 {
                     provide: HttpClient,
                     useValue: {
