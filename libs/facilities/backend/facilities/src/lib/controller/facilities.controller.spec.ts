@@ -1,10 +1,10 @@
+import { faker } from '@faker-js/faker';
+import { IFacilitiesResponse } from '@frontend/facilities/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
+import { firstValueFrom, of } from 'rxjs';
 
 import { XdFacilitiesService } from '../service/faclities.service';
 import { XdFacilitiesController } from './facilities.controller';
-import { of } from 'rxjs';
-import { IFacilitiesResponse } from '@frontend/facilities/shared/models';
-import { faker } from '@faker-js/faker';
 
 describe('FacilitiesController ', () => {
 	let controller: XdFacilitiesController;
@@ -12,7 +12,7 @@ describe('FacilitiesController ', () => {
 
 	beforeAll(async () => {
 		const serviceMock = {
-			getAllFacilitiesFromDB: jest.fn().mockReturnValue([]),
+			getAllFacilitiesFromDB: jest.fn().mockImplementation(() => of([])),
 			seedTheDB: jest.fn().mockReturnValue([]),
 			getFacilityById: jest.fn().mockReturnValue([]),
 		};
@@ -35,7 +35,7 @@ describe('FacilitiesController ', () => {
 		jest.clearAllMocks();
 	});
 
-	it('should return all facilities', () => {
+	it('should return all facilities', async () => {
 		const facilitiesResponse: IFacilitiesResponse = {
 			assetId: faker.string.uuid(),
 			createdAt: faker.date.recent(),
@@ -45,30 +45,24 @@ describe('FacilitiesController ', () => {
 			updatedAt: faker.date.recent(),
 			variables: faker.string.sample(),
 			location: {
-				country: faker.address.country(),
-				latitude: faker.address.latitude(),
-				locality: faker.address.city(),
-				longitude: faker.address.longitude(),
-				postalCode: faker.address.zipCode(),
-				region: faker.address.state(),
-				streetAddress: faker.address.streetAddress(),
+				country: faker.location.country(),
+				latitude: faker.location.latitude(),
+				locality: faker.location.city(),
+				longitude: faker.location.longitude(),
+				postalCode: faker.location.zipCode(),
+				region: faker.location.state(),
+				streetAddress: faker.location.streetAddress(),
 			},
 		};
-		const Spy = jest.spyOn(service, 'getAllFacilitiesFromDB').mockReturnValue(
-			of([
-				{
-					assetId: 'test',
-					facilityName: 'test',
-					facilityType: 'test',
-					location: 'test',
-					description: 'test',
-					status: 'test',
-					createdOn: new Date(),
-					modifiedOn: new Date(),
-				},
-			]),
-		);
+		const Spy = jest
+			.spyOn(service, 'getAllFacilitiesFromDB')
+			.mockReturnValue(of([facilitiesResponse]));
 
-		expect(controller.getAllFacilities()).toEqual([]);
+		const result = await firstValueFrom(controller.getAllFacilities());
+
+		console.log(result);
+
+		expect(Spy).toHaveBeenCalled();
+		expect(result).toEqual([facilitiesResponse]);
 	});
 });
