@@ -2,22 +2,22 @@ import { inject, Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { map } from 'rxjs';
 
-import { TimeseriesRequestService } from '../../infrastructure/timeseries-request.service';
+import { FacilitiesRequestService } from '../../infrastructure/facilities-request.service';
 
 /**
  * Browse facades service.
  */
 @Injectable({ providedIn: 'root' })
 export class XdBrowseFacade {
-	private readonly _scanService = inject(TimeseriesRequestService);
+	private readonly _scanService = inject(FacilitiesRequestService);
 
 	/**
-	 * Get all timeseries.
+	 * Get all the facilities.
 	 *
 	 * @TODO: This method should NOT map the response data and add fake data. In a later ticket, we will provide a meaningful implementation.
 	 */
-	public getAllTimeseries() {
-		return this._scanService.getAllTimeseries().pipe(
+	public getAllFacilities() {
+		return this._scanService.getAllFacilities().pipe(
 			map((timeSeriesItem) => {
 				return timeSeriesItem.map((timeSeriesItem) => {
 					return {
@@ -29,24 +29,15 @@ export class XdBrowseFacade {
 							'truck',
 						]),
 						notification: `${faker.number.int({ min: 0, max: 99 })}`,
-						heading: timeSeriesItem.assetId,
-						subheading: timeSeriesItem.propertySetName,
+						heading: timeSeriesItem.name,
+						subheading: timeSeriesItem.description,
 						variant: 'success',
 						pumps: faker.number.int({ min: 0, max: 99 }),
-						location: faker.location.city(),
+						location: timeSeriesItem.location,
 					};
 				});
 			}),
 		);
 	}
 
-	/**
-	 * Get timeseries.
-	 * @param assetId The asset id.
-	 * @param propertySetName The property set name.
-	 * @param queryParams The query parameters.
-	 */
-	public getTimeSeries(assetId: string, propertySetName: string, queryParams: any) {
-		return this._scanService.getTimeSeries({ assetId, propertySetName }, queryParams);
-	}
 }

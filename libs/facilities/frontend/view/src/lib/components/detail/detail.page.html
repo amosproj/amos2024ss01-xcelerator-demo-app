@@ -42,21 +42,21 @@
                 <ix-card-title>
                     <ix-icon
                         class="icon"
-                        [name]="(locked$ | async) ? 'lock-filled' : 'unlock-filled'"
+                        [name]="($locked | async) ? 'lock-filled' : 'unlock-filled'"
                         size="32"
                     ></ix-icon>
                 </ix-card-title>
                 <ix-typography color="std" format="h4">
-                    {{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
+                    {{ ($locked | async)? 'Unlock the doors' : 'Lock the doors' }}
                 </ix-typography>
                 <ix-typography color="std">
-                    {{ (locked$ | async) ? 'Currently the doors are locked' :
+                    {{ ($locked | async) ? 'Currently the doors are locked' :
                     'Currently the doors are unlocked' }}
                 </ix-typography>
 
                 <div class="mt-auto p-2">
                     <ix-button (click)="changeLocked()">
-                        {{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
+                        {{ ($locked | async)? 'Unlock the doors' : 'Lock the doors' }}
                     </ix-button>
                 </div>
             </ix-card-content>
