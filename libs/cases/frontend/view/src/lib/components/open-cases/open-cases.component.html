@@ -20,10 +20,7 @@
 				<tr
 					[routerLink]="['/cases', _case.handle]"
 					class="clickable-row"
-					[ngClass]="{
-						emergency: _case.priority === 'EMERGENCY',
-						'status-open': _case.status === 'OPEN'
-					}"
+					[ngClass]="getStatusClasses(_case)"
 				>
 					<th scope="row">{{ _case.handle }}</th>
 					<td>{{ _case.title }}</td>

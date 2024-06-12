@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
 import { ICaseMock } from '../case.mocks/case.interface';
-import { cases } from '../case.mocks/const';
+import { cases } from '../case.mocks/fackerMock';
 
 @Component({
 	selector: 'lib-open-cases',
@@ -34,5 +34,18 @@ export class OpenCasesComponent implements OnInit {
             }
             return priorityAIndex - priorityBIndex;
         });
+    }
+
+    getStatusClasses(_case: ICaseMock) {
+        return {
+            emergency: _case.priority === 'EMERGENCY',
+            'status-open': _case.status === 'OPEN',
+            'status-inprogress': _case.status === 'INPROGRESS',
+            'status-overdue': _case.status === 'OVERDUE',
+            'status-onhold': _case.status === 'ONHOLD',
+            'status-done': _case.status === 'DONE',
+            'status-cancelled': _case.status === 'CANCELLED',
+            'status-archived': _case.status === 'ARCHIVED'
+        };
     }
 }
