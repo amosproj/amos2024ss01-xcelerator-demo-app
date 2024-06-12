@@ -1,12 +1,11 @@
-import { IFacilitiesResponse, IFacilityLocation } from '@frontend/facilities/shared/models';
-import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Aspect, XdAssetsService } from 'common-backend-insight-hub';
 import { Asset } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import { filter, forkJoin, from, map, mergeMap, Observable, of, switchMap, toArray } from 'rxjs';
 
 @Injectable()
-export class XdFacilitiesService {
+export class XdFacilitesService {
 	constructor(
 		@Inject(forwardRef(() => XdAssetsService))
 		private readonly assetService: XdAssetsService,
@@ -89,7 +88,7 @@ export class XdFacilitiesService {
 						data: aspects.map((aspect) => {
 							return {
 								propertySetName: aspect.name,
-								variables: aspect.variables.map((variable) => {
+								Variables: aspect.variables.map((variable) => {
 									return {
 										name: variable.name,
 										unit: variable.unit,
@@ -157,91 +156,18 @@ export class XdFacilitiesService {
 	 *
 	 * @returns All the facilities from the database.
 	 */
-	public getAllFacilitiesFromDB(): Observable<IFacilitiesResponse[]> {
-		return from(
-			this.prismaService.asset.findMany({
-				include: {
-					location: true,
-				},
-			}),
-		).pipe(
-			map((assets) => {
-				return assets.map((asset) => {
-					const { assetId, name, typeId, description, createdAt, updatedAt, variables } =
-						asset;
-
-					const location: IFacilityLocation | undefined = asset.location
-						? {
-								country: asset.location.country || undefined,
-								latitude: asset.location.latitude || undefined,
-								longitude: asset.location.longitude || undefined,
-								locality: asset.location.locality || undefined,
-								postalCode: asset.location.postalCode || undefined,
-								region: asset.location.region || undefined,
-								streetAddress: asset.location.streetAddress || undefined,
-							}
-						: undefined;
-
-					return {
-						assetId,
-						name,
-						typeId,
-						location: location,
-						variables: variables || undefined,
-						description: description || '',
-						createdAt: createdAt,
-						updatedAt: updatedAt,
-					};
-				});
-			}),
-		);
+	public getAllFacilitiesFromDB() {
+		return this.prismaService.asset.findMany();
 	}
 
 	/**
 	 * This method gets a facility by its id.
 	 */
-	public getFacilityById(assetId: string): Observable<IFacilitiesResponse> {
-		return from(
-			this.prismaService.asset.findUnique({
-				where: {
-					assetId,
-				},
-				include: {
-					location: true,
-				},
-			}),
-		).pipe(
-			map((asset) => {
-				if (asset === null) {
-					throw new HttpException('Facility not Found', HttpStatus.NOT_FOUND);
-				}
-
-				const { assetId, name, typeId, description, variables, createdAt, updatedAt } =
-					asset;
-
-				const location: IFacilityLocation | undefined = asset.location
-					? {
-							country: asset.location.country || undefined,
-							latitude: asset.location.latitude || undefined,
-							longitude: asset.location.longitude || undefined,
-							locality: asset.location.locality || undefined,
-							postalCode: asset.location.postalCode || undefined,
-							region: asset.location.region || undefined,
-							streetAddress: asset.location.streetAddress || undefined,
-						}
-					: undefined;
-
-				return {
-					assetId,
-					name,
-					typeId,
-					description: description || '',
-					variables: variables || undefined,
-					location: location,
-					createdAt: createdAt,
-					updatedAt: updatedAt,
-				};
-			}),
-		);
+	public getFacilityById(assetId: string) {
+		return this.prismaService.asset.findUnique({
+			where: {
+				assetId,
+			},
+		});
 	}
 }

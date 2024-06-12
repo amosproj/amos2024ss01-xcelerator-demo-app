@@ -1,11 +1,11 @@
 import { Controller, Get, Param } from '@nestjs/common';
 
 import { GetFacilityParamsDto } from '../dto/params.dto';
-import { XdFacilitiesService } from '../service/faclities.service';
+import { XdFacilitesService } from '../service/faclities.service';
 
 @Controller('facilities')
 export class XdFacilitiesController {
-	constructor(private readonly facilitiesService: XdFacilitiesService) {}
+	constructor(private readonly facilitiesService: XdFacilitesService) {}
 
 	@Get()
 	public getAllFacilities() {
