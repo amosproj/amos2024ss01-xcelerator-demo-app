@@ -30,8 +30,8 @@ describe('XdDetailsFacadeService', () => {
     });
 
 
-    describe('getTimeSeries', () => {
-        it('should call getTimeSeries of TimeseriesRequestService with correct parameters', () => {
+    describe('getFacility', () => {
+        it('should call getFacility of FacilitiesRequestService with correct parameters', () => {
             const assetId = 'testAssetId';
 
             service.getFacility(assetId);

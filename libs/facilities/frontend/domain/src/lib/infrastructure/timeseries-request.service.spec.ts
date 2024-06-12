@@ -3,23 +3,24 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { faker } from '@faker-js/faker';
 import {
-	IGetTimeSeriesParams,
-	IGetTimeseriesQuery,
-	ITimeSeriesItemResponse,
+    IGetTimeSeriesItemsParams,
+    IGetTimeSeriesParams,
+    IGetTimeseriesQuery,
+    ITimeSeriesItemResponse,
 } from 'facilities-shared-models';
 import { firstValueFrom, of } from 'rxjs';
 
-import { TimeseriesRequestService } from './timeseries-request.service';
+import { TimeSeriesRequestService } from './timeseries-request.service';
 
 describe('TimeseriesRequestService', () => {
-	let service: TimeseriesRequestService;
+	let service: TimeSeriesRequestService;
 	let httpClient: HttpClient;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule],
 			providers: [
-				TimeseriesRequestService,
+				TimeSeriesRequestService,
 				{
 					provide: HttpClient,
 					useValue: {
@@ -29,24 +30,43 @@ describe('TimeseriesRequestService', () => {
 			],
 		});
 
-		service = TestBed.inject(TimeseriesRequestService);
+		service = TestBed.inject(TimeSeriesRequestService);
 		httpClient = TestBed.inject(HttpClient);
 	});
 
-	describe('getAllTimeseries', () => {
+	describe('getAllTimeSeries', () => {
 		it('should forward the request to the backend', async () => {
 			const mockResponse: ITimeSeriesItemResponse[] = [];
 
 			const spy = jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResponse));
 
-			const result = await firstValueFrom(service.getAllTimeseries());
+			const result = await firstValueFrom(service.getAllTimeSeries());
 			expect(spy).toHaveBeenCalledTimes(1);
 			expect(spy).toHaveBeenCalledWith('/api/timeseries');
 			expect(result).toEqual(mockResponse);
 		});
 	});
 
-	describe('getTimeSeries', () => {
+    describe('getTimeSeriesItems', () => {
+        it('should fetch time series data', async () => {
+            const mockResponse: ITimeSeriesItemResponse[] = [];
+
+            const params: IGetTimeSeriesItemsParams = {
+                assetId: faker.string.uuid(),
+            };
+
+            const spy = jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResponse));
+
+            const result = await firstValueFrom(service.getTimeSeriesItems(params));
+            expect(spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledWith(
+                `/api/timeseries/${params.assetId}`,
+            );
+            expect(result).toEqual(mockResponse);
+        });
+    });
+
+	describe('getTimeSeriesDataItems', () => {
 		it('should fetch time series data', async () => {
 			const mockResponse: ITimeSeriesItemResponse[] = [];
 
@@ -62,7 +82,7 @@ describe('TimeseriesRequestService', () => {
 
 			const spy = jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResponse));
 
-			const result = await firstValueFrom(service.getTimeSeries(params, query));
+			const result = await firstValueFrom(service.getTimeSeriesDataItems(params, query));
 			expect(spy).toHaveBeenCalledTimes(1);
 			expect(spy).toHaveBeenCalledWith(
 				`/api/timeseries/${params.assetId}/${params.propertySetName}`,
