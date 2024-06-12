@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 
 import { FacilitiesRequestService } from '../../infrastructure/facilities-request.service';
 import { XdBrowseFacade } from './browse.facade';
@@ -30,9 +30,9 @@ describe('XdBrowseFacadeService', () => {
     });
 
     describe('getAllTimeseries', () => {
-        it('should call getAllFacilities of TimeseriesRequestService', () => {
-            service.getAllFacilities();
-            expect(facilitiesRequestService.getAllFacilities).toHaveBeenCalled();
+        it('should call getAllFacilities of TimeseriesRequestService', async () => {
+            await firstValueFrom(service.getAllFacilities());
+            expect(facilitiesRequestService.getAllFacilities).toHaveBeenCalledTimes(1);
         });
     });
 });
