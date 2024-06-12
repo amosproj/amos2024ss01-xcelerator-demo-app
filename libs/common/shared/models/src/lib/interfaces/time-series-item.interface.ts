@@ -1,3 +1,5 @@
+import { ITimeSeriesItemData } from './time-series-item-data.interface';
+
 export interface ITimeSeriesItem {
 	/**
 	 * The id of the time series item
@@ -17,5 +19,5 @@ export interface ITimeSeriesItem {
 	/**
 	 * The time series data items
 	 */
-	timeSeriesDataItems: ITimeSeriesItem[];
+	timeSeriesDataItems: ITimeSeriesItemData[];
 }
