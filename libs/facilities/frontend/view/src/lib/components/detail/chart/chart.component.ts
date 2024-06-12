@@ -4,6 +4,7 @@ import { themeSwitcher } from '@siemens/ix';
 import { convertThemeName, registerTheme } from '@siemens/ix-echarts';
 import { EChartsOption, SeriesOption } from 'echarts';
 import * as echarts from 'echarts';
+import { TitleOption } from 'echarts/types/dist/shared';
 import { NgxEchartsDirective } from 'ngx-echarts';
 
 import { IChart } from '../../facility.mocks/charts/chart.interfaces';

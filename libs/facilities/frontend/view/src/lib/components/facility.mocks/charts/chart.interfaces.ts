@@ -2,7 +2,7 @@ export interface IChart {
     title: string;
     names: string[];
     colors: string[];
-    data: Array<Array<[string, number]>>,
+    data: Array<Array<[string, number]>>;
 }
 
 export interface IPumpDataItem {
