@@ -1,3 +1,4 @@
+import { IFacilitiesResponse } from '@frontend/facilities/shared/models';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Aspect, XdAssetsService } from 'common-backend-insight-hub';
 import { Asset } from 'common-backend-insight-hub';
@@ -163,11 +164,41 @@ export class XdFacilitesService {
 	/**
 	 * This method gets a facility by its id.
 	 */
-	public getFacilityById(assetId: string) {
-		return this.prismaService.asset.findUnique({
-			where: {
-				assetId,
-			},
-		});
+	public getFacilityById(assetId: string): Observable<IFacilitiesResponse | null> {
+		return from(
+			this.prismaService.asset.findUnique({
+				where: {
+					assetId,
+				},
+				include: {
+					location: true,
+				},
+			}),
+		).pipe(
+			map((asset) => {
+				if (asset === null) {
+					return null;
+				}
+
+				return {
+					assetId: asset.assetId,
+					name: asset.name,
+					typeId: asset.typeId,
+					description: asset.description,
+					variables: asset.variables,
+					location: asset.location && {
+						country: asset.location.country,
+						latitude: asset.location.latitude,
+						longitude: asset.location.longitude,
+						locality: asset.location.locality,
+						postalCode: asset.location.postalCode,
+						region: asset.location.region,
+						streetAddress: asset.location.streetAddress,
+					},
+					createdAt: asset.createdAt.toISOString(),
+					updatedAt: asset.updatedAt.toISOString(),
+				} as IFacilitiesResponse;
+			}),
+		);
 	}
 }
