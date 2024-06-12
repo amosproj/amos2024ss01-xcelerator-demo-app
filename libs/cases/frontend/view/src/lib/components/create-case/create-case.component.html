@@ -1,33 +1,121 @@
 <ix-content>
-	<div class="grid grid-cols-[auto_250px] gap-10">
-		<form
-			class="needs-validation m-3 flex flex-col gap-y-10 w-5/6"
-			[ngClass]="{ 'was-validated': wasValidated }"
-			novalidate
-			#caseForm="ngForm"
-			(submit)="onSubmit(caseForm)"
-		>
-			<ix-select
-				i18nPlaceholder="Select a Facility"
-				i18nSelectListHeader="Please select a facility"
-				name="selectFacility"
-				[(ngModel)]="createCaseForm.selectFacility"
-				required
-			>
-				@for (facility of facilities(); track facility.id) {
-					<ix-select-item
-						[label]="facility.heading"
-						[value]="facility.id"
-					></ix-select-item>
-				}
-			</ix-select>
-			<div class="invalid-feedback">Please select a facility</div>
+    <div class="grid grid-cols-[auto_250px] gap-10">
+        <form
+            class="needs-validation m-3 flex flex-col gap-y-10 w-5/6 "
+            [ngClass]="{ 'was-validated': wasValidated }"
+            novalidate
+            #caseForm="ngForm"
+            (submit)="onSubmit(caseForm)"
+        >
 
-			<ix-input-group>
-				<span slot="input-start">Title:</span>
-				<input type="text" name="title" [(ngModel)]="createCaseForm.title" required/>
-				<div class="invalid-feedback">Please insert a title</div>
-			</ix-input-group>
+            <div class="grid">
+            <ix-select
+                class="grid-cols-1 grid-rows-1 z-1"
+                i18nPlaceholder="Select a Facility"
+                i18nSelectListHeader="Please select a facility"
+                (valueChange)="onFacilityChange($event)"
+                (inputChange)="onFacilityInputChange($event)"
+            >
+                @for (facility of facilities(); track facility.id) {
+                    <ix-select-item
+                        [label]="facility.heading"
+                        [value]="facility.id"
+                    ></ix-select-item>
+                }
+            </ix-select>
+            <input
+                class="grid-cols-1 grid-rows-1 z-2"
+                [(ngModel)]="createCaseForm.selectFacility"
+                placeholder="{{facilityPlaceholder()}}"
+                name="selectFacility"
+                id="input-string"
+                type="string"
+                required
+                style="pointer-events: none;"
+            />
+            </div>
+
+            <!--
+            <input
+                autofocus
+                aria-describedby="inputGroupPrepend"
+                ng-init="verifyStart()"
+                name="region"
+                id="region"
+                type="text"
+                required
+            />
+
+            <div class="invalid-feedback">
+                Please specify the country or the region of the final organization which
+                will use the requested credentials.
+            </div>
+
+            <span slot="input-end">
+        <ix-icon-button
+            id="clear-button"
+            icon="clear"
+            ghost
+            size="16"
+            tabindex="-1"
+        ></ix-icon-button>
+      </span>
+
+            <ix-dropdown
+                #dropdown
+                header="Pick the country where this package will be used"
+            >
+                <ix-dropdown-item
+                >
+                    content
+                </ix-dropdown-item>
+            </ix-dropdown>
+
+-->
+
+            <!--
+            <ix-input-group>
+                <span slot="input-start">
+                    Select a Facility
+                </span>
+                <input
+                    ng-init="verifyStart()"
+                    [(ngModel)]="createCaseForm.selectFacility"
+                    name="selectFacility"
+                    (keyup)="onKey($event)"
+                    id="input-string"
+                    type="string"
+                    (click)="openFacilityDropdown()"
+                    required
+                />
+                <span slot="input-end">
+                    <ix-icon-button
+                        (click)="clearInput()"
+                        id="clear-button"
+                        icon="clear"
+                        ghost="{true}"
+                        size="16"
+                        [style.display]="display"
+                    ></ix-icon-button>
+                </span>
+                <div class="invalid-feedback">Please select a facility</div>
+                <ix-dropdown class="{{showDropdown()}} position-relative w-100" id="facilityDropdown" style="z-index: 999 !important;">
+                    <ix-dropdown-header label="Please select a facility"></ix-dropdown-header>
+                    @for (facility of facilities(); track facility.id) {
+                        <ix-dropdown-item
+                            [label]="facility.heading"
+                            (click)="selectFacility(facility.id)"
+                        ></ix-dropdown-item>
+                    }
+                </ix-dropdown>
+            </ix-input-group>
+            -->
+
+            <ix-input-group>
+                <span slot="input-start">Title:</span>
+                <input type="text" name="title" [(ngModel)]="createCaseForm.title" required />
+                <div class="invalid-feedback">Please insert a title</div>
+            </ix-input-group>
 
             <textarea
                 placeholder="Enter your Description"
@@ -70,22 +158,22 @@
                 </ix-select>
             </div>
 
-			<!-- Cases don't contain Phone Numbers
-			<ix-input-group>
-				<span slot="input-start">Telephone:</span>
-				<input
-					placeholder="111-111-111"
-					type="tel"
-					name="phone"
-					[(ngModel)]="createCaseForm.phone"
-					pattern="[+]?[0-9]+"
-					maxlength="16"
-					required
-				/>
-				<div class="valid-feedback">Looks good!</div>
-				<div class="invalid-feedback">Please provide a valid phone number</div>
-			</ix-input-group>
-			-->
+            <!-- Cases don't contain Phone Numbers
+            <ix-input-group>
+                <span slot="input-start">Telephone:</span>
+                <input
+                    placeholder="111-111-111"
+                    type="tel"
+                    name="phone"
+                    [(ngModel)]="createCaseForm.phone"
+                    pattern="[+]?[0-9]+"
+                    maxlength="16"
+                    required
+                />
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please provide a valid phone number</div>
+            </ix-input-group>
+            -->
 
             <ix-input-group>
                 <span slot="input-start">Email:</span>
@@ -100,8 +188,8 @@
                 <div class="invalid-feedback">Please provide a valid email address</div>
             </ix-input-group>
 
-			<ix-button type="submit">Create Case</ix-button>
-		</form>
+            <ix-button type="submit">Create Case</ix-button>
+        </form>
 
         <div *ngIf="getFacility() as facility">
             <ix-tile size="big" class="mr-1">

@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    inject,
+    signal,
+    ViewEncapsulation,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {  FormsModule, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -7,7 +14,7 @@ import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
-import { IxModule, ToastService } from '@siemens/ix-angular';
+import { IxModule, IxSelectCustomEvent, ToastService } from '@siemens/ix-angular';
 
 import { CaseFormData } from '../interfaces/case-form-data.interface';
 import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
@@ -32,6 +39,8 @@ export class CreateCaseComponent {
     private readonly _browseFacade = inject(XdBrowseFacade);
     protected readonly _browseFacade2 = inject(XdBrowseFacadesService);
     protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
+
+    facilityPlaceholder = signal('Select Facility');
 
     constructor(private readonly toastService: ToastService) {
     }
@@ -105,6 +114,17 @@ export class CreateCaseComponent {
         return this.facilities()?.find(
             (facility) => facility.id === this.createCaseForm.selectFacility,
         );
+    }
+
+    onFacilityChange(event: IxSelectCustomEvent<string | string[]>) {
+        if (event.target.value !== undefined) {
+            this.createCaseForm.selectFacility = event.target.value.toString();
+        }
+    }
+
+    onFacilityInputChange(event: CustomEvent<string>) {
+        this.createCaseForm.selectFacility = '';
+        this.facilityPlaceholder.set(event.detail);
     }
 
     /**
