@@ -2,12 +2,13 @@ import { CommonModule} from '@angular/common';
 import {
 	ChangeDetectionStrategy,
 	Component,
+	computed,
 	inject,
 	ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { XdDetailsFacade } from '@frontend/facilities/frontend/domain';
+import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { IxModule, ModalService } from '@siemens/ix-angular';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
@@ -33,23 +34,32 @@ import LockModalComponent from './lock-modal/lockModal.component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class XdDetailPage {
-	private readonly _detailsFacade = inject(XdDetailsFacade);
+	private readonly _browseFacade = inject(XdBrowseFacade);
 
-	protected readonly facility = toSignal(this._detailsFacade.getFacility(this._route.snapshot.params['id']))
+	protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
+	protected readonly facility = computed(() => {
+		const facility = this.facilities();
+		if (facility === undefined) {
+			return;
+		}
 
-	protected $locked = new BehaviorSubject<boolean>(true);
+		return facility.find((facility) => facility.id === this.route.snapshot.params['id']);
+	});
 
     pumpChart = pumpChart;
     envChart = envChart;
 
+	protected $locked = new BehaviorSubject<boolean>(true);
+
 	constructor(
-		private _route: ActivatedRoute,
-		private readonly _modalService: ModalService
+		private route: ActivatedRoute,
+		private readonly modalService: ModalService,
+		protected _location: Location,
 	) {}
 
 
 	async changeLocked() {
-		const instance = await this._modalService.open({
+		const instance = await this.modalService.open({
 			content: LockModalComponent,
 			data: { locked: this.$locked.getValue() },
 		});
