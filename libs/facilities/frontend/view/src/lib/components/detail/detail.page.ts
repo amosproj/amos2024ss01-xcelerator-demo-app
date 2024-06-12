@@ -1,62 +1,183 @@
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
-	ChangeDetectionStrategy,
-	Component,
-	inject,
-	ViewEncapsulation,
+    ChangeDetectionStrategy,
+    Component, computed,
+    inject, OnInit, Signal,
+    ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { XdDetailsFacade } from '@frontend/facilities/frontend/domain';
+import { themeSwitcher } from '@siemens/ix';
 import { IxModule, ModalService } from '@siemens/ix-angular';
+import { convertThemeName, registerTheme } from '@siemens/ix-echarts';
+import { EChartsOption } from 'echarts';
+import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
 
-import { envChart, pumpChart } from '../facility.mocks/charts/processData';
-import { ChartComponent } from './chart/chart.component';
 import LockModalComponent from './lock-modal/lockModal.component';
 
 @Component({
-	selector: 'lib-detail',
-	standalone: true,
-	imports: [
-		CommonModule,
-		IxModule,
-		NgxEchartsModule,
-		LockModalComponent,
-		RouterLink,
-		ChartComponent,
-	],
-	templateUrl: './detail.page.html',
-	styleUrl: './detail.page.scss',
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lib-detail',
+    standalone: true,
+    imports: [
+        CommonModule,
+        IxModule,
+        NgxEchartsModule,
+        LockModalComponent,
+        RouterLink,
+    ],
+    templateUrl: './detail.page.html',
+    styleUrl: './detail.page.scss',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdDetailPage {
-	private readonly _detailsFacade = inject(XdDetailsFacade);
+export class XdDetailPage implements OnInit {
+    private readonly _assetId = this._route.snapshot.params['id'];
+    private readonly _currentTime = new Date();
+    private readonly _thirtyMinutesAgo = new Date(this._currentTime.getTime() - 30 * 60 * 1000);
 
-	protected readonly facility = toSignal(this._detailsFacade.getFacility(this._route.snapshot.params['id']))
+    private readonly _detailsFacade = inject(XdDetailsFacade);
 
-	protected locked$ = new BehaviorSubject<boolean>(true);
+    protected readonly facility = toSignal(this._detailsFacade.getFacility(this._assetId));
 
-    pumpChart = pumpChart;
-    envChart = envChart;
+    protected readonly pumpData = toSignal(this._detailsFacade.getTimeSeriesDataItems(this._assetId, 'pumpData',
+        { from: this._thirtyMinutesAgo, to: this._currentTime },
+    ));
 
-	constructor(
-		private _route: ActivatedRoute,
-		private readonly _modalService: ModalService
-	) {}
+    protected readonly envData = toSignal(this._detailsFacade.getTimeSeriesDataItems(this._assetId, 'Environment',
+        { from: this._thirtyMinutesAgo, to: this._currentTime },
+    ));
 
+    protected theme = convertThemeName(themeSwitcher.getCurrentTheme());
+    protected readonly defaultOptions: EChartsOption = {
+        title: {
+            left: 'center',
+        },
+        xAxis: {
+            type: 'time',
+            name: 'Time',
+            nameLocation: 'middle',
+            nameGap: 30,
+        },
+        yAxis: {
+            type: 'value',
+            name: 'Value',
+            nameLocation: 'middle',
+            nameGap: 30,
+        },
+        legend: {
+            top: 30,
+            left: 20,
+            right: 20,
+        },
+        grid: {
+            top: 80,
+        },
+    };
 
-	async changeLocked() {
-		const instance = await this._modalService.open({
-			content: LockModalComponent,
-			data: { locked: this.locked$.getValue() },
-		});
+    protected readonly pumpChart: Signal<EChartsOption | undefined> = computed(() => {
+        const pumpData = this.pumpData();
+        if (!pumpData)
+            return undefined;
 
-		// modal closes on confirm and dismisses on cancel
-		instance.onClose.on(() => {
-			this.locked$.next(!this.locked$.getValue());
-		});
-	}
+        const Flow = pumpData.map((item) => [item['_time'], item['Flow']]);
+        const MotorCurrent = pumpData.map((item) => [item['_time'], item['MotorCurrent']]);
+        const StuffingBoxTemperature = pumpData.map((item) => [item['_time'], item['StuffingBoxTemperature']]);
+        const PressureIn = pumpData.map((item) => [item['_time'], item['PressureIn']]);
+        const PressureOut = pumpData.map((item) => [item['_time'], item['PressureOut']]);
+
+        return {
+            ...this.defaultOptions,
+            series: [
+                {
+                    name: 'Flow',
+                    type: 'line',
+                    data: Flow,
+                },
+                {
+                    name: 'Motor Current',
+                    type: 'line',
+                    data: MotorCurrent,
+                },
+                {
+                    name: 'Stuffing Box Temperature',
+                    type: 'line',
+                    data: StuffingBoxTemperature,
+                },
+                {
+                    name: 'Pressure In',
+                    type: 'line',
+                    data: PressureIn,
+                },
+                {
+                    name: 'Pressure Out',
+                    type: 'line',
+                    data: PressureOut,
+                },
+            ],
+
+        };
+    });
+
+    protected readonly envChart: Signal<EChartsOption | undefined> = computed(() => {
+        const envData = this.envData();
+        if (!envData)
+            return undefined;
+
+        const Temperature = envData.map((item) => [item['_time'], item['Temperature']]);
+        const Humidity = envData.map((item) => [item['_time'], item['Humidity']]);
+        const Pressure = envData.map((item) => [item['_time'], item['Pressure']]);
+
+        return {
+            ...this.defaultOptions,
+            series: [
+                {
+                    name: 'Flow',
+                    type: 'line',
+                    data: Temperature,
+                },
+                {
+                    name: 'Motor Current',
+                    type: 'line',
+                    data: Humidity,
+                },
+                {
+                    name: 'Stuffing Box Temperature',
+                    type: 'line',
+                    data: Pressure,
+                },
+            ],
+
+        };
+    });
+
+    protected locked$ = new BehaviorSubject<boolean>(true);
+
+    constructor(
+        private _route: ActivatedRoute,
+        private readonly _modalService: ModalService,
+    ) {
+    }
+
+    ngOnInit() {
+        registerTheme(echarts);
+
+        themeSwitcher.themeChanged.on((theme: string) => {
+            this.theme = convertThemeName(theme);
+        });
+    }
+
+    async changeLocked() {
+        const instance = await this._modalService.open({
+            content: LockModalComponent,
+            data: { locked: this.locked$.getValue() },
+        });
+
+        // modal closes on confirm and dismisses on cancel
+        instance.onClose.on(() => {
+            this.locked$.next(!this.locked$.getValue());
+        });
+    }
 }
