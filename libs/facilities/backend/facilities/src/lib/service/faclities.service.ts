@@ -6,7 +6,7 @@ import { PrismaService } from 'common-backend-prisma';
 import { filter, forkJoin, from, map, mergeMap, Observable, of, switchMap, toArray } from 'rxjs';
 
 @Injectable()
-export class XdFacilitesService {
+export class XdFacilitiesService {
 	constructor(
 		@Inject(forwardRef(() => XdAssetsService))
 		private readonly assetService: XdAssetsService,
@@ -189,8 +189,8 @@ export class XdFacilitesService {
 						location: location,
 						variables: variables || undefined,
 						description: description || '',
-						createdAt: createdAt.toISOString(),
-						updatedAt: updatedAt.toISOString(),
+						createdAt: createdAt,
+						updatedAt: updatedAt,
 					};
 				});
 			}),
@@ -238,8 +238,8 @@ export class XdFacilitesService {
 					description: description || '',
 					variables: variables || undefined,
 					location: location,
-					createdAt: createdAt.toISOString(),
-					updatedAt: updatedAt.toISOString(),
+					createdAt: createdAt,
+					updatedAt: updatedAt,
 				};
 			}),
 		);

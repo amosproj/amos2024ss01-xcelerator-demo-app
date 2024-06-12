@@ -69,12 +69,12 @@ export interface IFacilitiesResponse {
 	/**
 	 * The createdAt timestamp of the asset
 	 */
-	createdAt: string;
+	createdAt: Date;
 
 	/**
 	 * The updatedAt timestamp of the asset
 	 */
-	updatedAt: string;
+	updatedAt: Date;
 }
 
 export interface IFacilityLocation {
