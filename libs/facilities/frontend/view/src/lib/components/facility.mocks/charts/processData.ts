@@ -52,4 +52,3 @@ export const envChart: IChart = {
     colors: [ '#ffbf00', '#00FF00', '#00ffd9' ],
     data: processEnvData(envData),
 }
-
