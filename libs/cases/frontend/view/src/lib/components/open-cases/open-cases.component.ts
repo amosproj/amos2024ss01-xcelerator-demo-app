@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject,ViewEncapsulation } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 import { IxModule } from '@siemens/ix-angular';
 
-import { cases } from '../case.mocks/const';
 
 @Component({
 	selector: 'lib-open-cases',
@@ -15,5 +16,6 @@ import { cases } from '../case.mocks/const';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OpenCasesComponent {
-	protected readonly _cases = cases;
+	protected readonly _browseFacade = inject(XdBrowseFacadesService);
+	protected readonly _cases  = toSignal(this._browseFacade.getAllCases());
 }
