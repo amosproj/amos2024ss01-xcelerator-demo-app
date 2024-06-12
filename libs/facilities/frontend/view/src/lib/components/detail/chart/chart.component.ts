@@ -57,9 +57,10 @@ export class ChartComponent implements OnInit {
             this.theme = convertThemeName(theme);
         });
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        this.options.title.text = this.chart.title;
+        if(!this.options.title) {
+            return;
+        }
+        (this.options.title as TitleOption).text = this.chart.title;
 
         const series: SeriesOption[] = [];
         for(let i = 0; i < this.chart.names.length; i++) {

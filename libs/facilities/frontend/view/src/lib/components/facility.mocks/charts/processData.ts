@@ -26,7 +26,7 @@ export function processPumpData(data: Array<IPumpDataItem>): Array<Array<[string
 /**
  * similar to the processPumpData function just for IEnvDataItem
  */
-export const processEnvData = (data: Array<IEnvDataItem>): Array<Array<[string, number]>> => {
+const processEnvData = (data: Array<IEnvDataItem>): Array<Array<[string, number]>> => {
     const Temperature = data.map((d) => [ d._time, d.Temperature ]);
     const Humidity = data.map((d) => [ d._time, d.Humidity ]);
     const Pressure = data.map((d) => [ d._time, d.Pressure ]);
