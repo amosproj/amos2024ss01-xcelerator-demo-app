@@ -8,7 +8,7 @@
         <ix-card variant="insight" class="h-full w-full p-4">
             <ix-card-content>
                 <ix-card-title>
-                    <ix-icon class="icon" name="{{facility.icon}}" size="32"></ix-icon>
+                    <ix-icon class="icon" name="{{facility.icon}}"></ix-icon>
                     <span class="notification text-2xl">Basic information</span>
                 </ix-card-title>
                 <ix-typography color="std">{{ facility.heading }}</ix-typography>
@@ -24,7 +24,7 @@
         <ix-card variant="insight" class="h-full w-full p-4">
             <ix-card-content>
                 <ix-card-title>
-                    <ix-icon class="icon" name="tasks-open" size="32"></ix-icon>
+                    <ix-icon class="icon" name="tasks-open"></ix-icon>
                     <span class="notification text-2xl">3</span>
                 </ix-card-title>
                 <ix-typography color="std" format="h4"> Open Cases </ix-typography>
@@ -43,7 +43,6 @@
                     <ix-icon
                         class="icon"
                         [name]="(locked$ | async) ? 'lock-filled' : 'unlock-filled'"
-                        size="32"
                     ></ix-icon>
                 </ix-card-title>
                 <ix-typography color="std" format="h4">
@@ -65,7 +64,7 @@
         <ix-card variant="insight" class="h-full w-full p-4">
             <ix-card-content>
                 <ix-card-title>
-                    <ix-icon class="icon" name="earth-filled" size="32"></ix-icon>
+                    <ix-icon class="icon" name="earth-filled"></ix-icon>
                     <span class="notification text-2xl">80%</span>
                 </ix-card-title>
                 <ix-typography color="std" format="h4"> Eco Score (SiGreen)</ix-typography>
