@@ -1,10 +1,10 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { AxiosError } from 'axios';
 import { IInsightHub } from 'common-backend-models';
-import { catchError, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, map, Observable, switchMap } from 'rxjs';
 
 import { XdTokenManagerService } from './token-manager.service';
-import { AxiosError } from 'axios';
 
 @Injectable()
 export abstract class XdBaseBearerInteractionService {
