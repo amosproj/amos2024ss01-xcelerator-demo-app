@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
-    ElementRef,
-    inject,
+    inject, OnInit,
     signal,
     ViewEncapsulation,
 } from '@angular/core';
@@ -35,12 +34,15 @@ import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateCaseComponent {
+export class CreateCaseComponent implements OnInit{
     private readonly _browseFacade = inject(XdBrowseFacade);
     protected readonly _browseFacade2 = inject(XdBrowseFacadesService);
     protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
 
     facilityPlaceholder = signal('Select Facility');
+
+    private _selectElement: HTMLElement | null;
+    private _inputElement: HTMLElement | null;
 
     constructor(private readonly toastService: ToastService) {
     }
@@ -60,6 +62,16 @@ export class CreateCaseComponent {
         email: '',
         text: '',
     };
+
+    ngOnInit(){
+        this._inputElement = document.getElementById('input-string');
+        this._selectElement = document.getElementById('facilitySelection');
+        if(this._selectElement) {
+            this._resizeObserver.observe(this._selectElement);
+        } else {
+            throw new Error('Element not found');
+        }
+    }
 
     /**
      * called when the user presses the Create Case Button
@@ -115,6 +127,22 @@ export class CreateCaseComponent {
             (facility) => facility.id === this.createCaseForm.selectFacility,
         );
     }
+
+
+    private _resizeObserver = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+            const width = entry.contentRect.width;
+            const height = entry.contentRect.height;
+            const xPos = entry.contentRect.x;
+            const yPos = entry.contentRect.y;
+            if(this._inputElement && this._inputElement.style){
+                this._inputElement.style.width = `${width}px`;
+                this._inputElement.style.height = `${height}px`;
+                this._inputElement.style.x = `${xPos}`;
+                this._inputElement.style.y = `${yPos}`;
+            }
+        });
+    });
 
     onFacilityChange(event: IxSelectCustomEvent<string | string[]>) {
         if (event.target.value !== undefined) {

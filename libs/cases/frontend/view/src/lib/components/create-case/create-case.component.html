@@ -8,9 +8,8 @@
             (submit)="onSubmit(caseForm)"
         >
 
-            <div class="grid">
             <ix-select
-                class="grid-cols-1 grid-rows-1 z-1"
+                id="facilitySelection"
                 i18nPlaceholder="Select a Facility"
                 i18nSelectListHeader="Please select a facility"
                 (valueChange)="onFacilityChange($event)"
@@ -24,92 +23,14 @@
                 }
             </ix-select>
             <input
-                class="grid-cols-1 grid-rows-1 z-2"
+                class="pointer-events-none absolute pl-2"
                 [(ngModel)]="createCaseForm.selectFacility"
                 placeholder="{{facilityPlaceholder()}}"
                 name="selectFacility"
                 id="input-string"
                 type="string"
                 required
-                style="pointer-events: none;"
             />
-            </div>
-
-            <!--
-            <input
-                autofocus
-                aria-describedby="inputGroupPrepend"
-                ng-init="verifyStart()"
-                name="region"
-                id="region"
-                type="text"
-                required
-            />
-
-            <div class="invalid-feedback">
-                Please specify the country or the region of the final organization which
-                will use the requested credentials.
-            </div>
-
-            <span slot="input-end">
-        <ix-icon-button
-            id="clear-button"
-            icon="clear"
-            ghost
-            size="16"
-            tabindex="-1"
-        ></ix-icon-button>
-      </span>
-
-            <ix-dropdown
-                #dropdown
-                header="Pick the country where this package will be used"
-            >
-                <ix-dropdown-item
-                >
-                    content
-                </ix-dropdown-item>
-            </ix-dropdown>
-
--->
-
-            <!--
-            <ix-input-group>
-                <span slot="input-start">
-                    Select a Facility
-                </span>
-                <input
-                    ng-init="verifyStart()"
-                    [(ngModel)]="createCaseForm.selectFacility"
-                    name="selectFacility"
-                    (keyup)="onKey($event)"
-                    id="input-string"
-                    type="string"
-                    (click)="openFacilityDropdown()"
-                    required
-                />
-                <span slot="input-end">
-                    <ix-icon-button
-                        (click)="clearInput()"
-                        id="clear-button"
-                        icon="clear"
-                        ghost="{true}"
-                        size="16"
-                        [style.display]="display"
-                    ></ix-icon-button>
-                </span>
-                <div class="invalid-feedback">Please select a facility</div>
-                <ix-dropdown class="{{showDropdown()}} position-relative w-100" id="facilityDropdown" style="z-index: 999 !important;">
-                    <ix-dropdown-header label="Please select a facility"></ix-dropdown-header>
-                    @for (facility of facilities(); track facility.id) {
-                        <ix-dropdown-item
-                            [label]="facility.heading"
-                            (click)="selectFacility(facility.id)"
-                        ></ix-dropdown-item>
-                    }
-                </ix-dropdown>
-            </ix-input-group>
-            -->
 
             <ix-input-group>
                 <span slot="input-start">Title:</span>
@@ -118,6 +39,7 @@
             </ix-input-group>
 
             <textarea
+                class="pl-2"
                 placeholder="Enter your Description"
                 name="text"
                 [(ngModel)]="createCaseForm.text"
