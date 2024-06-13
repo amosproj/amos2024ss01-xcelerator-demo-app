@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 import { IxModule } from '@siemens/ix-angular';
-
-import { cases } from '../case.mocks/const';
 
 @Component({
     selector: 'lib-detail-case',
@@ -15,32 +15,17 @@ import { cases } from '../case.mocks/const';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailCaseComponent implements OnInit{
-    casedetail = this.getCaseDetail();
-    isOverdue = false;
+export class DetailCaseComponent {
+    private readonly _browseFacade = inject(XdBrowseFacadesService);
+    protected readonly _cases  = toSignal(this._browseFacade.getAllCases());
+    protected readonly casedetail = computed(() => {
+        const _case = this._cases();
+        if (_case === undefined) {
+            return;
+        }
 
-    ngOnInit(): void {
-        this.checkIfOverdue(this.casedetail.dueDate);
-    }
-
+        return _case.find((_case) => _case.handle === this.route.snapshot.params['handle']);
+    });
 
     constructor(private route: ActivatedRoute) {}
-
-    getCaseDetail() {
-        const casedetail = cases.find(
-            (casedetail) => casedetail.handle === this.route.snapshot.params['handle'],
-        );
-        if (casedetail === undefined) {
-            throw new Error('Facility not found');
-        } else {
-            return casedetail;
-        }
-    }
-
-    checkIfOverdue(dueDate: string): boolean {
-        const dueDateTime = new Date(dueDate).getTime();
-        const currentDateTime = new Date().getTime();
-        this.isOverdue = dueDateTime < currentDateTime;
-        return this.isOverdue;
-    }
 }

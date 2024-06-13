@@ -115,7 +115,7 @@ export class CreateCaseComponent {
     private mapFormData(formData: CaseFormData) {
 
         return {
-            handle: 'AA-000',
+            handle: 'AA-1234',
             dueDate: formData.dueDate,
             title: formData.title,
             type: formData.selectType,

@@ -1,56 +1,59 @@
 <ix-content>
-<div class="container" >
-    <h1>Case {{ casedetail.handle }} </h1>
-    <form class="form-content">
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" [(ngModel)]="casedetail.title" name="title" readonly>
+    @if(casedetail(); as _case){
+        <div class="container" >
+            <h1>_Case {{ _case.handle }} </h1>
+            <form class="form-content">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" [(ngModel)]="_case.title" name="title" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" [(ngModel)]="_case.description" name="description" rows="3" readonly></textarea>
+                </div>
+                <div class="form-row">
+                    <!-- TODO: change _case.modifiedBy to _case.assignedTo, when assignedTo is implemented in backend -->
+                    <div class="form-group">
+                        <label for="assignedTo">Assigned to</label>
+                        <input type="email" id="assignedTo" [(ngModel)]="_case.modifiedBy" name="assignedTo" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dueDate">Due date (UTC)</label>
+                        <input type="text" id="dueDate" [(ngModel)]="_case.dueDate" name="dueDate" readonly>
+                        <label *ngIf="_case.overdue" [style.color]="'red'">Overdue</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="asset">Asset</label>
+                        <input type="text" id="asset" [(ngModel)]="_case.source" name="asset" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <input type="text" id="type" [(ngModel)]="_case.type" name="type" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <input type="text" id="priority" [(ngModel)]="_case.priority" name="priority"  readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="text" id="status" [(ngModel)]="_case.status" name="status" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="createdBy">Created by</label>
+                        <input type="text" id="createdBy" [(ngModel)]="_case.createdBy" name="createdBy"  readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="createdDate">Creation date</label>
+                        <input type="text" id="createdDate" [(ngModel)]="_case.createdAt" name="createdDate" readonly>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" [(ngModel)]="casedetail.description" name="description" rows="3" readonly></textarea>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="assignedTo">Assigned to</label>
-                <input type="email" id="assignedTo" [(ngModel)]="casedetail.assignedTo" name="assignedTo" readonly>
-            </div>
-            <div class="form-group">
-                <label for="dueDate">Due date (UTC)</label>
-                <input type="text" id="dueDate" [(ngModel)]="casedetail.dueDate" name="dueDate" readonly>
-                <label *ngIf="isOverdue" [style.color]="'red'">Overdue</label>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="asset">Asset</label>
-                <input type="text" id="asset" [(ngModel)]="casedetail.source" name="asset" readonly>
-            </div>
-            <div class="form-group">
-                <label for="type">Type</label>
-                <input type="text" id="type" [(ngModel)]="casedetail.type" name="type" readonly>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="priority">Priority</label>
-                <input type="text" id="priority" [(ngModel)]="casedetail.priority" name="priority"  readonly>
-            </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" id="status" [(ngModel)]="casedetail.status" name="status" readonly>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="createdBy">Created by</label>
-                <input type="text" id="createdBy" [(ngModel)]="casedetail.createdBy" name="createdBy"  readonly>
-            </div>
-            <div class="form-group">
-                <label for="createdDate">Creation date</label>
-                <input type="text" id="createdDate" [(ngModel)]="casedetail.createdDate" name="createdDate" readonly>
-            </div>
-        </div>
-    </form>
-</div>
+    }
 </ix-content>
