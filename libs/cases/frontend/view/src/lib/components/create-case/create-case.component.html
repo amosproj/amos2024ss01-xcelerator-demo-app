@@ -22,15 +22,15 @@
                     ></ix-select-item>
                 }
             </ix-select>
-            <input
-                class="pointer-events-none absolute pl-2"
-                [(ngModel)]="createCaseForm.selectFacility"
-                placeholder="{{facilityPlaceholder()}}"
-                name="selectFacility"
-                id="input-string"
-                type="string"
-                required
-            />
+            <ix-input-group class="absolute pointer-events-none" id="input-facilitySelection" >
+                <input
+                    [(ngModel)]="createCaseForm.selectFacility"
+                    placeholder="{{facilityPlaceholder()}}"
+                    name="selectFacility"
+                    required
+                />
+                <span slot="input-end"><ix-icon name="chevron-down" size="16"></ix-icon></span>
+            </ix-input-group>
 
             <ix-input-group>
                 <span slot="input-start">Title:</span>

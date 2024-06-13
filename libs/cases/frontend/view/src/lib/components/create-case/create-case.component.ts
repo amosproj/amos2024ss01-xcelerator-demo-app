@@ -64,7 +64,7 @@ export class CreateCaseComponent implements OnInit{
     };
 
     ngOnInit(){
-        this._inputElement = document.getElementById('input-string');
+        this._inputElement = document.getElementById('input-facilitySelection');
         this._selectElement = document.getElementById('facilitySelection');
         if(this._selectElement) {
             this._resizeObserver.observe(this._selectElement);
@@ -127,7 +127,6 @@ export class CreateCaseComponent implements OnInit{
             (facility) => facility.id === this.createCaseForm.selectFacility,
         );
     }
-
 
     private _resizeObserver = new ResizeObserver(entries => {
         entries.forEach(entry => {
