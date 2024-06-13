@@ -82,11 +82,11 @@ export class XdDetailPage implements OnInit {
         if (!pumpData)
             return undefined;
 
-        const Flow = pumpData.map((item) => [item['_time'], item['Flow']]);
-        const MotorCurrent = pumpData.map((item) => [item['_time'], item['MotorCurrent']]);
-        const StuffingBoxTemperature = pumpData.map((item) => [item['_time'], item['StuffingBoxTemperature']]);
-        const PressureIn = pumpData.map((item) => [item['_time'], item['PressureIn']]);
-        const PressureOut = pumpData.map((item) => [item['_time'], item['PressureOut']]);
+        const Flow = pumpData.map((item) => [ item.time, item['Flow'] ]);
+        const MotorCurrent = pumpData.map((item) => [ item.time, item['MotorCurrent'] ]);
+        const StuffingBoxTemperature = pumpData.map((item) => [ item.time, item['StuffingBoxTemperature'] ]);
+        const PressureIn = pumpData.map((item) => [ item.time, item['PressureIn'] ]);
+        const PressureOut = pumpData.map((item) => [ item.time, item['PressureOut'] ]);
 
         return {
             ...this.defaultOptions,
@@ -126,9 +126,9 @@ export class XdDetailPage implements OnInit {
         if (!envData)
             return undefined;
 
-        const Temperature = envData.map((item) => [item['_time'], item['Temperature']]);
-        const Humidity = envData.map((item) => [item['_time'], item['Humidity']]);
-        const Pressure = envData.map((item) => [item['_time'], item['Pressure']]);
+        const Temperature = envData.map((item) => [ item.time, item['Temperature'] ]);
+        const Humidity = envData.map((item) => [ item.time, item['Humidity'] ]);
+        const Pressure = envData.map((item) => [ item.time, item['Pressure'] ]);
 
         return {
             ...this.defaultOptions,
