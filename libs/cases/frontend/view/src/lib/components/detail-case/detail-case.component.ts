@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
 
-import { cases } from '../case.mocks/const';
+import { cases } from '../case.mocks/fackerMock';
 
 @Component({
     selector: 'lib-detail-case',
