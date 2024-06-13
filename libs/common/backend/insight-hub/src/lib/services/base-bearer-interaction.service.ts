@@ -1,7 +1,8 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { AxiosError } from 'axios';
 import { IInsightHub } from 'common-backend-models';
-import { catchError, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, map, Observable, switchMap } from 'rxjs';
 
 import { XdTokenManagerService } from './token-manager.service';
 
@@ -35,12 +36,15 @@ export abstract class XdBaseBearerInteractionService {
 					})
 					.pipe(
 						map((response) => response.data),
-						catchError((error: unknown) => {
+						catchError((error: AxiosError) => {
 							this._logger.error(
 								`${this.constructor.name}: Error while fetching data`,
 								error,
 							);
-							return of({} as T);
+							throw new HttpException(
+								`Error while fetching data`,
+								error.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+							);
 						}),
 					);
 			}),

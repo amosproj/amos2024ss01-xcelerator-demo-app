@@ -25,10 +25,10 @@
 			"@frontend/facilities/frontend/domain": [
 				"libs/facilities/frontend/domain/src/index.ts"
 			],
-			"cases-backend-case-management": ["libs/cases/backend/case-management/src/index.ts"],
 			"@frontend/facilities/shared/models": ["libs/facilities/shared/models/src/index.ts"],
 			"account-frontend-shell": ["libs/account/frontend/shell/src/index.ts"],
 			"account-frontend-view": ["libs/account/frontend/view/src/index.ts"],
+			"cases-backend-case-management": ["libs/cases/backend/case-management/src/index.ts"],
 			"cases-backend-management": ["libs/cases/backend/case-management/src/index.ts"],
 			"cases-frontend-shell": ["libs/cases/frontend/shell/src/index.ts"],
 			"cases-frontend-view": ["libs/cases/frontend/view/src/index.ts"],

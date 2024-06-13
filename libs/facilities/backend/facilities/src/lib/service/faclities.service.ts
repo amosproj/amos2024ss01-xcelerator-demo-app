@@ -84,6 +84,9 @@ export class XdFacilitiesService {
 				name: asset.name,
 				typeId: asset.typeId,
 				description: asset.description,
+				location: {
+					create: asset.location,
+				},
 				timeSeriesItems: {
 					createMany: {
 						data: aspects.map((aspect) => {
