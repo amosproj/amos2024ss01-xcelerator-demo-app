@@ -53,9 +53,6 @@ export class XdDetailPage implements OnInit {
 
     protected theme = convertThemeName(themeSwitcher.getCurrentTheme());
     protected readonly defaultOptions: EChartsOption = {
-        title: {
-            left: 'center',
-        },
         xAxis: {
             type: 'time',
             name: 'Time',
@@ -91,6 +88,10 @@ export class XdDetailPage implements OnInit {
 
         return {
             ...this.defaultOptions,
+            title: {
+                text: 'Pump Data',
+                left: 'center',
+            },
             series: [
                 {
                     name: 'Flow (l/s)',
@@ -143,6 +144,10 @@ export class XdDetailPage implements OnInit {
 
         return {
             ...this.defaultOptions,
+            title: {
+                text: 'Environment Data',
+                left: 'center',
+            },
             series: [
                 {
                     name: 'Temperature (°C)',
