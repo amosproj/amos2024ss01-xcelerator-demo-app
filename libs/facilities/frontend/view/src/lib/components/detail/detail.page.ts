@@ -16,6 +16,7 @@ import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { BehaviorSubject } from 'rxjs';
 
+import { Colors } from './colors';
 import LockModalComponent from './lock-modal/lockModal.component';
 
 @Component({
@@ -36,18 +37,18 @@ import LockModalComponent from './lock-modal/lockModal.component';
 export class XdDetailPage implements OnInit {
     private readonly _assetId = this._route.snapshot.params['id'];
     private readonly _currentTime = new Date();
-    private readonly _thirtyMinutesAgo = new Date(this._currentTime.getTime() - 30 * 60 * 1000);
+    private readonly _28MinutesAgo = new Date(this._currentTime.getTime() - 28 * 60 * 1000);
 
     private readonly _detailsFacade = inject(XdDetailsFacade);
 
     protected readonly facility = toSignal(this._detailsFacade.getFacility(this._assetId));
 
     protected readonly pumpData = toSignal(this._detailsFacade.getTimeSeriesDataItems(this._assetId, 'pumpData',
-        { from: this._thirtyMinutesAgo, to: this._currentTime },
+        { from: this._28MinutesAgo, to: this._currentTime },
     ));
 
     protected readonly envData = toSignal(this._detailsFacade.getTimeSeriesDataItems(this._assetId, 'Environment',
-        { from: this._thirtyMinutesAgo, to: this._currentTime },
+        { from: this._28MinutesAgo, to: this._currentTime },
     ));
 
     protected theme = convertThemeName(themeSwitcher.getCurrentTheme());
@@ -92,28 +93,38 @@ export class XdDetailPage implements OnInit {
             ...this.defaultOptions,
             series: [
                 {
-                    name: 'Flow',
+                    name: 'Flow (l/s)',
                     type: 'line',
                     data: Flow,
+                    itemStyle: { color: Colors.WATER },
+                    lineStyle: { color: Colors.WATER },
                 },
                 {
-                    name: 'Motor Current',
+                    name: 'Motor Current (V)',
                     type: 'line',
+                    itemStyle: { color: Colors.MOTORCURRENT },
+                    lineStyle: { color: Colors.MOTORCURRENT },
                     data: MotorCurrent,
                 },
                 {
-                    name: 'Stuffing Box Temperature',
+                    name: 'Stuffing Box Temperature (°C)',
                     type: 'line',
+                    itemStyle: { color: Colors.TEMPERATURE },
+                    lineStyle: { color: Colors.TEMPERATURE },
                     data: StuffingBoxTemperature,
                 },
                 {
-                    name: 'Pressure In',
+                    name: 'Pressure In (hPa)',
                     type: 'line',
+                    itemStyle: { color: Colors.PRESSURE1 },
+                    lineStyle: { color: Colors.PRESSURE1 },
                     data: PressureIn,
                 },
                 {
-                    name: 'Pressure Out',
+                    name: 'Pressure Out (hPa)',
                     type: 'line',
+                    itemStyle: { color: Colors.PRESSURE2 },
+                    lineStyle: { color: Colors.PRESSURE2 },
                     data: PressureOut,
                 },
             ],
@@ -134,18 +145,24 @@ export class XdDetailPage implements OnInit {
             ...this.defaultOptions,
             series: [
                 {
-                    name: 'Flow',
+                    name: 'Temperature (°C)',
                     type: 'line',
+                    itemStyle: { color: Colors.TEMPERATURE },
+                    lineStyle: { color: Colors.TEMPERATURE },
                     data: Temperature,
                 },
                 {
-                    name: 'Motor Current',
+                    name: 'Humidity (%)',
                     type: 'line',
+                    itemStyle: { color: Colors.WATER },
+                    lineStyle: { color: Colors.WATER },
                     data: Humidity,
                 },
                 {
-                    name: 'Stuffing Box Temperature',
+                    name: 'Pressure (kPa)',
                     type: 'line',
+                    itemStyle: { color: Colors.PRESSURE1 },
+                    lineStyle: { color: Colors.PRESSURE1 },
                     data: Pressure,
                 },
             ],
