@@ -23,11 +23,33 @@ export class XdTimeseriesService {
 	): Observable<ITimeSeriesDataItemResponse[]> {
 		const { assetId, propertySetName, sort, ...params } = args;
 
-		return this.iotTimeSeriesService.getTimeSeriesData(assetId, propertySetName, {
-			...params,
-			// Todo: Fix this in a future PR
-			sort: sort as unknown as ETimeSeriesOrdering,
-		});
+		return this.iotTimeSeriesService
+			.getTimeSeriesData<
+				any,
+				{
+					_time: string;
+
+					[key: string]: any;
+				}[]
+			>(assetId, propertySetName, {
+				...params,
+				// Todo: Fix this in a future PR
+				sort: sort as unknown as ETimeSeriesOrdering,
+			})
+			.pipe(
+				map((items) => {
+					return items.map((item) => {
+						const { _time, ...rest } = item;
+						return {
+							...rest,
+							time: new Date(_time),
+						};
+					});
+				}),
+				catchError((err: Error) => {
+					throw err;
+				}),
+			);
 	}
 
 	/**
