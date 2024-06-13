@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ETimeSeriesOrdering, XdIotTimeSeriesService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import {
@@ -45,9 +45,6 @@ export class XdTimeseriesService {
 							time: new Date(_time),
 						};
 					});
-				}),
-				catchError((err: Error) => {
-					throw err;
 				}),
 			);
 	}
