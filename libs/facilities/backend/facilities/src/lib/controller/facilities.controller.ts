@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 
 import { GetFacilityParamsDto } from '../dto/params.dto';
-import { XdFacilitiesService } from '../service/faclities.service';
+import { XdFacilitiesService } from '../service/facilities.service';
 
 @Controller('facilities')
 export class XdFacilitiesController {

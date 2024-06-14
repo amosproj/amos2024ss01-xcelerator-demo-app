@@ -18,6 +18,9 @@ export class XdTimeseriesService {
 		private readonly iotTimeSeriesService: XdIotTimeSeriesService,
 	) {}
 
+	/**
+	 * Get timeseries data based on the assetId and propertySetName from the API
+	 */
 	public getTimeSeriesFromApi(
 		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
 	): Observable<ITimeSeriesDataItemResponse[]> {
@@ -78,7 +81,7 @@ export class XdTimeseriesService {
 	}
 
 	/**
-	 * Get timeseries data based on the assetId and propertySetName
+	 * Get timeseries data based on the assetId and propertySetName from the DB
 	 */
 	public getTimeSeriesFromDB(
 		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
@@ -113,6 +116,9 @@ export class XdTimeseriesService {
 		);
 	}
 
+	/**
+	 * Get all timeseries data
+	 */
 	public getAllTimeSeries(): Observable<ITimeSeriesItemResponse[]> {
 		return from(this.prismaService.timeSeriesItem.findMany()).pipe(
 			map((items) =>
@@ -127,6 +133,10 @@ export class XdTimeseriesService {
 			),
 		);
 	}
+
+	/**
+	 * Get timeseries data based on the assetId
+	 */
 	public getTimeSeriesForAsset(assetId: string): Observable<ITimeSeriesItemResponse[]> {
 		return from(
 			this.prismaService.timeSeriesItem.findMany({

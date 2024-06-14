@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
-import { XdIotTimeSeriesService } from '@frontend/common/backend/insight-hub';
 import { HttpService } from '@nestjs/axios';
 import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma } from '@prisma/client';
+import { XdIotTimeSeriesService } from 'common-backend-insight-hub';
 import { XdTokenManagerService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import { ESortOrder, IGetTimeSeriesParams, IGetTimeseriesQuery } from 'facilities-shared-models';

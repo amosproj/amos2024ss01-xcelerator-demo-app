@@ -3,7 +3,7 @@ import { IFacilitiesResponse } from '@frontend/facilities/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
 import { firstValueFrom, of } from 'rxjs';
 
-import { XdFacilitiesService } from '../service/faclities.service';
+import { XdFacilitiesService } from '../service/facilities.service';
 import { XdFacilitiesController } from './facilities.controller';
 
 describe('FacilitiesController ', () => {
