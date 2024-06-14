@@ -1,4 +1,4 @@
-import { XdInsightHubModule } from '@frontend/common/backend/insight-hub';
+import { XdInsightHubModule } from 'common-backend-insight-hub';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { XdCaseManagementModule } from 'cases-backend-case-management';
