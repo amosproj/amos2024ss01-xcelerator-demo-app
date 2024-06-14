@@ -1,4 +1,4 @@
-import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { ETimeSeriesOrdering, XdIotTimeSeriesService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import {
@@ -7,8 +7,8 @@ import {
 	ITimeSeriesDataItemResponse,
 	ITimeSeriesItemResponse,
 } from 'facilities-shared-models';
+import { pick } from 'lodash';
 import { catchError, from, map, Observable } from 'rxjs';
-
 @Injectable()
 export class XdTimeseriesService {
 	constructor(
@@ -21,7 +21,7 @@ export class XdTimeseriesService {
 	public getTimeSeriesFromApi(
 		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
 	): Observable<ITimeSeriesDataItemResponse[]> {
-		const { assetId, propertySetName, sort, ...params } = args;
+		const { assetId, propertySetName, sort, select, ...params } = args;
 
 		return this.iotTimeSeriesService
 			.getTimeSeriesData<
@@ -38,13 +38,41 @@ export class XdTimeseriesService {
 			})
 			.pipe(
 				map((items) => {
-					return items.map((item) => {
+					const data = items.map((item) => {
 						const { _time, ...rest } = item;
 						return {
 							...rest,
 							time: new Date(_time),
 						};
 					});
+
+					this.prismaService.$transaction(
+						data.map(({ time, ...rest }) =>
+							this.prismaService.timeSeriesDataItem.upsert({
+								where: {
+									timeSeriesItemAssetId_timeSeriesItemPropertySetName_time: {
+										timeSeriesItemAssetId: assetId,
+										timeSeriesItemPropertySetName: propertySetName,
+										time: time,
+									},
+								},
+
+								update: {},
+								create: {
+									time: time,
+									timeSeriesItemAssetId: assetId,
+									timeSeriesItemPropertySetName: propertySetName,
+									data: rest,
+								},
+							}),
+						),
+					);
+
+					if (select) {
+						return data.map((item) => ({ ...pick(item, select), time: item.time }));
+					}
+
+					return data;
 				}),
 			);
 	}
