@@ -40,7 +40,7 @@ describe('TimeseriesController ', () => {
 		};
 
 		const module = await Test.createTestingModule({
-			controllers: [XdTimeseriesController],
+			controllers: [ XdTimeseriesController ],
 			providers: [
 				{
 					provide: XdTimeseriesService,
@@ -85,7 +85,7 @@ describe('TimeseriesController ', () => {
 		const from = faker.date.recent();
 		const to = faker.date.recent();
 		const limit = faker.number.int(10);
-		const select = ['test'];
+		const select = [ 'test' ];
 		const sort = ESortOrder.ASCENDING;
 		const latestValue = true;
 
@@ -136,7 +136,7 @@ describe('TimeseriesController ', () => {
 		const from = faker.date.recent();
 		const to = faker.date.recent();
 		const limit = faker.number.int(10);
-		const select = ['test'];
+		const select = [ 'test' ];
 		const sort = ESortOrder.ASCENDING;
 		const latestValue = true;
 		const local = false;

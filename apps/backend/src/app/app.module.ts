@@ -16,20 +16,20 @@ import { validateConfig } from './config/validation';
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			envFilePath: ['.env'],
+			envFilePath: [ '.env' ],
 			validate: validateConfig,
 		}),
 		XdInsightHubModule.registerAsync({
-			imports: [ConfigModule],
+			imports: [ ConfigModule ],
 			useFactory: (configService: ConfigService<BackendConfig>) =>
 				configService.get('insightHub'),
-			inject: [ConfigService],
+			inject: [ ConfigService ],
 		}),
 		XdTimeseriesModule,
 		XdCaseManagementModule,
 		XdFacilitiesBackendFacilitiesModule,
 	],
-	controllers: [AppController],
-	providers: [AppService],
+	controllers: [ AppController ],
+	providers: [ AppService ],
 })
 export class AppModule {}

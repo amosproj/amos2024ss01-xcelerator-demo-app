@@ -6,9 +6,9 @@ import { XdFacilitiesController } from './controller/facilities.controller';
 import { XdFacilitiesService } from './service/facilities.service';
 
 @Module({
-	controllers: [XdFacilitiesController],
-	imports: [XdInsightHubModule, XdPrismaModule],
-	providers: [XdFacilitiesService],
-	exports: [XdFacilitiesService],
+	controllers: [ XdFacilitiesController ],
+	imports: [ XdInsightHubModule, XdPrismaModule ],
+	providers: [ XdFacilitiesService ],
+	exports: [ XdFacilitiesService ],
 })
 export class XdFacilitiesBackendFacilitiesModule {}
