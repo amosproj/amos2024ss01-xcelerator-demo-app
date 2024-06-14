@@ -27,8 +27,6 @@ export class XdUsersService extends XdBaseBearerInteractionService {
 	 * Allows to get the users data from the User API.
 	 */
 	public getUsersData(): Observable<IUsersResponse> {
-		return super._getData<IUsersResponse>(
-			
-		);
+		return super._getData<IUsersResponse>();
 	}
 }
