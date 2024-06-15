@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { ICreateCaseBody } from '@frontend/cases/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { PrismaService } from 'common-backend-prisma';
 import { firstValueFrom } from 'rxjs';
 
@@ -17,11 +16,11 @@ describe('CaseController', () => {
 		handle: faker.string.alpha(10),
 		dueDate: faker.date.future(),
 		title: faker.lorem.sentence(),
-		type: faker.helpers.enumValue(CaseType),
-		status: faker.helpers.enumValue(CaseStatus),
+		type: faker.helpers.enumValue(ECaseType),
+		status: faker.helpers.enumValue(ECaseStatus),
 		description: faker.lorem.sentence(),
 		source: faker.string.alpha(),
-		priority: faker.helpers.enumValue(CasePriority),
+		priority: faker.helpers.enumValue(ECasePriority),
 		createdBy: faker.internet.email(),
 	} as ICreateCaseBody;
 
