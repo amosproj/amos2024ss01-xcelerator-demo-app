@@ -8,7 +8,7 @@ describe('CaseBrowsComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [CaseBrowsComponent],
+			imports: [ CaseBrowsComponent ],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(CaseBrowsComponent);
