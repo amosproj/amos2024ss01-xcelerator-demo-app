@@ -1,0 +1,9 @@
+export enum EECaseStatus {
+    OPEN= 'OPEN',
+    INPROGRESS= 'INPROGRESS',
+    ONHOLD= 'ONHOLD',
+    DONE= 'DONE',
+    OVERDUE= 'OVERDUE',
+    CANCELLED= 'CANCELLED',
+    ARCHIVED= 'ARCHIVED'
+}

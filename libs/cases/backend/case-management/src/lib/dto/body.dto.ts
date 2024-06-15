@@ -1,5 +1,4 @@
-import { ICreateCaseBody, IUpdateCaseBody } from '@frontend/cases/shared/models';
-import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
+import { ECasePriority, ECaseStatus, ECaseType, ICreateCaseBody, IUpdateCaseBody } from '@frontend/cases/shared/models';
 import { Type } from 'class-transformer';
 import { IsDate, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
@@ -39,17 +38,17 @@ export class createCaseBodyDto implements ICreateCaseBody {
 	 * @example "PLANNED"
 	 */
 	@IsString()
-	@IsEnum(CaseType, {
-		message: 'Type must be one of these values: ' + Object.values(CaseType).join(', '),
+	@IsEnum(ECaseType, {
+		message: 'Type must be one of these values: ' + Object.values(ECaseType).join(', '),
 	})
-	type: CaseType;
+	type: ECaseType;
 
 	@IsString()
 	@IsNotEmpty()
-	@IsEnum(CaseStatus, {
-		message: 'Status must be one of these values: ' + Object.values(CaseStatus).join(', '),
+	@IsEnum(ECaseStatus, {
+		message: 'Status must be one of these values: ' + Object.values(ECaseStatus).join(', '),
 	})
-	status: CaseStatus;
+	status: ECaseStatus;
 
 	// assignedTo: User;
 
@@ -73,10 +72,10 @@ export class createCaseBodyDto implements ICreateCaseBody {
 	 */
 	@IsString()
 	@IsNotEmpty()
-	@IsEnum(CasePriority, {
-		message: 'Priority must be one of these values: ' + Object.values(CasePriority).join(', '),
+	@IsEnum(ECasePriority, {
+		message: 'Priority must be one of these values: ' + Object.values(ECasePriority).join(', '),
 	})
-	priority: CasePriority;
+	priority: ECasePriority;
 
 	/**
 	 * author mail of the work order
@@ -134,10 +133,10 @@ export class updateCaseBodyDto implements IUpdateCaseBody {
 	 */
 	@IsString()
 	@IsOptional()
-	@IsEnum(CaseType, {
-		message: 'Type must be one of these values: ' + Object.values(CaseType).join(', '),
+	@IsEnum(ECaseType, {
+		message: 'Type must be one of these values: ' + Object.values(ECaseType).join(', '),
 	})
-	type: CaseType;
+	type: ECaseType;
 
 	/**
 	 * current status of the work order
@@ -145,10 +144,10 @@ export class updateCaseBodyDto implements IUpdateCaseBody {
 	 */
 	@IsString()
 	@IsOptional()
-	@IsEnum(CaseStatus, {
-		message: 'Status must be one of these values: ' + Object.values(CaseStatus).join(', '),
+	@IsEnum(ECaseStatus, {
+		message: 'Status must be one of these values: ' + Object.values(ECaseStatus).join(', '),
 	})
-	status: CaseStatus;
+	status: ECaseStatus;
 
 	/**
 	 * user to which the work order is assigned to
@@ -184,10 +183,10 @@ export class updateCaseBodyDto implements IUpdateCaseBody {
 	 */
 	@IsString()
 	@IsOptional()
-	@IsEnum(CasePriority, {
-		message: 'Priority must be one of these values: ' + Object.values(CasePriority).join(', '),
+	@IsEnum(ECasePriority, {
+		message: 'Priority must be one of these values: ' + Object.values(ECasePriority).join(', '),
 	})
-	priority: CasePriority;
+	priority: ECasePriority;
 
 	/**
 	 * identifier of the work order

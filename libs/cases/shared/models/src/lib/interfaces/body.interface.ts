@@ -1,6 +1,7 @@
-import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 
 /* Interface for creating a new case body */
+import { ECasePriority, ECaseStatus, ECaseType } from '../enums';
+
 export interface ICreateCaseBody {
 	/* Unique identifier of the work order */
 	handle: string;
@@ -9,9 +10,9 @@ export interface ICreateCaseBody {
 	/* Title of the work order */
 	title: string;
 	/* Type of the work order */
-	type: CaseType;
+	type: ECaseType;
 	/* Status of the work order */
-	status: CaseStatus;
+	status: ECaseStatus;
 	// assignedTo: User,
 	// assignedToId: Int,
 	/* Description of the work order */
@@ -19,7 +20,7 @@ export interface ICreateCaseBody {
 	/* Source of the work order */
 	source: string;
 	/* Priority of the work order (create ENUM) */
-	priority: CasePriority;
+	priority: ECasePriority;
 	/* Author mail of the work order */
 	createdBy: string;
 	/* Identifier of the work order */
@@ -35,17 +36,15 @@ export interface IUpdateCaseBody {
 	/* Title of the work order */
 	title?: string;
 	/* Type of the work order */
-	type?: CaseType;
+	type?: ECaseType;
 	/* Status of the work order */
-	status?: CaseStatus;
-	// assignedTo: User,
-	// assignedToId: Int,
+	status?: ECaseStatus;
 	/* Description of the work order */
 	description?: string;
 	/* Source of the work order */
 	source?: string;
 	/* Priority of the work order */
-	priority?: CasePriority;
+	priority?: ECasePriority;
 	/* Identifier of the work order */
 	eTag?: string;
 	/* Author of any changes to the work order */

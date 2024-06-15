@@ -24,7 +24,7 @@ export class XdCaseService {
 				items.map((item) => ({
 					...item,
 					overdue: Date.now() > new Date(item.dueDate).getTime(),
-				})),
+				}) as ICaseResponse),
 			),
 		);
 	}
@@ -45,7 +45,7 @@ export class XdCaseService {
 				return {
 					...item,
 					overdue: Date.now() > new Date(item.dueDate).getTime(),
-				};
+				} as ICaseResponse;
 			}),
 		);
 	}
@@ -67,7 +67,7 @@ export class XdCaseService {
 			map((item) => ({
 				...item,
 				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			})),
+			} as ICaseResponse)),
 		);
 	}
 
@@ -86,7 +86,7 @@ export class XdCaseService {
 			map((item) => ({
 				...item,
 				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			})),
+			}) as ICaseResponse),
 		);
 	}
 
@@ -104,7 +104,7 @@ export class XdCaseService {
 			map((item) => ({
 				...item,
 				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			})),
+			}) as ICaseResponse),
 		);
 	}
 }
