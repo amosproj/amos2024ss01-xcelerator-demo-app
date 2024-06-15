@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { IsBoolean, IsDate, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ESortOrder, IGetTimeseriesQuery } from 'facilities-shared-models';
 
@@ -7,6 +7,14 @@ import { ESortOrder, IGetTimeseriesQuery } from 'facilities-shared-models';
  * this is to validate the query parameters.
  */
 export class GetTimeSeriesQueryDto implements IGetTimeseriesQuery {
+	/**
+	 * If the data should be fetched from the local database
+	 */
+	@IsOptional()
+	@IsBoolean()
+	@Transform(({ value }) => value === 'true')
+	local?: boolean;
+
 	/**
 	 * The start date for the time series data
 	 */
@@ -47,5 +55,6 @@ export class GetTimeSeriesQueryDto implements IGetTimeseriesQuery {
 
 	@IsOptional()
 	@IsBoolean()
+	@Transform(({ value }) => value === 'true')
 	latestValue?: boolean;
 }

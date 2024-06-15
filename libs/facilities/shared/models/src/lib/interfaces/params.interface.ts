@@ -3,12 +3,19 @@
  */
 export interface IGetTimeSeriesParams {
 	/**
-	 * The entity id for an asset
+	 * The asset id for an asset
 	 */
-	entityId: string;
+	assetId: string;
 
 	/**
 	 * The name of the aspect
 	 */
 	propertySetName: string;
+}
+
+export interface IGetFacilitiesParams {
+	/**
+	 * The asset id for an asset (facility)
+	 */
+	assetId: string;
 }

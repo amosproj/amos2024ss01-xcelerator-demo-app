@@ -31,7 +31,7 @@ export interface Asset {
 	location: Location;
 	fileAssignments: any[];
 	variables: any[];
-	aspects: Aspect[];
+	aspects: AssetAspect[];
 	locks: Lock[];
 	deleted: any;
 	sharing: Sharing;
@@ -48,7 +48,7 @@ export interface Location {
 	latitude: any;
 }
 
-export interface Aspect {
+export interface AssetAspect {
 	name: string;
 	variables: Variable[];
 }

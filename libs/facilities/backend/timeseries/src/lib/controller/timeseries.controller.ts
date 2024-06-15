@@ -19,26 +19,34 @@ export class XdTimeseriesController {
 	}
 
 	/**
-	 * Returns timeseries data for a specific entity and property set.
+	 * Returns timeseries data for a specific facility.
+	 * @tutorial
+	 * In our context we define a facility as an asset.
+	 */
+	@Get(':assetId')
+	public getTimeseriesForAsset(
+		@Param() { assetId }: Omit<GetTimeSeriesParamsDto, 'propertySetName'>,
+	): Observable<ITimeSeriesItemResponse[]> {
+		return this.timeseriesService.getTimeSeriesForAsset(assetId);
+	}
+
+	/**
+	 * Returns timeseries data for a specific asset and property set.
 	 * Accepts query params for filtering, sorting and limiting the result.
 	 */
-	@Get(':entityId/:propertySetName')
+	@Get(':assetId/:propertySetName')
 	public getTimeSeries(
 		@Param() params: GetTimeSeriesParamsDto,
 		@Query() query: GetTimeSeriesQueryDto,
 	): Observable<ITimeSeriesDataItemResponse[]> {
-		const { entityId, propertySetName } = params;
-		const { from, to, limit, select, sort, latestValue } = query;
+		const { local = false, ...rest } = query;
+		const args = {
+			...params,
+			...rest,
+		};
 
-		return this.timeseriesService.getTimeSeriesFromDB({
-			entityId,
-			propertySetName,
-			from,
-			to,
-			limit,
-			select,
-			sort,
-			latestValue,
-		});
+		return local
+			? this.timeseriesService.getTimeSeriesFromDB(args)
+			: this.timeseriesService.getTimeSeriesFromApi(args);
 	}
 }

@@ -9,33 +9,69 @@ datasource db {
 
 // see https://developer.siemens.com/insights-hub/docs/apis/iot-iottimeseries/api-iottimeseries-overview.html
 model TimeSeriesItem {
-    entityId        String // Example: Pump-002 - id
-    propertySetName String // Example: Environment | PumpData
+    propertySetName String
 
     data TimeSeriesDataItem[]
 
-    @@id([entityId, propertySetName])
-    @@unique([entityId, propertySetName])
+    assetId   String
+    variables Json?
+    Asset     Asset  @relation(fields: [assetId], references: [assetId])
+
+    @@id([assetId, propertySetName])
+    @@unique([assetId, propertySetName])
 }
 
 // see https://developer.siemens.com/insights-hub/docs/apis/iot-iottimeseries/api-iottimeseries-overview.html
 model TimeSeriesDataItem {
-    time DateTime
-    data Json?
+    time     DateTime
+    data     Json?
+    name     String?
+    location Json?
 
     // Foreign keys
-    timeSeriesItementityId        String
-    timeSeriesItempropertySetName String
-    timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesItementityId, timeSeriesItempropertySetName], references: [entityId, propertySetName])
+    timeSeriesItemAssetId         String
+    timeSeriesItemPropertySetName String
+    timeSeriesItem                TimeSeriesItem @relation(fields: [timeSeriesItemAssetId, timeSeriesItemPropertySetName], references: [assetId, propertySetName])
 
-    @@id([timeSeriesItementityId, timeSeriesItempropertySetName, time])
+    @@id([timeSeriesItemAssetId, timeSeriesItemPropertySetName, time])
+}
+
+model Asset {
+    assetId     String         @id
+    name        String
+    description String?
+    location    AssetLocation?
+    typeId      String
+    variables   Json?
+
+    timeSeriesItems TimeSeriesItem[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model AssetLocation {
+    id            Int     @id @default(autoincrement())
+    country       String?
+    region        String?
+    locality      String?
+    streetAddress String?
+    postalCode    String?
+    longitude     Float?
+    latitude      Float?
+
+    Assetid String @unique
+    Asset   Asset  @relation(fields: [Assetid], references: [assetId])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
 
 // TODO: Add User model + relation
 // TODO: Save dueDate as DateTime
 // see https://developer.siemens.com/insights-hub/docs/apis/advanced-casemanagement/api-casemanagement-api.html
 model Case {
-    id          Int      @id @default(autoincrement())
+    id          Int          @id @default(autoincrement())
     handle      String
     dueDate     DateTime // see https://stackoverflow.com/a/52823241
     title       String
@@ -48,7 +84,7 @@ model Case {
     priority    CasePriority
     createdBy   String
     eTag        String
-    modifiedBy  String   @default("")
+    modifiedBy  String       @default("")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
