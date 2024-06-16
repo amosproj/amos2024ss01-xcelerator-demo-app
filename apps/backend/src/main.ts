@@ -21,13 +21,13 @@ async function bootstrap() {
 
 	const configService = app.get(ConfigService<BackendConfig>);
 
-    const port = configService.get('app', { infer: true }).port;
-    const baseUrl = `http://localhost:${port}${API_BASE_SEGMENT}`;
+	const port = configService.get('app', { infer: true }).port;
+	const baseUrl = `http://localhost:${port}${API_BASE_SEGMENT}`;
 
 	app.setGlobalPrefix(API_BASE_SEGMENT);
 
-    const swaggerBuilder = new SwaggerDocumentBuilder(app, configService.get('swagger'), baseUrl);
-    swaggerBuilder.setupSwagger();
+	const swaggerBuilder = new SwaggerDocumentBuilder(app, configService.get('swagger'), baseUrl);
+	swaggerBuilder.setupSwagger();
 
 	await app.listen(port);
 
