@@ -3,12 +3,12 @@ import { XdInsightHubModule } from 'common-backend-insight-hub';
 import { XdPrismaModule } from 'common-backend-prisma';
 
 import { XdFacilitiesController } from './controller/facilities.controller';
-import { XdFacilitiesService } from './service/faclities.service';
+import { XdFacilitiesService } from './service/facilities.service';
 
 @Module({
-	controllers: [XdFacilitiesController],
-	imports: [XdInsightHubModule, XdPrismaModule],
-	providers: [XdFacilitiesService],
-	exports: [XdFacilitiesService],
+	controllers: [ XdFacilitiesController ],
+	imports: [ XdInsightHubModule, XdPrismaModule ],
+	providers: [ XdFacilitiesService ],
+	exports: [ XdFacilitiesService ],
 })
 export class XdFacilitiesBackendFacilitiesModule {}

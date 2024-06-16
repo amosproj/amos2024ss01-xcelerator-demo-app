@@ -205,7 +205,7 @@ export class XdFacilitiesService {
 	 */
 	public getFacilityById(assetId: string): Observable<IFacilitiesResponse> {
 		return from(
-			this.prismaService.asset.findUnique({
+			this.prismaService.asset.findFirst({
 				where: {
 					assetId,
 				},

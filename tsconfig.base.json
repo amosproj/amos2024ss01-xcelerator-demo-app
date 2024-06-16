@@ -18,9 +18,6 @@
 		"paths": {
 			"@frontend/cases/frontend/domain": ["libs/cases/frontend/domain/src/index.ts"],
 			"@frontend/cases/shared/models": ["libs/cases/shared/models/src/index.ts"],
-			"@frontend/common/backend/insight-hub": [
-				"libs/common/backend/insight-hub/src/index.ts"
-			],
 			"@frontend/common/shared/models": ["libs/common/shared/models/src/index.ts"],
 			"@frontend/facilities/frontend/domain": [
 				"libs/facilities/frontend/domain/src/index.ts"

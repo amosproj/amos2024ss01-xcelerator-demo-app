@@ -71,7 +71,7 @@ describe('XdIotTimeSeriesService', () => {
 				from: faker.date.past(),
 				to: faker.date.recent(),
 				limit: faker.number.int(),
-				select: ['flow', 'pressure'],
+				select: [ 'flow', 'pressure' ],
 			};
 			const assetId = faker.string.uuid();
 			const propertySetName = faker.lorem.word(1);

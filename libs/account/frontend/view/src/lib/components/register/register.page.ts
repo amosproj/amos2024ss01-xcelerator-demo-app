@@ -6,7 +6,7 @@ import { IxModule } from '@siemens/ix-angular';
 @Component({
 	selector: 'lib-register',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink],
+	imports: [ CommonModule, IxModule, RouterLink ],
 	templateUrl: './register.page.html',
 	styleUrl: './register.page.scss',
 	encapsulation: ViewEncapsulation.None,

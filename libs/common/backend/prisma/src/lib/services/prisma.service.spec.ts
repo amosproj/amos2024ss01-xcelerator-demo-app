@@ -34,7 +34,7 @@ describe('PrismaService', () => {
 		const presure = faker.string.sample();
 		const json = JSON.stringify({ flow: flow, presure: presure });
 
-		expect(service.selectKeysFromJSON(json, ['flow'])).toEqual({
+		expect(service.selectKeysFromJSON(json, [ 'flow' ])).toEqual({
 			flow: flow,
 		});
 	});

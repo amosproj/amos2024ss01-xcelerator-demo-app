@@ -1,12 +1,13 @@
 import { faker } from '@faker-js/faker';
-import { XdIotTimeSeriesService } from '@frontend/common/backend/insight-hub';
 import { HttpService } from '@nestjs/axios';
 import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma } from '@prisma/client';
+import { XdIotTimeSeriesService } from 'common-backend-insight-hub';
 import { XdTokenManagerService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import { ESortOrder, IGetTimeSeriesParams, IGetTimeseriesQuery } from 'facilities-shared-models';
+import { omit } from 'lodash';
 import { lastValueFrom, of } from 'rxjs';
 
 import { XdTimeseriesService } from './timeseries.service';
@@ -31,7 +32,10 @@ describe('TimeseriesService', () => {
 						data: JSON.stringify({ test: 'test', test2: 'test2' }),
 					},
 				]),
+
+				upsert: jest.fn(),
 			},
+			$transaction: jest.fn(),
 		};
 
 		const httpServiceMock = {
@@ -109,7 +113,7 @@ describe('TimeseriesService', () => {
 
 			const findManySpy = jest
 				.spyOn(prisma.timeSeriesDataItem, 'findMany')
-				.mockResolvedValue([findManyResult]);
+				.mockResolvedValue([ findManyResult ]);
 
 			const params: IGetTimeSeriesParams = {
 				assetId: findManyResult.timeSeriesItemAssetId,
@@ -119,7 +123,7 @@ describe('TimeseriesService', () => {
 			const result = await lastValueFrom(
 				service.getTimeSeriesFromDB({
 					...params,
-					select: ['flow', 'presure'],
+					select: [ 'flow', 'presure' ],
 				}),
 			);
 
@@ -148,7 +152,7 @@ describe('TimeseriesService', () => {
 
 			const findManySpy = jest
 				.spyOn(prisma.timeSeriesDataItem, 'findMany')
-				.mockResolvedValue([findManyResult]);
+				.mockResolvedValue([ findManyResult ]);
 
 			const params: IGetTimeSeriesParams = {
 				assetId: findManyResult.timeSeriesItemAssetId,
@@ -156,7 +160,7 @@ describe('TimeseriesService', () => {
 			};
 
 			const query: IGetTimeseriesQuery = {
-				select: ['flow'],
+				select: [ 'flow' ],
 			};
 
 			const result = await lastValueFrom(
@@ -190,7 +194,9 @@ describe('TimeseriesService', () => {
 				propertySetName: faker.string.sample(),
 			};
 
-			const query: IGetTimeseriesQuery = {};
+			const query: IGetTimeseriesQuery = {
+				select: [ 'flow' ],
+			};
 
 			await lastValueFrom(
 				service.getTimeSeriesFromApi({
@@ -206,7 +212,7 @@ describe('TimeseriesService', () => {
 			expect(getTimeSeriesDataSpy).toHaveBeenCalledWith(
 				params.assetId,
 				params.propertySetName,
-				query,
+				omit(query, 'select'),
 			);
 
 			await lastValueFrom(
@@ -218,12 +224,6 @@ describe('TimeseriesService', () => {
 
 			expect(getTimeSeriesDataSpy).toHaveBeenCalledTimes(1);
 			expect(findManySpy).toHaveBeenCalledTimes(1);
-
-			expect(getTimeSeriesDataSpy).toHaveBeenCalledWith(
-				params.assetId,
-				params.propertySetName,
-				query,
-			);
 		});
 
 		it('should use the correct args to query the time series data', async () => {

@@ -29,5 +29,5 @@ export interface ICaseMock {
 	eTag: string;
 	modifiedBy: string;
 	modifiedDate: string;
-	overdue: true;
+	overdue: boolean;
 }

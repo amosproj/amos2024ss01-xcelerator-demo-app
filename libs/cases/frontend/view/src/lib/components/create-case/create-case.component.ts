@@ -4,9 +4,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import {  FormsModule, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+import { ECasePriority, ECaseStatus, ECaseType } from '@frontend/cases/shared/models';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
-import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { IxModule, ToastService } from '@siemens/ix-angular';
 
 import { CaseFormData } from '../interfaces/case-form-data.interface';
@@ -31,13 +30,13 @@ import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
 export class CreateCaseComponent {
     private readonly _browseFacade = inject(XdBrowseFacade);
     protected readonly _browseFacade2 = inject(XdBrowseFacadesService);
-    protected readonly facilities = toSignal(this._browseFacade.getAllFacilities());
+    protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
 
     constructor(private readonly toastService: ToastService) {
     }
 
-    casePriority = CasePriority;
-    caseType = CaseType;
+    casePriority = ECasePriority;
+    caseType = ECaseType;
     wasValidated = false;
     value = '1';
 
@@ -119,7 +118,7 @@ export class CreateCaseComponent {
             dueDate: formData.dueDate,
             title: formData.title,
             type: formData.selectType,
-            status: CaseStatus.OPEN,
+            status: ECaseStatus.OPEN,
             description: formData.text,
             source: 'Internal System A',
             priority: formData.selectPriority,
