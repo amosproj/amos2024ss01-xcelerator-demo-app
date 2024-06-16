@@ -26,7 +26,7 @@ export class XdBrowsePage implements OnInit {
 	subtitle = 'List of all facilities';
 	showCardList = true;
 	private readonly _browseFacade = inject(XdBrowseFacade);
-	protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
+	protected readonly facilities = toSignal(this._browseFacade.getAllFacilities());
 
 	async ngOnInit() {
 		if (this.subtitle === undefined) {
