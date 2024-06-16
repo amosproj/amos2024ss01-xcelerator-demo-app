@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { firstValueFrom, of } from 'rxjs';
+import { of } from 'rxjs';
 
 import { FacilitiesRequestService } from '../../infrastructure/facilities-request.service';
-import { XdBrowseFacade } from './browse.facade';
+import { XdDetailsFacade } from './details.facade';
 
-describe('XdBrowseFacadeService', () => {
-    let service: XdBrowseFacade;
+describe('XdDetailsFacadeService', () => {
+    let service: XdDetailsFacade;
     let facilitiesRequestService: FacilitiesRequestService;
 
     beforeEach(() => {
@@ -16,12 +16,12 @@ describe('XdBrowseFacadeService', () => {
 
         TestBed.configureTestingModule({
             providers: [
-                XdBrowseFacade,
+                XdDetailsFacade,
                 { provide: FacilitiesRequestService, useValue: facilitiesRequestServiceMock },
             ],
         });
 
-        service = TestBed.inject(XdBrowseFacade);
+        service = TestBed.inject(XdDetailsFacade);
         facilitiesRequestService = TestBed.inject(FacilitiesRequestService);
     });
 
@@ -29,10 +29,15 @@ describe('XdBrowseFacadeService', () => {
         expect(service).toBeTruthy();
     });
 
-    describe('getAllTimeseries', () => {
-        it('should call getAllFacilities of TimeseriesRequestService', async () => {
-            await firstValueFrom(service.getAllFacilities());
-            expect(facilitiesRequestService.getAllFacilities).toHaveBeenCalledTimes(1);
+
+    describe('getFacility', () => {
+        it('should call getFacility of FacilitiesRequestService with correct parameters', () => {
+            const assetId = 'testAssetId';
+
+            service.getFacility(assetId);
+            expect(facilitiesRequestService.getFacility).toHaveBeenCalledWith(
+                { assetId },
+            );
         });
     });
 });

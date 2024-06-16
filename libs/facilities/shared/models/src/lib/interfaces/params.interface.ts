@@ -13,6 +13,13 @@ export interface IGetTimeSeriesParams {
 	propertySetName: string;
 }
 
+export interface IGetTimeSeriesItemsParams {
+    /**
+     * The asset id for an asset
+     */
+    assetId: string;
+}
+
 export interface IGetFacilitiesParams {
 	/**
 	 * The asset id for an asset (facility)
