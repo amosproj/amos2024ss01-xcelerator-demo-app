@@ -5,11 +5,6 @@ import { XdInsightHubModule } from 'common-backend-insight-hub';
 import { BackendConfig } from 'common-backend-models';
 import { XdFacilitiesBackendFacilitiesModule } from 'facilities-backend-facilities';
 import { XdTimeseriesModule } from 'facilities-backend-timeseries';
-
-/* Libraries */
-import { AppController } from './app.controller';
-/* Internal */
-import { AppService } from './app.service';
 import { validateConfig } from './config/validation';
 
 @Module({
@@ -29,7 +24,7 @@ import { validateConfig } from './config/validation';
 		XdCaseManagementModule,
 		XdFacilitiesBackendFacilitiesModule,
 	],
-	controllers: [ AppController ],
-	providers: [ AppService ],
+	controllers: [ ],
+	providers: [ ],
 })
 export class AppModule {}
