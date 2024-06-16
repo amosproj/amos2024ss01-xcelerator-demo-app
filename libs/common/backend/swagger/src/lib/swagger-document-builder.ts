@@ -1,5 +1,5 @@
 import { INestApplication, Logger } from '@nestjs/common';
-import { DocumentBuilder,SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { SWAGGER_TAG_INFORMATION } from './const/swagger-tag-information.const';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
