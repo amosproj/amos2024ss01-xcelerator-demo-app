@@ -2,11 +2,11 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { BackendConfig } from 'common-backend-models';
+import { SwaggerDocumentBuilder } from 'common-backend-swagger';
 import { API_BASE_SEGMENT } from 'common-shared-models';
 
 /* Modules */
 import { AppModule } from './app/app.module';
-import { SwaggerDocumentBuilder } from 'common-backend-swagger';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);

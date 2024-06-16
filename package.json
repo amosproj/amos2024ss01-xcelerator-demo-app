@@ -26,6 +26,7 @@
 		"@nestjs/config": "^3.2.2",
 		"@nestjs/core": "^10.0.2",
 		"@nestjs/platform-express": "^10.0.2",
+		"@nestjs/swagger": "^7.3.1",
 		"@prisma/client": "^5.13.0",
 		"@siemens/ix": "^2.2.1",
 		"@siemens/ix-angular": "^2.2.1",
