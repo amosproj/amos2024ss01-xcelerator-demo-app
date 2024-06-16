@@ -1,4 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ESwaggerTag } from 'common-backend-swagger';
 import { ITimeSeriesDataItemResponse, ITimeSeriesItemResponse } from 'facilities-shared-models';
 import { Observable } from 'rxjs';
 
@@ -6,6 +8,7 @@ import { GetTimeSeriesParamsDto } from '../dto/params.dto';
 import { GetTimeSeriesQueryDto } from '../dto/query.dto';
 import { XdTimeseriesService } from '../services';
 
+@ApiTags(ESwaggerTag.TIME_SERIES)
 @Controller('timeseries')
 export class XdTimeseriesController {
 	constructor(private readonly timeseriesService: XdTimeseriesService) {}
@@ -14,6 +17,7 @@ export class XdTimeseriesController {
 	 * Returns all timeseries items
 	 */
 	@Get()
+	@ApiOkResponse({ description: 'Returns all timeseries items' })
 	public getAllTimeseries(): Observable<ITimeSeriesItemResponse[]> {
 		return this.timeseriesService.getAllTimeSeries();
 	}
@@ -24,6 +28,7 @@ export class XdTimeseriesController {
 	 * In our context we define a facility as an asset.
 	 */
 	@Get(':assetId')
+	@ApiOkResponse({ description: 'Returns timeseries data for a specific facility.' })
 	public getTimeseriesForAsset(
 		@Param() { assetId }: Omit<GetTimeSeriesParamsDto, 'propertySetName'>,
 	): Observable<ITimeSeriesItemResponse[]> {
@@ -35,6 +40,9 @@ export class XdTimeseriesController {
 	 * Accepts query params for filtering, sorting and limiting the result.
 	 */
 	@Get(':assetId/:propertySetName')
+	@ApiOkResponse({
+		description: 'Returns timeseries data for a specific asset and property set.',
+	})
 	public getTimeSeries(
 		@Param() params: GetTimeSeriesParamsDto,
 		@Query() query: GetTimeSeriesQueryDto,

@@ -1,5 +1,7 @@
 import { ICaseResponse } from '@frontend/cases/shared/models';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ApiAcceptedResponse, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ESwaggerTag } from 'common-backend-swagger';
 import { Observable } from 'rxjs';
 
 import { createCaseBodyDto, updateCaseBodyDto } from '../dto/body.dto';
@@ -9,6 +11,7 @@ import { XdCaseService } from '../services/case.service';
 /**
  * handles incoming HTTP-requests
  */
+@ApiTags(ESwaggerTag.CASES)
 @Controller('case')
 export class XdCaseController {
 	constructor(private readonly caseService: XdCaseService) {}
@@ -18,6 +21,7 @@ export class XdCaseController {
 	 * does not take any parameters
 	 */
 	@Get()
+	@ApiOkResponse({ description: 'Retrieves all cases (work orders)' })
 	public getAllCases(): Observable<ICaseResponse[]> {
 		return this.caseService.getAllCases();
 	}
@@ -28,6 +32,7 @@ export class XdCaseController {
 	 * @param params
 	 */
 	@Get(':id')
+	@ApiOkResponse({ description: 'Retrieves a single case (work order) by its ID' })
 	public getCaseById(@Param() params: caseParamsDto): Observable<ICaseResponse> {
 		return this.caseService.getCaseById(params.id);
 	}
@@ -38,17 +43,19 @@ export class XdCaseController {
 	 * @returns {Observable<ICaseResponse>}
 	 */
 	@Post()
+	@ApiCreatedResponse({ description: 'Creates a new case (work order)' })
 	public createCase(@Body() caseRequest: createCaseBodyDto): Observable<ICaseResponse> {
 		return this.caseService.createCase(caseRequest);
 	}
 
 	/**
 	 * updates an existing case (work order)
-	 * @param {number} id unique identifier of the case to retrieve
-	 * @param {ICaseRequest} caseRequest
 	 * @returns {Observable<ICaseResponse>}
+	 * @param params - the information to identify the case to update
+	 * @param body - the information to update the case with
 	 */
 	@Put(':id')
+	@ApiAcceptedResponse({ description: 'Updates an existing case (work order)' })
 	public updateCaseById(
 		@Param() params: caseParamsDto,
 		@Body() body: updateCaseBodyDto,
@@ -63,6 +70,7 @@ export class XdCaseController {
 	 * @returns {Observable<ICaseResponse>}
 	 */
 	@Delete(':id')
+	@ApiAcceptedResponse({ description: 'Deletes an existing case (work order) by ID' })
 	public deleteCaseById(@Param() params: caseParamsDto) {
 		return this.caseService.deleteCaseById(params.id);
 	}
