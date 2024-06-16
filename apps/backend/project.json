@@ -5,6 +5,36 @@
 	"projectType": "application",
 	"tags": ["kind:backend", "type:app"],
 	"targets": {
+		"build": {
+			"executor": "@nx/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"target": "node",
+				"compiler": "tsc",
+				"outputPath": "dist/apps/backend",
+				"main": "apps/backend/src/main.ts",
+				"tsConfig": "apps/backend/tsconfig.app.json",
+				"isolatedConfig": false,
+				"tsPlugins": [
+					{
+						"name": "@nestjs/swagger/plugin",
+						"options": {
+							"classValidatorShim": true,
+							"introspectComments": true,
+							"dtoFileNameSuffix": [".dto.ts", ""]
+						}
+					}
+				],
+				"assets": [
+					{
+						"input": "libs/common/backend/swagger/assets",
+						"glob": "**/*",
+						"output": "assets/common-backend-swagger"
+					}
+				],
+				"sourceMap": true
+			}
+		},
 		"serve": {
 			"executor": "@nx/js:node",
 			"defaultConfiguration": "development",
