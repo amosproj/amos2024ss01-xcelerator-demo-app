@@ -1,0 +1,39 @@
+{
+	"name": "common-backend-swagger",
+	"$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "libs/common/backend/swagger/src",
+	"projectType": "library",
+	"tags": ["type:utils", "domain:common", "kind:backend"],
+	"targets": {
+		"test": {
+			"executor": "@nx/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+			"options": {
+				"jestConfig": "libs/common/backend/swagger/jest.config.ts"
+			}
+		},
+		"build": {
+			"executor": "@nx/webpack:webpack",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"target": "node",
+				"compiler": "tsc",
+				"outputPath": "dist/apps/backend",
+				"main": "apps/backend/src/main.ts",
+				"tsConfig": "apps/backend/tsconfig.app.json",
+				"isolatedConfig": false,
+				"tsPlugins": [
+					{
+						"name": "@nestjs/swagger/plugin",
+						"options": {
+							"classValidatorShim": true,
+							"introspectComments": true,
+							"dtoFileNameSuffix": [".dto.ts", ""]
+						}
+					}
+				],
+				"sourceMap": true
+			}
+		}
+	}
+}
