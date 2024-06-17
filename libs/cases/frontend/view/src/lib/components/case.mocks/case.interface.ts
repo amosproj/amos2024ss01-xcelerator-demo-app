@@ -4,16 +4,6 @@
  * */
 
 export interface ICaseMock {
-	//Push-Card
-	//id: string;
-	//facilityId: number;
-	//icon: string;
-	//notification: string;
-	//heading: string;
-	//subheading: string;
-	//variant: string;
-
-	//Case
 	handle: string;
 	dueDate: string;
 	notifyAssignee: boolean;
