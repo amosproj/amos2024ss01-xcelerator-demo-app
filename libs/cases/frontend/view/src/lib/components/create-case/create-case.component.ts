@@ -13,7 +13,6 @@ import { faker } from '@faker-js/faker';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 import { ECasePriority, ECaseStatus, ECaseType } from '@frontend/cases/shared/models';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
-import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { IxModule, IxSelectCustomEvent, ToastService } from '@siemens/ix-angular';
 
 import { CaseFormData } from '../interfaces/case-form-data.interface';
