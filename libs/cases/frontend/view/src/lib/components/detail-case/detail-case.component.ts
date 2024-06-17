@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 import { IxModule } from '@siemens/ix-angular';
 
+
 @Component({
     selector: 'lib-detail-case',
     standalone: true,

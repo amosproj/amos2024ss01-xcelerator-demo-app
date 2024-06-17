@@ -21,7 +21,7 @@ export class XdBrowseFacade {
 			map((timeSeriesItem) => {
 				return timeSeriesItem.map((timeSeriesItem) => {
 					return {
-						id: timeSeriesItem.entityId,
+						id: timeSeriesItem.assetId,
 						icon: faker.helpers.arrayElement([
 							'battery-empty',
 							'water-fish',
@@ -29,7 +29,7 @@ export class XdBrowseFacade {
 							'truck',
 						]),
 						notification: `${faker.number.int({ min: 0, max: 99 })}`,
-						heading: timeSeriesItem.entityId,
+						heading: timeSeriesItem.assetId,
 						subheading: timeSeriesItem.propertySetName,
 						variant: 'success',
 						pumps: faker.number.int({ min: 0, max: 99 }),
@@ -42,11 +42,11 @@ export class XdBrowseFacade {
 
 	/**
 	 * Get timeseries.
-	 * @param entityId The entity id.
+	 * @param assetId The asset id.
 	 * @param propertySetName The property set name.
 	 * @param queryParams The query parameters.
 	 */
-	public getTimeSeries(entityId: string, propertySetName: string, queryParams: any) {
-		return this._scanService.getTimeSeries({ entityId, propertySetName }, queryParams);
+	public getTimeSeries(assetId: string, propertySetName: string, queryParams: any) {
+		return this._scanService.getTimeSeries({ assetId, propertySetName }, queryParams);
 	}
 }

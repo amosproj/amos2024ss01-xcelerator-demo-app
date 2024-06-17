@@ -31,6 +31,19 @@ The team consist of students from the FAU, TU Berlin and FU Berlin.
 
 ## Overview of the Application
 
+![Facility dashboard](./Documentation/images/screenshots1306/dashboard.png)
+
+
+![Pump data](./Documentation/images/screenshots1306/pumpData.png)
+
+
+![Case dashboard](./Documentation/images/screenshots1306/Cases.jpeg)
+
+
+![Create Case](https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/blob/develop/Documentation/images/screenshots1306/createCase%20(3).png)
+
+
+
 ## Link to the architecture Document
 
 [Architecture project wiki page](https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/wiki/Architecture)

@@ -1,1 +1,1 @@
-export * from './lib/insight-hub.module';
+export * from './lib';

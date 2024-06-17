@@ -1,15 +1,23 @@
 import { faker } from '@faker-js/faker';
+import { HttpService } from '@nestjs/axios';
+import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Prisma } from '@prisma/client';
+import { XdIotTimeSeriesService } from 'common-backend-insight-hub';
+import { XdTokenManagerService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import { ESortOrder, IGetTimeSeriesParams, IGetTimeseriesQuery } from 'facilities-shared-models';
-import { lastValueFrom } from 'rxjs';
+import { omit } from 'lodash';
+import { lastValueFrom, of } from 'rxjs';
 
 import { XdTimeseriesService } from './timeseries.service';
+
+const INSIGHT_HUB_OPTIONS = 'INSIGHT_HUB_OPTIONS';
 
 describe('TimeseriesService', () => {
 	let service: XdTimeseriesService;
 	let prisma: PrismaService = new PrismaService();
+	let iothub: XdIotTimeSeriesService;
 
 	beforeEach(async () => {
 		const prismaServiceMock = {
@@ -24,7 +32,14 @@ describe('TimeseriesService', () => {
 						data: JSON.stringify({ test: 'test', test2: 'test2' }),
 					},
 				]),
+
+				upsert: jest.fn(),
 			},
+			$transaction: jest.fn(),
+		};
+
+		const httpServiceMock = {
+			get: jest.fn().mockImplementation(() => of({ data: {} })),
 		};
 
 		const module: TestingModule = await Test.createTestingModule({
@@ -34,11 +49,45 @@ describe('TimeseriesService', () => {
 					provide: PrismaService,
 					useValue: prismaServiceMock,
 				},
+				{
+					provide: HttpService,
+					useValue: httpServiceMock,
+				},
+				{
+					provide: XdIotTimeSeriesService,
+					useValue: {
+						getTimeSeriesData: jest.fn().mockReturnValue(of([])),
+					},
+				},
+				{
+					provide: HttpService,
+					useValue: httpServiceMock,
+				},
+				{
+					provide: INSIGHT_HUB_OPTIONS,
+					useValue: {
+						apiUrl: 'https://gateway.eu1.mindsphere.io/api',
+						apiKey: 'test',
+					},
+				},
+				{
+					provide: XdTokenManagerService,
+					useValue: {
+						getOrCreateBearerToken: jest.fn().mockReturnValue(of('test_token')),
+					},
+				},
+				{
+					provide: Logger,
+					useValue: {
+						error: jest.fn(),
+					},
+				},
 			],
 		}).compile();
 
 		service = module.get<XdTimeseriesService>(XdTimeseriesService);
 		prisma = module.get<PrismaService>(PrismaService);
+		iothub = module.get<XdIotTimeSeriesService>(XdIotTimeSeriesService);
 	});
 
 	afterAll(() => {
@@ -54,25 +103,27 @@ describe('TimeseriesService', () => {
 			const flow = faker.string.sample();
 			const presure = faker.string.sample();
 			const findManyResult = {
+				name: faker.string.sample(),
+				location: {},
 				time: faker.date.recent(),
-				timeSeriesItementityId: faker.string.uuid(),
-				timeSeriesItempropertySetName: faker.string.sample(),
+				timeSeriesItemAssetId: faker.string.uuid(),
+				timeSeriesItemPropertySetName: faker.string.sample(),
 				data: JSON.stringify({ flow: flow, presure: presure }) as Prisma.JsonValue,
 			};
 
 			const findManySpy = jest
 				.spyOn(prisma.timeSeriesDataItem, 'findMany')
-				.mockResolvedValue([findManyResult]);
+				.mockResolvedValue([ findManyResult ]);
 
 			const params: IGetTimeSeriesParams = {
-				entityId: findManyResult.timeSeriesItementityId,
-				propertySetName: findManyResult.timeSeriesItempropertySetName,
+				assetId: findManyResult.timeSeriesItemAssetId,
+				propertySetName: findManyResult.timeSeriesItemPropertySetName,
 			};
 
 			const result = await lastValueFrom(
 				service.getTimeSeriesFromDB({
 					...params,
-					select: ['flow', 'presure'],
+					select: [ 'flow', 'presure' ],
 				}),
 			);
 
@@ -91,23 +142,25 @@ describe('TimeseriesService', () => {
 			const flow = faker.string.sample();
 			const presure = faker.string.sample();
 			const findManyResult = {
+				name: faker.string.sample(),
+				location: {},
 				time: new Date(),
-				timeSeriesItementityId: faker.string.uuid(),
-				timeSeriesItempropertySetName: faker.string.sample(),
+				timeSeriesItemAssetId: faker.string.uuid(),
+				timeSeriesItemPropertySetName: faker.string.sample(),
 				data: JSON.stringify({ flow: flow, presure: presure }) as Prisma.JsonValue,
 			};
 
 			const findManySpy = jest
 				.spyOn(prisma.timeSeriesDataItem, 'findMany')
-				.mockResolvedValue([findManyResult]);
+				.mockResolvedValue([ findManyResult ]);
 
 			const params: IGetTimeSeriesParams = {
-				entityId: findManyResult.timeSeriesItementityId,
-				propertySetName: findManyResult.timeSeriesItempropertySetName,
+				assetId: findManyResult.timeSeriesItemAssetId,
+				propertySetName: findManyResult.timeSeriesItemPropertySetName,
 			};
 
 			const query: IGetTimeseriesQuery = {
-				select: ['flow'],
+				select: [ 'flow' ],
 			};
 
 			const result = await lastValueFrom(
@@ -127,13 +180,59 @@ describe('TimeseriesService', () => {
 			]);
 		});
 
+		it('should call the iothub service if the local param is set to true', async () => {
+			const getTimeSeriesDataSpy = jest
+				.spyOn(iothub, 'getTimeSeriesData')
+				.mockReturnValue(of([]));
+
+			const findManySpy = jest
+				.spyOn(prisma.timeSeriesDataItem, 'findMany')
+				.mockResolvedValue([]);
+
+			const params: IGetTimeSeriesParams = {
+				assetId: faker.string.uuid(),
+				propertySetName: faker.string.sample(),
+			};
+
+			const query: IGetTimeseriesQuery = {
+				select: [ 'flow' ],
+			};
+
+			await lastValueFrom(
+				service.getTimeSeriesFromApi({
+					...params,
+					...query,
+				}),
+			);
+
+			expect(getTimeSeriesDataSpy).toHaveBeenCalledTimes(1);
+
+			expect(findManySpy).toHaveBeenCalledTimes(0);
+
+			expect(getTimeSeriesDataSpy).toHaveBeenCalledWith(
+				params.assetId,
+				params.propertySetName,
+				omit(query, 'select'),
+			);
+
+			await lastValueFrom(
+				service.getTimeSeriesFromDB({
+					...params,
+					...query,
+				}),
+			);
+
+			expect(getTimeSeriesDataSpy).toHaveBeenCalledTimes(1);
+			expect(findManySpy).toHaveBeenCalledTimes(1);
+		});
+
 		it('should use the correct args to query the time series data', async () => {
 			const findManySpy = jest
 				.spyOn(prisma.timeSeriesDataItem, 'findMany')
 				.mockResolvedValue([]);
 
 			const params: IGetTimeSeriesParams = {
-				entityId: faker.string.uuid(),
+				assetId: faker.string.uuid(),
 				propertySetName: faker.string.sample(),
 			};
 
@@ -141,7 +240,7 @@ describe('TimeseriesService', () => {
 				from: faker.date.past(),
 				to: faker.date.recent(),
 				limit: faker.number.int(10),
-				sort: ESortOrder.ASC,
+				sort: ESortOrder.ASCENDING,
 			};
 
 			await lastValueFrom(
@@ -155,8 +254,8 @@ describe('TimeseriesService', () => {
 
 			expect(findManySpy).toHaveBeenCalledWith({
 				where: {
-					timeSeriesItementityId: params.entityId,
-					timeSeriesItempropertySetName: params.propertySetName,
+					timeSeriesItemAssetId: params.assetId,
+					timeSeriesItemPropertySetName: params.propertySetName,
 					time: {
 						gte: query.from,
 						lte: query.to,

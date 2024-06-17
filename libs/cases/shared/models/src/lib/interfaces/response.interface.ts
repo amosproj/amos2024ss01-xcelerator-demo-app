@@ -1,4 +1,4 @@
-import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
+import { ECasePriority, ECaseStatus, ECaseType } from '../enums';
 
 // TODO: Add User model
 export interface ICaseResponse {
@@ -6,13 +6,13 @@ export interface ICaseResponse {
 	handle: string;
 	dueDate: Date;
 	title: string;
-	type: CaseType;
-	status: CaseStatus;
+	type: ECaseType;
+	status: ECaseStatus;
 	// assignedTo: User,
 	// assignedToId: Int,
 	description: string;
 	source: string;
-	priority: CasePriority;
+	priority: ECasePriority;
 	createdBy: string;
 	createdAt: Date;
 	eTag: string;

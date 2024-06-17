@@ -5,9 +5,8 @@ import {  FormsModule, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { faker } from '@faker-js/faker';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+import { ECasePriority, ECaseStatus, ECaseType } from '@frontend/cases/shared/models';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
-import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { IxModule, ToastService } from '@siemens/ix-angular';
 
 import { CaseFormData } from '../interfaces/case-form-data.interface';
@@ -37,8 +36,8 @@ export class CreateCaseComponent {
     constructor(private readonly toastService: ToastService) {
     }
 
-    casePriority = CasePriority;
-    caseType = CaseType;
+    casePriority = ECasePriority;
+    caseType = ECaseType;
     wasValidated = false;
     value = '1';
 
@@ -121,7 +120,7 @@ export class CreateCaseComponent {
             dueDate: formData.dueDate,
             title: formData.title,
             type: formData.selectType,
-            status: CaseStatus.OPEN,
+            status: ECaseStatus.OPEN,
             description: formData.text,
             source: 'Internal System ' + faker.number.int({min: 1, max: 10}),
             priority: formData.selectPriority,

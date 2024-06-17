@@ -28,7 +28,7 @@ export interface IBreadcrumbData {
 @Component({
 	selector: 'app-header',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink, RouterOutlet, LegalInformationComponent],
+	imports: [ CommonModule, IxModule, RouterLink, RouterOutlet, LegalInformationComponent ],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.scss',
 	encapsulation: ViewEncapsulation.None,

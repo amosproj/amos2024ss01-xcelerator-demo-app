@@ -1,10 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { HttpService } from '@nestjs/axios';
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AxiosResponse } from 'axios';
 import { IInsightHub } from 'common-backend-models';
-import { firstValueFrom, Observable, of } from 'rxjs';
+import { firstValueFrom, lastValueFrom, Observable, of } from 'rxjs';
 
 import { INSIGHT_HUB_OPTIONS } from '../tokens';
 import { XdBaseBearerInteractionService } from './base-bearer-interaction.service';
@@ -116,7 +116,7 @@ describe('XdBaseBearerInteractionService', () => {
 			expect(response).toEqual(mockResponse);
 		});
 
-		it('should log error and return empty response', async () => {
+		it('should log error and throw it respectively', async () => {
 			const error = new Error('Test error');
 			const getSpy = jest
 				.spyOn(httpService, 'get')
@@ -125,7 +125,7 @@ describe('XdBaseBearerInteractionService', () => {
 				);
 
 			const errorSpy = jest.spyOn(logger, 'error');
-			const response = await firstValueFrom(service.getData());
+			await expect(lastValueFrom(service.getData())).rejects.toThrow(HttpException);
 
 			expect(getSpy).toHaveBeenCalledTimes(1);
 			expect(getSpy).toHaveBeenCalledWith('https://gateway.eu1.mindsphere.io/api/test', {
@@ -135,7 +135,6 @@ describe('XdBaseBearerInteractionService', () => {
 			});
 			expect(errorSpy).toHaveBeenCalledTimes(1);
 			expect(errorSpy).toHaveBeenCalledWith('MockService: Error while fetching data', error);
-			expect(response).toEqual({});
 		});
 	});
 });

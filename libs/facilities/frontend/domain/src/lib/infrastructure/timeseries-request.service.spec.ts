@@ -51,7 +51,7 @@ describe('TimeseriesRequestService', () => {
 			const mockResponse: ITimeSeriesItemResponse[] = [];
 
 			const params: IGetTimeSeriesParams = {
-				entityId: faker.string.uuid(),
+				assetId: faker.string.uuid(),
 				propertySetName: faker.string.sample(),
 			};
 
@@ -65,7 +65,7 @@ describe('TimeseriesRequestService', () => {
 			const result = await firstValueFrom(service.getTimeSeries(params, query));
 			expect(spy).toHaveBeenCalledTimes(1);
 			expect(spy).toHaveBeenCalledWith(
-				`/api/timeseries/${params.entityId}/${params.propertySetName}`,
+				`/api/timeseries/${params.assetId}/${params.propertySetName}`,
 				{ params: expect.any(Object) },
 			);
 			expect(result).toEqual(mockResponse);

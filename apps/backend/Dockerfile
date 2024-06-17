@@ -13,7 +13,7 @@ FROM base as installer
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile --prod --ignore-scripts
 
 FROM base as builder
 
