@@ -1,15 +1,14 @@
+<ix-button
+    icon="plus"
+    [routerLink]="['/cases/create']"
+    class="absolute top-20 right-4 !z-[50]"
+>
+    New Case
+</ix-button>
 <ix-content>
-	<ix-button 
-		icon="plus"
-		[routerLink]="['/cases/create']" 
-		class="absolute top-0 right-4"
-	>
-		New Case
-	</ix-button>
-
 	<ix-event-list>
-		@for(_case of _cases(); track _case.handle) {
-			<ix-event-list-item [routerLink]="['/cases', _case.handle]">
+		@for(_case of _cases(); track _case.id) {
+			<ix-event-list-item [routerLink]="['/cases', _case.id]">
 				{{_case.title}}
 				<ix-pill>{{_case.status}}</ix-pill>
 				<ix-pill>

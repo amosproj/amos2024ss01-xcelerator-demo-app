@@ -23,8 +23,7 @@ export class DetailCaseComponent {
         if (_case === undefined) {
             return;
         }
-
-        return _case.find((_case) => _case.handle === this.route.snapshot.params['handle']);
+        return _case.find((_case) => String(_case.id) === this.route.snapshot.params['id']);
     });
 
     constructor(private route: ActivatedRoute) {}

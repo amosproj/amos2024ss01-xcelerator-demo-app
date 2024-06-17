@@ -45,11 +45,11 @@ export const CASES_SHELL_ROUTES: Route[] = [
 			},
 			{
 				// Route to detail case
-				path: ':handle',
+				path: ':id',
 				data: {
 					breadcrumbs: {
 						label: 'Details',
-						url: 'cases/:handle',
+						url: 'cases/:id',
 					},
 					title: 'Detail of case',
 					subtitle: '',

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@
 import { toSignal } from '@angular/core/rxjs-interop';
 import {  FormsModule, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { faker } from '@faker-js/faker';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
@@ -65,6 +66,8 @@ export class CreateCaseComponent {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 next: (_) => {
                     this.showSuccessToast();
+                    this.wasValidated = false;
+                    form.reset();
                 },
             });
         }
@@ -113,18 +116,18 @@ export class CreateCaseComponent {
      * @returns {JSON}
      */
     private mapFormData(formData: CaseFormData) {
-
         return {
-            handle: 'AA-1234',
+            handle: 'AA-' + faker.number.int({ min: 1000, max: 9999 }),
             dueDate: formData.dueDate,
             title: formData.title,
             type: formData.selectType,
             status: CaseStatus.OPEN,
             description: formData.text,
-            source: 'Internal System A',
+            source: 'Internal System ' + faker.number.int({min: 1, max: 10}),
             priority: formData.selectPriority,
             createdBy: formData.email,
-            eTag: 'etag_value_here'
+            eTag: faker.string.alphanumeric(10),
         };
     }
+
 }
