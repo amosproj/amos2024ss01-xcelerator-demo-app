@@ -19,7 +19,7 @@ export const CASES_SHELL_ROUTES: Route[] = [
 				// Route to list page
 				path: '',
 				loadComponent: () =>
-					import('cases-frontend-view').then((m) => m.CaseBrowsComponent),
+					import('cases-frontend-view').then((m) => m.CaseBrowseComponent),
 			},
 			{
 				// Route to create a case
@@ -51,11 +51,11 @@ export const CASES_SHELL_ROUTES: Route[] = [
 			},
 			{
 				// Route to detail case
-				path: ':handle',
+				path: ':id',
 				data: {
 					breadcrumbs: {
 						label: 'Details',
-						url: 'cases/:handle',
+						url: 'cases/:id',
 					},
 					title: 'Detail of case',
 					subtitle: '',
