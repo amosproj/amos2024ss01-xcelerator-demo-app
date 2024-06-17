@@ -1,3 +1,5 @@
+import { ITimeSeriesItemData } from './time-series-item-data.interface';
+
 export interface ITimeSeriesItem {
 	/**
 	 * The id of the time series item
@@ -5,9 +7,9 @@ export interface ITimeSeriesItem {
 	id: string;
 
 	/**
-	 * The connected entity id
+	 * The connected asset id
 	 */
-	entityId: string;
+	assetId: string;
 
 	/**
 	 * The property set name
@@ -17,5 +19,5 @@ export interface ITimeSeriesItem {
 	/**
 	 * The time series data items
 	 */
-	timeSeriesDataItems: ITimeSeriesItem[];
+	timeSeriesDataItems: ITimeSeriesItemData[];
 }

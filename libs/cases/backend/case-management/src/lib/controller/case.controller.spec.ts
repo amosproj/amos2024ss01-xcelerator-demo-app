@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { ICaseResponse, ICreateCaseBody } from '@frontend/cases/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { firstValueFrom, of } from 'rxjs';
 
 import { XdCaseService } from '../services/case.service';
@@ -16,11 +15,11 @@ describe('CaseController', () => {
 		handle: faker.string.alpha(10),
 		dueDate: faker.date.past(),
 		title: faker.lorem.sentence(),
-		type: faker.helpers.enumValue(CaseType),
-		status: faker.helpers.enumValue(CaseStatus),
+		type: faker.helpers.enumValue(ECaseType),
+		status: faker.helpers.enumValue(ECaseStatus),
 		description: faker.lorem.sentence(),
 		source: faker.string.alpha(),
-		priority: faker.helpers.enumValue(CasePriority),
+		priority: faker.helpers.enumValue(ECasePriority),
 		createdBy: faker.internet.email(),
 		eTag: faker.string.alpha(),
 	} as ICaseResponse;
@@ -35,7 +34,7 @@ describe('CaseController', () => {
 		};
 
 		const module: TestingModule = await Test.createTestingModule({
-			controllers: [XdCaseController],
+			controllers: [ XdCaseController ],
 			providers: [
 				{
 					provide: XdCaseService,
@@ -53,7 +52,7 @@ describe('CaseController', () => {
 	});
 
 	it('should call getAllCases', async () => {
-		const getAllReturnValue = [returnValue] as ICaseResponse[];
+		const getAllReturnValue = [ returnValue ] as ICaseResponse[];
 		const spy = jest.spyOn(service, 'getAllCases').mockReturnValue(of(getAllReturnValue));
 
 		const result = await firstValueFrom(controller.getAllCases());
@@ -81,11 +80,11 @@ describe('CaseController', () => {
 	it('should call createCase', async () => {
 		const body = {
 			title: faker.lorem.sentence(),
-			type: faker.helpers.enumValue(CaseType),
-			status: faker.helpers.enumValue(CaseStatus),
+			type: faker.helpers.enumValue(ECaseType),
+			status: faker.helpers.enumValue(ECaseStatus),
 			description: faker.lorem.sentence(),
 			source: faker.string.alpha(),
-			priority: faker.helpers.enumValue(CasePriority),
+			priority: faker.helpers.enumValue(ECasePriority),
 			createdBy: faker.internet.email(),
 			dueDate: faker.date.future(),
 			eTag: faker.string.alpha(),
@@ -113,11 +112,11 @@ describe('CaseController', () => {
 			handle: faker.string.alpha(10),
 			dueDate: faker.date.future(),
 			title: faker.lorem.sentence(),
-			type: faker.helpers.enumValue(CaseType),
-			status: faker.helpers.enumValue(CaseStatus),
+			type: faker.helpers.enumValue(ECaseType),
+			status: faker.helpers.enumValue(ECaseStatus),
 			description: faker.lorem.sentence(),
 			source: faker.string.alpha(),
-			priority: faker.helpers.enumValue(CasePriority),
+			priority: faker.helpers.enumValue(ECasePriority),
 			createdBy: faker.internet.email(),
 			eTag: faker.string.alpha(),
 			modifiedBy: faker.internet.email(),

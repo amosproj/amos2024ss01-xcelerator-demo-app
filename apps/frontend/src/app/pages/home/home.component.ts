@@ -6,7 +6,7 @@ import { IxModule } from '@siemens/ix-angular';
 @Component({
 	selector: 'app-home',
 	standalone: true,
-	imports: [CommonModule, IxModule, RouterLink, NgOptimizedImage],
+	imports: [ CommonModule, IxModule, RouterLink, NgOptimizedImage ],
 	templateUrl: './home.component.html',
 	styleUrl: './home.component.scss',
 	encapsulation: ViewEncapsulation.None,

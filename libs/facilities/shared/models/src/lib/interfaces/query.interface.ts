@@ -3,6 +3,10 @@
  */
 export interface IGetTimeseriesQuery {
 	/**
+	 * Flag to indicate if the data should be fetched from the local database
+	 */
+	local?: boolean;
+	/**
 	 * Start date for the time series data
 	 */
 	from?: Date;
@@ -32,6 +36,6 @@ export interface IGetTimeseriesQuery {
  * Enum for defining the sort order
  */
 export enum ESortOrder {
-	ASC = 'asc',
-	DESC = 'desc',
+	ASCENDING = 'asc',
+	DESCENDING = 'desc',
 }

@@ -9,8 +9,9 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import {  FormsModule, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { faker } from '@faker-js/faker';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
-// eslint-disable-next-line @nx/enforce-module-boundaries
+import { ECasePriority, ECaseStatus, ECaseType } from '@frontend/cases/shared/models';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
 import { IxModule, IxSelectCustomEvent, ToastService } from '@siemens/ix-angular';
@@ -46,8 +47,8 @@ export class CreateCaseComponent implements OnInit {
     constructor(private readonly toastService: ToastService) {
     }
 
-    casePriority = CasePriority;
-    caseType = CaseType;
+    casePriority = ECasePriority;
+    caseType = ECaseType;
     wasValidated = false;
 
     createCaseForm = {
@@ -79,6 +80,8 @@ export class CreateCaseComponent implements OnInit {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 next: (_) => {
                     this.showSuccessToast();
+                    this.wasValidated = false;
+                    form.reset();
                 },
             });
         }
@@ -174,18 +177,18 @@ export class CreateCaseComponent implements OnInit {
      * @returns {JSON}
      */
     private mapFormData(formData: CaseFormData) {
-
         return {
-            handle: 'AA-000',
+            handle: 'AA-' + faker.number.int({ min: 1000, max: 9999 }),
             dueDate: formData.dueDate,
             title: formData.title,
             type: formData.selectType,
-            status: CaseStatus.OPEN,
+            status: ECaseStatus.OPEN,
             description: formData.text,
-            source: 'Internal System A',
+            source: 'Internal System ' + faker.number.int({min: 1, max: 10}),
             priority: formData.selectPriority,
             createdBy: formData.email,
-            eTag: 'etag_value_here'
+            eTag: faker.string.alphanumeric(10),
         };
     }
+
 }

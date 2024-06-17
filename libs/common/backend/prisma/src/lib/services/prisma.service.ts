@@ -28,7 +28,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 		const data = typeof json === 'string' ? JSON.parse(json) : json;
 
 		return Object.fromEntries(
-			Object.entries(data).filter(([key, value]) => {
+			Object.entries(data).filter(([ key, value ]) => {
 				if (this.isTTimeSeriesData(value)) {
 					return select ? select.includes(key) : true;
 				}

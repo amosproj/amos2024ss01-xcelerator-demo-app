@@ -54,7 +54,11 @@
 							},
 							{
 								"sourceTag": "domain:cases",
-								"onlyDependOnLibsWithTags": ["domain:cases", "domain:common"]
+								"onlyDependOnLibsWithTags": [
+									"domain:cases",
+									"domain:facilities",
+									"domain:common"
+								]
 							},
 							{
 								"sourceTag": "domain:facilities",
@@ -72,7 +76,7 @@
 							{
 								"sourceTag": "kind:frontend",
 								"onlyDependOnLibsWithTags": ["kind:frontend", "kind:shared"],
-								"bannedExternalImports": ["@nestjs/*"]
+								"bannedExternalImports": ["@nestjs/*", "@prisma/*"]
 							},
 							{
 								"sourceTag": "kind:shared",

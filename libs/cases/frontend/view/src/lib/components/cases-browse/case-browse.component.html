@@ -1,0 +1,35 @@
+<ix-button [routerLink]="['/cases/open']" class="absolute top-20 right-32 !z-[50]">
+    View Open Cases
+</ix-button>
+<ix-button [routerLink]="['/cases/create']" class="absolute top-20 right-4 !z-[50]">
+    Create Case
+</ix-button>
+<ix-content>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Status</th>
+            <th scope="col">Due to</th>
+            <th scope="col">Description</th>
+        </tr>
+        </thead>
+    <tbody>
+        @for (_case of _sortedCases(); track _case.id) {
+            <tr
+                [routerLink]="['/cases', _case.handle]"
+                class="clickable-row"
+                [ngClass]="getStatusClasses(_case)"
+            >
+                <th scope="row">{{ _case.handle }}</th>
+                <td>{{ _case.title }}</td>
+                <td>{{ _case.priority }}</td>
+                <td>{{ _case.status }}</td>
+                <td>{{ _case.dueDate }}</td>
+                <td>{{ _case.description }}</td>
+            </tr>
+        }
+    </table>
+</ix-content>
