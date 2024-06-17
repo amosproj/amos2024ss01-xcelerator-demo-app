@@ -1,19 +1,7 @@
-<ix-button
-    icon="plus"
-    [routerLink]="['/cases/create']"
-    class="absolute top-20 right-4 !z-[50]"
->
+<ix-button icon="plus" [routerLink]="['/cases/create']" class="absolute top-20 right-4 !z-[50]">
     New Case
 </ix-button>
 <ix-content>
-	<ix-button 
-		icon="plus"
-		[routerLink]="['/cases/create']" 
-		class="absolute top-0 right-4"
-	>
-		New Case
-	</ix-button>
-
 	<table class="table">
 		<thead>
 			<tr>
@@ -21,13 +9,12 @@
 				<th scope="col">Title</th>
 				<th scope="col">Priority</th>
 				<th scope="col">Status</th>
-				<th scope="col">Assigned to</th>
 				<th scope="col">Due to</th>
 				<th scope="col">Description</th>
 			</tr>
 		</thead>
 		<tbody>
-			@for (_case of _cases(); track _case.id) {
+			@for (_case of _filteredCases(); track _case.id) {
 				<tr
 					[routerLink]="['/cases', _case.id]"
 					class="clickable-row"
@@ -37,7 +24,6 @@
 					<td>{{ _case.title }}</td>
 					<td>{{ _case.priority }}</td>
 					<td>{{ _case.status }}</td>
-					<td>{{ _case.assignedTo }}</td>
 					<td>{{ _case.dueDate }}</td>
 					<td>{{ _case.description }}</td>
 				</tr>

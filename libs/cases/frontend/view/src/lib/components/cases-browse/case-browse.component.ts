@@ -1,25 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
+import { ICaseResponse } from '@frontend/cases/shared/models';
 import { IxModule } from '@siemens/ix-angular';
-
-import { ICaseMock } from '../case.mocks/case.interface';
-import { cases } from '../case.mocks/fackerMock';
 
 @Component({
     selector: 'lib-brows-cases',
     standalone: true,
     imports: [ CommonModule, IxModule, RouterLink ],
-    templateUrl: './case-brows.component.html',
-    styleUrls: [ './case-brows.component.scss' ],
+    templateUrl: './case-browse.component.html',
+    styleUrls: [ './case-browse.component.scss' ],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CaseBrowsComponent {
-    protected readonly _cases = cases;
-    sortedCases: ICaseMock[];
-
-    ngOnInit(): void {
+export class CaseBrowseComponent {
+    protected readonly _browseFacade = inject(XdBrowseFacadesService);
+    protected readonly _cases = toSignal(this._browseFacade.getAllCases());
+    protected readonly _sortedCases = computed( () => {
+        const cases = this._cases();
+        if (cases === undefined) {
+            return;
+        }
         const statusOrder = [
             'OPEN',
             'INPROGRESS',
@@ -31,7 +34,7 @@ export class CaseBrowsComponent {
         ];
         const priorityOrder = [ 'EMERGENCY', 'HIGH', 'MEDIUM', 'LOW' ];
 
-        this.sortedCases = [ ...this._cases ].sort((a, b) => {
+        [ ...cases ].sort((a, b) => {
             const statusAIndex = statusOrder.indexOf(a.status);
             const statusBIndex = statusOrder.indexOf(b.status);
 
@@ -40,7 +43,7 @@ export class CaseBrowsComponent {
                 const priorityBIndex = priorityOrder.indexOf(b.priority.toUpperCase());
 
                 if (priorityAIndex === priorityBIndex) {
-                    return a.handle.localeCompare(b.handle);
+                    return a.id - b.id;
                 } else if (priorityAIndex === -1) {
                     return 1;
                 } else if (priorityBIndex === -1) {
@@ -54,18 +57,20 @@ export class CaseBrowsComponent {
             }
             return statusAIndex - statusBIndex;
         });
-    }
 
-    getStatusClasses(_case: ICaseMock) {
-    return {
-    emergency: _case.priority === 'EMERGENCY',
-    'status-open': _case.status === 'OPEN',
-    'status-inprogress': _case.status === 'INPROGRESS',
-    'status-overdue': _case.status === 'OVERDUE',
-    'status-onhold': _case.status === 'ONHOLD',
-    'status-done': _case.status === 'DONE',
-    'status-cancelled': _case.status === 'CANCELLED',
-    'status-archived': _case.status === 'ARCHIVED'
+        return cases;
+    })
+
+    getStatusClasses(_case: ICaseResponse) {
+        return {
+            emergency: _case.priority === 'EMERGENCY',
+            'status-open': _case.status === 'OPEN',
+            'status-inprogress': _case.status === 'INPROGRESS',
+            'status-overdue': _case.status === 'OVERDUE',
+            'status-onhold': _case.status === 'ONHOLD',
+            'status-done': _case.status === 'DONE',
+            'status-cancelled': _case.status === 'CANCELLED',
+            'status-archived': _case.status === 'ARCHIVED'
         };
     }
 }

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CaseBrowsComponent } from './case-brows.component';
+import { CaseBrowseComponent } from './case-browse.component';
 
 describe('CaseBrowsComponent', () => {
-	let component: CaseBrowsComponent;
-	let fixture: ComponentFixture<CaseBrowsComponent>;
+	let component: CaseBrowseComponent;
+	let fixture: ComponentFixture<CaseBrowseComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ CaseBrowsComponent ],
+			imports: [ CaseBrowseComponent ],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(CaseBrowsComponent);
+		fixture = TestBed.createComponent(CaseBrowseComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

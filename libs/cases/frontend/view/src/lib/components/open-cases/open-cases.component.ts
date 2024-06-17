@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit,ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
+import { ICaseResponse } from '@frontend/cases/shared/models';
 import { IxModule } from '@siemens/ix-angular';
-
-import { ICaseMock } from '../case.mocks/case.interface';
-import { cases } from '../case.mocks/fackerMock';
 
 @Component({
 	selector: 'lib-open-cases',
@@ -16,18 +16,21 @@ import { cases } from '../case.mocks/fackerMock';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class OpenCasesComponent implements OnInit {
-    protected readonly _cases = cases;
-    filteredCases: ICaseMock[];
-
-    ngOnInit(): void {
-        this.filteredCases = this._cases.filter(_case => _case.status === 'OPEN').sort((a, b) => {
+export class OpenCasesComponent  {
+    protected readonly _browseFacade = inject(XdBrowseFacadesService);
+    protected readonly _cases = toSignal(this._browseFacade.getAllCases());
+    protected readonly _filteredCases = computed(() => {
+        const cases = this._cases();
+        if (cases === undefined) {
+            return;
+        }
+        cases.filter((_case: ICaseResponse) => _case.status === 'OPEN').sort((a, b) => {
             const priorityOrder = [ 'EMERGENCY', 'HIGH', 'MEDIUM', 'LOW' ];
             const priorityAIndex = priorityOrder.indexOf(a.priority.toUpperCase());
             const priorityBIndex = priorityOrder.indexOf(b.priority.toUpperCase());
 
             if (priorityAIndex === priorityBIndex) {
-                return a.handle.localeCompare(b.handle);
+                return a.id - b.id;
             } else if (priorityAIndex === -1) {
                 return 1;
             } else if (priorityBIndex === -1) {
@@ -35,9 +38,11 @@ export class OpenCasesComponent implements OnInit {
             }
             return priorityAIndex - priorityBIndex;
         });
-    }
 
-    getStatusClasses(_case: ICaseMock) {
+        return cases;
+    });
+
+    getStatusClasses(_case: ICaseResponse) {
         return {
             emergency: _case.priority === 'EMERGENCY',
             'status-open': _case.status === 'OPEN',

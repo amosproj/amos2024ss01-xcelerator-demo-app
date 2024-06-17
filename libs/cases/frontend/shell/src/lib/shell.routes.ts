@@ -19,7 +19,7 @@ export const CASES_SHELL_ROUTES: Route[] = [
 				// Route to list page
 				path: '',
 				loadComponent: () =>
-					import('cases-frontend-view').then((m) => m.CaseBrowsComponent),
+					import('cases-frontend-view').then((m) => m.CaseBrowseComponent),
 			},
 			{
 				// Route to create a case
