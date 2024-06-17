@@ -10,8 +10,6 @@
 
             <ix-select
                 id="facilitySelection"
-                i18nPlaceholder="Select a Facility"
-                i18nSelectListHeader="Please select a facility"
                 (valueChange)="onFacilityChange($event)"
                 (inputChange)="onFacilityInputChange($event)"
             >
@@ -22,7 +20,7 @@
                     ></ix-select-item>
                 }
             </ix-select>
-            <ix-input-group class="absolute pointer-events-none" id="input-facilitySelection" >
+            <ix-input-group class="absolute pointer-events-none" id="input-facilitySelection">
                 <input
                     [(ngModel)]="createCaseForm.selectFacility"
                     placeholder="{{facilityPlaceholder()}}"
@@ -47,55 +45,56 @@
             ></textarea>
 
             <div class="flex flex-row gap-4">
-
                 <lib-date-dropdown-wrapper
                     [(ngModel)]="createCaseForm.dueDate"
                     name="dueDate"
                     required
                 ></lib-date-dropdown-wrapper>
 
-                <ix-select
-                    name="selectType"
-                    i18nPlaceholder="Type"
-                    i18nSelectListHeader="Select type"
-                    [(ngModel)]="createCaseForm.selectType"
-                    required
-                >
-                    <ix-select-item label="Planned" [value]="caseType.PLANNED"></ix-select-item>
-                    <ix-select-item label="Incident" [value]="caseType.INCIDENT"></ix-select-item>
-                    <ix-select-item label="Annotation" [value]="caseType.ANNOTATION"></ix-select-item>
-                </ix-select>
+                <div class="flex flex-col">
+                    <ix-select
+                        id="typeSelection"
+                        (valueChange)="onTypeChange($event)"
+                        (inputChange)="onTypeInputChange($event)"
+                    >
+                        <ix-select-item label="PLANNED" [value]="caseType.PLANNED"></ix-select-item>
+                        <ix-select-item label="INCIDENT" [value]="caseType.INCIDENT"></ix-select-item>
+                        <ix-select-item label="ANNOTATION" [value]="caseType.ANNOTATION"></ix-select-item>
+                    </ix-select>
 
-                <ix-select
-                    name="selectPriority"
-                    i18nPlaceholder="Priority"
-                    i18nSelectListHeader="Select the priority"
-                    [(ngModel)]="createCaseForm.selectPriority"
-                    required
-                >
-                    <ix-select-item label="Low" [value]="casePriority.LOW"></ix-select-item>
-                    <ix-select-item label="Medium" [value]="casePriority.MEDIUM"></ix-select-item>
-                    <ix-select-item label="High" [value]="casePriority.HIGH"></ix-select-item>
-                    <ix-select-item label="Emergency" [value]="casePriority.EMERGENCY"></ix-select-item>
-                </ix-select>
+                    <ix-input-group class="absolute pointer-events-none" id="input-typeSelection">
+                        <input
+                            [(ngModel)]="createCaseForm.selectType"
+                            placeholder="{{typePlaceholder()}}"
+                            name="selectType"
+                            required
+                        />
+                        <span slot="input-end"><ix-icon name="chevron-down" size="16"></ix-icon></span>
+                    </ix-input-group>
+                </div>
+
+                <div class="flex flex-col">
+                    <ix-select
+                        id="prioritySelection"
+                        (valueChange)="onPriorityChange($event)"
+                        (inputChange)="onPriorityInputChange($event)"
+                    >
+                        <ix-select-item label="LOW" [value]="casePriority.LOW"></ix-select-item>
+                        <ix-select-item label="MEDIUM" [value]="casePriority.MEDIUM"></ix-select-item>
+                        <ix-select-item label="HIGH" [value]="casePriority.HIGH"></ix-select-item>
+                        <ix-select-item label="EMERGENCY" [value]="casePriority.EMERGENCY"></ix-select-item>
+                    </ix-select>
+                    <ix-input-group class="absolute pointer-events-none" id="input-prioritySelection">
+                        <input
+                            [(ngModel)]="createCaseForm.selectPriority"
+                            placeholder="{{priorityPlaceholder()}}"
+                            name="selectPriority"
+                            required
+                        />
+                        <span slot="input-end"><ix-icon name="chevron-down" size="16"></ix-icon></span>
+                    </ix-input-group>
+                </div>
             </div>
-
-            <!-- Cases don't contain Phone Numbers
-            <ix-input-group>
-                <span slot="input-start">Telephone:</span>
-                <input
-                    placeholder="111-111-111"
-                    type="tel"
-                    name="phone"
-                    [(ngModel)]="createCaseForm.phone"
-                    pattern="[+]?[0-9]+"
-                    maxlength="16"
-                    required
-                />
-                <div class="valid-feedback">Looks good!</div>
-                <div class="invalid-feedback">Please provide a valid phone number</div>
-            </ix-input-group>
-            -->
 
             <ix-input-group>
                 <span slot="input-start">Email:</span>

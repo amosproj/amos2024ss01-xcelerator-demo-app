@@ -34,15 +34,14 @@ import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateCaseComponent implements OnInit{
+export class CreateCaseComponent implements OnInit {
     private readonly _browseFacade = inject(XdBrowseFacade);
     protected readonly _browseFacade2 = inject(XdBrowseFacadesService);
     protected readonly facilities = toSignal(this._browseFacade.getAllTimeseries());
 
     facilityPlaceholder = signal('Select Facility');
-
-    private _selectElement: HTMLElement | null;
-    private _inputElement: HTMLElement | null;
+    typePlaceholder = signal('Select Type');
+    priorityPlaceholder = signal('Select Priority');
 
     constructor(private readonly toastService: ToastService) {
     }
@@ -50,7 +49,6 @@ export class CreateCaseComponent implements OnInit{
     casePriority = CasePriority;
     caseType = CaseType;
     wasValidated = false;
-    value = '1';
 
     createCaseForm = {
         selectFacility: '',
@@ -58,19 +56,14 @@ export class CreateCaseComponent implements OnInit{
         dueDate: '',
         selectPriority: '',
         selectType: '',
-        phone: '',
         email: '',
         text: '',
     };
 
     ngOnInit(){
-        this._inputElement = document.getElementById('input-facilitySelection');
-        this._selectElement = document.getElementById('facilitySelection');
-        if(this._selectElement) {
-            this._resizeObserver.observe(this._selectElement);
-        } else {
-            throw new Error('Element not found');
-        }
+        this.resizeObserver('input-facilitySelection', 'facilitySelection');
+        this.resizeObserver('input-typeSelection', 'typeSelection');
+        this.resizeObserver('input-prioritySelection', 'prioritySelection');
     }
 
     /**
@@ -106,14 +99,6 @@ export class CreateCaseComponent implements OnInit{
         return this.createCaseForm.selectFacility;
     }
 
-    public set phoneValue(value: string) {
-        this.createCaseForm.phone = value;
-    }
-
-    public get phoneValue() {
-        return this.createCaseForm.phone;
-    }
-
     public set emailValue(value: string) {
         this.createCaseForm.email = value;
     }
@@ -128,20 +113,27 @@ export class CreateCaseComponent implements OnInit{
         );
     }
 
-    private _resizeObserver = new ResizeObserver(entries => {
-        entries.forEach(entry => {
-            const width = entry.contentRect.width;
-            const height = entry.contentRect.height;
-            const xPos = entry.contentRect.x;
-            const yPos = entry.contentRect.y;
-            if(this._inputElement && this._inputElement.style){
-                this._inputElement.style.width = `${width}px`;
-                this._inputElement.style.height = `${height}px`;
-                this._inputElement.style.x = `${xPos}`;
-                this._inputElement.style.y = `${yPos}`;
-            }
-        });
-    });
+    private resizeObserver(inputElement: string, selectElement: string) {
+        const input = document.getElementById(inputElement);
+        const select = document.getElementById(selectElement)
+        if (input && select) {
+            new ResizeObserver(entries => {
+                entries.forEach(entry => {
+                    const width = entry.contentRect.width;
+                    const height = entry.contentRect.height;
+                    const xPos = entry.contentRect.x;
+                    const yPos = entry.contentRect.y;
+                    if (input && input.style) {
+                        input.style.width = `${width}px`;
+                        input.style.height = `${height}px`;
+                        input.style.x = `${xPos}`;
+                        input.style.y = `${yPos}`;
+                    }
+                })
+            }).observe(select);
+        }
+    }
+
 
     onFacilityChange(event: IxSelectCustomEvent<string | string[]>) {
         if (event.target.value !== undefined) {
@@ -152,6 +144,28 @@ export class CreateCaseComponent implements OnInit{
     onFacilityInputChange(event: CustomEvent<string>) {
         this.createCaseForm.selectFacility = '';
         this.facilityPlaceholder.set(event.detail);
+    }
+
+    onTypeChange(event: IxSelectCustomEvent<string | string[]>) {
+        if (event.target.value !== undefined) {
+            this.createCaseForm.selectType = event.target.value.toString();
+        }
+    }
+
+    onTypeInputChange(event: CustomEvent<string>) {
+        this.createCaseForm.selectType = '';
+        this.typePlaceholder.set(event.detail);
+    }
+
+    onPriorityChange(event: IxSelectCustomEvent<string | string[]>) {
+        if (event.target.value !== undefined) {
+            this.createCaseForm.selectPriority = event.target.value.toString();
+        }
+    }
+
+    onPriorityInputChange(event: CustomEvent<string>) {
+        this.createCaseForm.selectPriority = '';
+        this.priorityPlaceholder.set(event.detail);
     }
 
     /**
