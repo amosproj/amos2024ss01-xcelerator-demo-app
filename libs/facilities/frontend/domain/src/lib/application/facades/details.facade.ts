@@ -6,7 +6,7 @@ import { FacilitiesRequestService } from '../../infrastructure/facilities-reques
 import { TimeSeriesRequestService } from '../../infrastructure/timeseries-request.service';
 
 /**
- * Details facades service.
+ * Facade for the details page of a facility
  */
 @Injectable({ providedIn: 'root' })
 export class XdDetailsFacade {
@@ -40,10 +40,20 @@ export class XdDetailsFacade {
         );
     }
 
+    /**
+     * Get a list of all the available timeSeries properties
+     * @param assetId The asset id.
+     */
     public getTimeSeriesItems(assetId: string){
         return this._timeseriesService.getTimeSeriesItems({ assetId });
     }
 
+    /**
+     * Get the specific data of a time series property of a facility
+     * @param assetId The asset id.
+     * @param propertySetName The property set name for which we will get the data.
+     * @param queryParams The query parameters.
+     */
     public getTimeSeriesDataItems(assetId: string, propertySetName: string, queryParams: any) {
         return this._timeseriesService.getTimeSeriesDataItems({ assetId, propertySetName }, queryParams);
     }
