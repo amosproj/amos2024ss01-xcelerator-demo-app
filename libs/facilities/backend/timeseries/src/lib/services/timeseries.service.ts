@@ -1,7 +1,6 @@
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ETimeSeriesOrdering, XdIotTimeSeriesService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
-import { error } from 'console';
 import {
 	IGetTimeSeriesParams,
 	IGetTimeseriesQuery,
@@ -9,7 +8,7 @@ import {
 	ITimeSeriesItemResponse,
 } from 'facilities-shared-models';
 import { pick } from 'lodash';
-import { catchError, from, map, Observable, switchMap, throwError } from 'rxjs';
+import { catchError, from, map, Observable, switchMap } from 'rxjs';
 @Injectable()
 export class XdTimeseriesService {
 	constructor(
@@ -33,7 +32,6 @@ export class XdTimeseriesService {
 			}),
 		).pipe(
 			map((item) => {
-				console.log(item);
 				if (!item) {
 					throw new HttpException(
 						`No timeseries data found for assetId: ${assetId} and propertySetName: ${propertySetName}`,
