@@ -1,6 +1,7 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ETimeSeriesOrdering, XdIotTimeSeriesService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
+import { error } from 'console';
 import {
 	IGetTimeSeriesParams,
 	IGetTimeseriesQuery,
@@ -8,7 +9,7 @@ import {
 	ITimeSeriesItemResponse,
 } from 'facilities-shared-models';
 import { pick } from 'lodash';
-import { catchError, from, map, Observable } from 'rxjs';
+import { catchError, from, map, Observable, switchMap, throwError } from 'rxjs';
 @Injectable()
 export class XdTimeseriesService {
 	constructor(
@@ -23,61 +24,83 @@ export class XdTimeseriesService {
 	 */
 	public getTimeSeriesFromApi(
 		args: IGetTimeSeriesParams & IGetTimeseriesQuery,
-	): Observable<ITimeSeriesDataItemResponse[]> {
+	): Observable<ITimeSeriesDataItemResponse[] | never[]> {
 		const { assetId, propertySetName, sort, select, ...params } = args;
 
-		return this.iotTimeSeriesService
-			.getTimeSeriesData<
-				any,
-				{
-					_time: string;
-
-					[key: string]: any;
-				}[]
-			>(assetId, propertySetName, {
-				...params,
-				// Todo: Fix this in a future PR
-				sort: sort as unknown as ETimeSeriesOrdering,
-			})
-			.pipe(
-				map((items) => {
-					const data = items.map((item) => {
-						const { _time, ...rest } = item;
-						return {
-							...rest,
-							time: new Date(_time),
-						};
-					});
-
-					this.prismaService.$transaction(
-						data.map(({ time, ...rest }) =>
-							this.prismaService.timeSeriesDataItem.upsert({
-								where: {
-									timeSeriesItemAssetId_timeSeriesItemPropertySetName_time: {
-										timeSeriesItemAssetId: assetId,
-										timeSeriesItemPropertySetName: propertySetName,
-										time: time,
-									},
-								},
-
-								update: {},
-								create: {
-									time: time,
-									timeSeriesItemAssetId: assetId,
-									timeSeriesItemPropertySetName: propertySetName,
-									data: rest,
-								},
-							}),
-						),
+		return from(
+			this.prismaService.timeSeriesItem.findUnique({
+				where: { assetId_propertySetName: { assetId, propertySetName } },
+			}),
+		).pipe(
+			map((item) => {
+				console.log(item);
+				if (!item) {
+					throw new HttpException(
+						`No timeseries data found for assetId: ${assetId} and propertySetName: ${propertySetName}`,
+						HttpStatus.NOT_FOUND,
 					);
+				}
+				return item;
+			}),
+			switchMap(() => {
+				return this.iotTimeSeriesService
+					.getTimeSeriesData<
+						any,
+						{
+							_time: string;
 
-					if (select) {
-						return data.map((item) => ({ ...pick(item, select), time: item.time }));
-					}
+							[key: string]: any;
+						}[]
+					>(assetId, propertySetName, {
+						...params,
+						// Todo: Fix this in a future PR
+						sort: sort as unknown as ETimeSeriesOrdering,
+					})
+					.pipe(
+						map((items) => {
+							const data = items.map((item) => {
+								const { _time, ...rest } = item;
+								return {
+									...rest,
+									time: new Date(_time),
+								};
+							});
 
-					return data;
-				}),
-			);
+							this.prismaService.$transaction(
+								data.map(({ time, ...rest }) => {
+									return this.prismaService.timeSeriesDataItem.upsert({
+										where: {
+											timeSeriesItemAssetId_timeSeriesItemPropertySetName_time:
+												{
+													timeSeriesItemAssetId: assetId,
+													timeSeriesItemPropertySetName: propertySetName,
+													time: time,
+												},
+										},
+
+										update: {},
+										create: {
+											time: time,
+											timeSeriesItemAssetId: assetId,
+											timeSeriesItemPropertySetName: propertySetName,
+											data: rest,
+										},
+									});
+								}),
+							);
+
+							if (select) {
+								return data.map((item) => ({
+									...pick(item, select),
+									time: item.time,
+								}));
+							}
+
+							return data;
+						}),
+					);
+			}),
+		);
 	}
 
 	/**
