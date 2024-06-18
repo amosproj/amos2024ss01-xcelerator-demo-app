@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component, computed,
-    inject, OnInit, signal, Signal,
-    ViewEncapsulation,
+    inject, OnInit, Signal,
+    signal, ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -14,7 +14,6 @@ import { convertThemeName, registerTheme } from '@siemens/ix-echarts';
 import { EChartsOption } from 'echarts';
 import * as echarts from 'echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { BehaviorSubject } from 'rxjs';
 
 import { Colors } from './colors';
 import LockModalComponent from './lock-modal/lockModal.component';
@@ -43,7 +42,7 @@ export class XdDetailPage implements OnInit {
 
     protected readonly facility = toSignal(this._detailsFacade.getFacility(this._assetId));
 
-    protected readonly pumpData = toSignal(this._detailsFacade.getTimeSeriesDataItems(this._assetId, 'pumpData',
+    protected readonly pumpData = toSignal(this._detailsFacade.getTimeSeriesDataItems(this._assetId, 'PumpData',
         { from: this._28MinutesAgo, to: this._currentTime },
     ));
 
