@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component, computed,
-    inject, OnInit, Signal,
+    inject, OnInit, signal, Signal,
     ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -52,7 +52,8 @@ export class XdDetailPage implements OnInit {
     ));
 
     protected theme = convertThemeName(themeSwitcher.getCurrentTheme());
-    protected readonly defaultOptions: EChartsOption = {
+
+    private readonly defaultOptions: EChartsOption = {
         xAxis: {
             type: 'time',
             name: 'Time',
@@ -75,62 +76,94 @@ export class XdDetailPage implements OnInit {
         },
     };
 
+    private readonly pumpOptions: EChartsOption = {
+        ...this.defaultOptions,
+        title: {
+            text: 'Pump Data',
+            left: 'center',
+        },
+        series: [
+            {
+                name: 'Flow (l/s)',
+                type: 'line',
+                itemStyle: { color: Colors.WATER },
+                lineStyle: { color: Colors.WATER },
+            },
+            {
+                name: 'Motor Current (V)',
+                type: 'line',
+                itemStyle: { color: Colors.MOTORCURRENT },
+                lineStyle: { color: Colors.MOTORCURRENT },
+            },
+            {
+                name: 'Stuffing Box Temperature (°C)',
+                type: 'line',
+                itemStyle: { color: Colors.TEMPERATURE },
+                lineStyle: { color: Colors.TEMPERATURE },
+            },
+            {
+                name: 'Pressure In (hPa)',
+                type: 'line',
+                itemStyle: { color: Colors.PRESSURE1 },
+                lineStyle: { color: Colors.PRESSURE1 },
+            },
+            {
+                name: 'Pressure Out (hPa)',
+                type: 'line',
+                itemStyle: { color: Colors.PRESSURE2 },
+                lineStyle: { color: Colors.PRESSURE2 },
+            },
+        ],
+    };
+
+    private readonly envOptions: EChartsOption = {
+        ...this.defaultOptions,
+        title: {
+            text: 'Environment Data',
+            left: 'center',
+        },
+        series: [
+            {
+                name: 'Temperature (°C)',
+                type: 'line',
+                itemStyle: { color: Colors.TEMPERATURE },
+                lineStyle: { color: Colors.TEMPERATURE },
+            },
+            {
+                name: 'Humidity (%)',
+                type: 'line',
+                itemStyle: { color: Colors.WATER },
+                lineStyle: { color: Colors.WATER },
+            },
+            {
+                name: 'Pressure (kPa)',
+                type: 'line',
+                itemStyle: { color: Colors.PRESSURE1 },
+                lineStyle: { color: Colors.PRESSURE1 },
+            },
+        ],
+
+    };
+
     protected readonly pumpChart: Signal<EChartsOption | undefined> = computed(() => {
         const pumpData = this.pumpData();
         if (!pumpData)
             return undefined;
 
-        const Flow = pumpData.map((item) => [ item.time, item['Flow'] ]);
-        const MotorCurrent = pumpData.map((item) => [ item.time, item['MotorCurrent'] ]);
-        const StuffingBoxTemperature = pumpData.map((item) => [ item.time, item['StuffingBoxTemperature'] ]);
-        const PressureIn = pumpData.map((item) => [ item.time, item['PressureIn'] ]);
-        const PressureOut = pumpData.map((item) => [ item.time, item['PressureOut'] ]);
-
-        return {
-            ...this.defaultOptions,
-            title: {
-                text: 'Pump Data',
-                left: 'center',
-            },
-            series: [
-                {
-                    name: 'Flow (l/s)',
-                    type: 'line',
-                    data: Flow,
-                    itemStyle: { color: Colors.WATER },
-                    lineStyle: { color: Colors.WATER },
-                },
-                {
-                    name: 'Motor Current (V)',
-                    type: 'line',
-                    itemStyle: { color: Colors.MOTORCURRENT },
-                    lineStyle: { color: Colors.MOTORCURRENT },
-                    data: MotorCurrent,
-                },
-                {
-                    name: 'Stuffing Box Temperature (°C)',
-                    type: 'line',
-                    itemStyle: { color: Colors.TEMPERATURE },
-                    lineStyle: { color: Colors.TEMPERATURE },
-                    data: StuffingBoxTemperature,
-                },
-                {
-                    name: 'Pressure In (hPa)',
-                    type: 'line',
-                    itemStyle: { color: Colors.PRESSURE1 },
-                    lineStyle: { color: Colors.PRESSURE1 },
-                    data: PressureIn,
-                },
-                {
-                    name: 'Pressure Out (hPa)',
-                    type: 'line',
-                    itemStyle: { color: Colors.PRESSURE2 },
-                    lineStyle: { color: Colors.PRESSURE2 },
-                    data: PressureOut,
-                },
-            ],
-
+        const pumpChart = {
+            ...this.pumpOptions,
         };
+
+        if (!pumpChart.series || !(pumpChart.series instanceof Array))
+            return undefined;
+
+        pumpChart.series[0].data = pumpData.map((item) => [ item.time, item['Flow'] ]);
+        pumpChart.series[1].data = pumpData.map((item) => [ item.time, item['MotorCurrent'] ]);
+        pumpChart.series[2].data = pumpData.map((item) => [ item.time, item['StuffingBoxTemperature'] ]);
+        pumpChart.series[3].data = pumpData.map((item) => [ item.time, item['PressureIn'] ]);
+        pumpChart.series[4].data = pumpData.map((item) => [ item.time, item['PressureOut'] ]);
+
+        return pumpChart;
     });
 
     protected readonly envChart: Signal<EChartsOption | undefined> = computed(() => {
@@ -138,44 +171,22 @@ export class XdDetailPage implements OnInit {
         if (!envData)
             return undefined;
 
-        const Temperature = envData.map((item) => [ item.time, item['Temperature'] ]);
-        const Humidity = envData.map((item) => [ item.time, item['Humidity'] ]);
-        const Pressure = envData.map((item) => [ item.time, item['Pressure'] ]);
 
-        return {
-            ...this.defaultOptions,
-            title: {
-                text: 'Environment Data',
-                left: 'center',
-            },
-            series: [
-                {
-                    name: 'Temperature (°C)',
-                    type: 'line',
-                    itemStyle: { color: Colors.TEMPERATURE },
-                    lineStyle: { color: Colors.TEMPERATURE },
-                    data: Temperature,
-                },
-                {
-                    name: 'Humidity (%)',
-                    type: 'line',
-                    itemStyle: { color: Colors.WATER },
-                    lineStyle: { color: Colors.WATER },
-                    data: Humidity,
-                },
-                {
-                    name: 'Pressure (kPa)',
-                    type: 'line',
-                    itemStyle: { color: Colors.PRESSURE1 },
-                    lineStyle: { color: Colors.PRESSURE1 },
-                    data: Pressure,
-                },
-            ],
-
+        const envChart = {
+            ...this.envOptions,
         };
+
+        if (!envChart.series || !(envChart.series instanceof Array))
+            return undefined;
+
+
+        envChart.series[0].data = envData.map((item) => [ item.time, item['Temperature'] ]);
+        envChart.series[1].data = envData.map((item) => [ item.time, item['Humidity'] ]);
+        envChart.series[2].data = envData.map((item) => [ item.time, item['Pressure'] ]);
+        return envChart;
     });
 
-    protected locked$ = new BehaviorSubject<boolean>(true);
+    protected readonly locked= signal(true);
 
     constructor(
         private _route: ActivatedRoute,
@@ -192,14 +203,15 @@ export class XdDetailPage implements OnInit {
     }
 
     async changeLocked() {
+        const currentValue = this.locked()
         const instance = await this._modalService.open({
             content: LockModalComponent,
-            data: { locked: this.locked$.getValue() },
+            data: { locked: currentValue },
         });
 
         // modal closes on confirm and dismisses on cancel
         instance.onClose.on(() => {
-            this.locked$.next(!this.locked$.getValue());
+            this.locked.set(!currentValue);
         });
     }
 }

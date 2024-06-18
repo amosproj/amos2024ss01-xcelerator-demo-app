@@ -17,7 +17,7 @@ describe('FacilitiesRequestService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
+            imports: [ HttpClientTestingModule ],
             providers: [
                 TimeSeriesRequestService,
                 {
