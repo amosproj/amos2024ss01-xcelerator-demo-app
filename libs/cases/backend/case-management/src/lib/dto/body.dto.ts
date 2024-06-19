@@ -99,6 +99,14 @@ export class createCaseBodyDto implements ICreateCaseBody {
 	@IsString()
 	@IsNotEmpty()
 	eTag: string;
+
+	/**
+	 * The asset which the case belongs to
+	 * @example "1702540787672"
+	 */
+	@IsString()
+	@IsNotEmpty()
+	assetId: string;
 }
 
 /**

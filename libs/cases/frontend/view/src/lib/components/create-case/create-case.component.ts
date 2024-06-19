@@ -22,7 +22,7 @@ import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
 @Component({
 	selector: 'lib-create-case',
 	standalone: true,
-	imports: [ CommonModule, IxModule, FormsModule, RouterLink, DateDropdownWrapperComponent ],
+	imports: [CommonModule, IxModule, FormsModule, RouterLink, DateDropdownWrapperComponent],
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,

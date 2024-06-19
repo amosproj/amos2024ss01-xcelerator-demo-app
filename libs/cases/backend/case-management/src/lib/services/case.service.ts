@@ -1,7 +1,15 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { ICaseResponse, ICreateCaseBody, IUpdateCaseBody } from 'cases-shared-models';
+import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { CasePriority, CaseStatus, CaseType } from '@prisma/client';
+import {
+	ECasePriority,
+	ECaseStatus,
+	ECaseType,
+	ICaseResponse,
+	ICreateCaseBody,
+	IUpdateCaseBody,
+} from 'cases-shared-models';
 import { PrismaService } from 'common-backend-prisma';
-import { from, map, Observable } from 'rxjs';
+import { from, map, Observable, switchMap } from 'rxjs';
 
 /**
  * handles database operations and contains business logic
@@ -21,15 +29,84 @@ export class XdCaseService {
 	public getAllCases(): Observable<ICaseResponse[]> {
 		return from(this.prismaService.case.findMany()).pipe(
 			map((items) =>
-				items.map(
-					(item) =>
-						({
-							...item,
-							overdue: Date.now() > new Date(item.dueDate).getTime(),
-						}) as ICaseResponse,
-				),
+				items.map((item) => {
+					const { assetAssetId, type, status, priority, ...rest } = item;
+
+					return {
+						...rest,
+						type: type as unknown as ECaseType,
+						status: status as unknown as ECaseStatus,
+						priority: priority as unknown as ECasePriority,
+
+						assetId: assetAssetId,
+						overdue: Date.now() > new Date(item.dueDate).getTime(),
+					};
+				}),
 			),
 		);
+	}
+
+	private convertCaseType(prismaType: CaseType): ECaseType {
+		switch (prismaType) {
+			case CaseType.PLANNED:
+				return ECaseType.PLANNED;
+			case CaseType.INCIDENT:
+				return ECaseType.INCIDENT;
+			case CaseType.ANNOTATION:
+				return ECaseType.ANNOTATION;
+			default:
+				return ECaseType.PLANNED;
+		}
+	}
+
+	private convertCaseStatus(prismaStatus: CaseStatus): ECaseStatus {
+		switch (prismaStatus) {
+			case CaseStatus.OPEN:
+				return ECaseStatus.OPEN;
+			case CaseStatus.INPROGRESS:
+				return ECaseStatus.INPROGRESS;
+			case CaseStatus.ONHOLD:
+				return ECaseStatus.ONHOLD;
+			case CaseStatus.DONE:
+				return ECaseStatus.DONE;
+			case CaseStatus.OVERDUE:
+				return ECaseStatus.OVERDUE;
+			case CaseStatus.CANCELLED:
+				return ECaseStatus.CANCELLED;
+			case CaseStatus.ARCHIVED:
+				return ECaseStatus.ARCHIVED;
+			default:
+				return ECaseStatus.OPEN;
+		}
+	}
+
+	private convertCasePriority(prismaPriority: CasePriority): ECasePriority {
+		switch (prismaPriority) {
+			case CasePriority.LOW:
+				return ECasePriority.LOW;
+			case CasePriority.MEDIUM:
+				return ECasePriority.MEDIUM;
+			case CasePriority.HIGH:
+				return ECasePriority.HIGH;
+			case CasePriority.EMERGENCY:
+				return ECasePriority.EMERGENCY;
+			default:
+				return ECasePriority.LOW;
+		}
+	}
+
+	private responseFromItem(item: any): ICaseResponse {
+		const { assetAssetId, type, status, priority, ...rest } = item;
+
+		return {
+			...rest,
+			type: this.convertCaseType(type),
+			status: this.convertCaseStatus(status),
+			priority: this.convertCasePriority(priority),
+
+			assetId: assetAssetId,
+			overdue: Date.now() > new Date(item.dueDate).getTime(),
+		};
 	}
 
 	/**
@@ -42,13 +119,10 @@ export class XdCaseService {
 		return from(this.prismaService.case.findUnique({ where: { id } })).pipe(
 			map((item) => {
 				if (!item) {
-					throw new Error('Case not found');
+					throw new HttpException('Case not found', HttpStatus.NOT_FOUND);
 				}
 
-				return {
-					...item,
-					overdue: Date.now() > new Date(item.dueDate).getTime(),
-				} as ICaseResponse;
+				return this.responseFromItem(item);
 			}),
 		);
 	}
@@ -58,22 +132,32 @@ export class XdCaseService {
 	 * @param {ICaseRequest} caseData represents a case
 	 * @returns {Observable<Case>}
 	 */
-	public createCase(caseData: ICreateCaseBody): Observable<ICaseResponse> {
+	public createCase({ assetId, ...caseData }: ICreateCaseBody): Observable<ICaseResponse> {
 		return from(
-			this.prismaService.case.create({
-				data: {
-					...caseData,
-					dueDate: new Date(caseData.dueDate),
-				},
+			this.prismaService.asset.findUnique({
+				where: { assetId },
 			}),
 		).pipe(
-			map(
-				(item) =>
-					({
-						...item,
-						overdue: Date.now() > new Date(item.dueDate).getTime(),
-					}) as ICaseResponse,
-			),
+			map((asset) => {
+				if (!asset) {
+					throw new HttpException('Asset not found', HttpStatus.NOT_FOUND);
+				}
+
+				return asset;
+			}),
+			switchMap((asset) => {
+				const data = {
+					...caseData,
+					assetAssetId: asset.assetId,
+					dueDate: new Date(caseData.dueDate),
+				};
+
+				return from(
+					this.prismaService.case.create({
+						data,
+					}),
+				).pipe(map((item) => this.responseFromItem(item)));
+			}),
 		);
 	}
 
@@ -88,15 +172,7 @@ export class XdCaseService {
 				where: { id },
 				data: caseData,
 			}),
-		).pipe(
-			map(
-				(item) =>
-					({
-						...item,
-						overdue: Date.now() > new Date(item.dueDate).getTime(),
-					}) as ICaseResponse,
-			),
-		);
+		).pipe(map((item) => this.responseFromItem(item)));
 	}
 
 	/**
@@ -109,14 +185,6 @@ export class XdCaseService {
 			this.prismaService.case.delete({
 				where: { id },
 			}),
-		).pipe(
-			map(
-				(item) =>
-					({
-						...item,
-						overdue: Date.now() > new Date(item.dueDate).getTime(),
-					}) as ICaseResponse,
-			),
-		);
+		).pipe(map((item) => this.responseFromItem(item)));
 	}
 }
