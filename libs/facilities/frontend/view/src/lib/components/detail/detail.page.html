@@ -2,8 +2,12 @@
 <ix-content>
     <div class="details-grid gap-x-6 gap-y-4 pb-12">
 
-        <lib-chart [chart]="pumpChart"></lib-chart>
-        <lib-chart [chart]="envChart"></lib-chart>
+        @if(this.pumpChart(); as pumpChart){
+            <div echarts [options]="pumpChart" [theme]="theme"></div>
+        }
+        @if(this.envChart(); as envChart){
+            <div echarts [options]="envChart" [theme]="theme"></div>
+        }
 
         <ix-card variant="insight" class="h-full w-full p-4">
             <ix-card-content>
@@ -42,20 +46,20 @@
                 <ix-card-title>
                     <ix-icon
                         class="icon"
-                        [name]="(locked$ | async) ? 'lock-filled' : 'unlock-filled'"
+                        [name]="locked() ? 'lock-filled' : 'unlock-filled'"
                     ></ix-icon>
                 </ix-card-title>
                 <ix-typography color="std" format="h4">
-                    {{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
+                    {{ locked() ? 'Unlock the doors' : 'Lock the doors' }}
                 </ix-typography>
                 <ix-typography color="std">
-                    {{ (locked$ | async) ? 'Currently the doors are locked' :
+                    {{ locked() ? 'Currently the doors are locked' :
                     'Currently the doors are unlocked' }}
                 </ix-typography>
 
                 <div class="mt-auto p-2">
                     <ix-button (click)="changeLocked()">
-                        {{ (locked$ | async)? 'Unlock the doors' : 'Lock the doors' }}
+                        {{ locked() ? 'Unlock the doors' : 'Lock the doors' }}
                     </ix-button>
                 </div>
             </ix-card-content>
