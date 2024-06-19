@@ -27,22 +27,23 @@ More details are available in [Siemens Xcelerator Developer Portal](https://deve
 [AMOS](https://oss.cs.fau.de/teaching/the-amos-project/) = Agile Methods and Open Source
 
 Students learn Scrum by developing an open source software as a team project over the course of a semester, for an industry partner.
-The team consist of students from the FAU, TU Berlin and FU Berlin.  
+The team consist of students from the FAU, TU Berlin and FU Berlin.
 
 ## Overview of the Application
 
 ![Facility dashboard](./Documentation/images/screenshots1306/dashboard.png)
 
-
 ![Pump data](./Documentation/images/screenshots1306/pumpData.png)
-
 
 ![Case dashboard](./Documentation/images/screenshots1306/Cases.jpeg)
 
+![Create Case](<https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/blob/develop/Documentation/images/screenshots1306/createCase%20(3).png>)
 
-![Create Case](https://github.com/amosproj/amos2024ss01-xcelerator-demo-app/blob/develop/Documentation/images/screenshots1306/createCase%20(3).png)
+## API Documentation
 
-
+The Swagger API documentation will be hosted together with the backend application.
+It can be accessed via the following URL: `http://${BACKEND_HOST}:${BACKEND_PORT}/swagger`
+If it is hosted locally, the URL will be `http://localhost:8080/swagger`
 
 ## Link to the architecture Document
 
@@ -50,13 +51,13 @@ The team consist of students from the FAU, TU Berlin and FU Berlin.
 
 ## The Team
 
-* Cecilia Betancourt Barrita
-* Shahraz Nasir
-* Lama Rajjo
-* Jonas Heisterberg
-* Maximilian Krug
-* Alexander Lorenz
-* David Schmidt
-* Patrick Schmidt
-* Ingo Sternberg
-* Saša Bojanić
+-   Cecilia Betancourt Barrita
+-   Shahraz Nasir
+-   Lama Rajjo
+-   Jonas Heisterberg
+-   Maximilian Krug
+-   Alexander Lorenz
+-   David Schmidt
+-   Patrick Schmidt
+-   Ingo Sternberg
+-   Saša Bojanić
