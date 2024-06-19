@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ICaseParams } from '@frontend/cases/shared/models';
+import { ICaseParams } from 'cases-shared-models';
 import { firstValueFrom, of } from 'rxjs';
 
 import { XdCasesRequestService } from '../../infrastructure/cases-request.service';

@@ -1,5 +1,5 @@
-import { ICaseResponse, ICreateCaseBody, IUpdateCaseBody } from '@frontend/cases/shared/models';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { ICaseResponse, ICreateCaseBody, IUpdateCaseBody } from 'cases-shared-models';
 import { PrismaService } from 'common-backend-prisma';
 import { from, map, Observable } from 'rxjs';
 
@@ -21,10 +21,13 @@ export class XdCaseService {
 	public getAllCases(): Observable<ICaseResponse[]> {
 		return from(this.prismaService.case.findMany()).pipe(
 			map((items) =>
-				items.map((item) => ({
-					...item,
-					overdue: Date.now() > new Date(item.dueDate).getTime(),
-				}) as ICaseResponse),
+				items.map(
+					(item) =>
+						({
+							...item,
+							overdue: Date.now() > new Date(item.dueDate).getTime(),
+						}) as ICaseResponse,
+				),
 			),
 		);
 	}
@@ -64,10 +67,13 @@ export class XdCaseService {
 				},
 			}),
 		).pipe(
-			map((item) => ({
-				...item,
-				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			} as ICaseResponse)),
+			map(
+				(item) =>
+					({
+						...item,
+						overdue: Date.now() > new Date(item.dueDate).getTime(),
+					}) as ICaseResponse,
+			),
 		);
 	}
 
@@ -83,10 +89,13 @@ export class XdCaseService {
 				data: caseData,
 			}),
 		).pipe(
-			map((item) => ({
-				...item,
-				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			}) as ICaseResponse),
+			map(
+				(item) =>
+					({
+						...item,
+						overdue: Date.now() > new Date(item.dueDate).getTime(),
+					}) as ICaseResponse,
+			),
 		);
 	}
 
@@ -101,10 +110,13 @@ export class XdCaseService {
 				where: { id },
 			}),
 		).pipe(
-			map((item) => ({
-				...item,
-				overdue: Date.now() > new Date(item.dueDate).getTime(),
-			}) as ICaseResponse),
+			map(
+				(item) =>
+					({
+						...item,
+						overdue: Date.now() > new Date(item.dueDate).getTime(),
+					}) as ICaseResponse,
+			),
 		);
 	}
 }

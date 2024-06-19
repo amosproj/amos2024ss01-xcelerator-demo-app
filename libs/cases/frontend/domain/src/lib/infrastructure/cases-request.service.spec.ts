@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { faker } from '@faker-js/faker';
-import { ICaseParams, ICaseResponse } from '@frontend/cases/shared/models';
+import { ICaseParams, ICaseResponse } from 'cases-shared-models';
 import { firstValueFrom, of } from 'rxjs';
 
 import { XdCasesRequestService } from './cases-request.service';
@@ -13,7 +13,7 @@ describe('XdCasesRequestService', () => {
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [ HttpClientTestingModule ],
+			imports: [HttpClientTestingModule],
 			providers: [
 				XdCasesRequestService,
 				{
@@ -45,7 +45,7 @@ describe('XdCasesRequestService', () => {
 	describe('getTimeSeries', () => {
 		it('should forward the request to the backend', async () => {
 			const params = { id: faker.number.int() } as ICaseParams;
-			const mockResponse: ICaseParams[] = [ { id: faker.number.int() } ] as ICaseParams[];
+			const mockResponse: ICaseParams[] = [{ id: faker.number.int() }] as ICaseParams[];
 
 			const spy = jest.spyOn(httpClient, 'get').mockReturnValue(of(mockResponse));
 

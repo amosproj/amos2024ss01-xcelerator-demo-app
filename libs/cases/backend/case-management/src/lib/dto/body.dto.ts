@@ -1,4 +1,10 @@
-import { ECasePriority, ECaseStatus, ECaseType, ICreateCaseBody, IUpdateCaseBody } from '@frontend/cases/shared/models';
+import {
+	ECasePriority,
+	ECaseStatus,
+	ECaseType,
+	ICreateCaseBody,
+	IUpdateCaseBody,
+} from 'cases-shared-models';
 import { Type } from 'class-transformer';
 import { IsDate, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 

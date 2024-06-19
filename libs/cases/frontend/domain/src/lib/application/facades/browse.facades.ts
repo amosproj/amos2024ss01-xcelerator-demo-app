@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ICaseParams, ICaseResponse, ICreateCaseBody } from '@frontend/cases/shared/models';
+import { ICaseParams, ICaseResponse, ICreateCaseBody } from 'cases-shared-models';
 import { Observable } from 'rxjs';
 
 import { XdCasesRequestService } from '../../infrastructure/cases-request.service';
