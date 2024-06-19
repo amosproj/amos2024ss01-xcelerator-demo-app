@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    inject, OnInit,
+    signal,
+    ViewEncapsulation,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {  FormsModule, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -7,7 +13,7 @@ import { faker } from '@faker-js/faker';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 import { ECasePriority, ECaseStatus, ECaseType } from '@frontend/cases/shared/models';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
-import { IxModule, ToastService } from '@siemens/ix-angular';
+import { IxModule, IxSelectCustomEvent, ToastService } from '@siemens/ix-angular';
 
 import { CaseFormData } from '../interfaces/case-form-data.interface';
 import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
@@ -28,10 +34,14 @@ import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateCaseComponent {
+export class CreateCaseComponent implements OnInit {
     private readonly _browseFacade = inject(XdBrowseFacade);
     protected readonly _browseFacade2 = inject(XdBrowseFacadesService);
     protected readonly facilities = toSignal(this._browseFacade.getAllFacilities());
+
+    facilityPlaceholder = signal('Select Facility');
+    typePlaceholder = signal('Select Type');
+    priorityPlaceholder = signal('Select Priority');
 
     constructor(private readonly toastService: ToastService) {
     }
@@ -39,7 +49,6 @@ export class CreateCaseComponent {
     casePriority = ECasePriority;
     caseType = ECaseType;
     wasValidated = false;
-    value = '1';
 
     createCaseForm = {
         selectFacility: '',
@@ -47,10 +56,15 @@ export class CreateCaseComponent {
         dueDate: '',
         selectPriority: '',
         selectType: '',
-        phone: '',
         email: '',
         text: '',
     };
+
+    ngOnInit(){
+        this.resizeObserver('input-facilitySelection', 'facilitySelection');
+        this.resizeObserver('input-typeSelection', 'typeSelection');
+        this.resizeObserver('input-prioritySelection', 'prioritySelection');
+    }
 
     /**
      * called when the user presses the Create Case Button
@@ -87,14 +101,6 @@ export class CreateCaseComponent {
         return this.createCaseForm.selectFacility;
     }
 
-    public set phoneValue(value: string) {
-        this.createCaseForm.phone = value;
-    }
-
-    public get phoneValue() {
-        return this.createCaseForm.phone;
-    }
-
     public set emailValue(value: string) {
         this.createCaseForm.email = value;
     }
@@ -107,6 +113,61 @@ export class CreateCaseComponent {
         return this.facilities()?.find(
             (facility) => facility.id === this.createCaseForm.selectFacility,
         );
+    }
+
+    private resizeObserver(inputElement: string, selectElement: string) {
+        const input = document.getElementById(inputElement);
+        const select = document.getElementById(selectElement)
+        if (input && select) {
+            new ResizeObserver(entries => {
+                entries.forEach(entry => {
+                    const width = entry.contentRect.width;
+                    const height = entry.contentRect.height;
+                    const xPos = entry.contentRect.x;
+                    const yPos = entry.contentRect.y;
+                    if (input && input.style) {
+                        input.style.width = `${width}px`;
+                        input.style.height = `${height}px`;
+                        input.style.x = `${xPos}`;
+                        input.style.y = `${yPos}`;
+                    }
+                })
+            }).observe(select);
+        }
+    }
+
+
+    onFacilityChange(event: IxSelectCustomEvent<string | string[]>) {
+        if (event.target.value !== undefined) {
+            this.createCaseForm.selectFacility = event.target.value.toString();
+        }
+    }
+
+    onFacilityInputChange(event: CustomEvent<string>) {
+        this.createCaseForm.selectFacility = '';
+        this.facilityPlaceholder.set(event.detail);
+    }
+
+    onTypeChange(event: IxSelectCustomEvent<string | string[]>) {
+        if (event.target.value !== undefined) {
+            this.createCaseForm.selectType = event.target.value.toString();
+        }
+    }
+
+    onTypeInputChange(event: CustomEvent<string>) {
+        this.createCaseForm.selectType = '';
+        this.typePlaceholder.set(event.detail);
+    }
+
+    onPriorityChange(event: IxSelectCustomEvent<string | string[]>) {
+        if (event.target.value !== undefined) {
+            this.createCaseForm.selectPriority = event.target.value.toString();
+        }
+    }
+
+    onPriorityInputChange(event: CustomEvent<string>) {
+        this.createCaseForm.selectPriority = '';
+        this.priorityPlaceholder.set(event.detail);
     }
 
     /**

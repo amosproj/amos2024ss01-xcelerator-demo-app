@@ -9,7 +9,6 @@ export interface CaseFormData {
     dueDate: Date;
     selectPriority: ECasePriority;
     selectType: ECaseType;
-    phone: string;
     email: string;
     text: string;
 }
