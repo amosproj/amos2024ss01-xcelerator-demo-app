@@ -45,14 +45,14 @@ export class createCaseBodyDto implements ICreateCaseBody {
 	 */
 	@IsString()
 	@IsEnum(ECaseType, {
-		message: 'Type must be one of these values: ' + Object.values(ECaseType).join(', '),
+		message: 'type must be one of these values: ' + Object.values(ECaseType).join(', '),
 	})
 	type: ECaseType;
 
 	@IsString()
 	@IsNotEmpty()
 	@IsEnum(ECaseStatus, {
-		message: 'Status must be one of these values: ' + Object.values(ECaseStatus).join(', '),
+		message: 'status must be one of these values: ' + Object.values(ECaseStatus).join(', '),
 	})
 	status: ECaseStatus;
 
@@ -79,7 +79,7 @@ export class createCaseBodyDto implements ICreateCaseBody {
 	@IsString()
 	@IsNotEmpty()
 	@IsEnum(ECasePriority, {
-		message: 'Priority must be one of these values: ' + Object.values(ECasePriority).join(', '),
+		message: 'priority must be one of these values: ' + Object.values(ECasePriority).join(', '),
 	})
 	priority: ECasePriority;
 
