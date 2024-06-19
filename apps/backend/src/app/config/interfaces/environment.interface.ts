@@ -11,4 +11,6 @@ export interface IEnvironmentVariables {
 	/* Insight Hub */
 	INSIGHT_HUB_API_URL?: string;
 	INSIGHT_HUB_API_KEY?: string;
+    /* Swagger */
+    SWAGGER_URL_PATH?: string;
 }

@@ -8,6 +8,7 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 export class caseParamsDto implements ICaseParams {
 	/**
 	 * The id of the asset
+	 * @example 1
 	 */
 	@IsNotEmpty()
 	@IsNumber()

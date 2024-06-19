@@ -6,30 +6,26 @@ import { BackendConfig } from 'common-backend-models';
 import { XdFacilitiesBackendFacilitiesModule } from 'facilities-backend-facilities';
 import { XdTimeseriesModule } from 'facilities-backend-timeseries';
 
-/* Libraries */
-import { AppController } from './app.controller';
-/* Internal */
-import { AppService } from './app.service';
 import { validateConfig } from './config/validation';
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({
 			isGlobal: true,
-			envFilePath: [ '.env' ],
+			envFilePath: ['.env'],
 			validate: validateConfig,
 		}),
 		XdInsightHubModule.registerAsync({
-			imports: [ ConfigModule ],
+			imports: [ConfigModule],
 			useFactory: (configService: ConfigService<BackendConfig>) =>
 				configService.get('insightHub'),
-			inject: [ ConfigService ],
+			inject: [ConfigService],
 		}),
 		XdTimeseriesModule,
 		XdCaseManagementModule,
 		XdFacilitiesBackendFacilitiesModule,
 	],
-	controllers: [ AppController ],
-	providers: [ AppService ],
+	controllers: [],
+	providers: [],
 })
 export class AppModule {}

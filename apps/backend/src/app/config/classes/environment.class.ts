@@ -1,4 +1,4 @@
-import { IsDefined, IsNumber, IsString, MinLength } from 'class-validator';
+import { IsDefined, IsNumber, IsString, IsUrl, MinLength } from 'class-validator';
 
 /* Interfaces */
 import { IEnvironmentVariables } from '../interfaces/environment.interface';
@@ -94,4 +94,11 @@ export class EnvironmentVariables implements IEnvironmentVariables {
 	@IsString()
 	@MinLength(1)
 	INSIGHT_HUB_API_KEY?: string;
+
+    /**
+     * The URL of the Swagger UI
+     */
+    @IsDefined()
+    @IsString()
+    SWAGGER_URL_PATH: string;
 }

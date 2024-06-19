@@ -50,4 +50,7 @@ const generateConfig = (config: IEnvironmentVariables): BackendConfig =>
 			apiUrl: config.INSIGHT_HUB_API_URL,
 			apiKey: config.INSIGHT_HUB_API_KEY,
 		},
+        swagger: {
+            urlPath: config.SWAGGER_URL_PATH,
+        }
 	} as BackendConfig);
