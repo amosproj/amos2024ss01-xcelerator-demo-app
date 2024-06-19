@@ -21,7 +21,7 @@
     <tbody>
         @for (_case of _sortedCases(); track _case.id) {
             <tr
-                [routerLink]="['/cases', _case.handle]"
+                [routerLink]="['/cases', _case.id]"
                 class="clickable-row"
                 [ngClass]="getStatusClasses(_case)"
             >
