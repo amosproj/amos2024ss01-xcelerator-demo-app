@@ -9,7 +9,7 @@ import {
 	IUpdateCaseBody,
 } from 'cases-shared-models';
 import { PrismaService } from 'common-backend-prisma';
-import { from, map, Observable, switchMap } from 'rxjs';
+import { catchError, from, map, Observable, switchMap } from 'rxjs';
 
 /**
  * handles database operations and contains business logic
@@ -185,6 +185,11 @@ export class XdCaseService {
 			this.prismaService.case.delete({
 				where: { id },
 			}),
-		).pipe(map((item) => this.responseFromItem(item)));
+		).pipe(
+			catchError(() => {
+				throw new HttpException('Case not found', HttpStatus.NOT_FOUND);
+			}),
+			map((item) => this.responseFromItem(item)),
+		);
 	}
 }
