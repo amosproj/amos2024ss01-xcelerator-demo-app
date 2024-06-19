@@ -30,4 +30,8 @@ export class XdBrowseFacadesService {
 	public createCase(body: ICreateCaseBody) {
 		return this._scanService.createCase(body);
 	}
+
+    public deleteCase(params: ICaseParams){
+        return this._scanService.deleteCase(params);
+    }
 }

@@ -1,3 +1,9 @@
+<ix-button  class="absolute top-20 right-32 !z-[50]">
+    Update Cases
+</ix-button>
+<ix-button  class="absolute top-20 right-4 !z-[50]" (click)="deleteCase()" [routerLink]="['/cases']">
+    Delete Case
+</ix-button>
 <ix-content>
     @if(casedetail(); as _case){
         <div class="container" >
