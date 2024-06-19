@@ -31,7 +31,7 @@ export class XdBrowseFacade {
 						notification: `${faker.number.int({ min: 0, max: 99 })}`,
 						heading: timeSeriesItem.name,
 						subheading: timeSeriesItem.description,
-						variant: 'success',
+						status: faker.helpers.arrayElement([ 'success', 'warning', 'critical' ]),
 						pumps: faker.number.int({ min: 0, max: 99 }),
 						location: timeSeriesItem.location,
 					};

@@ -1,17 +1,22 @@
-<ix-button (click)="toggleView()" class="absolute top-20 right-4 !z-[50]">
-    Switch to {{ showCardList ? 'Event List' : 'Card List' }}
-</ix-button>
+<div class="absolute top-20 right-4 !z-[50] flex flex-row-reverse gap-x-4">
+    <ix-button (click)="toggleView()">
+        Switch to {{ showCardList ? 'Event List' : 'Card List' }}
+    </ix-button>
+    <ix-button (click)="toggleFilter()">
+        {{ filter() ? 'Remove Filter for issues' : 'Filter Facilities with issues' }}
+    </ix-button>
+</div>
 <ix-content>
 	@if (showCardList) {
         @if (facilities(); as facilities) {
-            <ix-card-list label="Facilities Overview" [showAllCount]="facilities.length" list-style="stack">
+            <ix-card-list label="Facilities Overview" [showAllCount]="facilities.length" list-style="stack" class="pb-32">
                 @for (facility of facilities; track facility.id) {
                 <ix-push-card
                     [icon]="facility.icon"
                     [notification]="facility.notification"
                     [heading]="facility.heading"
                     [subheading]="facility.subheading"
-                    [variant]="facility.variant"
+                    [variant]="facility.status"
                     [routerLink]="['/facilities', facility.id]"
                 >
                     <p>Number of water pumps: {{ facility.pumps }}</p>
@@ -22,7 +27,7 @@
         }
     }
     @else {
-        <ix-event-list item-height="L">
+        <ix-event-list item-height="L" class="pb-32">
             @for (facility of facilities(); track facility.id){
                 <ix-event-list-item color="color-primary" [routerLink]="['/facilities', facility.id]">
                     <div>

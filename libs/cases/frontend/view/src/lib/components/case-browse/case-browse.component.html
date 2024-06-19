@@ -1,9 +1,11 @@
-<ix-button [routerLink]="['/cases/open']" class="absolute top-20 right-32 !z-[50]">
-    View Open Cases
-</ix-button>
-<ix-button [routerLink]="['/cases/create']" class="absolute top-20 right-4 !z-[50]">
-    Create Case
-</ix-button>
+<div class="absolute top-20 right-4 !z-[50] flex flex-row-reverse gap-x-4">
+    <ix-button [routerLink]="['/cases/create']" icon="plus">
+        Create Case
+    </ix-button>
+    <ix-button [routerLink]="['/cases/open']">
+        View Open Cases
+    </ix-button>
+</div>
 <ix-content>
     <table class="table">
         <thead>
