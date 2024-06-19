@@ -203,7 +203,7 @@ export class XdFacilitiesService {
 						description: description || '',
 						createdAt: createdAt,
 						updatedAt: updatedAt,
-						cases: cases.map((c) => ({ caseId: c.id })),
+						cases: cases.map((c) => ({ id: c.id })),
 					};
 				});
 			}),
@@ -262,7 +262,7 @@ export class XdFacilitiesService {
 					location: location,
 					createdAt: createdAt,
 					updatedAt: updatedAt,
-					cases: cases.map((c) => ({ caseId: c.id })),
+					cases: cases.map((c) => ({ id: c.id })),
 				};
 			}),
 		);

@@ -1,4 +1,4 @@
-import { ICaseResponse } from 'common-shared-models';
+import { ICaseResponse } from 'cases-shared-models';
 import { TTimeSeriesData } from 'common-shared-models';
 
 /**
