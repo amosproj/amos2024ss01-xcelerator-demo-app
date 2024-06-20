@@ -34,6 +34,10 @@ export class XdCasesRequestService {
 		return this._httpClient.post<ICaseResponse>('/api/case', body);
 	}
 
+    public updateCase(params: ICaseParams, body: ICreateCaseBody) {
+        return this._httpClient.put<ICaseResponse>(`/api/case/${params.id}`, body);
+    }
+
     /**
      * Delete case by Id
      * @param params
