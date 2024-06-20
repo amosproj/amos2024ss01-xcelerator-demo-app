@@ -1,4 +1,4 @@
 export * from './create-case';
 export * from './open-cases';
 export * from './detail-case';
-export * from './cases-browse';
+export * from './case-browse';

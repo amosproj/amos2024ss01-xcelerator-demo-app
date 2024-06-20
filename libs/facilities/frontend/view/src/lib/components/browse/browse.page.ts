@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
-	ChangeDetectionStrategy,
-	Component,
-	inject,
-	Input,
-	OnInit,
-	ViewEncapsulation,
+    ChangeDetectionStrategy,
+    Component, computed,
+    inject, signal,
+    ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
@@ -21,20 +19,29 @@ import { IxModule } from '@siemens/ix-angular';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class XdBrowsePage implements OnInit {
-	@Input()
-	subtitle = 'List of all facilities';
-	showCardList = true;
-	private readonly _browseFacade = inject(XdBrowseFacade);
-	protected readonly facilities = toSignal(this._browseFacade.getAllFacilities());
+export class XdBrowsePage {
 
-	async ngOnInit() {
-		if (this.subtitle === undefined) {
-			this.subtitle = 'List of all facilities';
-		}
-	}
+	protected showCardList = true;
+    protected readonly filter = signal(true);
+	private readonly _browseFacade = inject(XdBrowseFacade);
+	private readonly allFacilities = toSignal(this._browseFacade.getAllFacilities());
+    protected readonly facilities = computed(() => {
+        const facilities = this.allFacilities();
+        if(!facilities)
+            return undefined;
+
+       if(this.filter()) {
+           return facilities.filter(facility => facility.status != 'success');
+       } else {
+           return facilities;
+       }
+    });
 
 	toggleView() {
 		this.showCardList = !this.showCardList;
 	}
+
+    toggleFilter() {
+        this.filter.set(!this.filter());
+    }
 }

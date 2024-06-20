@@ -1,6 +1,6 @@
 @if (facility(); as facility) {
 <ix-content>
-    <div class="details-grid gap-x-6 gap-y-4 pb-12">
+    <div class="details-grid gap-x-6 gap-y-4 pb-32">
 
         @if(this.pumpChart(); as pumpChart){
             <div echarts [options]="pumpChart" [theme]="theme"></div>
@@ -20,7 +20,7 @@
                 <ix-typography color="std">{{ facility.location }}</ix-typography>
                 <div class="flex">
                     <ix-typography color="std">status:&nbsp;</ix-typography>
-                    <ix-typography [ngClass]="facility.variant">{{ facility.variant }}</ix-typography>
+                    <ix-typography [ngClass]="facility.status">{{ facility.status }}</ix-typography>
                 </div>
             </ix-card-content>
         </ix-card>
@@ -79,5 +79,4 @@
         </ix-card>
     </div>
 </ix-content>
-
 }
