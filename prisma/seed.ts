@@ -1,17 +1,54 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import caseData from './demo_data/CASE-EXAMPLE.json';
-import envData from './demo_data/PUMP-002_Environment_20240422-220000000_20240423-220000000.json';
-import pumpData from './demo_data/PUMP-002_PumpData_20240422-220000000_20240423-220000000.json';
+import pump2envData from './demo_data/PUMP-002_Environment_20240422-220000000_20240423-220000000.json';
+import pump2pumpData from './demo_data/PUMP-002_PumpData_20240422-220000000_20240423-220000000.json';
+
+import pump10envData from './demo_data/PUMP-010_Environment_20240422-220000000_20240423-220000000.json';
+import pump10pumpData from './demo_data/PUMP-010_PumpData_20240422-220000000_20240423-220000000.json';
 
 const prisma = new PrismaClient();
 
-async function main() {
+const facilityNames = [
+	{ name: 'Facility 1', assetId: 'Facility1', description: 'This is facility 1', typeId: 'pump' },
+	{ name: 'Facility 2', assetId: 'Facility2', description: 'This is facility 2', typeId: 'pump' },
+	{ name: 'Facility 3', assetId: 'Facility3', description: 'This is facility 3', typeId: 'pump' },
+	{ name: 'Facility 4', assetId: 'Facility4', description: 'This is facility 4', typeId: 'pump' },
+	{ name: 'Facility 5', assetId: 'Facility5', description: 'This is facility 5', typeId: 'pump' },
+	{ name: 'Facility 6', assetId: 'Facility6', description: 'This is facility 6', typeId: 'pump' },
+	{ name: 'Facility 7', assetId: 'Facility7', description: 'This is facility 7', typeId: 'pump' },
+	{ name: 'Facility 8', assetId: 'Facility8', description: 'This is facility 8', typeId: 'pump' },
+	{ name: 'Facility 9', assetId: 'Facility9', description: 'This is facility 9', typeId: 'pump' },
+];
+
+async function seedSingleFacility({
+	name,
+	assetId,
+	description,
+	typeId,
+	index,
+}: {
+	name: string;
+	assetId: string;
+	description: string;
+	typeId: string;
+	index: number;
+}) {
+	const pumpData = index % 2 === 0 ? pump2pumpData : pump10pumpData;
+	const envData = index % 2 === 0 ? pump2envData : pump10envData;
+
 	const asset = await prisma.asset.create({
 		data: {
-			assetId: 'Pump002',
-			name: 'Pump002',
-			typeId: 'Pump',
-			description: 'Pump 002',
+			assetId,
+			name,
+			typeId,
+			description,
+			location: {
+				create: {
+					latitude: 0,
+					longitude: 0,
+				},
+			},
+			variables: {},
 		},
 	});
 
@@ -19,6 +56,28 @@ async function main() {
 		data: {
 			assetId: asset.assetId,
 			propertySetName: 'PumpData',
+			variables: [
+				{
+					name: 'Flow',
+					unit: 'l/s',
+				},
+				{
+					name: 'MotorCurrent',
+					unit: 'V',
+				},
+				{
+					name: 'PressureIn',
+					unit: 'hPa',
+				},
+				{
+					name: 'PressureOut',
+					unit: 'hPa',
+				},
+				{
+					name: 'StuffingBoxTemperature',
+					unit: '°C',
+				},
+			],
 		},
 	});
 
@@ -43,6 +102,20 @@ async function main() {
 		data: {
 			assetId: asset.assetId,
 			propertySetName: 'Environment',
+			variables: [
+				{
+					name: 'Humidity',
+					unit: '%',
+				},
+				{
+					name: 'Pressure',
+					unit: 'kPa',
+				},
+				{
+					name: 'Temperature',
+					unit: '°C',
+				},
+			],
 		},
 	});
 
@@ -64,6 +137,18 @@ async function main() {
 		};
 	});
 
+	// Seed database with timeseries data
+	await prisma.timeSeriesDataItem.createMany({
+		data: [newPumpData, newEnvData].flat(),
+	});
+}
+
+async function main() {
+	// Seed database with facility data
+	for (let i = 0; i < facilityNames.length; i++) {
+		await seedSingleFacility({ ...facilityNames[i], index: i });
+	}
+
 	// create new case data from JSON file
 	const newCaseData = caseData.map((data: any) => {
 		return {
@@ -78,11 +163,6 @@ async function main() {
 			createdBy: data.createdBy,
 			eTag: data.eTag,
 		};
-	});
-
-	// Seed database with timeseries data
-	await prisma.timeSeriesDataItem.createMany({
-		data: [newPumpData, newEnvData].flat(),
 	});
 
 	// Seed database with case data

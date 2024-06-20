@@ -116,7 +116,7 @@ describe('TimeseriesService', () => {
 
 			const findManySpy = jest
 				.spyOn(prisma.timeSeriesDataItem, 'findMany')
-				.mockResolvedValue([findManyResult]);
+				.mockResolvedValue([ findManyResult ]);
 
 			const params: IGetTimeSeriesParams = {
 				assetId: findManyResult.timeSeriesItemAssetId,
@@ -126,7 +126,7 @@ describe('TimeseriesService', () => {
 			const result = await lastValueFrom(
 				service.getTimeSeriesFromDB({
 					...params,
-					select: ['flow', 'presure'],
+					select: [ 'flow', 'presure' ],
 				}),
 			);
 
@@ -155,7 +155,7 @@ describe('TimeseriesService', () => {
 
 			const findManySpy = jest
 				.spyOn(prisma.timeSeriesDataItem, 'findMany')
-				.mockResolvedValue([findManyResult]);
+				.mockResolvedValue([ findManyResult ]);
 
 			const params: IGetTimeSeriesParams = {
 				assetId: findManyResult.timeSeriesItemAssetId,
@@ -163,7 +163,7 @@ describe('TimeseriesService', () => {
 			};
 
 			const query: IGetTimeseriesQuery = {
-				select: ['flow'],
+				select: [ 'flow' ],
 			};
 
 			const result = await lastValueFrom(
@@ -206,7 +206,7 @@ describe('TimeseriesService', () => {
 			};
 
 			const query: IGetTimeseriesQuery = {
-				select: ['flow'],
+				select: [ 'flow' ],
 			};
 
 			await lastValueFrom(
