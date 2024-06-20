@@ -44,8 +44,13 @@ async function seedSingleFacility({
 			description,
 			location: {
 				create: {
-					latitude: 0,
-					longitude: 0,
+					latitude: 37.7749,
+					longitude: 122.4194,
+					country: 'United States',
+					region: 'California',
+					streetAddress: '123 Main St',
+					postalCode: '94105',
+					locality: 'San Francisco',
 				},
 			},
 			variables: {},
