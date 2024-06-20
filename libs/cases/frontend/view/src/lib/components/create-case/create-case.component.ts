@@ -186,11 +186,6 @@ export class CreateCaseComponent implements OnInit {
 			priority: formData.selectPriority,
 			createdBy: formData.email,
 			eTag: faker.string.alphanumeric(10),
-
-			/**
-			 * @PatrickSchm1dt
-			 * I'm not sure if this is the correct way to get the assetId
-			 */
 			assetId: formData.selectFacility,
 		};
 	}
