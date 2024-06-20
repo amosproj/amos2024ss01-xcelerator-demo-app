@@ -1,7 +1,7 @@
-<ix-button  class="absolute top-20 right-32 !z-[50]">
+<ix-button  class="absolute top-20 right-32 !z-[50]" (click)="enableEditing()">
     Update Cases
 </ix-button>
-<ix-button  class="absolute top-20 right-4 !z-[50]" (click)="deleteCase()" [routerLink]="['/cases']">
+<ix-button  class="absolute top-20 right-4 !z-[50]" (click)="deleting()">
     Delete Case
 </ix-button>
 <ix-content>
@@ -11,42 +11,42 @@
             <form class="form-content">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" id="title" [(ngModel)]="_case.title" name="title" readonly>
+                    <input type="text" id="title" [(ngModel)]="_case.title" name="title" [readonly]="!isEditing">
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea id="description" [(ngModel)]="_case.description" name="description" rows="3" readonly></textarea>
+                    <textarea id="description" [(ngModel)]="_case.description" name="description" rows="3" [readonly]="!isEditing"></textarea>
                 </div>
                 <div class="form-row">
                     <!-- TODO: change _case.modifiedBy to _case.assignedTo, when assignedTo is implemented in backend -->
                     <div class="form-group">
                         <label for="assignedTo">Assigned to</label>
-                        <input type="email" id="assignedTo" [(ngModel)]="_case.modifiedBy" name="assignedTo" readonly>
+                        <input type="email" id="assignedTo" [(ngModel)]="_case.modifiedBy" name="assignedTo" [readonly]="!isEditing">
                     </div>
                     <div class="form-group">
                         <label for="dueDate">Due date (UTC)</label>
-                        <input type="text" id="dueDate" [(ngModel)]="_case.dueDate" name="dueDate" readonly>
+                        <input type="text" id="dueDate" [(ngModel)]="_case.dueDate" name="dueDate" [readonly]="!isEditing">
                         <label *ngIf="_case.overdue" [style.color]="'red'">Overdue</label>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="asset">Asset</label>
-                        <input type="text" id="asset" [(ngModel)]="_case.source" name="asset" readonly>
+                        <input type="text" id="asset" [(ngModel)]="_case.source" name="asset" [readonly]="!isEditing">
                     </div>
                     <div class="form-group">
                         <label for="type">Type</label>
-                        <input type="text" id="type" [(ngModel)]="_case.type" name="type" readonly>
+                        <input type="text" id="type" [(ngModel)]="_case.type" name="type" [readonly]="!isEditing">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="priority">Priority</label>
-                        <input type="text" id="priority" [(ngModel)]="_case.priority" name="priority"  readonly>
+                        <input type="text" id="priority" [(ngModel)]="_case.priority" name="priority"  [readonly]="!isEditing">
                     </div>
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <input type="text" id="status" [(ngModel)]="_case.status" name="status" readonly>
+                        <input type="text" id="status" [(ngModel)]="_case.status" name="status" [readonly]="!isEditing">
                     </div>
                 </div>
                 <div class="form-row">

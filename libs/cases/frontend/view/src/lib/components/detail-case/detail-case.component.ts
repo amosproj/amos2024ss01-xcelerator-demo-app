@@ -5,7 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
 import { ICaseResponse } from '@frontend/cases/shared/models';
-import { IxModule } from '@siemens/ix-angular';
+import { IxModule, ModalService } from '@siemens/ix-angular';
+
+import DeleteModalComponent from './delete-modal/deleteModal.component';
 
 
 @Component({
@@ -28,8 +30,8 @@ export class DetailCaseComponent {
         return _case.find((_case) => String(_case.id) === this.route.snapshot.params['id']);
     });
 
-
-    constructor(private route: ActivatedRoute) {}
+    isEditing = false;
+    constructor(private route: ActivatedRoute, private readonly _modalService: ModalService) {}
 
     deleteCase(){
         const caseId = this.mapCaseId(this.casedetail());
@@ -46,4 +48,20 @@ export class DetailCaseComponent {
             id: _case.id,
         }
     }
+
+    async deleting() {
+        const instance = await this._modalService.open({
+            content: DeleteModalComponent,
+        });
+
+        // modal closes on confirm and dismisses on cancel
+        instance.onClose.on(() => {
+            this.deleteCase()
+        });
+    }
+
+    enableEditing() {
+        this.isEditing = true;
+    }
+
 }
