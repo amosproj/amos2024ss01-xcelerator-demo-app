@@ -28,8 +28,6 @@ export class XdTokenManagerService {
 	public getOrCreateBearerToken(): Observable<string> {
 		return this._bearerToken$.pipe(
 			switchMap((bearerToken) => {
-				console.log('expires:', bearerToken?.expiresAt);
-				console.log('current:', new Date());
 				if (!bearerToken || bearerToken.expiresAt < new Date()) {
 					return this._httpClient
 						.post<ITokenManagerResponse>(
