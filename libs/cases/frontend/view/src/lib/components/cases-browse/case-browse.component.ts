@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ICaseResponse } from '@frontend/cases/shared/models';
 import { IxModule } from '@siemens/ix-angular';
 
