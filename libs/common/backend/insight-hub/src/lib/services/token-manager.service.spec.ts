@@ -99,4 +99,25 @@ describe('XdTokenManagerService', () => {
         expect(postSpy).toHaveBeenCalledTimes(1);
         expect(cachedToken).toEqual(token);
     });
+
+    it('should create new bearer token if the cached token is expired', async () => {
+        const mockResponse = {
+            data: {
+                access_token: 'test_token',
+                timestamp: Date.now(),
+                expires_in: 1,
+            },
+        };
+        const postSpy = jest
+            .spyOn(httpService, 'post')
+            .mockReturnValue(
+                of(mockResponse) as Observable<AxiosResponse<ITokenManagerResponse>>,
+            );
+
+        await firstValueFrom(service.getOrCreateBearerToken());
+        await new Promise((resolve) => setTimeout(resolve, 1010));
+        await firstValueFrom(service.getOrCreateBearerToken());
+
+        expect(postSpy).toHaveBeenCalledTimes(2);
+    });
 });

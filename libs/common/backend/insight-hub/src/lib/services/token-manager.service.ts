@@ -11,59 +11,60 @@ import { INSIGHT_HUB_OPTIONS } from '../tokens';
  */
 @Injectable()
 export class XdTokenManagerService {
-    /**
-     * The cached bearer token.
-     */
-    private _bearerToken$: BehaviorSubject<{ token: string; expiresAt: Date } | undefined> =
-        new BehaviorSubject<{ token: string; expiresAt: Date } | undefined>(undefined);
+	/**
+	 * The cached bearer token.
+	 */
+	private _bearerToken$: Observable<{ token: string; expiresAt: Date } | undefined> = of(undefined);
 
-    constructor(
-        private readonly _httpClient: HttpService,
-        @Inject(INSIGHT_HUB_OPTIONS)
-        private readonly _insightHubOptions: IInsightHub,
-    ) {}
+	constructor(
+		private readonly _httpClient: HttpService,
+		@Inject(INSIGHT_HUB_OPTIONS)
+		private readonly _insightHubOptions: IInsightHub,
+	) {}
 
-    /**
-     * Either gets the bearer token from the cache or creates a new one. This is necessary to interact with the Insight Hub API.
-     */
-    public getOrCreateBearerToken(): Observable<string> {
-        return this._bearerToken$.pipe(
-            switchMap((bearerToken) => {
-                if (!bearerToken || bearerToken.expiresAt < new Date()) {
-                    return this._httpClient
-                        .post<ITokenManagerResponse>(
-                            `${this._insightHubOptions.apiUrl}/technicaltokenmanager/v3/oauth/token`,
-                            {
-                                grant_type: 'client_credentials',
-                                appName: 'amos',
-                                appVersion: 'v1.0.0',
-                                hostTenant: 'castidev',
-                                userTenant: 'castidev',
-                            },
-                            {
-                                headers: {
-                                    'X-SPACE-AUTH-KEY': `Bearer ${this._insightHubOptions.apiKey}`,
-                                },
-                            },
-                        )
-                        .pipe(
-                            tap((response) => {
-                                this._bearerToken$.next({
-                                    token: response.data.access_token,
-                                    expiresAt: new Date(
-                                        response.data.timestamp +
-                                        (response.data.expires_in - 20) * 1000,
-                                    ),
-                                });
-                            }),
-                            map((response) => {
-                                return response.data.access_token;
-                            }),
-                        );
-                } else {
-                    return of(bearerToken.token);
-                }
-            }),
-        );
-    }
+	/**
+	 * Either gets the bearer token from the cache or creates a new one. This is necessary to interact with the Insight Hub API.
+	 */
+	public getOrCreateBearerToken(): Observable<string> {
+		return this._bearerToken$.pipe(
+			switchMap((bearerToken) => {
+				console.log('expires:', bearerToken?.expiresAt);
+				console.log('current:', new Date());
+				if (!bearerToken || bearerToken.expiresAt < new Date()) {
+					return this._httpClient
+						.post<ITokenManagerResponse>(
+							`${this._insightHubOptions.apiUrl}/technicaltokenmanager/v3/oauth/token`,
+							{
+								grant_type: 'client_credentials',
+								appName: 'amos',
+								appVersion: 'v1.0.0',
+								hostTenant: 'castidev',
+								userTenant: 'castidev',
+							},
+							{
+								headers: {
+									'X-SPACE-AUTH-KEY': `Bearer ${this._insightHubOptions.apiKey}`,
+								},
+							},
+						)
+						.pipe(
+							tap((response) => {
+								this._bearerToken$ = of({
+									token: response.data.access_token,
+									expiresAt: new Date(
+										response.data.timestamp +
+											(response.data.expires_in) * 1000,
+									),
+								});
+							}),
+							map((response) => {
+								return response.data.access_token;
+							}),
+						);
+				} else {
+					return of(bearerToken.token);
+				}
+			}),
+		);
+	}
 }
