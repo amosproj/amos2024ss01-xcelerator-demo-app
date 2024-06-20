@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { IInsightHub } from 'common-backend-models';
-import { BehaviorSubject, map, Observable, of, switchMap, tap } from 'rxjs';
+import { map, Observable, of, switchMap, tap } from 'rxjs';
 
 import { ITokenManagerResponse } from '../models/interfaces/token-manager-response.interface';
 import { INSIGHT_HUB_OPTIONS } from '../tokens';
