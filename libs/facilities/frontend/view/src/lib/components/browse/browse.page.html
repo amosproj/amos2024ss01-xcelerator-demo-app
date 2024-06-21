@@ -16,7 +16,7 @@
                     [notification]="facility.notification"
                     [heading]="facility.heading"
                     [subheading]="facility.subheading"
-                    [variant]="facility.status"
+                    [variant]="StatusToColorRecord[facility.status]"
                     [routerLink]="['/facilities', facility.id]"
                 >
                     <p>Number of water pumps: {{ facility.pumps }}</p>

@@ -1,7 +1,7 @@
+import { EPumpStatus } from '@frontend/facilities/backend/models';
 import { IFacilitiesResponse, IFacilityLocation } from '@frontend/facilities/shared/models';
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { Aspect, XdAssetsService } from 'common-backend-insight-hub';
-import { Asset } from 'common-backend-insight-hub';
+import { Aspect, Asset, XdAssetsService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import { filter, forkJoin, from, map, mergeMap, Observable, of, switchMap, toArray } from 'rxjs';
 
@@ -109,7 +109,6 @@ export class XdFacilitiesService {
 	/**
 	 * This method filters the existing assets from the assets. An asset is considered existing if it is already present in the database.
 	 *
-	 *
 	 * @param assets the assets to be filtered
 	 * @returns The assets that are not present in the database.
 	 */
@@ -170,8 +169,16 @@ export class XdFacilitiesService {
 		).pipe(
 			map((assets) => {
 				return assets.map((asset) => {
-					const { assetId, name, typeId, description, createdAt, updatedAt, variables } =
-						asset;
+					const {
+						assetId,
+						name,
+						typeId,
+						description,
+						createdAt,
+						updatedAt,
+						variables,
+						status,
+					} = asset;
 
 					const location: IFacilityLocation | undefined = asset.location
 						? {
@@ -189,6 +196,7 @@ export class XdFacilitiesService {
 						assetId,
 						name,
 						typeId,
+						status: status as EPumpStatus,
 						location: location,
 						variables: variables || undefined,
 						description: description || '',
@@ -219,8 +227,16 @@ export class XdFacilitiesService {
 					throw new HttpException('Facility not Found', HttpStatus.NOT_FOUND);
 				}
 
-				const { assetId, name, typeId, description, variables, createdAt, updatedAt } =
-					asset;
+				const {
+					assetId,
+					name,
+					typeId,
+					description,
+					variables,
+					createdAt,
+					updatedAt,
+					status,
+				} = asset;
 
 				const location: IFacilityLocation | undefined = asset.location
 					? {
@@ -238,6 +254,7 @@ export class XdFacilitiesService {
 					assetId,
 					name,
 					typeId,
+					status: status as EPumpStatus,
 					description: description || '',
 					variables: variables || undefined,
 					location: location,

@@ -1,3 +1,4 @@
+import { EPumpStatus } from '@frontend/facilities/backend/models';
 import { HttpService } from '@nestjs/axios';
 import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -89,6 +90,7 @@ describe('FacilitiesService ', () => {
 		description: 'test',
 		typeId: 'test',
 		variables: {},
+        status: EPumpStatus.REGULAR,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		location: {

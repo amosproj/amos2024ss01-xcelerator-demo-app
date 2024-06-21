@@ -1,3 +1,5 @@
+import { ITimeSeriesPumpReport } from '@frontend/facilities/backend/models';
+import { checkPumpStatus } from '@frontend/facilities/backend/utils';
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ETimeSeriesOrdering, XdIotTimeSeriesService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
@@ -9,6 +11,7 @@ import {
 } from 'facilities-shared-models';
 import { pick } from 'lodash';
 import { catchError, from, map, Observable, switchMap } from 'rxjs';
+
 @Injectable()
 export class XdTimeseriesService {
 	constructor(
@@ -64,28 +67,51 @@ export class XdTimeseriesService {
 								};
 							});
 
-							this.prismaService.$transaction(
-								data.map(({ time, ...rest }) => {
-									return this.prismaService.timeSeriesDataItem.upsert({
-										where: {
-											timeSeriesItemAssetId_timeSeriesItemPropertySetName_time:
-												{
-													timeSeriesItemAssetId: assetId,
-													timeSeriesItemPropertySetName: propertySetName,
-													time: time,
-												},
-										},
+							const pumpStatus = checkPumpStatus(
+								data as unknown as ITimeSeriesPumpReport[],
+							);
 
-										update: {},
-										create: {
-											time: time,
+							const timeSeriesData = data.map(({ time, ...rest }) => {
+								return this.prismaService.timeSeriesDataItem.upsert({
+									where: {
+										timeSeriesItemAssetId_timeSeriesItemPropertySetName_time: {
 											timeSeriesItemAssetId: assetId,
 											timeSeriesItemPropertySetName: propertySetName,
-											data: rest,
+											time: time,
 										},
-									});
-								}),
-							);
+									},
+									update: {},
+									create: {
+										time: time,
+										timeSeriesItemAssetId: assetId,
+										timeSeriesItemPropertySetName: propertySetName,
+										data: rest,
+									},
+								});
+							});
+
+							const updatedPumpData = this.prismaService.asset.upsert({
+								where: {
+									assetId,
+								},
+								update: {
+									status: pumpStatus,
+								},
+								create: {
+									assetId,
+									status: pumpStatus,
+									location: {
+										create: {
+											latitude: 0,
+											longitude: 0,
+										},
+									},
+									name: 'Pump',
+									typeId: 'pump',
+								},
+							});
+
+							this.prismaService.$transaction([ ...timeSeriesData, updatedPumpData ]);
 
 							if (select) {
 								return data.map((item) => ({

@@ -1,3 +1,4 @@
+import { EPumpStatus } from '@frontend/facilities/backend/models';
 import { TTimeSeriesData } from 'common-shared-models';
 
 /**
@@ -58,6 +59,11 @@ export interface IFacilitiesResponse {
 	 * The description of the asset
 	 */
 	description: string;
+
+	/**
+	 * The status of the asset
+	 */
+	status: EPumpStatus;
 
 	/**
 	 * The variables of the asset

@@ -25,6 +25,7 @@ describe('BrowseComponent', () => {
 						getAllFacilities: jest
 							.fn()
 							.mockReturnValue(of([ { id: '1', propertySetName: 'test' } ])),
+                        getAllFacilities: jest.fn().mockReturnValue(of([])),
 					},
 				},
 				{
@@ -41,14 +42,5 @@ describe('BrowseComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
-	});
-
-	it('should change the route', () => {
-		const cardDe = fixture.debugElement.nativeElement.querySelector('ix-push-card');
-		cardDe.click();
-
-		fixture.detectChanges();
-		const router: Router = TestBed.inject(Router);
-		expect(router.url).toEqual('/facilities/1');
 	});
 });

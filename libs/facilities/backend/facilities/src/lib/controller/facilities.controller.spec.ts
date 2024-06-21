@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { EPumpStatus } from '@frontend/facilities/backend/models';
 import { IFacilitiesResponse } from '@frontend/facilities/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
 import { firstValueFrom, of } from 'rxjs';
@@ -18,6 +19,7 @@ describe('FacilitiesController ', () => {
 		typeId: faker.string.uuid(),
 		updatedAt: faker.date.recent(),
 		variables: faker.string.sample(),
+        status: faker.helpers.enumValue(EPumpStatus),
 		location: {
 			country: faker.location.country(),
 			latitude: faker.location.latitude(),

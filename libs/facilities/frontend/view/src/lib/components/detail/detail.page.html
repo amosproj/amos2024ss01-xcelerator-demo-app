@@ -20,7 +20,8 @@
                 <ix-typography color="std">{{ facility.location }}</ix-typography>
                 <div class="flex">
                     <ix-typography color="std">status:&nbsp;</ix-typography>
-                    <ix-typography [ngClass]="facility.status">{{ facility.status }}</ix-typography>
+                    <ix-typography [ngClass]="StatusToColorRecord[facility.status]">{{ facility.status }}
+                    </ix-typography>
                 </div>
             </ix-card-content>
         </ix-card>
@@ -79,4 +80,5 @@
         </ix-card>
     </div>
 </ix-content>
+
 }

@@ -35,6 +35,9 @@ describe('TimeseriesService', () => {
 
 				upsert: jest.fn(),
 			},
+            asset: {
+                upsert: jest.fn(),
+            },
 			timeSeriesItem: {
 				findUnique: jest.fn(),
 			},
