@@ -22,7 +22,7 @@ describe('BrowseComponent', () => {
 				{
 					provide: XdBrowseFacade,
 					useValue: {
-						getAllTimeseries: jest
+						getAllFacilities: jest
 							.fn()
 							.mockReturnValue(of([ { id: '1', propertySetName: 'test' } ])),
 					},
