@@ -1,8 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
 import { OpenCasesComponent } from './open-cases.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('OpenCasesComponent', () => {
 	let component: OpenCasesComponent;
