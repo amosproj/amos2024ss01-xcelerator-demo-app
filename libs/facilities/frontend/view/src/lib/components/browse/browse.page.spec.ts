@@ -16,7 +16,7 @@ describe('BrowseComponent', () => {
 			imports: [
 				XdBrowsePage,
 				HttpClientTestingModule,
-				RouterModule.forRoot([ { path: 'facilities/1', component: XdDetailPage } ]),
+				RouterModule.forRoot([{ path: 'facilities/1', component: XdDetailPage }]),
 			],
 			providers: [
 				{
@@ -24,8 +24,8 @@ describe('BrowseComponent', () => {
 					useValue: {
 						getAllFacilities: jest
 							.fn()
-							.mockReturnValue(of([ { id: '1', propertySetName: 'test' } ])),
-                        getAllFacilities: jest.fn().mockReturnValue(of([])),
+							.mockReturnValue(of([{ id: '1', propertySetName: 'test' }])),
+						getAllFacilities: jest.fn().mockReturnValue(of([])),
 					},
 				},
 				{

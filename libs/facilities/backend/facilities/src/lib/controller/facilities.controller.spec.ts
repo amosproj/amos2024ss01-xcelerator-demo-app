@@ -19,7 +19,7 @@ describe('FacilitiesController ', () => {
 		typeId: faker.string.uuid(),
 		updatedAt: faker.date.recent(),
 		variables: faker.string.sample(),
-        status: faker.helpers.enumValue(EPumpStatus),
+		status: faker.helpers.enumValue(EPumpStatus),
 		location: {
 			country: faker.location.country(),
 			latitude: faker.location.latitude(),
@@ -39,7 +39,7 @@ describe('FacilitiesController ', () => {
 		};
 
 		const module: TestingModule = await Test.createTestingModule({
-			controllers: [ XdFacilitiesController ],
+			controllers: [XdFacilitiesController],
 			providers: [
 				{
 					provide: XdFacilitiesService,
@@ -59,23 +59,23 @@ describe('FacilitiesController ', () => {
 	it('should return all facilities', async () => {
 		const Spy = jest
 			.spyOn(service, 'getAllFacilitiesFromDB')
-			.mockReturnValue(of([ facilitiesResponse ]));
+			.mockReturnValue(of([facilitiesResponse]));
 
 		const result = await firstValueFrom(controller.getAllFacilities());
 
 		console.log(result);
 
 		expect(Spy).toHaveBeenCalled();
-		expect(result).toEqual([ facilitiesResponse ]);
+		expect(result).toEqual([facilitiesResponse]);
 	});
 
 	it('should seed the database', async () => {
-		const Spy = jest.spyOn(service, 'seedTheDB').mockReturnValue(of([ facilitiesResponse ]));
+		const Spy = jest.spyOn(service, 'seedTheDB').mockReturnValue(of([facilitiesResponse]));
 
 		const result = await firstValueFrom(controller.seedTheDB());
 
 		expect(Spy).toHaveBeenCalled();
-		expect(result).toEqual([ facilitiesResponse ]);
+		expect(result).toEqual([facilitiesResponse]);
 	});
 
 	it('should get a facility by id', async () => {

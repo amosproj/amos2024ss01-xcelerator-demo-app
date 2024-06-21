@@ -111,7 +111,7 @@ export class XdTimeseriesService {
 								},
 							});
 
-							this.prismaService.$transaction([ ...timeSeriesData, updatedPumpData ]);
+							this.prismaService.$transaction([...timeSeriesData, updatedPumpData]);
 
 							if (select) {
 								return data.map((item) => ({

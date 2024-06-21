@@ -6,10 +6,10 @@ import { TimeSeriesRequestService } from '../../infrastructure/timeseries-reques
 import { XdDetailsFacade } from './details.facade';
 
 describe('XdDetailsFacadeService', () => {
-    let service: XdDetailsFacade;
+	let service: XdDetailsFacade;
 	let facilitiesRequestService: FacilitiesRequestService;
 
-    beforeEach(() => {
+	beforeEach(() => {
 		const facilitiesRequestServiceMock = {
 			getAllFacilities: jest.fn().mockReturnValue(of([])),
 			getFacility: jest.fn().mockReturnValue(of({})),
@@ -25,9 +25,9 @@ describe('XdDetailsFacadeService', () => {
 				{
 					provide: TimeSeriesRequestService,
 					useValue: {
-                        getTimeSeriesItems: jest.fn().mockReturnValue(of([])),
-                        getTimeSeriesDataItems: jest.fn().mockReturnValue(of([])),
-                    },
+						getTimeSeriesItems: jest.fn().mockReturnValue(of([])),
+						getTimeSeriesDataItems: jest.fn().mockReturnValue(of([])),
+					},
 				},
 			],
 		});

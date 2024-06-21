@@ -90,7 +90,7 @@ describe('FacilitiesService ', () => {
 		description: 'test',
 		typeId: 'test',
 		variables: {},
-        status: EPumpStatus.REGULAR,
+		status: EPumpStatus.REGULAR,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		location: {
@@ -100,12 +100,12 @@ describe('FacilitiesService ', () => {
 	};
 
 	it('should return all facilities', async () => {
-		const prismaSpy = jest.spyOn(prisma.asset, 'findMany').mockResolvedValue([ resultMock ]);
+		const prismaSpy = jest.spyOn(prisma.asset, 'findMany').mockResolvedValue([resultMock]);
 
 		const result = await lastValueFrom(service.getAllFacilitiesFromDB());
 
 		expect(prismaSpy).toHaveBeenCalled();
-		expect(result).toEqual([ resultMock ]);
+		expect(result).toEqual([resultMock]);
 	});
 
 	it('should return a facility by id', async () => {

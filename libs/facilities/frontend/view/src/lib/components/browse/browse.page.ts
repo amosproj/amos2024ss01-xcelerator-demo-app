@@ -17,7 +17,7 @@ import { EPumpStatus } from '@frontend/facilities/backend/models';
 @Component({
 	selector: 'lib-browse',
 	standalone: true,
-	imports: [ CommonModule, IxModule, RouterLink ],
+	imports: [CommonModule, IxModule, RouterLink],
 	templateUrl: './browse.page.html',
 	styleUrl: './browse.page.scss',
 	encapsulation: ViewEncapsulation.None,

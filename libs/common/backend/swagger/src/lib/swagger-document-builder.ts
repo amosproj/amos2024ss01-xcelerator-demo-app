@@ -30,7 +30,7 @@ export class SwaggerDocumentBuilder {
 				'JWTAuthorization',
 			);
 
-		Object.entries(SWAGGER_TAG_INFORMATION).forEach(([ tag, tagInformation ]) => {
+		Object.entries(SWAGGER_TAG_INFORMATION).forEach(([tag, tagInformation]) => {
 			docBuilder.addTag(tag, tagInformation.description);
 		});
 

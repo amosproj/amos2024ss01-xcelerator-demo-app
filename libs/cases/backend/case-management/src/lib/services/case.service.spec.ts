@@ -1,5 +1,10 @@
 import { faker } from '@faker-js/faker';
-import { ECasePriority, ECaseStatus, ECaseType, ICreateCaseBody } from '@frontend/cases/shared/models';
+import {
+	ECasePriority,
+	ECaseStatus,
+	ECaseType,
+	ICreateCaseBody,
+} from '@frontend/cases/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from 'common-backend-prisma';
 import { firstValueFrom } from 'rxjs';
@@ -38,7 +43,7 @@ describe('CaseController', () => {
 		};
 
 		const module: TestingModule = await Test.createTestingModule({
-			controllers: [ XdCaseController ],
+			controllers: [XdCaseController],
 			providers: [
 				XdCaseService,
 				{

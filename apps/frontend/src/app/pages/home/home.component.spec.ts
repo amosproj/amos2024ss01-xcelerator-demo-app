@@ -9,15 +9,13 @@ describe('HomeComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [
-                HomeComponent
-            ],
-            providers: [
-                {
-                    provide: ActivatedRoute,
-                    useValue: { snapshot: { params: { id: '1' } } },
-                }
-            ]
+			imports: [HomeComponent],
+			providers: [
+				{
+					provide: ActivatedRoute,
+					useValue: { snapshot: { params: { id: '1' } } },
+				},
+			],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(HomeComponent);
