@@ -70,7 +70,7 @@ describe('statisticalAnalysis', () => {
 	});
 
 	it('should calculate the variance correctly', () => {
-		const collection = [ { Flow: 1 }, { Flow: 2 }, { Flow: 3 }, { Flow: 4 }, { Flow: 5 } ];
+		const collection = [{ Flow: 1 }, { Flow: 2 }, { Flow: 3 }, { Flow: 4 }, { Flow: 5 }];
 		const result = statisticalAnalysis(collection, 'Flow');
 		expect(result?.mean).toBeCloseTo(3);
 		expect(result?.variance).toBeCloseTo(2);
