@@ -22,6 +22,7 @@
 			"@frontend/facilities/frontend/domain": [
 				"libs/facilities/frontend/domain/src/index.ts"
 			],
+            "@frontend/facilities/backend/models": ["libs/facilities/backend/models/src/index.ts"],
 			"@frontend/facilities/shared/models": ["libs/facilities/shared/models/src/index.ts"],
 			"account-frontend-shell": ["libs/account/frontend/shell/src/index.ts"],
 			"account-frontend-view": ["libs/account/frontend/view/src/index.ts"],

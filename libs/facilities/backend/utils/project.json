@@ -1,0 +1,22 @@
+{
+    "name": "facilities-backend-utils",
+    "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "libs/facilities/backend/utils/src",
+    "projectType": "library",
+    "tags": [
+        "domain:facilities",
+        "kind:backend",
+        "type:utils"
+    ],
+    "targets": {
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": [
+                "{workspaceRoot}/coverage/{projectRoot}"
+            ],
+            "options": {
+                "jestConfig": "libs/facilities/backend/utils/jest.config.ts"
+            }
+        }
+    }
+}
