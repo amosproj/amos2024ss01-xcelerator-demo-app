@@ -14,8 +14,7 @@ export class XdTokenManagerService {
 	/**
 	 * The cached bearer token.
 	 */
-	private _bearerToken$: Observable<{ token: string; expiresAt: Date } | undefined> =
-		of(undefined);
+	private _bearerToken$: Observable<{ token: string; expiresAt: Date } | undefined> = of(undefined);
 
 	constructor(
 		private readonly _httpClient: HttpService,
@@ -29,7 +28,7 @@ export class XdTokenManagerService {
 	public getOrCreateBearerToken(): Observable<string> {
 		return this._bearerToken$.pipe(
 			switchMap((bearerToken) => {
-				if (!bearerToken || bearerToken.expiresAt < new Date('Europe/London')) {
+				if (!bearerToken || bearerToken.expiresAt < new Date()) {
 					return this._httpClient
 						.post<ITokenManagerResponse>(
 							`${this._insightHubOptions.apiUrl}/technicaltokenmanager/v3/oauth/token`,
@@ -52,7 +51,7 @@ export class XdTokenManagerService {
 									token: response.data.access_token,
 									expiresAt: new Date(
 										response.data.timestamp +
-											(response.data.expires_in - 20) * 1000,
+											(response.data.expires_in) * 1000,
 									),
 								});
 							}),

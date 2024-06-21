@@ -42,7 +42,7 @@ describe('XdTokenManagerService', () => {
 	});
 
 	describe('getOrCreateBearerToken', () => {
-		it('should get or create bearer token', async () => {
+		it('should create bearer token', async () => {
 			const mockResponse = {
 				data: {
 					access_token: 'test_token',
@@ -77,4 +77,47 @@ describe('XdTokenManagerService', () => {
 			expect(token).toEqual(mockResponse.data.access_token);
 		});
 	});
+
+    it('should use cached bearer token', async () => {
+        const mockResponse = {
+            data: {
+                access_token: 'test_token',
+                timestamp: Date.now(),
+                expires_in: 3600,
+            },
+        };
+        const postSpy = jest
+            .spyOn(httpService, 'post')
+            .mockReturnValue(
+                of(mockResponse) as Observable<AxiosResponse<ITokenManagerResponse>>,
+            );
+
+        const token = await firstValueFrom(service.getOrCreateBearerToken());
+        const cachedToken = await firstValueFrom(service.getOrCreateBearerToken());
+
+        // Ensure that the post method was only called once and the if block was executed only once
+        expect(postSpy).toHaveBeenCalledTimes(1);
+        expect(cachedToken).toEqual(token);
+    });
+
+    it('should create new bearer token if the cached token is expired', async () => {
+        const mockResponse = {
+            data: {
+                access_token: 'test_token',
+                timestamp: Date.now(),
+                expires_in: 1,
+            },
+        };
+        const postSpy = jest
+            .spyOn(httpService, 'post')
+            .mockReturnValue(
+                of(mockResponse) as Observable<AxiosResponse<ITokenManagerResponse>>,
+            );
+
+        await firstValueFrom(service.getOrCreateBearerToken());
+        await new Promise((resolve) => setTimeout(resolve, 1010));
+        await firstValueFrom(service.getOrCreateBearerToken());
+
+        expect(postSpy).toHaveBeenCalledTimes(2);
+    });
 });
