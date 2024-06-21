@@ -43,6 +43,7 @@ model Asset {
     location    AssetLocation?
     typeId      String
     variables   Json?
+    status      FacilityStatus @default(REGULAR)
 
     timeSeriesItems TimeSeriesItem[]
 
@@ -88,6 +89,12 @@ model Case {
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+}
+
+enum FacilityStatus {
+    REGULAR
+    SUSPICIOUS
+    FAULTY
 }
 
 enum CaseStatus {
