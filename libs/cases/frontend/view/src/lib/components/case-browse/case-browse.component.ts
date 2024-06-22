@@ -16,13 +16,26 @@ import { IxModule } from '@siemens/ix-angular';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaseBrowseComponent {
+    protected filterPriority = 'ALL';
+    protected filterStatus = 'ALL';
+    protected filterType = 'ALL';
     protected readonly _browseFacade = inject(XdBrowseFacadesService);
     protected readonly _cases = toSignal(this._browseFacade.getAllCases());
     protected readonly _sortedCases = computed( () => {
-        const cases = this._cases();
+        let cases = this._cases();
         if (cases === undefined) {
             return;
         }
+        if(this.filterPriority != 'ALL') {
+            cases = cases.filter(_case => _case.priority == this.filterPriority);
+        }
+        if(this.filterStatus != 'ALL') {
+            cases = cases.filter(_case => _case.status == this.filterStatus);
+        }
+        if(this.filterType != 'ALL') {
+            cases = cases.filter(_case => _case.type == this.filterType);
+        }
+
         const statusOrder = [
             'OPEN',
             'INPROGRESS',
@@ -32,9 +45,14 @@ export class CaseBrowseComponent {
             'CANCELLED',
             'ARCHIVED',
         ];
-        const priorityOrder = [ 'EMERGENCY', 'HIGH', 'MEDIUM', 'LOW' ];
+        const priorityOrder = [
+            'EMERGENCY',
+            'HIGH',
+            'MEDIUM',
+            'LOW'
+        ];
 
-        [ ...cases ].sort((a, b) => {
+        cases.sort((a, b) => {
             const statusAIndex = statusOrder.indexOf(a.status);
             const statusBIndex = statusOrder.indexOf(b.status);
 
