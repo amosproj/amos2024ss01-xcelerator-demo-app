@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
-import { ICaseResponse } from '@frontend/cases/shared/models';
+import { ECasePriority, ICaseResponse } from '@frontend/cases/shared/models';
 import { IxModule } from '@siemens/ix-angular';
 
 @Component({
@@ -16,9 +16,12 @@ import { IxModule } from '@siemens/ix-angular';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaseBrowseComponent {
-    protected filterPriority = 'ALL';
-    protected filterStatus = 'ALL';
-    protected filterType = 'ALL';
+    //protected filterPriority = 'ALL';
+    //protected filterStatus = 'ALL';
+    //protected filterType = 'ALL';
+    protected readonly filterPriority = signal('ALL');
+    protected readonly filterStatus = signal('ALL');
+    protected readonly filterType = signal('ALL');
     protected readonly _browseFacade = inject(XdBrowseFacadesService);
     protected readonly _cases = toSignal(this._browseFacade.getAllCases());
     protected readonly _sortedCases = computed( () => {
@@ -26,14 +29,14 @@ export class CaseBrowseComponent {
         if (cases === undefined) {
             return;
         }
-        if(this.filterPriority != 'ALL') {
-            cases = cases.filter(_case => _case.priority == this.filterPriority);
+        if(this.filterPriority() != 'ALL') {
+            cases = cases.filter(_case => _case.priority == this.filterPriority());
         }
-        if(this.filterStatus != 'ALL') {
-            cases = cases.filter(_case => _case.status == this.filterStatus);
+        if(this.filterStatus() != 'ALL') {
+            cases = cases.filter(_case => _case.status == this.filterStatus());
         }
-        if(this.filterType != 'ALL') {
-            cases = cases.filter(_case => _case.type == this.filterType);
+        if(this.filterType() != 'ALL') {
+            cases = cases.filter(_case => _case.type == this.filterType());
         }
 
         const statusOrder = [
@@ -91,4 +94,18 @@ export class CaseBrowseComponent {
             'status-archived': _case.status === 'ARCHIVED'
         };
     }
+
+    setFilterPriority(newPriority: string){
+        this.filterPriority.set(newPriority);
+    }
+
+    setFilterStatus(newStatus: string){
+        this.filterStatus.set(newStatus);
+    }
+
+    setFilterType(newType: string){
+        this.filterType.set(newType);
+    }
+
+    protected readonly casePriority = ECasePriority;
 }

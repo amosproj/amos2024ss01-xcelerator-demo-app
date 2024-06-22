@@ -1,4 +1,10 @@
 <div class="absolute top-20 right-4 !z-[50] flex flex-row-reverse gap-x-4">
+
+    <ix-pill (click)='setFilterPriority("LOW")'>current Priority:{{filterPriority()}}</ix-pill>
+    <ix-pill (click)='setFilterStatus("INPROGRESS")'>current Status:{{filterStatus()}}</ix-pill>
+    <ix-pill (click)='setFilterType("PLANNED")'>current Type:{{filterType()}}</ix-pill>
+
+
     <ix-button [routerLink]="['/cases/create']" icon="plus">
         Create Case
     </ix-button>
@@ -6,6 +12,7 @@
         View Open Cases
     </ix-button>
 </div>
+
 <ix-content>
     <table class="table">
         <thead>
@@ -18,20 +25,20 @@
             <th scope="col">Description</th>
         </tr>
         </thead>
-    <tbody>
-        @for (_case of _sortedCases(); track _case.id) {
-            <tr
-                [routerLink]="['/cases', _case.id]"
-                class="clickable-row"
-                [ngClass]="getStatusClasses(_case)"
-            >
-                <th scope="row">{{ _case.handle }}</th>
-                <td>{{ _case.title }}</td>
-                <td>{{ _case.priority }}</td>
-                <td>{{ _case.status }}</td>
-                <td>{{ _case.dueDate }}</td>
-                <td>{{ _case.description }}</td>
-            </tr>
-        }
+        <tbody>
+            @for (_case of _sortedCases(); track _case.id) {
+                <tr
+                    [routerLink]="['/cases', _case.id]"
+                    class="clickable-row"
+                    [ngClass]="getStatusClasses(_case)"
+                >
+                    <th scope="row">{{ _case.handle }}</th>
+                    <td>{{ _case.title }}</td>
+                    <td>{{ _case.priority }}</td>
+                    <td>{{ _case.status }}</td>
+                    <td>{{ _case.dueDate }}</td>
+                    <td>{{ _case.description }}</td>
+                </tr>
+            }
     </table>
 </ix-content>
