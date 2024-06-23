@@ -7,14 +7,13 @@
 .pill-container {
 	display: flex;
 	flex-wrap: wrap;
-	flex-direction: column;
+	flex-direction: row;
 	gap: 10px;
 }
 
 .pill-container-container {
 	display: flex;
 	flex-wrap: wrap;
-	flex-direction: row;
-	gap: 20px;
-	cursor: pointer;
+	flex-direction: column;
+	gap: 10px;
 }

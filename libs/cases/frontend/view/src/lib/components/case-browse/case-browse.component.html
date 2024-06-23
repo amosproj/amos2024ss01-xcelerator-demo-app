@@ -1,89 +1,87 @@
 <div class="absolute top-20 right-4 !z-[50] flex flex-row-reverse gap-x-4">
-    <ix-button [routerLink]="['/cases/create']" icon="plus">
-        Create Case
-    </ix-button>
+	<ix-button [routerLink]="['/cases/create']" icon="plus"> Create Case </ix-button>
 </div>
 
 <ix-content>
+	<div class="pill-container-container">
+		<div class="pill-container">
+			<ix-pill (click)="flipShowStatusOpen()" [outline]="!showStatusOpen()">
+				{{ showStatusOpen() ? 'Hide open cases' : 'Show open cases' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowStatusInProgress()" [outline]="!showStatusInProgress()">
+				{{ showStatusInProgress() ? 'Hide in progress cases' : 'Show in progress cases' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowStatusOnHold()" [outline]="!showStatusOnHold()">
+				{{ showStatusOnHold() ? 'Hide on hold cases' : 'Show on hold cases' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowStatusDone()" [outline]="!showStatusDone()">
+				{{ showStatusDone() ? 'Hide done cases' : 'Show done cases' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowStatusOverdue()" [outline]="!showStatusOverdue()">
+				{{ showStatusOverdue() ? 'Hide overdue cases' : 'Show overdue cases' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowStatusCancelled()" [outline]="!showStatusCancelled()">
+				{{ showStatusCancelled() ? 'Hide cancelled cases' : 'Show cancelled cases' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowStatusArchived()" [outline]="!showStatusArchived()">
+				{{ showStatusArchived() ? 'Hide archived cases' : 'Show archived cases' }}
+			</ix-pill>
+		</div>
 
-    <div class="pill-container-container">
-        <div class="pill-container">
-            <ix-pill (click)="flipShowStatusOpen()">
-                {{ showStatusOpen() ? 'Hide open cases' : 'Show open cases' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowStatusInProgress()">
-                {{ showStatusInProgress() ? 'Hide in progress cases' : 'Show in progress cases' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowStatusOnHold()">
-                {{ showStatusOnHold() ? 'Hide on hold cases' : 'Show on hold cases' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowStatusDone()">
-                {{ showStatusDone() ? 'Hide done cases' : 'Show done cases' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowStatusOverdue()">
-                {{ showStatusOverdue() ? 'Hide overdue cases' : 'Show overdue cases' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowStatusCancelled()">
-                {{ showStatusCancelled() ? 'Hide cancelled cases' : 'Show cancelled cases' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowStatusArchived()">
-                {{ showStatusArchived() ? 'Hide archived cases' : 'Show archived cases' }}
-            </ix-pill>
-        </div>
+		<div class="pill-container">
+			<ix-pill (click)="flipShowPriorityEmergency()" [outline]="!showPriorityEmergency()">
+				{{ showPriorityEmergency() ? 'Hide Emergencies' : 'Show Emergencies' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowPriorityHigh()" [outline]="!showPriorityHigh()">
+				{{ showPriorityHigh() ? 'Hide high priority' : 'Show high priority' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowPriorityMedium()" [outline]="!showPriorityMedium()">
+				{{ showPriorityMedium() ? 'Hide medium priority' : 'Show medium priority' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowPriorityLow()" [outline]="!showPriorityLow()">
+				{{ showPriorityLow() ? 'Hide low priority' : 'Show low priority' }}
+			</ix-pill>
+		</div>
 
-        <div class="pill-container">
-            <ix-pill (click)="flipShowPriorityEmergency()">
-                {{ showPriorityEmergency() ? 'Hide Emergencies' : 'Show Emergencies' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowPriorityHigh()">
-                {{ showPriorityHigh() ? 'Hide high priority' : 'Show high priority' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowPriorityMedium()">
-                {{ showPriorityMedium() ? 'Hide medium priority' : 'Show medium priority' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowPriorityLow()">
-                {{ showPriorityLow() ? 'Hide low priority' : 'Show low priority' }}
-            </ix-pill>
-        </div>
+		<div class="pill-container">
+			<ix-pill (click)="flipShowTypePlanned()" [outline]="!showTypePlanned()">
+				{{ showTypePlanned() ? 'Hide planned cases' : 'Show planned cases' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowTypeIncident()" [outline]="!showTypeIncident()">
+				{{ showTypeIncident() ? 'Hide incidents' : 'Show incidents' }}
+			</ix-pill>
+			<ix-pill (click)="flipShowTypeAnnotation()" [outline]="!showTypeAnnotation()">
+				{{ showTypeAnnotation() ? 'Hide annotations' : 'Show annotations' }}
+			</ix-pill>
+		</div>
+	</div>
 
-        <div class="pill-container">
-            <ix-pill (click)="flipShowTypePlanned()">
-                {{ showTypePlanned() ? 'Hide planned cases' : 'Show planned cases' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowTypeIncident()">
-                {{ showTypeIncident() ? 'Hide incidents' : 'Show incidents' }}
-            </ix-pill>
-            <ix-pill (click)="flipShowTypeAnnotation()">
-                {{ showTypeAnnotation() ? 'Hide annotations' : 'Show annotations' }}
-            </ix-pill>
-        </div>
-    </div>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Status</th>
-            <th scope="col">Due to</th>
-            <th scope="col">Description</th>
-        </tr>
-        </thead>
-        <tbody>
-            @for (_case of _sortedCases(); track _case.id) {
-                <tr
-                    [routerLink]="['/cases', _case.id]"
-                    class="clickable-row"
-                    [ngClass]="getStatusClasses(_case)"
-                >
-                    <th scope="row">{{ _case.handle }}</th>
-                    <td>{{ _case.title }}</td>
-                    <td>{{ _case.priority }}</td>
-                    <td>{{ _case.status }}</td>
-                    <td>{{ _case.dueDate }}</td>
-                    <td>{{ _case.description }}</td>
-                </tr>
-            }
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Title</th>
+				<th scope="col">Priority</th>
+				<th scope="col">Status</th>
+				<th scope="col">Due to</th>
+				<th scope="col">Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (_case of _sortedCases(); track _case.id) {
+				<tr
+					[routerLink]="['/cases', _case.id]"
+					class="clickable-row"
+					[ngClass]="getStatusClasses(_case)"
+				>
+					<th scope="row">{{ _case.handle }}</th>
+					<td>{{ _case.title }}</td>
+					<td>{{ _case.priority }}</td>
+					<td>{{ _case.status }}</td>
+					<td>{{ _case.dueDate }}</td>
+					<td>{{ _case.description }}</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </ix-content>
