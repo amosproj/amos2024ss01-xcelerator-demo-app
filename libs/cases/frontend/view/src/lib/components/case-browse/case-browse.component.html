@@ -1,19 +1,64 @@
 <div class="absolute top-20 right-4 !z-[50] flex flex-row-reverse gap-x-4">
-
-    <ix-pill (click)='setFilterPriority("LOW")'>current Priority:{{filterPriority()}}</ix-pill>
-    <ix-pill (click)='setFilterStatus("INPROGRESS")'>current Status:{{filterStatus()}}</ix-pill>
-    <ix-pill (click)='setFilterType("PLANNED")'>current Type:{{filterType()}}</ix-pill>
-
-
     <ix-button [routerLink]="['/cases/create']" icon="plus">
         Create Case
-    </ix-button>
-    <ix-button [routerLink]="['/cases/open']">
-        View Open Cases
     </ix-button>
 </div>
 
 <ix-content>
+
+    <div class="pill-container-container">
+        <div class="pill-container">
+            <ix-pill (click)="flipShowStatusOpen()">
+                {{ showStatusOpen() ? 'Hide open cases' : 'Show open cases' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowStatusInProgress()">
+                {{ showStatusInProgress() ? 'Hide in progress cases' : 'Show in progress cases' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowStatusOnHold()">
+                {{ showStatusOnHold() ? 'Hide on hold cases' : 'Show on hold cases' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowStatusDone()">
+                {{ showStatusDone() ? 'Hide done cases' : 'Show done cases' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowStatusOverdue()">
+                {{ showStatusOverdue() ? 'Hide overdue cases' : 'Show overdue cases' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowStatusCancelled()">
+                {{ showStatusCancelled() ? 'Hide cancelled cases' : 'Show cancelled cases' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowStatusArchived()">
+                {{ showStatusArchived() ? 'Hide archived cases' : 'Show archived cases' }}
+            </ix-pill>
+        </div>
+
+        <div class="pill-container">
+            <ix-pill (click)="flipShowPriorityEmergency()">
+                {{ showPriorityEmergency() ? 'Hide Emergencies' : 'Show Emergencies' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowPriorityHigh()">
+                {{ showPriorityHigh() ? 'Hide high priority' : 'Show high priority' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowPriorityMedium()">
+                {{ showPriorityMedium() ? 'Hide medium priority' : 'Show medium priority' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowPriorityLow()">
+                {{ showPriorityLow() ? 'Hide low priority' : 'Show low priority' }}
+            </ix-pill>
+        </div>
+
+        <div class="pill-container">
+            <ix-pill (click)="flipShowTypePlanned()">
+                {{ showTypePlanned() ? 'Hide planned cases' : 'Show planned cases' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowTypeIncident()">
+                {{ showTypeIncident() ? 'Hide incidents' : 'Show incidents' }}
+            </ix-pill>
+            <ix-pill (click)="flipShowTypeAnnotation()">
+                {{ showTypeAnnotation() ? 'Hide annotations' : 'Show annotations' }}
+            </ix-pill>
+        </div>
+    </div>
+
     <table class="table">
         <thead>
         <tr>

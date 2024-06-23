@@ -16,12 +16,24 @@ import { IxModule } from '@siemens/ix-angular';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaseBrowseComponent {
-    //protected filterPriority = 'ALL';
-    //protected filterStatus = 'ALL';
-    //protected filterType = 'ALL';
-    protected readonly filterPriority = signal('ALL');
-    protected readonly filterStatus = signal('ALL');
-    protected readonly filterType = signal('ALL');
+
+    protected readonly showPriorityEmergency = signal(true);
+    protected readonly showPriorityHigh = signal(true);
+    protected readonly showPriorityMedium = signal(true);
+    protected readonly showPriorityLow = signal(true);
+
+    protected readonly showTypePlanned = signal(true);
+    protected readonly showTypeIncident = signal(true);
+    protected readonly showTypeAnnotation = signal(true);
+
+    protected readonly showStatusOpen = signal(true);
+    protected readonly showStatusInProgress = signal(false);
+    protected readonly showStatusOverdue = signal(false);
+    protected readonly showStatusOnHold = signal(false);
+    protected readonly showStatusDone = signal(false);
+    protected readonly showStatusCancelled = signal(false);
+    protected readonly showStatusArchived = signal(false);
+
     protected readonly _browseFacade = inject(XdBrowseFacadesService);
     protected readonly _cases = toSignal(this._browseFacade.getAllCases());
     protected readonly _sortedCases = computed( () => {
@@ -29,14 +41,50 @@ export class CaseBrowseComponent {
         if (cases === undefined) {
             return;
         }
-        if(this.filterPriority() != 'ALL') {
-            cases = cases.filter(_case => _case.priority == this.filterPriority());
+
+        if(!this.showPriorityEmergency()) {
+            cases = cases.filter(_case => _case.priority != 'EMERGENCY');
         }
-        if(this.filterStatus() != 'ALL') {
-            cases = cases.filter(_case => _case.status == this.filterStatus());
+        if(!this.showPriorityHigh()) {
+            cases = cases.filter(_case => _case.priority != 'HIGH');
         }
-        if(this.filterType() != 'ALL') {
-            cases = cases.filter(_case => _case.type == this.filterType());
+        if(!this.showPriorityMedium()) {
+            cases = cases.filter(_case => _case.priority != 'MEDIUM');
+        }
+        if(!this.showPriorityLow()) {
+            cases = cases.filter(_case => _case.priority != 'LOW');
+        }
+
+        if(!this.showTypePlanned()) {
+            cases = cases.filter(_case => _case.type != 'PLANNED');
+        }
+        if(!this.showTypeIncident()) {
+            cases = cases.filter(_case => _case.type != 'INCIDENT');
+        }
+        if(!this.showTypeAnnotation()) {
+            cases = cases.filter(_case => _case.type != 'ANNOTATION');
+        }
+
+        if(!this.showStatusOpen()) {
+            cases = cases.filter(_case => _case.status != 'OPEN');
+        }
+        if(!this.showStatusInProgress()) {
+            cases = cases.filter(_case => _case.status != 'INPROGRESS');
+        }
+        if(!this.showStatusOnHold()) {
+            cases = cases.filter(_case => _case.status != 'ONHOLD');
+        }
+        if(!this.showStatusDone()) {
+            cases = cases.filter(_case => _case.status != 'DONE');
+        }
+        if(!this.showStatusOverdue()) {
+            cases = cases.filter(_case => _case.status != 'OVERDUE');
+        }
+        if(!this.showStatusCancelled()) {
+            cases = cases.filter(_case => _case.status != 'CANCELLED');
+        }
+        if(!this.showStatusArchived()) {
+            cases = cases.filter(_case => _case.status != 'ARCHIVED');
         }
 
         const statusOrder = [
@@ -95,16 +143,49 @@ export class CaseBrowseComponent {
         };
     }
 
-    setFilterPriority(newPriority: string){
-        this.filterPriority.set(newPriority);
+    flipShowPriorityEmergency(){
+        this.showPriorityEmergency.set(!this.showPriorityEmergency());
+    }
+    flipShowPriorityHigh(){
+        this.showPriorityHigh.set(!this.showPriorityHigh());
+    }
+    flipShowPriorityMedium(){
+        this.showPriorityMedium.set(!this.showPriorityMedium());
+    }
+    flipShowPriorityLow(){
+        this.showPriorityLow.set(!this.showPriorityLow());
     }
 
-    setFilterStatus(newStatus: string){
-        this.filterStatus.set(newStatus);
+    flipShowTypePlanned(){
+        this.showTypePlanned.set(!this.showTypePlanned());
+    }
+    flipShowTypeIncident(){
+        this.showTypeIncident.set(!this.showTypeIncident());
+    }
+    flipShowTypeAnnotation(){
+        this.showTypeAnnotation.set(!this.showTypeAnnotation());
     }
 
-    setFilterType(newType: string){
-        this.filterType.set(newType);
+    flipShowStatusOpen(){
+        this.showStatusOpen.set(!this.showStatusOpen());
+    }
+    flipShowStatusInProgress(){
+        this.showStatusInProgress.set(!this.showStatusInProgress());
+    }
+    flipShowStatusOnHold(){
+        this.showStatusOnHold.set(!this.showStatusOnHold());
+    }
+    flipShowStatusDone(){
+        this.showStatusDone.set(!this.showStatusDone());
+    }
+    flipShowStatusOverdue(){
+        this.showStatusOverdue.set(!this.showStatusOverdue());
+    }
+    flipShowStatusCancelled(){
+        this.showStatusCancelled.set(!this.showStatusCancelled());
+    }
+    flipShowStatusArchived(){
+        this.showStatusArchived.set(!this.showStatusArchived());
     }
 
     protected readonly casePriority = ECasePriority;
