@@ -7,7 +7,7 @@
             #caseForm="ngForm"
             (submit)="onSubmit(caseForm)"
         >
-
+            <!-- Facility Selection -->
             <ix-select
                 id="facilitySelection"
                 (valueChange)="onFacilityChange($event)"
@@ -20,38 +20,52 @@
                     ></ix-select-item>
                 }
             </ix-select>
-            <ix-input-group class="absolute pointer-events-none" id="input-facilitySelection">
+            <ix-input-group 
+                class="absolute pointer-events-none" 
+                id="input-facilitySelection"
+            >
                 <input
                     [(ngModel)]="createCaseForm.selectFacility"
                     placeholder="{{facilityPlaceholder()}}"
                     name="selectFacility"
                     required
                 />
-                <span slot="input-end"><ix-icon name="chevron-down" size="16"></ix-icon></span>
+                <span slot="input-end">
+                    <ix-icon name="chevron-down" size="16"/>
+                </span>
             </ix-input-group>
-
+            
+            <!-- Case Title -->
             <ix-input-group>
                 <span slot="input-start">Title:</span>
-                <input type="text" name="title" [(ngModel)]="createCaseForm.title" required />
+                <input 
+                    type="text" 
+                    name="title" 
+                    [(ngModel)]="createCaseForm.title" 
+                    required 
+                />
                 <div class="invalid-feedback">Please insert a title</div>
             </ix-input-group>
 
+            <!-- Case Description -->
             <textarea
-                class="pl-2"
                 placeholder="Enter your Description"
+                class="pl-2"
                 name="text"
                 [(ngModel)]="createCaseForm.text"
                 required
             ></textarea>
 
             <div class="flex flex-row gap-4">
+                <!-- Date Selection -->
                 <lib-date-dropdown-wrapper
                     [(ngModel)]="createCaseForm.dueDate"
                     name="dueDate"
                     required
-                ></lib-date-dropdown-wrapper>
+                />
 
                 <div class="flex flex-col">
+                    <!-- Case Type  Selection -->
                     <ix-select
                         id="typeSelection"
                         (valueChange)="onTypeChange($event)"
@@ -69,11 +83,14 @@
                             name="selectType"
                             required
                         />
-                        <span slot="input-end"><ix-icon name="chevron-down" size="16"></ix-icon></span>
+                        <span slot="input-end">
+                            <ix-icon name="chevron-down" size="16"/>
+                        </span>
                     </ix-input-group>
                 </div>
 
                 <div class="flex flex-col">
+                    <!-- Case Priority Selection -->
                     <ix-select
                         id="prioritySelection"
                         (valueChange)="onPriorityChange($event)"
@@ -91,12 +108,14 @@
                             name="selectPriority"
                             required
                         />
-                        <span slot="input-end"><ix-icon name="chevron-down" size="16"></ix-icon></span>
+                        <span slot="input-end">
+                            <ix-icon name="chevron-down" size="16"/>
+                        </span>
                     </ix-input-group>
                 </div>
             </div>
 
-
+            <!-- Case Email Input -->
             <ix-input-group>
                 <span slot="input-start">Email:</span>
                 <input
@@ -109,7 +128,8 @@
                 <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">Please provide a valid email address</div>
             </ix-input-group>
-
+            
+            <!-- Case Creation Button -->
             <ix-button type="submit">Create Case</ix-button>
         </form>
 
@@ -119,8 +139,13 @@
                 <div class="mt-7 text-l">{{ facility.subheading }}</div>
             </ix-tile>
 
-            <ix-tile class="mt-2" size="small">Location: {{ facility.location }}</ix-tile>
-            <ix-tile class="mt-2" size="small">Number of pumps: {{ facility.pumps }}</ix-tile>
+            <ix-tile class="mt-2" size="small">
+                Location: {{ facility.location }}
+            </ix-tile>
+
+            <ix-tile class="mt-2" size="small">
+                Number of pumps: {{ facility.pumps }}
+            </ix-tile>
 
             <ix-button
                 class="mt-4"
