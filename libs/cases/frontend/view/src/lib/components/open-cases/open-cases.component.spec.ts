@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,7 +10,7 @@ describe('OpenCasesComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ OpenCasesComponent ],
+			imports: [ OpenCasesComponent, HttpClientTestingModule ],
 			providers: [
 				{
 					provide: ActivatedRoute,

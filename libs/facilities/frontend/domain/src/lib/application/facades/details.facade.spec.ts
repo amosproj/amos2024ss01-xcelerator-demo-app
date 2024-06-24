@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
@@ -15,6 +16,7 @@ describe('XdDetailsFacadeService', () => {
         };
 
         TestBed.configureTestingModule({
+            imports: [ HttpClientTestingModule ],
             providers: [
                 XdDetailsFacade,
                 { provide: FacilitiesRequestService, useValue: facilitiesRequestServiceMock },
