@@ -12,14 +12,18 @@
                 id="facilitySelection"
                 (valueChange)="onFacilityChange($event)"
                 (inputChange)="onFacilityInputChange($event)"
+                hide-list-header="true"
             >
                 @for (facility of facilities(); track facility.id) {
                     <ix-select-item
                         [label]="facility.heading"
                         [value]="facility.id"
-                    ></ix-select-item>
+                    />
                 }
             </ix-select>
+
+           
+            <!-- TODO: Find better solution for select validation -->
             <ix-input-group 
                 class="absolute pointer-events-none" 
                 id="input-facilitySelection"
@@ -34,27 +38,32 @@
                     <ix-icon name="chevron-down" size="16"/>
                 </span>
             </ix-input-group>
-            
+
             <!-- Case Title -->
             <ix-input-group>
-                <span slot="input-start">Title:</span>
+                <label>Title</label>
                 <input 
                     type="text" 
                     name="title" 
                     [(ngModel)]="createCaseForm.title" 
                     required 
                 />
-                <div class="invalid-feedback">Please insert a title</div>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Title is required</div>
             </ix-input-group>
 
             <!-- Case Description -->
-            <textarea
-                placeholder="Enter your Description"
-                class="pl-2"
-                name="text"
-                [(ngModel)]="createCaseForm.text"
-                required
-            ></textarea>
+            <ix-input-group>
+                <label>Description</label>
+                <textarea
+                    class="pl-2"
+                    name="text"
+                    [(ngModel)]="createCaseForm.text"
+                    required
+                ></textarea>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Description is required</div>
+            </ix-input-group>
 
             <div class="flex flex-row gap-4">
                 <!-- Date Selection -->
@@ -75,7 +84,8 @@
                         <ix-select-item label="INCIDENT" [value]="caseType.INCIDENT"></ix-select-item>
                         <ix-select-item label="ANNOTATION" [value]="caseType.ANNOTATION"></ix-select-item>
                     </ix-select>
-
+                    
+                    <!-- TODO: Find better solution for select validation -->
                     <ix-input-group class="absolute pointer-events-none" id="input-typeSelection">
                         <input
                             [(ngModel)]="createCaseForm.selectType"
@@ -101,6 +111,7 @@
                         <ix-select-item label="HIGH" [value]="casePriority.HIGH"></ix-select-item>
                         <ix-select-item label="EMERGENCY" [value]="casePriority.EMERGENCY"></ix-select-item>
                     </ix-select>
+                    <!-- TODO: Find better solution for select validation -->
                     <ix-input-group class="absolute pointer-events-none" id="input-prioritySelection">
                         <input
                             [(ngModel)]="createCaseForm.selectPriority"
@@ -117,7 +128,7 @@
 
             <!-- Case Email Input -->
             <ix-input-group>
-                <span slot="input-start">Email:</span>
+                <label>Email address</label>
                 <input
                     placeholder="example@domain.com"
                     type="email"
@@ -128,7 +139,7 @@
                 <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">Please provide a valid email address</div>
             </ix-input-group>
-            
+
             <!-- Case Creation Button -->
             <ix-button type="submit">Create Case</ix-button>
         </form>
