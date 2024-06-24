@@ -6,52 +6,52 @@
 	<div class="pill-container-container">
 		<div class="pill-container">
 			<ix-pill (click)="flipShowStatusOpen()" [outline]="!showStatusOpen()">
-				{{ showStatusOpen() ? 'Hide open cases' : 'Show open cases' }}
+				open
 			</ix-pill>
 			<ix-pill (click)="flipShowStatusInProgress()" [outline]="!showStatusInProgress()">
-				{{ showStatusInProgress() ? 'Hide in progress cases' : 'Show in progress cases' }}
+				in progress
 			</ix-pill>
 			<ix-pill (click)="flipShowStatusOnHold()" [outline]="!showStatusOnHold()">
-				{{ showStatusOnHold() ? 'Hide on hold cases' : 'Show on hold cases' }}
+				on hold
 			</ix-pill>
 			<ix-pill (click)="flipShowStatusDone()" [outline]="!showStatusDone()">
-				{{ showStatusDone() ? 'Hide done cases' : 'Show done cases' }}
+				done
 			</ix-pill>
 			<ix-pill (click)="flipShowStatusOverdue()" [outline]="!showStatusOverdue()">
-				{{ showStatusOverdue() ? 'Hide overdue cases' : 'Show overdue cases' }}
+				overdue
 			</ix-pill>
 			<ix-pill (click)="flipShowStatusCancelled()" [outline]="!showStatusCancelled()">
-				{{ showStatusCancelled() ? 'Hide cancelled cases' : 'Show cancelled cases' }}
+				cancelled
 			</ix-pill>
 			<ix-pill (click)="flipShowStatusArchived()" [outline]="!showStatusArchived()">
-				{{ showStatusArchived() ? 'Hide archived cases' : 'Show archived cases' }}
+				archived
 			</ix-pill>
 		</div>
 
 		<div class="pill-container">
 			<ix-pill (click)="flipShowPriorityEmergency()" [outline]="!showPriorityEmergency()">
-				{{ showPriorityEmergency() ? 'Hide Emergencies' : 'Show Emergencies' }}
+				emergencies
 			</ix-pill>
 			<ix-pill (click)="flipShowPriorityHigh()" [outline]="!showPriorityHigh()">
-				{{ showPriorityHigh() ? 'Hide high priority' : 'Show high priority' }}
+				high
 			</ix-pill>
 			<ix-pill (click)="flipShowPriorityMedium()" [outline]="!showPriorityMedium()">
-				{{ showPriorityMedium() ? 'Hide medium priority' : 'Show medium priority' }}
+				medium
 			</ix-pill>
 			<ix-pill (click)="flipShowPriorityLow()" [outline]="!showPriorityLow()">
-				{{ showPriorityLow() ? 'Hide low priority' : 'Show low priority' }}
+				low
 			</ix-pill>
 		</div>
 
 		<div class="pill-container">
 			<ix-pill (click)="flipShowTypePlanned()" [outline]="!showTypePlanned()">
-				{{ showTypePlanned() ? 'Hide planned cases' : 'Show planned cases' }}
+				planned
 			</ix-pill>
 			<ix-pill (click)="flipShowTypeIncident()" [outline]="!showTypeIncident()">
-				{{ showTypeIncident() ? 'Hide incidents' : 'Show incidents' }}
+				incident
 			</ix-pill>
 			<ix-pill (click)="flipShowTypeAnnotation()" [outline]="!showTypeAnnotation()">
-				{{ showTypeAnnotation() ? 'Hide annotations' : 'Show annotations' }}
+				annotation
 			</ix-pill>
 		</div>
 	</div>
