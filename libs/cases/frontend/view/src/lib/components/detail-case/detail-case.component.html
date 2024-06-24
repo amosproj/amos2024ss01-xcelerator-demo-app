@@ -1,7 +1,7 @@
 <ix-button class="absolute top-20 right-32 !z-[50]" (click)="toggleEdit()">
-    {{ isEditing ? 'Submit changes' : 'Update Cases' }}
+    {{ isEditing ? 'Submit changes' : 'Update Case' }}
 </ix-button>
-<ix-icon-button *ngIf="isEditing" class="absolute top-20 right-64 !z-[50] text-red-600" (click)="cancelEdit()" icon="cancel" iconColor="--theme-color-alarm">
+<ix-icon-button *ngIf="isEditing" class="absolute top-20 right-64 !z-[50] text-red-600" (click)="cancelEdit()" icon="cancel" iconColor="red">
     Cancel
 </ix-icon-button>
 <ix-button  class="absolute top-20 right-4 !z-[50]" (click)="deleting()">
