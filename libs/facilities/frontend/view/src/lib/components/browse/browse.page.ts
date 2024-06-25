@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { StatusToColorRecord } from '@frontend/facilities/frontend/models';
 import { IxModule } from '@siemens/ix-angular';
-import { EPumpStatus } from '@frontend/facilities/backend/models';
+import { EPumpStatus } from 'facilities-shared-models';
 
 @Component({
 	selector: 'lib-browse',

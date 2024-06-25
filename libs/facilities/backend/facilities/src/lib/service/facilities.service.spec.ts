@@ -4,10 +4,10 @@ import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { XdAssetsService, XdTokenManagerService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
+import { EPumpStatus } from 'facilities-shared-models';
 import { lastValueFrom, of } from 'rxjs';
 
 import { XdFacilitiesService } from './facilities.service';
-import { EPumpStatus } from 'facilities-shared-models';
 
 const INSIGHT_HUB_OPTIONS = 'INSIGHT_HUB_OPTIONS';
 

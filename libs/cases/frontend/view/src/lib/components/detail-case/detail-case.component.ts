@@ -13,9 +13,9 @@ import DeleteModalComponent from './delete-modal/deleteModal.component';
 @Component({
     selector: 'lib-detail-case',
     standalone: true,
-    imports: [CommonModule, FormsModule, IxModule, RouterLink],
+    imports: [ CommonModule, FormsModule, IxModule, RouterLink ],
     templateUrl: './detail-case.component.html',
-    styleUrls: ['./detail-case.component.scss'],
+    styleUrls: [ './detail-case.component.scss' ],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
