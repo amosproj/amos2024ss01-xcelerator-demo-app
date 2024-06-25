@@ -40,6 +40,7 @@ export class DetailCaseComponent {
     deleteCase() {
         const caseId = this.mapCaseId(this.casedetail());
         if (caseId !== undefined) {
+            // The subscribe is necessary, otherwise the request is not sent
             this._browseFacade.deleteCase(caseId).subscribe();
         }
     }
@@ -84,6 +85,7 @@ export class DetailCaseComponent {
             const caseData = this.casedetail();
 
             if (caseId !== undefined && caseData !== undefined) {
+                // The subscribe is necessary, otherwise the request is not sent
                 this._browseFacade.updateCase(caseId, caseData).subscribe({});
             }
             this.isEditing = false;
