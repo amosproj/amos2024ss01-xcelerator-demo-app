@@ -3,57 +3,85 @@
 </div>
 
 <ix-content>
-	<div class="pill-container-container">
-		<div class="pill-container">
-			<ix-pill (click)="flipShowStatusOpen()" [outline]="!showStatusOpen()">
-				open
-			</ix-pill>
-			<ix-pill (click)="flipShowStatusInProgress()" [outline]="!showStatusInProgress()">
+	<div class="flex flex-col gap-y-2 pb-2">
+		<div class="flex gap-x-2">
+            <ix-toggle-button  ghost class="toggle-pill" (pressedChange)="flipShowStatusOpen()"
+                               [pressed]="showStatusOpen()" [variant]="showStatusOpen() ? 'Primary' : 'Secondary'"
+            >
+                open
+            </ix-toggle-button>
+            <ix-toggle-button  ghost class="toggle-pill" (pressedChange)="flipShowStatusInProgress()"
+                               [pressed]="showStatusInProgress()" [variant]="showStatusInProgress() ? 'Primary' : 'Secondary'"
+            >
 				in progress
-			</ix-pill>
-			<ix-pill (click)="flipShowStatusOnHold()" [outline]="!showStatusOnHold()">
+            </ix-toggle-button>
+            <ix-toggle-button  ghost class="toggle-pill" (pressedChange)="flipShowStatusOnHold()"
+                               [pressed]="showStatusOnHold()" [variant]="showStatusOnHold() ? 'Primary' : 'Secondary'"
+            >
 				on hold
-			</ix-pill>
-			<ix-pill (click)="flipShowStatusDone()" [outline]="!showStatusDone()">
+			</ix-toggle-button>
+            <ix-toggle-button  ghost class="toggle-pill" (pressedChange)="flipShowStatusDone()"
+                               [pressed]="showStatusDone()" [variant]="showStatusDone() ? 'Primary' : 'Secondary'"
+            >
 				done
-			</ix-pill>
-			<ix-pill (click)="flipShowStatusOverdue()" [outline]="!showStatusOverdue()">
-				overdue
-			</ix-pill>
-			<ix-pill (click)="flipShowStatusCancelled()" [outline]="!showStatusCancelled()">
-				cancelled
-			</ix-pill>
-			<ix-pill (click)="flipShowStatusArchived()" [outline]="!showStatusArchived()">
-				archived
-			</ix-pill>
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowStatusOverdue()"
+                              [pressed]="showStatusOverdue()" [variant]="showStatusOverdue() ? 'Primary' : 'Secondary'"
+            >
+                overdue
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowStatusCancelled()"
+                              [pressed]="showStatusCancelled()" [variant]="showStatusCancelled() ? 'Primary' : 'Secondary'"
+            >
+                cancelled
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowStatusArchived()"
+                              [pressed]="showStatusArchived()" [variant]="showStatusArchived() ? 'Primary' : 'Secondary'"
+            >
+                archived
+            </ix-toggle-button>
 		</div>
 
-		<div class="pill-container">
-			<ix-pill (click)="flipShowPriorityEmergency()" [outline]="!showPriorityEmergency()">
-				emergencies
-			</ix-pill>
-			<ix-pill (click)="flipShowPriorityHigh()" [outline]="!showPriorityHigh()">
-				high
-			</ix-pill>
-			<ix-pill (click)="flipShowPriorityMedium()" [outline]="!showPriorityMedium()">
-				medium
-			</ix-pill>
-			<ix-pill (click)="flipShowPriorityLow()" [outline]="!showPriorityLow()">
-				low
-			</ix-pill>
-		</div>
+        <div class="flex gap-x-2">
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowPriorityEmergency()"
+                              [pressed]="showPriorityEmergency()" [variant]="showPriorityEmergency() ? 'Primary' : 'Secondary'"
+            >
+                emergencies
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowPriorityHigh()"
+                              [pressed]="showPriorityHigh()" [variant]="showPriorityHigh() ? 'Primary' : 'Secondary'"
+            >
+                high
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowPriorityMedium()"
+                              [pressed]="showPriorityMedium()" [variant]="showPriorityMedium() ? 'Primary' : 'Secondary'"
+            >
+                medium
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowPriorityLow()"
+                              [pressed]="showPriorityLow()" [variant]="showPriorityLow() ? 'Primary' : 'Secondary'"
+            >
+                low
+            </ix-toggle-button>
+        </div>
 
-		<div class="pill-container">
-			<ix-pill (click)="flipShowTypePlanned()" [outline]="!showTypePlanned()">
-				planned
-			</ix-pill>
-			<ix-pill (click)="flipShowTypeIncident()" [outline]="!showTypeIncident()">
-				incident
-			</ix-pill>
-			<ix-pill (click)="flipShowTypeAnnotation()" [outline]="!showTypeAnnotation()">
-				annotation
-			</ix-pill>
-		</div>
+        <div class="flex gap-x-2">
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowTypePlanned()"
+                              [pressed]="showTypePlanned()" [variant]="showTypePlanned() ? 'Primary' : 'Secondary'"
+            >
+                planned
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowTypeIncident()"
+                              [pressed]="showTypeIncident()" [variant]="showTypeIncident() ? 'Primary' : 'Secondary'"
+            >
+                incident
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowTypeAnnotation()"
+                              [pressed]="showTypeAnnotation()" [variant]="showTypeAnnotation() ? 'Primary' : 'Secondary'"
+            >
+                annotation
+            </ix-toggle-button>
+        </div>
 	</div>
 
 	<table class="table">
@@ -61,8 +89,9 @@
 			<tr>
 				<th scope="col">#</th>
 				<th scope="col">Title</th>
+                <th scope="col">Status</th>
 				<th scope="col">Priority</th>
-				<th scope="col">Status</th>
+                <th scope="col">Type</th>
 				<th scope="col">Due to</th>
 				<th scope="col">Description</th>
 			</tr>
@@ -76,8 +105,9 @@
 				>
 					<th scope="row">{{ _case.handle }}</th>
 					<td>{{ _case.title }}</td>
+                    <td>{{ _case.status }}</td>
 					<td>{{ _case.priority }}</td>
-					<td>{{ _case.status }}</td>
+                    <td>{{ _case.type }}</td>
 					<td>{{ _case.dueDate }}</td>
 					<td>{{ _case.description }}</td>
 				</tr>
