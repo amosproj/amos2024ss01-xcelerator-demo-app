@@ -1,3 +1,4 @@
+import { ICaseResponse } from 'cases-shared-models';
 import { TTimeSeriesData } from 'common-shared-models';
 
 /**
@@ -75,6 +76,8 @@ export interface IFacilitiesResponse {
 	 * The updatedAt timestamp of the asset
 	 */
 	updatedAt: Date;
+
+	cases: Pick<ICaseResponse, 'id'>[];
 }
 
 export interface IFacilityLocation {

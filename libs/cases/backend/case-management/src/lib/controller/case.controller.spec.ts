@@ -1,6 +1,12 @@
 import { faker } from '@faker-js/faker';
-import { ECasePriority, ECaseStatus, ECaseType, ICaseResponse, ICreateCaseBody } from '@frontend/cases/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
+import {
+	ECasePriority,
+	ECaseStatus,
+	ECaseType,
+	ICaseResponse,
+	ICreateCaseBody,
+} from 'cases-shared-models';
 import { firstValueFrom, of } from 'rxjs';
 
 import { XdCaseService } from '../services/case.service';
@@ -34,7 +40,7 @@ describe('CaseController', () => {
 		};
 
 		const module: TestingModule = await Test.createTestingModule({
-			controllers: [ XdCaseController ],
+			controllers: [XdCaseController],
 			providers: [
 				{
 					provide: XdCaseService,
@@ -52,7 +58,7 @@ describe('CaseController', () => {
 	});
 
 	it('should call getAllCases', async () => {
-		const getAllReturnValue = [ returnValue ] as ICaseResponse[];
+		const getAllReturnValue = [returnValue] as ICaseResponse[];
 		const spy = jest.spyOn(service, 'getAllCases').mockReturnValue(of(getAllReturnValue));
 
 		const result = await firstValueFrom(controller.getAllCases());

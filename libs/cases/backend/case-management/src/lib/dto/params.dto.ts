@@ -1,4 +1,4 @@
-import { ICaseParams } from '@frontend/cases/shared/models';
+import { ICaseParams } from 'cases-shared-models';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber } from 'class-validator';
 

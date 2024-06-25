@@ -19,4 +19,5 @@ export interface ICaseResponse {
 	modifiedBy: string;
 	updatedAt: Date;
 	overdue: boolean;
+	assetId: string;
 }

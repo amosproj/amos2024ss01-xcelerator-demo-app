@@ -44,6 +44,7 @@ model Asset {
     typeId      String
     variables   Json?
 
+    cases           Case[]
     timeSeriesItems TimeSeriesItem[]
 
     createdAt DateTime @default(now())
@@ -86,8 +87,10 @@ model Case {
     eTag        String
     modifiedBy  String       @default("")
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    Asset        Asset    @relation(fields: [assetAssetId], references: [assetId])
+    assetAssetId String
 }
 
 enum CaseStatus {

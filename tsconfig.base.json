@@ -17,7 +17,6 @@
 		"baseUrl": ".",
 		"paths": {
 			"@frontend/cases/frontend/domain": ["libs/cases/frontend/domain/src/index.ts"],
-			"@frontend/cases/shared/models": ["libs/cases/shared/models/src/index.ts"],
 			"@frontend/common/shared/models": ["libs/common/shared/models/src/index.ts"],
 			"@frontend/facilities/frontend/domain": [
 				"libs/facilities/frontend/domain/src/index.ts"
@@ -29,6 +28,7 @@
 			"cases-backend-management": ["libs/cases/backend/case-management/src/index.ts"],
 			"cases-frontend-shell": ["libs/cases/frontend/shell/src/index.ts"],
 			"cases-frontend-view": ["libs/cases/frontend/view/src/index.ts"],
+			"cases-shared-models": ["libs/cases/shared/models/src/index.ts"],
 			"common-backend-insight-hub": ["libs/common/backend/insight-hub/src/index.ts"],
 			"common-backend-models": ["libs/common/backend/models/src/index.ts"],
 			"common-backend-prisma": ["libs/common/backend/prisma/src/index.ts"],

@@ -74,6 +74,7 @@ CREATE TABLE "Case" (
     "modifiedBy" TEXT NOT NULL DEFAULT '',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "assetAssetId" TEXT NOT NULL,
 
     CONSTRAINT "Case_pkey" PRIMARY KEY ("id")
 );
@@ -92,3 +93,6 @@ ALTER TABLE "TimeSeriesDataItem" ADD CONSTRAINT "TimeSeriesDataItem_timeSeriesIt
 
 -- AddForeignKey
 ALTER TABLE "AssetLocation" ADD CONSTRAINT "AssetLocation_Assetid_fkey" FOREIGN KEY ("Assetid") REFERENCES "Asset"("assetId") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Case" ADD CONSTRAINT "Case_assetAssetId_fkey" FOREIGN KEY ("assetAssetId") REFERENCES "Asset"("assetId") ON DELETE RESTRICT ON UPDATE CASCADE;
