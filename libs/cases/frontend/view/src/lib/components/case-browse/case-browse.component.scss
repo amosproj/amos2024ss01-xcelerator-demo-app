@@ -3,3 +3,7 @@
 .table .clickable-row {
 	cursor: pointer; /* Changes the cursor to a hand */
 }
+
+.toggle-pill {
+	@apply text-sm h-6 w-min rounded-2xl overflow-hidden;
+}

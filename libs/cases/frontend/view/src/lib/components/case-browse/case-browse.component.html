@@ -1,37 +1,117 @@
 <div class="absolute top-20 right-4 !z-[50] flex flex-row-reverse gap-x-4">
-    <ix-button [routerLink]="['/cases/create']" icon="plus">
-        Create Case
-    </ix-button>
-    <ix-button [routerLink]="['/cases/open']">
-        View Open Cases
-    </ix-button>
+	<ix-button [routerLink]="['/cases/create']" icon="plus"> Create Case </ix-button>
 </div>
+
 <ix-content>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Status</th>
-            <th scope="col">Due to</th>
-            <th scope="col">Description</th>
-        </tr>
-        </thead>
-    <tbody>
-        @for (_case of _sortedCases(); track _case.id) {
-            <tr
-                [routerLink]="['/cases', _case.id]"
-                class="clickable-row"
-                [ngClass]="getStatusClasses(_case)"
+	<div class="flex flex-col gap-y-2 pb-2">
+		<div class="flex gap-x-2">
+            <ix-toggle-button  ghost class="toggle-pill" (pressedChange)="flipShowStatusOpen()"
+                               [pressed]="showStatusOpen()" [variant]="showStatusOpen() ? 'Primary' : 'Secondary'"
             >
-                <th scope="row">{{ _case.handle }}</th>
-                <td>{{ _case.title }}</td>
-                <td>{{ _case.priority }}</td>
-                <td>{{ _case.status }}</td>
-                <td>{{ _case.dueDate }}</td>
-                <td>{{ _case.description }}</td>
-            </tr>
-        }
-    </table>
+                open
+            </ix-toggle-button>
+            <ix-toggle-button  ghost class="toggle-pill" (pressedChange)="flipShowStatusInProgress()"
+                               [pressed]="showStatusInProgress()" [variant]="showStatusInProgress() ? 'Primary' : 'Secondary'"
+            >
+				in progress
+            </ix-toggle-button>
+            <ix-toggle-button  ghost class="toggle-pill" (pressedChange)="flipShowStatusOnHold()"
+                               [pressed]="showStatusOnHold()" [variant]="showStatusOnHold() ? 'Primary' : 'Secondary'"
+            >
+				on hold
+			</ix-toggle-button>
+            <ix-toggle-button  ghost class="toggle-pill" (pressedChange)="flipShowStatusDone()"
+                               [pressed]="showStatusDone()" [variant]="showStatusDone() ? 'Primary' : 'Secondary'"
+            >
+				done
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowStatusOverdue()"
+                              [pressed]="showStatusOverdue()" [variant]="showStatusOverdue() ? 'Primary' : 'Secondary'"
+            >
+                overdue
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowStatusCancelled()"
+                              [pressed]="showStatusCancelled()" [variant]="showStatusCancelled() ? 'Primary' : 'Secondary'"
+            >
+                cancelled
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowStatusArchived()"
+                              [pressed]="showStatusArchived()" [variant]="showStatusArchived() ? 'Primary' : 'Secondary'"
+            >
+                archived
+            </ix-toggle-button>
+		</div>
+
+        <div class="flex gap-x-2">
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowPriorityEmergency()"
+                              [pressed]="showPriorityEmergency()" [variant]="showPriorityEmergency() ? 'Primary' : 'Secondary'"
+            >
+                emergencies
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowPriorityHigh()"
+                              [pressed]="showPriorityHigh()" [variant]="showPriorityHigh() ? 'Primary' : 'Secondary'"
+            >
+                high
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowPriorityMedium()"
+                              [pressed]="showPriorityMedium()" [variant]="showPriorityMedium() ? 'Primary' : 'Secondary'"
+            >
+                medium
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowPriorityLow()"
+                              [pressed]="showPriorityLow()" [variant]="showPriorityLow() ? 'Primary' : 'Secondary'"
+            >
+                low
+            </ix-toggle-button>
+        </div>
+
+        <div class="flex gap-x-2">
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowTypePlanned()"
+                              [pressed]="showTypePlanned()" [variant]="showTypePlanned() ? 'Primary' : 'Secondary'"
+            >
+                planned
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowTypeIncident()"
+                              [pressed]="showTypeIncident()" [variant]="showTypeIncident() ? 'Primary' : 'Secondary'"
+            >
+                incident
+            </ix-toggle-button>
+            <ix-toggle-button ghost class="toggle-pill" (pressedChange)="flipShowTypeAnnotation()"
+                              [pressed]="showTypeAnnotation()" [variant]="showTypeAnnotation() ? 'Primary' : 'Secondary'"
+            >
+                annotation
+            </ix-toggle-button>
+        </div>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Title</th>
+                <th scope="col">Status</th>
+				<th scope="col">Priority</th>
+                <th scope="col">Type</th>
+				<th scope="col">Due to</th>
+				<th scope="col">Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (_case of _sortedCases(); track _case.id) {
+				<tr
+					[routerLink]="['/cases', _case.id]"
+					class="clickable-row"
+					[ngClass]="getStatusClasses(_case)"
+				>
+					<th scope="row">{{ _case.handle }}</th>
+					<td>{{ _case.title }}</td>
+                    <td>{{ _case.status }}</td>
+					<td>{{ _case.priority }}</td>
+                    <td>{{ _case.type }}</td>
+					<td>{{ _case.dueDate }}</td>
+					<td>{{ _case.description }}</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </ix-content>

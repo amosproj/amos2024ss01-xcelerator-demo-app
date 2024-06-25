@@ -36,20 +36,6 @@ export const CASES_SHELL_ROUTES: Route[] = [
 					import('cases-frontend-view').then((m) => m.CreateCaseComponent),
 			},
 			{
-				// Route to cases which are open - later this should be a query param!!!
-				path: 'open',
-				data: {
-					breadcrumbs: {
-						label: 'Open',
-						url: 'cases/open',
-					},
-					title: 'Open cases',
-					subtitle: 'List of all open cases',
-				},
-				loadComponent: () =>
-					import('cases-frontend-view').then((m) => m.OpenCasesComponent),
-			},
-			{
 				// Route to detail case
 				path: ':id',
 				data: {
