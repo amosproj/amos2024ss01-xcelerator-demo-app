@@ -13,9 +13,9 @@ import DeleteModalComponent from './delete-modal/deleteModal.component';
 @Component({
     selector: 'lib-detail-case',
     standalone: true,
-    imports: [ CommonModule, FormsModule, IxModule, RouterLink ],
+    imports: [CommonModule, FormsModule, IxModule, RouterLink],
     templateUrl: './detail-case.component.html',
-    styleUrls: [ './detail-case.component.scss' ],
+    styleUrls: ['./detail-case.component.scss'],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -31,7 +31,6 @@ export class DetailCaseComponent {
     });
 
     isEditing = false;
-    wasValidated = false;
     datePattern = /^\d{4}-\d{2}-\d{2}T00:00:00\.000Z$/;
 
 
@@ -65,12 +64,9 @@ export class DetailCaseComponent {
         });
     }
 
-    enableEditing() {
-        this.isEditing = true;
-    }
-
     cancelEdit() {
         this.isEditing = false;
+        window.location.reload();
     }
 
     toggleEdit() {
@@ -82,8 +78,8 @@ export class DetailCaseComponent {
     }
 
     onSubmit(): void {
-        // TODO validate form
-        if (this.validateForm() === 'valid') {
+        const validationString = this.validateForm();
+        if (validationString === 'valid') {
             const caseId = this.mapCaseId(this.casedetail());
             const caseData = this.casedetail();
 
@@ -92,7 +88,7 @@ export class DetailCaseComponent {
             }
             this.isEditing = false;
         } else {
-            this.showErrorToast(this.validateForm());
+            this.showErrorToast(validationString);
         }
     }
 
@@ -101,33 +97,35 @@ export class DetailCaseComponent {
 
         if (casedetail !== undefined) {
 
-            if (this.casedetail()?.title === '') {
+            if (casedetail.title === '') {
                 return 'Empty title';
             }
 
 
-            if (casedetail.status !== undefined) {
-                if (!Object.values(ECaseStatus).includes(casedetail.status)) {
-                    return 'Status is not in List: OPEN, INPROGRESS, OVERDUE, ONHOLD, DONE, CANCELLED, ARCHIVED';
-                }
+            if (!Object.values(ECaseStatus).includes(casedetail.status)) {
+                return 'Status is not in List: OPEN, INPROGRESS, OVERDUE, ONHOLD, DONE, CANCELLED, ARCHIVED';
             }
-            if (casedetail.priority !== undefined) {
+
+
             if (!Object.values(ECasePriority).includes(casedetail.priority)) {
                 return 'Priority is not in List: EMERGENCY, HIGH, MEDIUM, LOW';
-            }}
+            }
+
             if (!(this.casedetail()?.modifiedBy.includes('@') && this.casedetail()?.modifiedBy.includes('.'))) {
                 return 'Invalid email';
             }
-            if (casedetail.type !== undefined) {
+
             if (!Object.values(ECaseType).includes(casedetail.type)) {
                 return 'Priority is not in List: PLANNED, INNCIDENT, ANNOTATION';
-            }}
-            if (casedetail.dueDate !== undefined) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-expect-error
+            }
+
+
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             if (!this.datePattern.test(casedetail.dueDate)) {
                 return 'Invalid date format';
-            }}
+            }
+
             const dueDate = this.casedetail()?.dueDate;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error

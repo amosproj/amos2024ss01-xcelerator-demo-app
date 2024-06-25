@@ -54,10 +54,6 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <!--
-                        <label for="createdBy">Created by</label>
-                        <input type="text" id="createdBy" [(ngModel)]="_case.createdBy" name="createdBy"  readonly>
-                        //----------->
                         <label *ngIf="!isEditing" for="createdBy">Created by</label>
                         <input *ngIf="!isEditing" type="text" id="createdBy" [(ngModel)]="_case.createdBy" name="createdBy" readonly>
                         <label for="modifiedBy" *ngIf="isEditing">Modified by</label>
