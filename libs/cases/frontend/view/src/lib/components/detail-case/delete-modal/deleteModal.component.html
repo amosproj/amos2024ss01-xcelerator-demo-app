@@ -1,0 +1,10 @@
+<ix-modal-header> Warning </ix-modal-header>
+<ix-modal-content class="pb-8">
+	Do you really want to delete this case?
+</ix-modal-content>
+<ix-modal-footer>
+	<ix-button outline class="dismiss-modal" (click)="this.activeModal.dismiss('cancel')">
+		Cancel
+	</ix-button>
+	<ix-button class="close-modal" (click)="this.activeModal.close('confirm')" [routerLink]="['/cases']"> Confirm </ix-button>
+</ix-modal-footer>

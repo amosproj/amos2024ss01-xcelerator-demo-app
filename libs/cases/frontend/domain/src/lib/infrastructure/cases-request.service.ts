@@ -26,12 +26,23 @@ export class XdCasesRequestService {
 	}
 
 	/**
-	 * Create new Case 
+	 * Create new Case
 	 * @param {ICreateCaseBody} body
-	 * 
+	 *
 	 */
 	public createCase(body: ICreateCaseBody) {
 		return this._httpClient.post<ICaseResponse>('/api/case', body);
 	}
 
+    public updateCase(params: ICaseParams, body: ICreateCaseBody) {
+        return this._httpClient.put<ICaseResponse>(`/api/case/${params.id}`, body);
+    }
+
+    /**
+     * Delete case by Id
+     * @param params
+     */
+    public deleteCase(params: ICaseParams) {
+        return this._httpClient.delete<ICaseResponse>(`/api/case/${params.id}`);
+    }
 }
