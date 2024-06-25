@@ -79,23 +79,27 @@ export class DetailCaseComponent {
     }
 
     onSubmit(): void {
-        const validationString = this.validateForm();
-        if (validationString === 'valid') {
-            const caseId = this.mapCaseId(this.casedetail());
-            const caseData = this.casedetail();
+        const casedetail = this.casedetail();
 
-            if (caseId !== undefined && caseData !== undefined) {
-                // The subscribe is necessary, otherwise the request is not sent
-                this._browseFacade.updateCase(caseId, caseData).subscribe({});
+        if(casedetail !== undefined) {
+            const validationString = this.validateForm(casedetail);
+            if (validationString === 'valid') {
+                const caseId = this.mapCaseId(this.casedetail());
+                const caseData = this.casedetail();
+
+                if (caseId !== undefined && caseData !== undefined) {
+                    // The subscribe is necessary, otherwise the request is not sent
+                    this._browseFacade.updateCase(caseId, caseData).subscribe({});
+                }
+                this.isEditing = false;
+            } else {
+                this.showErrorToast(validationString);
             }
-            this.isEditing = false;
-        } else {
-            this.showErrorToast(validationString);
         }
     }
 
-    validateForm() {
-        const casedetail = this.casedetail();
+    validateForm(casedetail: ICaseResponse ) {
+
 
         if (casedetail !== undefined) {
 
