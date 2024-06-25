@@ -1,73 +1,92 @@
 import {
-	EPumpStatus,
-	IPumpStatisticReport,
-	IStatisticalReport,
-	IStatisticalVariance,
-	ITimeSeriesPumpReport,
-} from '@frontend/facilities/backend/models';
-import { maxBy, meanBy, minBy, sumBy } from 'lodash';
+    EPumpIndicatorMessage,
+    EPumpMetricsName,
+    EPumpStatus,
+    IPumpDataAnalysis,
+    IPumpMetrics,
+    IStatisticalVariance,
+    ITimeSeriesPumpReport,
+} from 'facilities-shared-models';
+import { compact, maxBy, meanBy, minBy, sumBy } from 'lodash';
+import dayjs = require('dayjs');
 
-export function checkPumpStatus(pumpData: ITimeSeriesPumpReport[]): EPumpStatus {
-	const flowThreshold = 5;
+export function checkPumpStatus(pumpData: ITimeSeriesPumpReport[]): IPumpDataAnalysis {
+	const flowThreshold = 150;
 	const tempIncreaseThreshold = 2;
-	const coefficientOfVariationThreshold = 0.2;
-	const standardDeviationThreshold = 5;
+	const flowDeviation = 10;
+    const standardDeviationThreshold = 10;
 
 	let status = EPumpStatus.REGULAR;
+	let indicatorMsg = EPumpIndicatorMessage.REGULAR;
+	let belowThresholdStartTime: dayjs.Dayjs | undefined = undefined;
 
-	const report = generateStatisticalReport(pumpData);
-	if (
-		report.Flow?.coefficientOfVariation &&
-		report.Flow?.coefficientOfVariation > coefficientOfVariationThreshold
-	) {
-		status = EPumpStatus.SUSPICIOUS;
-	}
+	for (let i = 0; i < pumpData.length; i++) {
+		if (pumpData[i].Flow < flowThreshold) {
+			if (!belowThresholdStartTime) {
+				belowThresholdStartTime = dayjs(pumpData[i].time);
+			}
 
-	if (
-		report.Flow?.standardDeviation &&
-		report.Flow?.standardDeviation > standardDeviationThreshold
-	) {
-		status = EPumpStatus.FAULTY;
-	}
+			// If the pump has been below the threshold for over 10 minutes, it's faulty
+			if (
+                belowThresholdStartTime && dayjs(pumpData[i].time).diff(belowThresholdStartTime, 'minutes') > 10
+			) {
+				status = EPumpStatus.FAULTY;
+				indicatorMsg = EPumpIndicatorMessage.FLOW_LOW_DURATION;
+				break;
+			}
 
-	for (let i = 0; i < pumpData.length - 1; i++) {
+			// If the pump drops below the threshold even once, it's suspicious
+			status = EPumpStatus.SUSPICIOUS;
+			indicatorMsg = EPumpIndicatorMessage.FLOW_DROP;
+		} else {
+			belowThresholdStartTime = undefined;
+		}
+
+		// Check for a rise in StuffingBoxTemperature while the flow is stable
 		if (
-			pumpData[i].Flow < flowThreshold &&
-			pumpData[i + 1].Flow > flowThreshold &&
-			pumpData[i + 1].StuffingBoxTemperature >
-				pumpData[i].StuffingBoxTemperature + tempIncreaseThreshold
+            i < pumpData.length - 1 &&
+			pumpData[i + 1].StuffingBoxTemperature > pumpData[i].StuffingBoxTemperature + tempIncreaseThreshold
+            && Math.abs(pumpData[i + 1].Flow - pumpData[i].Flow) > flowDeviation
 		) {
 			status = EPumpStatus.SUSPICIOUS;
-		}
-
-		if (pumpData[i].Flow < flowThreshold) {
-			status = EPumpStatus.FAULTY;
-			break;
+			indicatorMsg = EPumpIndicatorMessage.TEMP_RISE_FLOW_STABLE;
 		}
 	}
 
-	return status;
+    const metrics = generateStatisticalReport(pumpData);
+
+    const hasHighDeviation = metrics.some((metric: IPumpMetrics) =>
+        metric.standardDeviation && metric.standardDeviation > standardDeviationThreshold
+    );
+
+    if (hasHighDeviation) {
+        status = EPumpStatus.SUSPICIOUS;
+        indicatorMsg = EPumpIndicatorMessage.STANDARD_DEVIATION;
+    }
+
+    return { status, indicatorMsg, metrics };
 }
 
-export function generateStatisticalReport(pumpData: ITimeSeriesPumpReport[]): IPumpStatisticReport {
-	return {
-		MotorCurrent: generateStatistic(pumpData, 'MotorCurrent'),
-		PressureOut: generateStatistic(pumpData, 'PressureOut'),
-		StuffingBoxTemperature: generateStatistic(pumpData, 'StuffingBoxTemperature'),
-		PressureIn: generateStatistic(pumpData, 'PressureIn'),
-		Flow: generateStatistic(pumpData, 'Flow'),
-	};
+export function generateStatisticalReport(pumpData: ITimeSeriesPumpReport[]) {
+	return compact([
+        generateStatistic(pumpData, 'MotorCurrent'),
+        generateStatistic(pumpData, 'PressureOut'),
+        generateStatistic(pumpData, 'StuffingBoxTemperature'),
+        generateStatistic(pumpData, 'PressureIn'),
+        generateStatistic(pumpData, 'Flow'),
+    ]);
 }
 
 function generateStatistic<T>(
 	collection: Array<T> | null | undefined,
 	iteratee: keyof T,
-): IStatisticalReport | undefined {
+): IPumpMetrics | undefined {
 	if (!collection) {
 		return undefined;
 	}
 
 	return {
+		name: iteratee as EPumpMetricsName,
 		min: minBy(collection, iteratee)?.[iteratee] as number,
 		max: maxBy(collection, iteratee)?.[iteratee] as number,
 		...statisticalAnalysis(collection, iteratee),
@@ -78,7 +97,11 @@ export function statisticalAnalysis<T>(
 	collection: Array<T> | null | undefined,
 	iteratee: keyof T,
 ): IStatisticalVariance | undefined {
-	if (!collection) {
+	if (
+		!collection ||
+		(Array.isArray(collection) && collection.length === 0) ||
+		isNaN(meanBy(collection, iteratee))
+	) {
 		return undefined;
 	}
 

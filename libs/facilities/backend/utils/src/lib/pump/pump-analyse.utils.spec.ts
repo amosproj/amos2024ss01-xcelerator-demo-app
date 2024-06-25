@@ -1,80 +1,87 @@
-import { ITimeSeriesPumpReport } from '@frontend/facilities/backend/models';
-import { EPumpStatus } from '@frontend/facilities/backend/models';
+import { EPumpIndicatorMessage, EPumpStatus, ITimeSeriesPumpReport } from 'facilities-shared-models';
 
-import {
-	checkPumpStatus,
-	generateStatisticalReport,
-	statisticalAnalysis,
-} from './pump-analyse.utils';
+import { checkPumpStatus, generateStatisticalReport, statisticalAnalysis } from './pump-analyse.utils';
 
 describe('checkPumpStatus', () => {
-	it('should return REGULAR when the pump is operating normally', () => {
-		const pumpData: Partial<ITimeSeriesPumpReport>[] = [
-			{ Flow: 6, StuffingBoxTemperature: 20 },
-			{ Flow: 6, StuffingBoxTemperature: 20 },
-			{ Flow: 6, StuffingBoxTemperature: 20 },
-		];
 
-		const status = checkPumpStatus(pumpData as ITimeSeriesPumpReport[]);
+    it('should return SUSPICIOUS when there is high standard deviation', () => {
+        const pumpData: Partial<ITimeSeriesPumpReport>[] = [
+            { Flow: 160, StuffingBoxTemperature: 20 },
+            { Flow: 250, StuffingBoxTemperature: 20 }, // High deviation in Flow
+            { Flow: 160, StuffingBoxTemperature: 20 },
+        ];
 
-		expect(status).toEqual(EPumpStatus.REGULAR);
-	});
+        const { status, indicatorMsg } = checkPumpStatus(pumpData as ITimeSeriesPumpReport[]);
 
-	it('should return SUSPICIOUS when the pump is suspicious', () => {
-		const pumpData: Partial<ITimeSeriesPumpReport>[] = [
-			{ Flow: 8, StuffingBoxTemperature: 20 },
-			{ Flow: 5, StuffingBoxTemperature: 22 }, // Flow drops below threshold and temperature increases
-			{ Flow: 8, StuffingBoxTemperature: 20 },
-		];
+        expect(status).toEqual(EPumpStatus.SUSPICIOUS);
+        expect(indicatorMsg).toBe(EPumpIndicatorMessage.STANDARD_DEVIATION);
+    });
 
-		const status = checkPumpStatus(pumpData as ITimeSeriesPumpReport[]);
+    it(('should return REGULAR when the time series data has no anomalies'), () => {
+        const pumpData: Partial<ITimeSeriesPumpReport>[] = [
+            { Flow: 160, StuffingBoxTemperature: 20 },
+            { Flow: 162, StuffingBoxTemperature: 21 },
+            { Flow: 180, StuffingBoxTemperature: 22 },
+        ];
 
-		expect(status).toEqual(EPumpStatus.SUSPICIOUS);
-	});
+        const { status } = checkPumpStatus(pumpData as ITimeSeriesPumpReport[]);
 
-	it('should return FAULTY when the pump is faulty', () => {
-		const pumpData: Partial<ITimeSeriesPumpReport>[] = [
-			{ Flow: 6, StuffingBoxTemperature: 20 },
-			{ Flow: 4, StuffingBoxTemperature: 20 }, // Flow drops below threshold
-			{ Flow: 4, StuffingBoxTemperature: 20 }, // Flow remains below threshold
-		];
+        expect(status).toEqual(EPumpStatus.REGULAR);
 
-		const status = checkPumpStatus(pumpData as ITimeSeriesPumpReport[]);
+    });
 
-		expect(status).toEqual(EPumpStatus.FAULTY);
-	});
+    it('should return SUSPICIOUS when the pump drops below the threshold even once', () => {
+        const pumpData: Partial<ITimeSeriesPumpReport>[] = [
+            { Flow: 151, StuffingBoxTemperature: 20 },
+            { Flow: 149, StuffingBoxTemperature: 20 }, // Below threshold
+            { Flow: 151, StuffingBoxTemperature: 20 },
+        ];
+
+        const { status, indicatorMsg } = checkPumpStatus(pumpData as ITimeSeriesPumpReport[]);
+
+        expect(status).toEqual(EPumpStatus.SUSPICIOUS);
+        expect(indicatorMsg).toBe(EPumpIndicatorMessage.FLOW_DROP);
+    });
+
+    it('should return FAULTY when the pump has been below the threshold for over 10 minutes', () => {
+        const pumpData: Partial<ITimeSeriesPumpReport>[] = [
+            { Flow: 140, StuffingBoxTemperature: 20, time: '2021-09-01T00:00:00Z' },
+            { Flow: 149, StuffingBoxTemperature: 20, time: '2021-09-01T00:01:00Z' },
+            { Flow: 149, StuffingBoxTemperature: 20, time: '2021-09-01T00:11:00Z' },
+        ];
+
+        const { status, indicatorMsg } = checkPumpStatus(pumpData as ITimeSeriesPumpReport[]);
+
+        expect(status).toEqual(EPumpStatus.FAULTY);
+        expect(indicatorMsg).toBe(EPumpIndicatorMessage.FLOW_LOW_DURATION);
+
+    })
 });
 
 describe('generateStatisticalReport', () => {
-	it('should return the statistical report for the pump data', () => {
-		const result = generateStatisticalReport([]);
+    it('should return the statistical report for the pump data', () => {
+        const pumpData = [
+            { Flow: 6, StuffingBoxTemperature: 20, MotorCurrent: 10, PressureOut: 5, PressureIn: 4 },
+            { Flow: 7, StuffingBoxTemperature: 21, MotorCurrent: 11, PressureOut: 6, PressureIn: 5 },
+            { Flow: 8, StuffingBoxTemperature: 22, MotorCurrent: 12, PressureOut: 7, PressureIn: 6 },
+        ];
 
-		expect(result).toBeDefined();
-		expect(result.MotorCurrent).toBeDefined();
-		expect(result.PressureOut).toBeDefined();
-		expect(result.StuffingBoxTemperature).toBeDefined();
-		expect(result.PressureIn).toBeDefined();
-		expect(result.Flow).toBeDefined();
-	});
+        const result = generateStatisticalReport(pumpData as ITimeSeriesPumpReport[]);
+
+        expect(result).toBeDefined();
+        expect(result).toHaveLength(5);
+        expect(result).toContainEqual(expect.objectContaining({ name: 'MotorCurrent' }));
+        expect(result).toContainEqual(expect.objectContaining({ name: 'PressureOut' }));
+        expect(result).toContainEqual(expect.objectContaining({ name: 'StuffingBoxTemperature' }));
+        expect(result).toContainEqual(expect.objectContaining({ name: 'PressureIn' }));
+        expect(result).toContainEqual(expect.objectContaining({ name: 'Flow' }));
+    });
 });
 
 describe('statisticalAnalysis', () => {
-	it('should return undefined if collection is null', () => {
-		const result = statisticalAnalysis(null, 'Flow');
-		expect(result).toBeUndefined();
-	});
-
-	it('should return undefined if collection is undefined', () => {
-		const result = statisticalAnalysis(undefined, 'Flow');
-		expect(result).toBeUndefined();
-	});
-
-	it('should calculate the variance correctly', () => {
-		const collection = [{ Flow: 1 }, { Flow: 2 }, { Flow: 3 }, { Flow: 4 }, { Flow: 5 }];
-		const result = statisticalAnalysis(collection, 'Flow');
-		expect(result?.mean).toBeCloseTo(3);
-		expect(result?.variance).toBeCloseTo(2);
-		expect(result?.standardDeviation).toBeCloseTo(1.414);
-		expect(result?.coefficientOfVariation).toBeCloseTo(0.471);
-	});
+    it('should return undefined if the mean is NaN', () => {
+        const collection = [ { Flow: 'not a number' }, { Flow: 2 }, { Flow: 3 }, { Flow: 4 }, { Flow: 5 } ];
+        const result = statisticalAnalysis(collection, 'Flow');
+        expect(result).toBeUndefined();
+    });
 });

@@ -1,13 +1,12 @@
-import { ITimeSeriesPumpReport } from '@frontend/facilities/backend/models';
 import { checkPumpStatus } from '@frontend/facilities/backend/utils';
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { ETimeSeriesOrdering, XdIotTimeSeriesService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
 import {
-	IGetTimeSeriesParams,
-	IGetTimeseriesQuery,
-	ITimeSeriesDataItemResponse,
-	ITimeSeriesItemResponse,
+    IGetTimeSeriesParams,
+    IGetTimeseriesQuery,
+    ITimeSeriesDataItemResponse,
+    ITimeSeriesItemResponse, ITimeSeriesPumpReport,
 } from 'facilities-shared-models';
 import { pick } from 'lodash';
 import { catchError, from, map, Observable, switchMap } from 'rxjs';
@@ -66,8 +65,7 @@ export class XdTimeseriesService {
 									time: new Date(_time),
 								};
 							});
-
-							const pumpStatus = checkPumpStatus(
+							const { status, indicatorMsg, metrics } = checkPumpStatus(
 								data as unknown as ITimeSeriesPumpReport[],
 							);
 
@@ -90,16 +88,22 @@ export class XdTimeseriesService {
 								});
 							});
 
-							const updatedPumpData = this.prismaService.asset.upsert({
+                            const updatedPumpData = this.prismaService.asset.upsert({
 								where: {
 									assetId,
 								},
 								update: {
-									status: pumpStatus,
+									status,
+                                    indicatorMsg,
+                                    metrics: {
+                                        deleteMany: {},
+                                        create: metrics
+                                    }
 								},
 								create: {
 									assetId,
-									status: pumpStatus,
+									status,
+                                    indicatorMsg,
 									location: {
 										create: {
 											latitude: 0,
@@ -108,10 +112,13 @@ export class XdTimeseriesService {
 									},
 									name: 'Pump',
 									typeId: 'pump',
+                                    metrics: {
+                                        create: metrics
+                                    }
 								},
 							});
 
-							this.prismaService.$transaction([...timeSeriesData, updatedPumpData]);
+							this.prismaService.$transaction([ ...timeSeriesData, updatedPumpData ]);
 
 							if (select) {
 								return data.map((item) => ({

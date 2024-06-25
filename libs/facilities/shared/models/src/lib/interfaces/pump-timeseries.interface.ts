@@ -1,4 +1,4 @@
-import { EPumpStatus } from '../enums/pump-status.enum';
+import { EPumpStatus } from '../enums';
 
 /**
  * Interface for the Pump Time Series Report

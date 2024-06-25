@@ -33,6 +33,7 @@ export class XdDetailsFacade {
 					heading: timeSeriesItem.name,
 					subheading: timeSeriesItem.description,
 					status: timeSeriesItem.status,
+                    indicatorMsg: timeSeriesItem.indicatorMsg,
 					pumps: faker.number.int({ min: 0, max: 99 }),
 					location: timeSeriesItem.location,
 				};

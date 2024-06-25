@@ -1,5 +1,7 @@
-import { EPumpStatus } from '@frontend/facilities/backend/models';
 import { TTimeSeriesData } from 'common-shared-models';
+
+import { EPumpStatus } from '../enums';
+import { IPumpMetrics } from './pump-metrics.interface';
 
 /**
  * Interface for a time series data item response
@@ -64,6 +66,16 @@ export interface IFacilitiesResponse {
 	 * The status of the asset
 	 */
 	status: EPumpStatus;
+
+    /**
+     * The indicator message of the asset
+     */
+    indicatorMsg: string;
+
+    /**
+     * The data analytics of the asset
+     */
+    metrics: IPumpMetrics[];
 
 	/**
 	 * The variables of the asset

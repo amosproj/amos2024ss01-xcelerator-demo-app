@@ -43,7 +43,7 @@ describe('CaseController', () => {
 		};
 
 		const module: TestingModule = await Test.createTestingModule({
-			controllers: [XdCaseController],
+			controllers: [ XdCaseController ],
 			providers: [
 				XdCaseService,
 				{

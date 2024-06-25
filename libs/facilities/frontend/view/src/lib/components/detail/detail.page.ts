@@ -26,7 +26,7 @@ import LockModalComponent from './lock-modal/lockModal.component';
 @Component({
 	selector: 'lib-detail',
 	standalone: true,
-	imports: [CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink],
+	imports: [ CommonModule, IxModule, NgxEchartsModule, LockModalComponent, RouterLink ],
 	templateUrl: './detail.page.html',
 	styleUrl: './detail.page.scss',
 	encapsulation: ViewEncapsulation.None,
@@ -124,14 +124,14 @@ export class XdDetailPage implements OnInit {
 
 		if (!pumpChart.series || !(pumpChart.series instanceof Array)) return undefined;
 
-		pumpChart.series[0].data = pumpData.map((item) => [item.time, item['Flow']]);
-		pumpChart.series[1].data = pumpData.map((item) => [item.time, item['MotorCurrent']]);
+		pumpChart.series[0].data = pumpData.map((item) => [ item.time, item['Flow'] ]);
+		pumpChart.series[1].data = pumpData.map((item) => [ item.time, item['MotorCurrent'] ]);
 		pumpChart.series[2].data = pumpData.map((item) => [
 			item.time,
 			item['StuffingBoxTemperature'],
 		]);
-		pumpChart.series[3].data = pumpData.map((item) => [item.time, item['PressureIn']]);
-		pumpChart.series[4].data = pumpData.map((item) => [item.time, item['PressureOut']]);
+		pumpChart.series[3].data = pumpData.map((item) => [ item.time, item['PressureIn'] ]);
+		pumpChart.series[4].data = pumpData.map((item) => [ item.time, item['PressureOut'] ]);
 
 		return pumpChart;
 	});
@@ -172,9 +172,9 @@ export class XdDetailPage implements OnInit {
 
 		if (!envChart.series || !(envChart.series instanceof Array)) return undefined;
 
-		envChart.series[0].data = envData.map((item) => [item.time, item['Temperature']]);
-		envChart.series[1].data = envData.map((item) => [item.time, item['Humidity']]);
-		envChart.series[2].data = envData.map((item) => [item.time, item['Pressure']]);
+		envChart.series[0].data = envData.map((item) => [ item.time, item['Temperature'] ]);
+		envChart.series[1].data = envData.map((item) => [ item.time, item['Humidity'] ]);
+		envChart.series[2].data = envData.map((item) => [ item.time, item['Pressure'] ]);
 		return envChart;
 	});
 
