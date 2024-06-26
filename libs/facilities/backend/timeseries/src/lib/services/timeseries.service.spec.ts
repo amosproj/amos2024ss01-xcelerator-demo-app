@@ -35,6 +35,9 @@ describe('TimeseriesService', () => {
 
 				upsert: jest.fn(),
 			},
+			asset: {
+				upsert: jest.fn(),
+			},
 			timeSeriesItem: {
 				findUnique: jest.fn(),
 			},
@@ -191,14 +194,6 @@ describe('TimeseriesService', () => {
 			const findManySpy = jest
 				.spyOn(prisma.timeSeriesDataItem, 'findMany')
 				.mockResolvedValue([]);
-
-			const findUniqueSpy = jest
-				.spyOn(prisma.timeSeriesItem, 'findUnique')
-				.mockResolvedValue({
-					assetId: faker.string.uuid(),
-					propertySetName: faker.string.sample(),
-					variables: [],
-				});
 
 			const params: IGetTimeSeriesParams = {
 				assetId: faker.string.uuid(),

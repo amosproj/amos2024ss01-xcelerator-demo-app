@@ -11,51 +11,54 @@ import { TimeSeriesRequestService } from '../../infrastructure/timeseries-reques
 @Injectable({ providedIn: 'root' })
 export class XdDetailsFacade {
 	private readonly _facilitiesService = inject(FacilitiesRequestService);
-    private readonly _timeseriesService = inject(TimeSeriesRequestService);
+	private readonly _timeseriesService = inject(TimeSeriesRequestService);
 
 	/**
 	 * Get facility
 	 * @param assetId The asset id.
-     * @TODO: This method should NOT map the response data and add fake data. In a later ticket, we will provide a meaningful implementation.
+	 * @TODO: This method should NOT map the response data and add fake data. In a later ticket, we will provide a meaningful implementation.
 	 */
 	public getFacility(assetId: string) {
-        return this._facilitiesService.getFacility({ assetId: assetId }).pipe(
-            map((timeSeriesItem) => {
-                return {
-                    id: timeSeriesItem.assetId,
-                    icon: faker.helpers.arrayElement([
-                        'battery-empty',
-                        'water-fish',
-                        'water-plant',
-                        'truck',
-                    ]),
-                    notification: `${faker.number.int({ min: 0, max: 99 })}`,
-                    heading: timeSeriesItem.name,
-                    subheading: timeSeriesItem.description,
-                    status: faker.helpers.arrayElement([ 'success', 'warning', 'critical' ]),
-                    pumps: faker.number.int({ min: 0, max: 99 }),
-                    location: timeSeriesItem.location,
-                };
-            }),
-        );
-    }
+		return this._facilitiesService.getFacility({ assetId: assetId }).pipe(
+			map((timeSeriesItem) => {
+				return {
+					id: timeSeriesItem.assetId,
+					icon: faker.helpers.arrayElement([
+						'battery-empty',
+						'water-fish',
+						'water-plant',
+						'truck',
+					]),
+					notification: `${faker.number.int({ min: 0, max: 99 })}`,
+					heading: timeSeriesItem.name,
+					subheading: timeSeriesItem.description,
+					status: timeSeriesItem.status,
+                    indicatorMsg: timeSeriesItem.indicatorMsg,
+					pumps: faker.number.int({ min: 0, max: 99 }),
+					location: timeSeriesItem.location,
+				};
+			}),
+		);
+	}
 
-    /**
-     * Get a list of all the available timeSeries properties
-     * @param assetId The asset id.
-     */
-    public getTimeSeriesItems(assetId: string){
-        return this._timeseriesService.getTimeSeriesItems({ assetId });
-    }
+	/**
+	 * Get a list of all the available timeSeries properties
+	 * @param assetId The asset id.
+	 */
+	public getTimeSeriesItems(assetId: string) {
+		return this._timeseriesService.getTimeSeriesItems({ assetId });
+	}
 
-    /**
-     * Get the specific data of a time series property of a facility
-     * @param assetId The asset id.
-     * @param propertySetName The property set name for which we will get the data.
-     * @param queryParams The query parameters.
-     */
-    public getTimeSeriesDataItems(assetId: string, propertySetName: string, queryParams: any) {
-        return this._timeseriesService.getTimeSeriesDataItems({ assetId, propertySetName }, queryParams);
-    }
-
+	/**
+	 * Get the specific data of a time series property of a facility
+	 * @param assetId The asset id.
+	 * @param propertySetName The property set name for which we will get the data.
+	 * @param queryParams The query parameters.
+	 */
+	public getTimeSeriesDataItems(assetId: string, propertySetName: string, queryParams: any) {
+		return this._timeseriesService.getTimeSeriesDataItems(
+			{ assetId, propertySetName },
+			queryParams,
+		);
+	}
 }

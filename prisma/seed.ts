@@ -9,15 +9,15 @@ import pump10pumpData from './demo_data/PUMP-010_PumpData_20240422-220000000_202
 const prisma = new PrismaClient();
 
 const facilityNames = [
-	{ name: 'Facility 1', assetId: 'Facility1', description: 'This is facility 1', typeId: 'pump' },
-	{ name: 'Facility 2', assetId: 'Facility2', description: 'This is facility 2', typeId: 'pump' },
-	{ name: 'Facility 3', assetId: 'Facility3', description: 'This is facility 3', typeId: 'pump' },
-	{ name: 'Facility 4', assetId: 'Facility4', description: 'This is facility 4', typeId: 'pump' },
-	{ name: 'Facility 5', assetId: 'Facility5', description: 'This is facility 5', typeId: 'pump' },
-	{ name: 'Facility 6', assetId: 'Facility6', description: 'This is facility 6', typeId: 'pump' },
-	{ name: 'Facility 7', assetId: 'Facility7', description: 'This is facility 7', typeId: 'pump' },
-	{ name: 'Facility 8', assetId: 'Facility8', description: 'This is facility 8', typeId: 'pump' },
-	{ name: 'Facility 9', assetId: 'Facility9', description: 'This is facility 9', typeId: 'pump' },
+	{ name: 'Facility 1', assetId: 'Facility1', description: 'This is facility 1', typeId: 'pump', indicatorMsg: 'Everything works fine' },
+	{ name: 'Facility 2', assetId: 'Facility2', description: 'This is facility 2', typeId: 'pump', indicatorMsg: 'Everything works fine' },
+	{ name: 'Facility 3', assetId: 'Facility3', description: 'This is facility 3', typeId: 'pump', indicatorMsg: 'Everything works fine' },
+	{ name: 'Facility 4', assetId: 'Facility4', description: 'This is facility 4', typeId: 'pump', indicatorMsg: 'Everything works fine' },
+	{ name: 'Facility 5', assetId: 'Facility5', description: 'This is facility 5', typeId: 'pump', indicatorMsg: 'Everything works fine' },
+	{ name: 'Facility 6', assetId: 'Facility6', description: 'This is facility 6', typeId: 'pump', indicatorMsg: 'Everything works fine' },
+	{ name: 'Facility 7', assetId: 'Facility7', description: 'This is facility 7', typeId: 'pump', indicatorMsg: 'Everything works fine' },
+	{ name: 'Facility 8', assetId: 'Facility8', description: 'This is facility 8', typeId: 'pump', indicatorMsg: 'Everything works fine' },
+	{ name: 'Facility 9', assetId: 'Facility9', description: 'This is facility 9', typeId: 'pump', indicatorMsg: 'Everything works fine' },
 ];
 
 async function seedSingleFacility({
@@ -26,12 +26,14 @@ async function seedSingleFacility({
 	description,
 	typeId,
 	index,
+    indicatorMsg,
 }: {
 	name: string;
 	assetId: string;
 	description: string;
 	typeId: string;
 	index: number;
+    indicatorMsg: string;
 }) {
 	const pumpData = index % 2 === 0 ? pump2pumpData : pump10pumpData;
 	const envData = index % 2 === 0 ? pump2envData : pump10envData;
@@ -42,6 +44,7 @@ async function seedSingleFacility({
 			name,
 			typeId,
 			description,
+            indicatorMsg,
 			location: {
 				create: {
 					latitude: 0,
@@ -157,6 +160,7 @@ async function main() {
 			title: data.title,
 			type: data.type,
 			status: data.status,
+            indicatorMsg: data.indicatorMsg,
 			description: data.description,
 			source: data.source,
 			priority: data.priority,

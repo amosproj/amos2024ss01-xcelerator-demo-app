@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { IFacilitiesResponse } from '@frontend/facilities/shared/models';
+import { EPumpStatus, IFacilitiesResponse, IPumpMetrics } from '@frontend/facilities/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
 import { firstValueFrom, of } from 'rxjs';
 
@@ -11,13 +11,16 @@ describe('FacilitiesController ', () => {
 	let service: XdFacilitiesService;
 
 	const facilitiesResponse: IFacilitiesResponse = {
-		assetId: faker.string.uuid(),
+        indicatorMsg: faker.string.sample(),
+        metrics: [ { standardDeviation: faker.number.int() } as IPumpMetrics ],
+        assetId: faker.string.uuid(),
 		createdAt: faker.date.recent(),
 		description: faker.string.sample(),
 		name: faker.string.sample(),
 		typeId: faker.string.uuid(),
 		updatedAt: faker.date.recent(),
 		variables: faker.string.sample(),
+		status: faker.helpers.enumValue(EPumpStatus),
 		location: {
 			country: faker.location.country(),
 			latitude: faker.location.latitude(),
@@ -26,8 +29,8 @@ describe('FacilitiesController ', () => {
 			postalCode: faker.location.zipCode(),
 			region: faker.location.state(),
 			streetAddress: faker.location.streetAddress(),
-		},
-	};
+		}
+    };
 
 	beforeAll(async () => {
 		const serviceMock = {

@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
-    Component, computed,
-    inject, signal,
+    Component,
+    computed,
+    inject,
+    signal,
     ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
+import { StatusToColorRecord } from '@frontend/facilities/frontend/models';
 import { IxModule } from '@siemens/ix-angular';
+import { EPumpStatus } from 'facilities-shared-models';
 
 @Component({
 	selector: 'lib-browse',
@@ -22,6 +26,7 @@ import { IxModule } from '@siemens/ix-angular';
 export class XdBrowsePage {
 
 	protected showCardList = true;
+    protected readonly StatusToColorRecord = StatusToColorRecord;
     protected readonly filter = signal(true);
 	private readonly _browseFacade = inject(XdBrowseFacade);
 	private readonly allFacilities = toSignal(this._browseFacade.getAllFacilities());
@@ -31,7 +36,7 @@ export class XdBrowsePage {
             return undefined;
 
        if(this.filter()) {
-           return facilities.filter(facility => facility.status != 'success');
+           return facilities.filter(facility => facility.status != EPumpStatus.REGULAR);
        } else {
            return facilities;
        }

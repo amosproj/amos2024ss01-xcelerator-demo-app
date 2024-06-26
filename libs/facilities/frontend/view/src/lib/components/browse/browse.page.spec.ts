@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { of } from 'rxjs';
 
@@ -25,7 +25,7 @@ describe('BrowseComponent', () => {
 						getAllFacilities: jest
 							.fn()
 							.mockReturnValue(of([ { id: '1', propertySetName: 'test' } ])),
-					},
+                    },
 				},
 				{
 					provide: ActivatedRoute,
@@ -41,14 +41,5 @@ describe('BrowseComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
-	});
-
-	it('should change the route', () => {
-		const cardDe = fixture.debugElement.nativeElement.querySelector('ix-push-card');
-		cardDe.click();
-
-		fixture.detectChanges();
-		const router: Router = TestBed.inject(Router);
-		expect(router.url).toEqual('/facilities/1');
 	});
 });

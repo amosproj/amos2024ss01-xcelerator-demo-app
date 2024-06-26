@@ -9,21 +9,24 @@
             <div echarts [options]="envChart" [theme]="theme"></div>
         }
 
-        <ix-card variant="insight" class="h-full w-full p-4">
-            <ix-card-content>
-                <ix-card-title>
-                    <ix-icon class="icon" name="{{facility.icon}}"></ix-icon>
-                    <span class="notification text-2xl">Basic information</span>
-                </ix-card-title>
-                <ix-typography color="std">{{ facility.heading }}</ix-typography>
-                <ix-typography color="std">{{ facility.subheading }}</ix-typography>
-                <ix-typography color="std">{{ facility.location }}</ix-typography>
-                <div class="flex">
-                    <ix-typography color="std">status:&nbsp;</ix-typography>
-                    <ix-typography [ngClass]="facility.status">{{ facility.status }}</ix-typography>
-                </div>
-            </ix-card-content>
-        </ix-card>
+		<ix-card variant="insight" class="h-full w-full p-4">
+			<ix-card-content>
+				<ix-card-title>
+					<ix-icon class="icon" name="{{facility.icon}}"></ix-icon>
+					<span class="notification text-2xl">Basic information</span>
+				</ix-card-title>
+				<ix-typography color="std">{{ facility.heading }}</ix-typography>
+				<ix-typography color="std">{{ facility.subheading }}</ix-typography>
+				<ix-typography color="std">{{ facility.location }}</ix-typography>
+				<div class="flex">
+					<ix-typography color="std">status:&nbsp;</ix-typography>
+					<ix-typography [ngClass]="StatusToColorRecord[facility.status]"
+						>{{ facility.status }}
+					</ix-typography>
+                    <ix-tooltip id="status-tooltip" for=".{{StatusToColorRecord[facility.status]}}">{{ facility.indicatorMsg }}</ix-tooltip>
+				</div>
+			</ix-card-content>
+		</ix-card>
 
         <ix-card variant="insight" class="h-full w-full p-4">
             <ix-card-content>
@@ -79,4 +82,5 @@
         </ix-card>
     </div>
 </ix-content>
+
 }

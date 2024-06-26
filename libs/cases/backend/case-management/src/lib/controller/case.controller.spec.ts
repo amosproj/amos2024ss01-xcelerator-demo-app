@@ -1,5 +1,11 @@
 import { faker } from '@faker-js/faker';
-import { ECasePriority, ECaseStatus, ECaseType, ICaseResponse, ICreateCaseBody } from '@frontend/cases/shared/models';
+import {
+	ECasePriority,
+	ECaseStatus,
+	ECaseType,
+	ICaseResponse,
+	ICreateCaseBody,
+} from '@frontend/cases/shared/models';
 import { Test, TestingModule } from '@nestjs/testing';
 import { firstValueFrom, of } from 'rxjs';
 
