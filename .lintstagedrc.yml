@@ -1,5 +1,5 @@
 '*.{ts}':
-    - nx affected --target lint --fix
+    - nx run-many --target lint
 '*.{json,md,yml}':
     - nx format:write --uncommitted
 '*.{scss,css}':
