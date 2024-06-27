@@ -86,4 +86,8 @@ export class HeaderComponent {
         }
         return "sun";
     }
+
+    refresh() {
+        window.location.reload();
+    }
 }
