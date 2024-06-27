@@ -28,7 +28,11 @@
 		[headerTitle]="title()"
 		[headerSubtitle]="subtitle()"
 		(backButtonClick)="goBack()"
-	></ix-content-header>
+	>
+        <div class="absolute top-10 right-4 !z-[50] flex flex-row-reverse gap-x-4">
+            <ix-button icon="refresh" (click)="refresh()">Refresh</ix-button>
+        </div>
+    </ix-content-header>
 
 	<ix-menu>
 		<ix-menu-item icon="building1" [routerLink]="['/facilities']">Facilities</ix-menu-item>

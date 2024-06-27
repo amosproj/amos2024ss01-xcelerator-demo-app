@@ -105,4 +105,8 @@ export class HeaderComponent {
 	goBack() {
 		this._router.navigate([ this._router.url.split('/').slice(0, -1).join('/') ]);
 	}
+
+    refresh() {
+        window.location.reload();
+    }
 }
