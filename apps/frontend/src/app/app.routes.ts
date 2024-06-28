@@ -7,10 +7,7 @@ export const APP_ROUTES: Route[] = [
 		path: '',
 		component: HeaderComponent,
 		data: {
-			breadcrumbs: {
-				label: 'Home',
-				url: '/',
-			},
+			breadcrumb: 'Home',
 			title: 'Home Page',
 			subtitle: '',
 		},
@@ -23,10 +20,7 @@ export const APP_ROUTES: Route[] = [
 			{
 				path: 'facilities',
 				data: {
-					breadcrumbs: {
-						label: 'Facilities',
-						url: 'facilities',
-					},
+					breadcrumb: 'Facilities',
 					title: 'Facilities Dashboard',
 					subtitle: 'List of all Facilities',
 				},
@@ -36,10 +30,7 @@ export const APP_ROUTES: Route[] = [
 			{
 				path: 'cases',
 				data: {
-					breadcrumbs: {
-						label: 'Cases',
-						url: 'cases',
-					},
+					breadcrumb: 'Cases',
 					title: 'Cases',
 					subtitle: '',
 				},

@@ -1,108 +1,96 @@
 import { CommonModule } from '@angular/common';
 import {
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	inject,
-	ViewEncapsulation,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    inject,
+    ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { IxModule } from '@siemens/ix-angular';
-import { find } from 'lodash';
 import { filter } from 'rxjs';
 
 import { LegalInformationComponent } from './legal-information/legal-information.component';
 
 /**
- * Breadcrumb data interface
- */
-export interface IBreadcrumbData {
-	label: string;
-	url: string;
-}
-
-/**
  * Header component
  */
 @Component({
-	selector: 'app-header',
-	standalone: true,
-	imports: [ CommonModule, IxModule, RouterLink, RouterOutlet, LegalInformationComponent ],
-	templateUrl: './header.component.html',
-	styleUrl: './header.component.scss',
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-header',
+    standalone: true,
+    imports: [ CommonModule, IxModule, RouterLink, RouterOutlet, LegalInformationComponent ],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-	private readonly _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-	private readonly _router: Router = inject(Router);
+    private readonly _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+    private readonly _router: Router = inject(Router);
 
-	readonly routerEvents = toSignal(
-		this._router.events.pipe(filter((e) => e instanceof NavigationEnd)),
-		{ initialValue: null },
-	);
+    readonly routerEvents = toSignal(
+        this._router.events.pipe(filter((e) => e instanceof NavigationEnd)),
+        { initialValue: null },
+    );
 
-	readonly breadcrumbs = computed(() => {
-		this.routerEvents();
-		return HeaderComponent.buildBreadcrumbRecursively(this._activatedRoute.root);
-	});
+    private readonly _lastRoute = computed(() => {
+        this.routerEvents();
 
-	readonly title = computed(() => {
-		this.routerEvents();
-		let currentRoute = this._activatedRoute.root;
-		while (currentRoute.firstChild) {
-			currentRoute = currentRoute.firstChild;
-		}
-		return currentRoute.snapshot.data['title'];
-	});
+        let currentRoute = this._activatedRoute.root;
+        while (currentRoute.firstChild) {
+            currentRoute = currentRoute.firstChild;
+        }
 
-	readonly subtitle = computed(() => {
-		this.routerEvents();
-		let curentRoute = this._activatedRoute.root;
-		while (curentRoute.firstChild) {
-			curentRoute = curentRoute.firstChild;
-		}
-		return curentRoute.snapshot.data['subtitle'];
-	});
+        return currentRoute;
+    });
 
-	readonly backButtonPresent = computed(() => {
-		const breadcrumbs = this.breadcrumbs();
-		let tempHeader = '';
-		if (breadcrumbs.length > 0) {
-			tempHeader = breadcrumbs[breadcrumbs.length - 1].label;
-		}
+    readonly title = computed(() => {
+        return this._lastRoute().snapshot.data['title'];
+    });
 
-		if (tempHeader === 'Home') {
-			return false;
-		}
+    readonly subtitle = computed(() => {
+        return this._lastRoute().snapshot.data['subtitle'];
+    });
 
-		return true;
-	});
+    readonly backButtonPresent = computed(() => {
+        return this.breadcrumbs().length > 1;
+    });
 
-	/**
-	 * Build breadcrumbs recursively
-	 * @param route
-	 * @param breadcrumbs
-	 */
-	static buildBreadcrumbRecursively(
-		route: ActivatedRoute,
-		breadcrumbs: IBreadcrumbData[] = [],
-	): IBreadcrumbData[] {
-		const breadcrumbData = route.snapshot.data['breadcrumbs'] as IBreadcrumbData;
+    readonly breadcrumbs = computed(() => {
+        this.routerEvents();
 
-		if (breadcrumbData && !find(breadcrumbs, breadcrumbData)) {
-			breadcrumbs.push(breadcrumbData);
-		}
+        const breadcrumbs = [];
+        let currentRoute = this._activatedRoute.root;
+        while (currentRoute.firstChild) {
+            const breadcrumb = currentRoute.snapshot.data['breadcrumb'];
+            if(breadcrumb && breadcrumbs[breadcrumbs.length - 1] !== breadcrumb)
+                breadcrumbs.push(breadcrumb)
 
-		if (route.firstChild == null) {
-			return breadcrumbs;
-		}
+            currentRoute = currentRoute.firstChild;
+        }
 
-		return this.buildBreadcrumbRecursively(route.firstChild, breadcrumbs);
-	}
+        const breadcrumb = currentRoute.snapshot.data['breadcrumb'];
+        if(breadcrumb && breadcrumbs[breadcrumbs.length - 1] !== breadcrumb)
+            breadcrumbs.push(breadcrumb)
 
-	goBack() {
-		this._router.navigate([ this._router.url.split('/').slice(0, -1).join('/') ]);
-	}
+        return breadcrumbs;
+    });
+
+    /**
+     * from the right cut the current url until a '/' is reached n times
+     * So for /cases/10/abc, goBack(1) yields /cases/10
+     *
+     * @param n
+     */
+    cutUrl(n: number) {
+        const currentUrl = this._router.url;
+        const urlSegments = currentUrl.split('/');
+        return urlSegments.slice(0, urlSegments.length - n).join('/');
+    }
+
+    goBack(n = 1) {
+        this._router.navigateByUrl(this.cutUrl(n));
+    }
+
 }
