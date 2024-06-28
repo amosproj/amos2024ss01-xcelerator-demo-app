@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { XdCasesFacade } from '@frontend/cases/frontend/domain';
 import { ECasePriority, ECaseStatus, ECaseType, ICaseResponse } from '@frontend/cases/shared/models';
 import { IxModule, ModalService, ToastService } from '@siemens/ix-angular';
@@ -13,9 +13,9 @@ import DeleteModalComponent from './delete-modal/deleteModal.component';
 @Component({
     selector: 'lib-detail-case',
     standalone: true,
-    imports: [ CommonModule, FormsModule, IxModule, RouterLink ],
+    imports: [CommonModule, FormsModule, IxModule, RouterLink],
     templateUrl: './detail-case.component.html',
-    styleUrls: [ './detail-case.component.scss' ],
+    styleUrls: ['./detail-case.component.scss'],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -33,9 +33,12 @@ export class DetailCaseComponent {
     isEditing = false;
     datePattern = /^\d{4}-\d{2}-\d{2}T00:00:00\.000Z$/;
 
-
-    constructor(private route: ActivatedRoute, private readonly _modalService: ModalService, private readonly toastService: ToastService) {
-    }
+    constructor(
+        protected router: Router,
+        protected route: ActivatedRoute,
+        private readonly _modalService: ModalService,
+        private readonly toastService: ToastService
+    ) {}
 
     deleteCase() {
         const caseId = this.mapCaseId(this.casedetail());
@@ -81,7 +84,7 @@ export class DetailCaseComponent {
     onSubmit(): void {
         const casedetail = this.casedetail();
 
-        if(casedetail !== undefined) {
+        if (casedetail !== undefined) {
             const validationString = this.validateForm(casedetail);
             if (validationString === 'valid') {
                 const caseId = this.mapCaseId(this.casedetail());
@@ -98,7 +101,7 @@ export class DetailCaseComponent {
         }
     }
 
-    validateForm(casedetail: ICaseResponse ) {
+    validateForm(casedetail: ICaseResponse) {
 
 
         if (casedetail !== undefined) {

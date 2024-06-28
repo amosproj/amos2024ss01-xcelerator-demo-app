@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {  FormsModule, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { faker } from '@faker-js/faker';
 import { XdCasesFacade } from '@frontend/cases/frontend/domain';
 import { ECasePriority, ECaseStatus, ECaseType } from '@frontend/cases/shared/models';
@@ -43,8 +43,11 @@ export class CreateCaseComponent implements OnInit {
     typePlaceholder = signal('Select Type');
     priorityPlaceholder = signal('Select Priority');
 
-    constructor(private readonly toastService: ToastService) {
-    }
+    constructor(
+        protected readonly router: Router,
+        protected readonly route: ActivatedRoute,
+        private readonly toastService: ToastService
+    ) {}
 
     casePriority = ECasePriority;
     caseType = ECaseType;

@@ -34,29 +34,6 @@ export class HeaderComponent {
         { initialValue: null },
     );
 
-    private readonly _lastRoute = computed(() => {
-        this.routerEvents();
-
-        let currentRoute = this._activatedRoute.root;
-        while (currentRoute.firstChild) {
-            currentRoute = currentRoute.firstChild;
-        }
-
-        return currentRoute;
-    });
-
-    readonly title = computed(() => {
-        return this._lastRoute().snapshot.data['title'];
-    });
-
-    readonly subtitle = computed(() => {
-        return this._lastRoute().snapshot.data['subtitle'];
-    });
-
-    readonly backButtonPresent = computed(() => {
-        return this.breadcrumbs().length > 1;
-    });
-
     readonly breadcrumbs = computed(() => {
         this.routerEvents();
 
@@ -87,10 +64,6 @@ export class HeaderComponent {
         const currentUrl = this._router.url;
         const urlSegments = currentUrl.split('/');
         return urlSegments.slice(0, urlSegments.length - n).join('/');
-    }
-
-    goBack(n = 1) {
-        this._router.navigateByUrl(this.cutUrl(n));
     }
 
 }
