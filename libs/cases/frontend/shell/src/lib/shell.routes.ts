@@ -25,10 +25,7 @@ export const CASES_SHELL_ROUTES: Route[] = [
 				// Route to create a case
 				path: 'create',
 				data: {
-					breadcrumbs: {
-						label: 'Create',
-						url: 'cases/create',
-					},
+					breadcrumb: 'Create',
 					title: 'Create a Case',
 					subtitle: '',
 				},
@@ -39,11 +36,8 @@ export const CASES_SHELL_ROUTES: Route[] = [
 				// Route to detail case
 				path: ':id',
 				data: {
-					breadcrumbs: {
-						label: 'Details',
-						url: 'cases/:id',
-					},
-					title: 'Detail of case',
+					breadcrumb: 'Details',
+					title: 'Detail of Case',
 					subtitle: '',
 				},
 				loadComponent: () =>
