@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
+import { XdCasesFacade } from '@frontend/cases/frontend/domain';
 import { ICaseResponse } from '@frontend/cases/shared/models';
 import { IxModule } from '@siemens/ix-angular';
 
@@ -40,8 +40,8 @@ export class CaseBrowseComponent {
 	protected readonly showStatusCancelled = signal(false);
 	protected readonly showStatusArchived = signal(false);
 
-	protected readonly _browseFacade = inject(XdBrowseFacadesService);
-	protected readonly _cases = toSignal(this._browseFacade.getAllCases());
+	protected readonly _casesFacade = inject(XdCasesFacade);
+	protected readonly _cases = toSignal(this._casesFacade.getAllCases());
 	protected readonly _sortedCases = computed(() => {
 		let cases = this._cases();
 		if (cases === undefined) {
