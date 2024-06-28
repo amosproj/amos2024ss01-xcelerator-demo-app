@@ -6,6 +6,15 @@
         {{ filter() ? 'Remove Filter for Issues' : 'Filter Facilities with Issues' }}
     </ix-button>
 </div>
+
+<ix-content-header
+    class="pl-4 pt-4"
+    hasBackButton="true"
+    headerTitle="Facilities Overview"
+    headerSubtitle="View all facilities and their status"
+    (backButtonClick)="router.navigate(['../'], { relativeTo: route });"
+></ix-content-header>
+
 <ix-content>
 	@if (showCardList) {
         @if (facilities(); as facilities) {

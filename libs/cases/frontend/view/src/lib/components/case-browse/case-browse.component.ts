@@ -8,7 +8,7 @@ import {
 	ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { XdCasesFacade } from '@frontend/cases/frontend/domain';
 import { ICaseResponse } from '@frontend/cases/shared/models';
 import { IxModule } from '@siemens/ix-angular';
@@ -130,6 +130,11 @@ export class CaseBrowseComponent {
 
 		return cases;
 	});
+
+    constructor(
+        protected router: Router,
+        protected route: ActivatedRoute
+    ) {}
 
 	getStatusClasses(_case: ICaseResponse) {
 		return {

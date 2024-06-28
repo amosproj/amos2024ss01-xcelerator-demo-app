@@ -25,8 +25,6 @@ export const FACILITIES_SHELL_ROUTES: Route[] = [
 				path: ':id',
 				data: {
 					breadcrumb: 'Details',
-					title: 'Details of Facility',
-					subtitle: '',
 				},
 				loadComponent: () => import('facilities-frontend-view').then((m) => m.XdDetailPage),
 			},

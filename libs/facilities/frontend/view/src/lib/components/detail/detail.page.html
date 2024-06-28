@@ -1,4 +1,13 @@
 @if (facility(); as facility) {
+
+<ix-content-header
+    class="pl-4 pt-4"
+    hasBackButton="true"
+    headerTitle="Details of Facility {{ facility.heading }}"
+    headerSubtitle="On this page you can see detailed information about the facility including charts about the pump and environment data"
+    (backButtonClick)="router.navigate(['../'], { relativeTo: route });"
+></ix-content-header>
+
 <ix-content>
     <div class="details-grid gap-x-6 gap-y-4 pb-32">
 
