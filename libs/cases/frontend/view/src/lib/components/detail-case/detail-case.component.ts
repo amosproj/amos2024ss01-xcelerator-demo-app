@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
+import { XdCasesFacade } from '@frontend/cases/frontend/domain';
 import { ECasePriority, ECaseStatus, ECaseType, ICaseResponse } from '@frontend/cases/shared/models';
 import { IxModule, ModalService, ToastService } from '@siemens/ix-angular';
 
@@ -20,8 +20,8 @@ import DeleteModalComponent from './delete-modal/deleteModal.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailCaseComponent {
-    private readonly _browseFacade = inject(XdBrowseFacadesService);
-    protected readonly _cases = toSignal(this._browseFacade.getAllCases());
+    private readonly _casesFacade = inject(XdCasesFacade);
+    protected readonly _cases = toSignal(this._casesFacade.getAllCases());
     protected readonly casedetail = computed(() => {
         const _case = this._cases();
         if (_case === undefined) {
@@ -41,7 +41,7 @@ export class DetailCaseComponent {
         const caseId = this.mapCaseId(this.casedetail());
         if (caseId !== undefined) {
             // The subscribe is necessary, otherwise the request is not sent
-            this._browseFacade.deleteCase(caseId).subscribe();
+            this._casesFacade.deleteCase(caseId).subscribe();
         }
     }
 
@@ -89,7 +89,7 @@ export class DetailCaseComponent {
 
                 if (caseId !== undefined && caseData !== undefined) {
                     // The subscribe is necessary, otherwise the request is not sent
-                    this._browseFacade.updateCase(caseId, caseData).subscribe({});
+                    this._casesFacade.updateCase(caseId, caseData).subscribe({});
                 }
                 this.isEditing = false;
             } else {

@@ -8,7 +8,7 @@ import { XdCasesRequestService } from '../../infrastructure/cases-request.servic
  * Browse facades service.
  */
 @Injectable({ providedIn: 'root' })
-export class XdBrowseFacadesService {
+export class XdCasesFacade {
 	private readonly _scanService = inject(XdCasesRequestService);
 
 	/**
