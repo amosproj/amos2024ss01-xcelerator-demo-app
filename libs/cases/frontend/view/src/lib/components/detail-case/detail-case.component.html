@@ -1,3 +1,5 @@
+@if(casedetail(); as _case){
+
 <ix-button class="absolute top-20 right-32 !z-[50]" (click)="toggleEdit()">
     {{ isEditing ? 'Submit changes' : 'Update Case' }}
 </ix-button>
@@ -7,8 +9,17 @@
 <ix-button  class="absolute top-20 right-4 !z-[50]" (click)="deleting()">
     Delete Case
 </ix-button>
+
+<ix-content-header
+    class="pl-4 pt-4"
+    hasBackButton="true"
+    headerTitle="Details of Facility {{ _case.title }}"
+    headerSubtitle="View all facilities and their status"
+    (backButtonClick)="router.navigate(['../'], { relativeTo: route });"
+></ix-content-header>
+
 <ix-content>
-    @if(casedetail(); as _case){
+
         <div class="container" >
             <h1>_Case {{ _case.handle }} </h1>
             <form class="form-content" #caseForm="ngForm">
@@ -67,5 +78,5 @@
                 </div>
             </form>
         </div>
-    }
 </ix-content>
+}

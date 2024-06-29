@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {  FormsModule, NG_VALUE_ACCESSOR, NgForm } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { faker } from '@faker-js/faker';
-import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
+import { XdCasesFacade } from '@frontend/cases/frontend/domain';
 import { ECasePriority, ECaseStatus, ECaseType } from '@frontend/cases/shared/models';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { IxModule, IxSelectCustomEvent, ToastService } from '@siemens/ix-angular';
@@ -36,15 +36,18 @@ import { DateDropdownWrapperComponent } from './date-dropdown-accessor';
 })
 export class CreateCaseComponent implements OnInit {
     private readonly _browseFacade = inject(XdBrowseFacade);
-    protected readonly _browseFacade2 = inject(XdBrowseFacadesService);
+    protected readonly _casesFacade = inject(XdCasesFacade);
     protected readonly facilities = toSignal(this._browseFacade.getAllFacilities());
 
     facilityPlaceholder = signal('Select Facility');
     typePlaceholder = signal('Select Type');
     priorityPlaceholder = signal('Select Priority');
 
-    constructor(private readonly toastService: ToastService) {
-    }
+    constructor(
+        protected readonly router: Router,
+        protected readonly route: ActivatedRoute,
+        private readonly toastService: ToastService
+    ) {}
 
     casePriority = ECasePriority;
     caseType = ECaseType;
@@ -75,7 +78,7 @@ export class CreateCaseComponent implements OnInit {
         if (form.valid) {
             const caseData = this.mapFormData(form.form.value);
 
-            this._browseFacade2.createCase(caseData).subscribe({
+            this._casesFacade.createCase(caseData).subscribe({
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 next: (_) => {
                     this.showSuccessToast();

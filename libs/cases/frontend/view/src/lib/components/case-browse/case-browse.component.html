@@ -2,6 +2,14 @@
 	<ix-button [routerLink]="['/cases/create']" icon="plus"> Create Case </ix-button>
 </div>
 
+<ix-content-header
+    class="pl-4 pt-4"
+    hasBackButton="true"
+    headerTitle="Cases Overview"
+    headerSubtitle="View all cases including their status, priority and type"
+    (backButtonClick)="router.navigate(['../'], { relativeTo: route });"
+></ix-content-header>
+
 <ix-content>
 	<div class="flex flex-col gap-y-2 pb-2">
 		<div class="flex gap-x-2">

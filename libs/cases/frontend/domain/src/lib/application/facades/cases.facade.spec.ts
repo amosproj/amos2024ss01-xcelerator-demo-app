@@ -3,10 +3,10 @@ import { ICaseParams } from '@frontend/cases/shared/models';
 import { firstValueFrom, of } from 'rxjs';
 
 import { XdCasesRequestService } from '../../infrastructure/cases-request.service';
-import { XdBrowseFacadesService } from './browse.facades';
+import { XdCasesFacade } from './cases.facade';
 
-describe('XdBrowseFacadesService', () => {
-	let service: XdBrowseFacadesService;
+describe('XdCasesFacade', () => {
+	let facade: XdCasesFacade;
 	let casesRequestService: XdCasesRequestService;
 
 	beforeEach(() => {
@@ -17,22 +17,22 @@ describe('XdBrowseFacadesService', () => {
 
 		TestBed.configureTestingModule({
 			providers: [
-				XdBrowseFacadesService,
+				XdCasesFacade,
 				{ provide: XdCasesRequestService, useValue: timeseriesRequestServiceMock },
 			],
 		});
 
-		service = TestBed.inject(XdBrowseFacadesService);
+		facade = TestBed.inject(XdCasesFacade);
 		casesRequestService = TestBed.inject(XdCasesRequestService);
 	});
 
 	it('should be created', () => {
-		expect(service).toBeTruthy();
+		expect(facade).toBeTruthy();
 	});
 
 	describe('getAllTimeseries', () => {
 		it('should call getAllTimeseries of TimeseriesRequestService', async () => {
-			const response = await firstValueFrom(service.getAllCases());
+			const response = await firstValueFrom(facade.getAllCases());
 
 			expect(casesRequestService.getAllCases).toHaveBeenCalledTimes(1);
 			expect(response).toEqual([]);
@@ -43,7 +43,7 @@ describe('XdBrowseFacadesService', () => {
 		it('should call getTimeSeries of TimeseriesRequestService with correct parameters', async () => {
 			const params: ICaseParams = { id: 1 } as ICaseParams;
 
-			const response = await firstValueFrom(service.getTimeSeries(params));
+			const response = await firstValueFrom(facade.getTimeSeries(params));
 
 			expect(casesRequestService.getTimeSeries).toHaveBeenCalledWith(params);
 			expect(response).toEqual({});
