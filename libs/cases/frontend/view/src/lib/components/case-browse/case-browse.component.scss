@@ -1,7 +1,27 @@
-@import 'libs/cases/shared/models/src/lib/styles/case.scss';
+.table {
+    cursor: pointer;
+    & .emergency {
+        background-color: #ff26401a;
+    }
 
-.table .clickable-row {
-	cursor: pointer; /* Changes the cursor to a hand */
+    & .status-open {
+    }
+
+    & .status-inprogress {
+        color: #ff9000;
+    }
+
+    & .status-overdue {
+        color: #ff2640;
+    }
+
+    & .status-onhold {
+        color: #00b5d1;
+    }
+
+    & .status-done {
+        color: #01c151;
+    }
 }
 
 .toggle-pill {

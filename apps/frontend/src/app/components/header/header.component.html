@@ -2,7 +2,7 @@
     <ix-application-header name="Xcelerator Demo App">
         <button class="placeholder-logo" slot="logo" [routerLink]="['/']">
             <img
-                src="https://cdn.c2comms.cloud/images/logo-collection/2.1/sie-logo-white-rgb.svg"
+                [src]=getCorrectImage()
                 class="h-5"
                 alt="Siemens logo"
             />
@@ -25,6 +25,7 @@
     <ix-menu>
         <ix-menu-item icon="building1" [routerLink]="['/facilities']">Facilities</ix-menu-item>
         <ix-menu-item icon="tasks-open" [routerLink]="['/cases']">Cases</ix-menu-item>
+        <ix-menu-item [icon]=getCorrectIcon() slot="bottom" (click)="toggleMode()">toggle theme</ix-menu-item>
 
         <ix-menu-about>
             <app-legal-information></app-legal-information>
