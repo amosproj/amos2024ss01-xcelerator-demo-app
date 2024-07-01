@@ -17,6 +17,10 @@ export const APP_ROUTES: Route[] = [
 				loadComponent: () =>
 					import('./pages/home/home.component').then((m) => m.HomeComponent),
 			},
+            {
+                path: 'home',
+                redirectTo: '',
+            },
 			{
 				path: 'facilities',
 				data: {
