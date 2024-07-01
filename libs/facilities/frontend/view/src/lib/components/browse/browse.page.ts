@@ -8,7 +8,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { XdBrowseFacade } from '@frontend/facilities/frontend/domain';
 import { StatusToColorRecord } from '@frontend/facilities/frontend/models';
 import { IxModule } from '@siemens/ix-angular';
@@ -42,7 +42,10 @@ export class XdBrowsePage {
        }
     });
 
-	toggleView() {
+    constructor(protected readonly router: Router, protected readonly route: ActivatedRoute) {
+    }
+
+    toggleView() {
 		this.showCardList = !this.showCardList;
 	}
 

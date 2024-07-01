@@ -10,7 +10,7 @@ import {
 	ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { XdDetailsFacade } from '@frontend/facilities/frontend/domain';
 import { StatusToColorRecord } from '@frontend/facilities/frontend/models';
 import { themeSwitcher } from '@siemens/ix';
@@ -36,7 +36,7 @@ export class XdDetailPage implements OnInit {
 	protected theme = convertThemeName(themeSwitcher.getCurrentTheme());
 	protected readonly locked = signal(true);
 	protected readonly StatusToColorRecord = StatusToColorRecord;
-	private readonly _assetId = this._route.snapshot.params['id'];
+	private readonly _assetId = this.route.snapshot.params['id'];
 	private readonly _currentTime = new Date();
 	private readonly _28MinutesAgo = new Date(this._currentTime.getTime() - 28 * 60 * 1000);
 	private readonly _detailsFacade = inject(XdDetailsFacade);
@@ -179,7 +179,8 @@ export class XdDetailPage implements OnInit {
 	});
 
 	constructor(
-		private _route: ActivatedRoute,
+        protected router: Router,
+		protected route: ActivatedRoute,
 		private readonly _modalService: ModalService,
 	) {}
 

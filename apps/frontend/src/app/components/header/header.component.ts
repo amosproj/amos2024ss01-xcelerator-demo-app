@@ -1,108 +1,89 @@
 import { CommonModule } from '@angular/common';
 import {
-	ChangeDetectionStrategy,
-	Component,
-	computed,
-	inject,
-	ViewEncapsulation,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    inject,
+    ViewEncapsulation,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { themeSwitcher } from '@siemens/ix';
 import { IxModule } from '@siemens/ix-angular';
-import { find } from 'lodash';
 import { filter } from 'rxjs';
 
 import { LegalInformationComponent } from './legal-information/legal-information.component';
 
 /**
- * Breadcrumb data interface
- */
-export interface IBreadcrumbData {
-	label: string;
-	url: string;
-}
-
-/**
  * Header component
  */
 @Component({
-	selector: 'app-header',
-	standalone: true,
-	imports: [ CommonModule, IxModule, RouterLink, RouterOutlet, LegalInformationComponent ],
-	templateUrl: './header.component.html',
-	styleUrl: './header.component.scss',
-	encapsulation: ViewEncapsulation.None,
-	changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-header',
+    standalone: true,
+    imports: [ CommonModule, IxModule, RouterLink, RouterOutlet, LegalInformationComponent ],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-	private readonly _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-	private readonly _router: Router = inject(Router);
+    private readonly _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+    private readonly _router: Router = inject(Router);
+    private _lightMode = false;
 
-	readonly routerEvents = toSignal(
-		this._router.events.pipe(filter((e) => e instanceof NavigationEnd)),
-		{ initialValue: null },
-	);
+    readonly routerEvents = toSignal(
+        this._router.events.pipe(filter((e) => e instanceof NavigationEnd)),
+        { initialValue: null },
+    );
 
-	readonly breadcrumbs = computed(() => {
-		this.routerEvents();
-		return HeaderComponent.buildBreadcrumbRecursively(this._activatedRoute.root);
-	});
+    readonly breadcrumbs = computed(() => {
+        this.routerEvents();
 
-	readonly title = computed(() => {
-		this.routerEvents();
-		let currentRoute = this._activatedRoute.root;
-		while (currentRoute.firstChild) {
-			currentRoute = currentRoute.firstChild;
-		}
-		return currentRoute.snapshot.data['title'];
-	});
+        const breadcrumbs = [];
+        let currentRoute = this._activatedRoute.root;
+        while (currentRoute.firstChild) {
+            const breadcrumb = currentRoute.snapshot.data['breadcrumb'];
+            if(breadcrumb && breadcrumbs[breadcrumbs.length - 1] !== breadcrumb)
+                breadcrumbs.push(breadcrumb)
 
-	readonly subtitle = computed(() => {
-		this.routerEvents();
-		let curentRoute = this._activatedRoute.root;
-		while (curentRoute.firstChild) {
-			curentRoute = curentRoute.firstChild;
-		}
-		return curentRoute.snapshot.data['subtitle'];
-	});
+            currentRoute = currentRoute.firstChild;
+        }
 
-	readonly backButtonPresent = computed(() => {
-		const breadcrumbs = this.breadcrumbs();
-		let tempHeader = '';
-		if (breadcrumbs.length > 0) {
-			tempHeader = breadcrumbs[breadcrumbs.length - 1].label;
-		}
+        const breadcrumb = currentRoute.snapshot.data['breadcrumb'];
+        if(breadcrumb && breadcrumbs[breadcrumbs.length - 1] !== breadcrumb)
+            breadcrumbs.push(breadcrumb)
 
-		if (tempHeader === 'Home') {
-			return false;
-		}
+        return breadcrumbs;
+    });
 
-		return true;
-	});
+    /**
+     * from the right cut the current url until a '/' is reached n times
+     * So for /cases/10/abc, goBack(1) yields /cases/10
+     *
+     * @param n
+     */
+    cutUrl(n: number) {
+        const currentUrl = this._router.url;
+        const urlSegments = currentUrl.split('/');
+        return urlSegments.slice(0, urlSegments.length - n).join('/');
+    }
 
-	/**
-	 * Build breadcrumbs recursively
-	 * @param route
-	 * @param breadcrumbs
-	 */
-	static buildBreadcrumbRecursively(
-		route: ActivatedRoute,
-		breadcrumbs: IBreadcrumbData[] = [],
-	): IBreadcrumbData[] {
-		const breadcrumbData = route.snapshot.data['breadcrumbs'] as IBreadcrumbData;
+    toggleMode() {
+        themeSwitcher.toggleMode();
+        this._lightMode = !this._lightMode;
+    }
 
-		if (breadcrumbData && !find(breadcrumbs, breadcrumbData)) {
-			breadcrumbs.push(breadcrumbData);
-		}
+    getCorrectImage() {
+        if (this._lightMode) {
+            return "https://cdn.c2comms.cloud/images/logo-collection/2.1/sie-logo-black-rgb.svg";
+        }
+        return "https://cdn.c2comms.cloud/images/logo-collection/2.1/sie-logo-white-rgb.svg";
+    }
 
-		if (route.firstChild == null) {
-			return breadcrumbs;
-		}
-
-		return this.buildBreadcrumbRecursively(route.firstChild, breadcrumbs);
-	}
-
-	goBack() {
-		this._router.navigate([ this._router.url.split('/').slice(0, -1).join('/') ]);
-	}
+    getCorrectIcon() {
+        if (this._lightMode) {
+            return "sun-filled";
+        }
+        return "sun";
+    }
 }
