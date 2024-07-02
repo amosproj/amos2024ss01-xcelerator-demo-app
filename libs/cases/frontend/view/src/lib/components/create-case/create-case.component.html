@@ -12,7 +12,6 @@
                 id="facilitySelection"
                 (valueChange)="onFacilityChange($event)"
                 (inputChange)="onFacilityInputChange($event)"
-                hide-list-header="true"
             >
                 @for (facility of facilities(); track facility.id) {
                     <ix-select-item
