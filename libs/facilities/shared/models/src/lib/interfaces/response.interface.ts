@@ -1,4 +1,8 @@
+import { ICaseResponse } from 'cases-shared-models';
 import { TTimeSeriesData } from 'common-shared-models';
+
+import { EPumpStatus } from '../enums';
+import { IPumpMetrics } from './pump-metrics.interface';
 
 /**
  * Interface for a time series data item response
@@ -60,6 +64,21 @@ export interface IFacilitiesResponse {
 	description: string;
 
 	/**
+	 * The status of the asset
+	 */
+	status: EPumpStatus;
+
+	/**
+	 * The indicator message of the asset
+	 */
+	indicatorMsg: string;
+
+	/**
+	 * The data analytics of the asset
+	 */
+	metrics: IPumpMetrics[];
+
+	/**
 	 * The variables of the asset
 	 */
 	variables: any;
@@ -75,6 +94,8 @@ export interface IFacilitiesResponse {
 	 * The updatedAt timestamp of the asset
 	 */
 	updatedAt: Date;
+
+	cases: Pick<ICaseResponse, 'id'>[];
 }
 
 export interface IFacilityLocation {

@@ -1,1 +1,1 @@
-export * from './browse.facades';
+export * from './cases.facade';

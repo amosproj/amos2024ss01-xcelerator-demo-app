@@ -2,19 +2,26 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 
-import { HeaderComponent, IBreadcrumbData } from './header.component';
+import { HeaderComponent } from './header.component';
 
 const HEADER_ROUTES = {
+	snapshot: {
+		firstChild: {
+			routeConfig: {
+				path: '',
+			},
+		},
+	},
 	root: {
 		snapshot: {
 			data: {
-				breadcrumbs: { label: 'Layer 1', url: '/layer1' } as IBreadcrumbData,
+				breadcrumb: 'Layer 1',
 			},
 		},
 		firstChild: {
 			snapshot: {
 				data: {
-					breadcrumbs: { label: 'Layer 2', url: '/layer2' } as IBreadcrumbData,
+					breadcrumb: 'Layer 2',
 				},
 			},
 		},
@@ -30,10 +37,11 @@ describe('HeaderComponent', () => {
 	beforeEach(async () => {
 		routerMock = {
 			events: eventsSubject.asObservable(),
+			url: '/Layer1/Layer2',
 		} as unknown as Router;
 
 		await TestBed.configureTestingModule({
-			imports: [ HeaderComponent ],
+			imports: [HeaderComponent],
 			providers: [
 				{
 					provide: ActivatedRoute,
@@ -71,8 +79,6 @@ describe('HeaderComponent', () => {
 		eventsSubject.next(new NavigationEnd(1, '', ''));
 
 		const breadcrumbs = component.breadcrumbs();
-		expect(breadcrumbs.length).toBe(2);
-		expect(breadcrumbs[0]).toEqual({ label: 'Layer 1', url: '/layer1' });
-		expect(breadcrumbs[1]).toEqual({ label: 'Layer 2', url: '/layer2' });
+		expect(breadcrumbs).toEqual(['Layer 1', 'Layer 2']);
 	});
 });

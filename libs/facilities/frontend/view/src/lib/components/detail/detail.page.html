@@ -1,42 +1,73 @@
 @if (facility(); as facility) {
+
+<ix-content-header
+    class="pl-4 pt-4"
+    hasBackButton="true"
+    headerTitle="Details of Facility {{ facility.heading }}"
+    headerSubtitle="On this page you can see detailed information about the facility including charts about the pump and environment data"
+    (backButtonClick)="router.navigate(['../'], { relativeTo: route })"
+></ix-content-header>
+
 <ix-content>
     <div class="details-grid gap-x-6 gap-y-4 pb-32">
 
         @if(this.pumpChart(); as pumpChart){
-            <div echarts [options]="pumpChart" [theme]="theme"></div>
+            <div echarts [options]="pumpChart" [theme]="theme()"></div>
         }
         @if(this.envChart(); as envChart){
-            <div echarts [options]="envChart" [theme]="theme"></div>
+            <div echarts [options]="envChart" [theme]="theme()"></div>
+        }
+        @if(this.metricsChart(); as metricsChart){
+            <div echarts [options]="metricsChart" [theme]="theme()"></div>
         }
 
-        <ix-card variant="insight" class="h-full w-full p-4">
-            <ix-card-content>
-                <ix-card-title>
-                    <ix-icon class="icon" name="{{facility.icon}}"></ix-icon>
-                    <span class="notification text-2xl">Basic information</span>
-                </ix-card-title>
-                <ix-typography color="std">{{ facility.heading }}</ix-typography>
-                <ix-typography color="std">{{ facility.subheading }}</ix-typography>
-                <ix-typography color="std">{{ facility.location }}</ix-typography>
-                <div class="flex">
-                    <ix-typography color="std">status:&nbsp;</ix-typography>
-                    <ix-typography [ngClass]="facility.status">{{ facility.status }}</ix-typography>
-                </div>
-            </ix-card-content>
-        </ix-card>
+		<ix-card variant="insight" class="h-full w-full p-4">
+			<ix-card-content>
+				<ix-card-title>
+					<ix-icon class="icon" name="{{facility.icon}}"></ix-icon>
+					<span class="notification text-2xl">Basic information</span>
+				</ix-card-title>
+				<ix-typography color="std">{{ facility.heading }}</ix-typography>
+				<ix-typography color="std">{{ facility.subheading }}</ix-typography>
+				<ix-typography color="std">
+                    @if(facility.location?.streetAddress !== undefined && facility.location?.locality !== undefined && facility.location?.country !== undefined){
+                        <p>Location: {{ facility.location?.streetAddress }}, {{ facility.location?.postalCode }} {{ facility.location?.locality }}, {{ facility.location?.country }}</p>
+                    } @else if(facility.location?.streetAddress !== undefined && facility.location?.locality !== undefined){
+                        <p>Location: {{ facility.location?.streetAddress }}, {{ facility.location?.postalCode }} {{ facility.location?.locality }}</p>
+                    } @else if (facility.location?.country !== undefined) {
+                        Location: {{ facility.location?.postalCode }} {{ facility.location?.country }}
+                    } @else if (facility.location?.locality !== undefined) {
+                        <p>Location: {{ facility.location?.postalCode}} {{ facility.location?.locality }}</p>
+                    } @else {
+                        <p>Location: Not specified</p>
+                    }
+                </ix-typography>
+				<div class="flex">
+					<ix-typography color="std">status:&nbsp;</ix-typography>
+					<ix-typography [ngClass]="StatusToColorRecord[facility.status]"
+						>{{ facility.status }}
+					</ix-typography>
+                    <ix-tooltip id="status-tooltip" for=".{{StatusToColorRecord[facility.status]}}">{{ facility.indicatorMsg }}</ix-tooltip>
+				</div>
+			</ix-card-content>
+		</ix-card>
 
         <ix-card variant="insight" class="h-full w-full p-4">
             <ix-card-content>
                 <ix-card-title>
                     <ix-icon class="icon" name="tasks-open"></ix-icon>
-                    <span class="notification text-2xl">3</span>
+                    <span class="notification text-2xl">{{ facility.notification }}</span>
                 </ix-card-title>
                 <ix-typography color="std" format="h4"> Open Cases </ix-typography>
                 <ix-typography color="std">
-                    There are 3 open cases regarding this facility
+                    There are {{ facility.notification }} open cases regarding this facility
                 </ix-typography>
                 <div class="mt-auto p-2">
-                    <ix-button routerLink="/cases/create"> New Case </ix-button>
+                    <ix-button
+                        [routerLink]="['/cases/create',{ facilityId: facility.id }]"
+                    >
+                        New Case
+                    </ix-button>
                 </div>
             </ix-card-content>
         </ix-card>
@@ -79,4 +110,5 @@
         </ix-card>
     </div>
 </ix-content>
+
 }

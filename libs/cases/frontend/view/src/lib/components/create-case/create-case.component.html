@@ -1,3 +1,11 @@
+<ix-content-header
+    class="pl-4 pt-4"
+    hasBackButton="true"
+    headerTitle="Create a new Case"
+    headerSubtitle="View all facilities and their status"
+    (backButtonClick)="router.navigate(['../'], { relativeTo: route })"
+></ix-content-header>
+
 <ix-content>
     <div class="grid grid-cols-[auto_250px] gap-10">
         <form
@@ -149,12 +157,27 @@
                 <div class="mt-7 text-l">{{ facility.subheading }}</div>
             </ix-tile>
 
-            <ix-tile class="mt-2" size="small">
-                Location: {{ facility.location }}
-            </ix-tile>
+            @if (facility.location?.locality !== undefined && facility.location?.country !== undefined) {
+                <ix-tile class="mt-2" size="small">
+                    <p>{{ facility.location?.locality }}, {{ facility.location?.country }}</p>
+                </ix-tile>
+            } @else if (facility.location?.country !== undefined) {
+                <ix-tile class="mt-2" size="small">
+                    <p>{{ facility.location?.country }}</p>
+                </ix-tile>
+            } @else if (facility.location?.locality !== undefined) {
+                <ix-tile class="mt-2" size="small">
+                    <p>{{ facility.location?.locality }}</p>
+                </ix-tile>
+            }
 
             <ix-tile class="mt-2" size="small">
-                Number of pumps: {{ facility.pumps }}
+                <div class="flex">
+                    <ix-typography color="std">status:&nbsp;</ix-typography>
+                    <ix-typography  [ngClass]="StatusToColorRecord[facility.status]"
+                    >{{ facility.status }}
+                    </ix-typography>
+                </div>
             </ix-tile>
 
             <ix-button

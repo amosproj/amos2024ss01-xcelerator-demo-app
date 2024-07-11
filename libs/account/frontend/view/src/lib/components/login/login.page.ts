@@ -1,43 +1,63 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IxModule } from '@siemens/ix-angular';
+import { IxModule, themeSwitcher } from '@siemens/ix-angular';
+import { AuthenticationService } from 'common-frontend-models';
 
 @Component({
 	selector: 'lib-login',
 	standalone: true,
-	imports: [ CommonModule, FormsModule, IxModule ],
+	imports: [CommonModule, FormsModule, IxModule],
 	templateUrl: './login.page.html',
-	styleUrls: [ './login.page.scss' ],
+	styleUrls: ['./login.page.scss'],
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage {
-	username = '';
-	password = '';
+	protected email = '';
+	protected password = '';
 
-	constructor(private router: Router) {}
+	protected formValid = signal(false);
+	protected loginSuccess = signal(false);
+	protected wasValidated = false;
+	protected showPassword = false;
+
+	private readonly emailRegExp =
+		/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+	constructor(
+		private _router: Router,
+		private _authenticationService: AuthenticationService,
+	) {
+		// this site is always in dark mode
+		themeSwitcher.setTheme('theme-classic-dark');
+	}
 
 	onSubmit() {
-		// Mock authentication process
-		if (this.username === 'siemens' && this.password === 'siemens') {
-			// Redirect to dashboard on successful login
-			this.router.navigate([ '/facilities' ]);
-		} else {
-			// Display an error message for failed login
-			alert('Invalid username or password');
+		this.wasValidated = true;
+
+		const formValid = this.emailRegExp.test(this.email) && this.password !== '';
+		this.formValid.set(formValid);
+		if (!formValid) {
+			return;
+		}
+
+		const loginSuccess = this._authenticationService.login(this.email, this.password);
+		this.loginSuccess.set(loginSuccess);
+		if (loginSuccess) {
+			this._router.navigate(['/']);
 		}
 	}
 
-	onForgotPassword() {
-		// TODO: Handle forgot password action
-		alert('Forgot password functionality is not implemented yet.');
-	}
+	togglePassword() {
+		const passwordElement = document.getElementById('passwordElement');
+		if (!passwordElement) {
+			return;
+		}
 
-	onGitHubLogin() {
-		// Redirect to GitHub OAuth login page
-		window.location.href =
-			'https://github.com/login/oauth/authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI';
+		this.showPassword = !this.showPassword;
+		const typeVal = this.showPassword ? 'text' : 'password';
+		passwordElement.setAttribute('type', typeVal);
 	}
 }

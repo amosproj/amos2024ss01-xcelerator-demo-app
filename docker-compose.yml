@@ -54,6 +54,7 @@ services:
             dockerfile: apps/frontend/Dockerfile
             args:
                 XD_API_URL: localhost:3000
+                XD_SECRET_KEY: XceleratorDemoAppSecretKey
         restart: unless-stopped
         ports:
             - '4200:80'

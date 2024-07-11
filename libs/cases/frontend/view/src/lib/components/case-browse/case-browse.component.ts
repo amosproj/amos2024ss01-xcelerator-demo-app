@@ -1,76 +1,137 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	computed,
+	Signal,
+	ViewEncapsulation,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
-import { XdBrowseFacadesService } from '@frontend/cases/frontend/domain';
-import { ICaseResponse } from '@frontend/cases/shared/models';
-import { IxModule } from '@siemens/ix-angular';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { XdCasesFacade } from '@frontend/cases/frontend/domain';
+import { FilterState, IxCategoryFilterCustomEvent, IxModule } from '@siemens/ix-angular';
+import { ICaseResponse } from 'cases-shared-models';
+import { LocalStorageService } from 'common-frontend-models';
 
 @Component({
-    selector: 'lib-brows-cases',
-    standalone: true,
-    imports: [ CommonModule, IxModule, RouterLink ],
-    templateUrl: './case-browse.component.html',
-    styleUrls: [ './case-browse.component.scss' ],
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'lib-brows-cases',
+	standalone: true,
+	imports: [CommonModule, IxModule, RouterLink],
+	templateUrl: './case-browse.component.html',
+	styleUrls: ['./case-browse.component.scss'],
+	encapsulation: ViewEncapsulation.None,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaseBrowseComponent {
-    protected readonly _browseFacade = inject(XdBrowseFacadesService);
-    protected readonly _cases = toSignal(this._browseFacade.getAllCases());
-    protected readonly _sortedCases = computed( () => {
-        const cases = this._cases();
-        if (cases === undefined) {
-            return;
-        }
-        const statusOrder = [
-            'OPEN',
-            'INPROGRESS',
-            'OVERDUE',
-            'ONHOLD',
-            'DONE',
-            'CANCELLED',
-            'ARCHIVED',
-        ];
-        const priorityOrder = [ 'EMERGENCY', 'HIGH', 'MEDIUM', 'LOW' ];
+	private readonly _filter: Signal<{ id: string; value: string; operator: string }[]> = computed(
+		() =>
+			this.stringToFilter(this.localStorage.getOrCreate('caseFilter', 'Status,Equal,OPEN')()),
+	);
 
-        [ ...cases ].sort((a, b) => {
-            const statusAIndex = statusOrder.indexOf(a.status);
-            const statusBIndex = statusOrder.indexOf(b.status);
+	private readonly _cases = toSignal(this._casesFacade.getAllCases());
+	protected readonly processedCases = computed(() => {
+		const initialCases = this._cases();
+		if (initialCases === undefined) {
+			return;
+		}
 
-            if (statusAIndex === statusBIndex) {
-                const priorityAIndex = priorityOrder.indexOf(a.priority.toUpperCase());
-                const priorityBIndex = priorityOrder.indexOf(b.priority.toUpperCase());
+		const filteredCases = this._filter().reduce((cases, filter) => {
+			return cases.filter((c) => {
+				const filterId = filter.id.toLowerCase();
+				if (filterId !== 'status' && filterId !== 'type' && filterId !== 'priority')
+					return true;
 
-                if (priorityAIndex === priorityBIndex) {
-                    return a.id - b.id;
-                } else if (priorityAIndex === -1) {
-                    return 1;
-                } else if (priorityBIndex === -1) {
-                    return -1;
-                }
-                return priorityAIndex - priorityBIndex;
-            } else if (statusAIndex === -1) {
-                return 1;
-            } else if (statusBIndex === -1) {
-                return -1;
-            }
-            return statusAIndex - statusBIndex;
-        });
+				const caseValue = c[filterId];
+				if (filter.operator === 'Equal') {
+					return caseValue === filter.value;
+				} else {
+					return caseValue !== filter.value;
+				}
+			});
+		}, initialCases);
 
-        return cases;
-    })
+		filteredCases.sort((a, b) => {
+			const statusAIndex = this.statusOptions.indexOf(a.status);
+			const statusBIndex = this.statusOptions.indexOf(b.status);
+			return statusAIndex - statusBIndex;
+		});
 
-    getStatusClasses(_case: ICaseResponse) {
-        return {
-            emergency: _case.priority === 'EMERGENCY',
-            'status-open': _case.status === 'OPEN',
-            'status-inprogress': _case.status === 'INPROGRESS',
-            'status-overdue': _case.status === 'OVERDUE',
-            'status-onhold': _case.status === 'ONHOLD',
-            'status-done': _case.status === 'DONE',
-            'status-cancelled': _case.status === 'CANCELLED',
-            'status-archived': _case.status === 'ARCHIVED'
-        };
-    }
+		return filteredCases;
+	});
+
+	private readonly statusOptions = [
+		'OPEN',
+		'INPROGRESS',
+		'OVERDUE',
+		'ONHOLD',
+		'DONE',
+		'CANCELLED',
+		'ARCHIVED',
+	];
+	private readonly priorityOptions = ['EMERGENCY', 'HIGH', 'MEDIUM', 'LOW'];
+	private readonly typeOptions = ['PLANNED', 'INCIDENT', 'ANNOTATION'];
+
+	protected readonly repeatCategories = true;
+	protected filterState = {
+		tokens: [],
+		categories: this._filter(),
+	};
+
+	protected readonly categories = {
+		Status: {
+			label: 'status',
+			options: this.statusOptions,
+		},
+		Priority: {
+			label: 'priority',
+			options: this.priorityOptions,
+		},
+		Type: {
+			label: 'type',
+			options: this.typeOptions,
+		},
+	};
+
+	constructor(
+		protected router: Router,
+		protected route: ActivatedRoute,
+		protected localStorage: LocalStorageService,
+		private _casesFacade: XdCasesFacade,
+	) {}
+
+	getStatusClasses(_case: ICaseResponse) {
+		return {
+			'priority-emergency': _case.priority === 'EMERGENCY',
+			'status-inprogress': _case.status === 'INPROGRESS',
+			'status-overdue': _case.status === 'OVERDUE',
+			'status-onhold': _case.status === 'ONHOLD',
+			'status-done': _case.status === 'DONE',
+			'status-cancelled': _case.status === 'CANCELLED',
+			'status-archived': _case.status === 'ARCHIVED',
+		};
+	}
+
+	filterList(event: IxCategoryFilterCustomEvent<FilterState>) {
+		this.localStorage.set('caseFilter', this.filterToString(event.detail.categories));
+	}
+
+	shortenDescription(description: string) {
+		if (description.length < 50) {
+			return description;
+		} else {
+			return description.substring(0, 50) + '...';
+		}
+	}
+
+	private filterToString(filter: { id: string; value: string; operator: string }[]): string {
+		return filter.map((f) => f.id + ',' + f.operator + ',' + f.value).join('|');
+	}
+
+	private stringToFilter(filterString: string) {
+		const filter = filterString.split('|');
+		return filter.map((f) => {
+			const filterParts = f.split(',');
+			return { id: filterParts[0], operator: filterParts[1], value: filterParts[2] };
+		});
+	}
 }

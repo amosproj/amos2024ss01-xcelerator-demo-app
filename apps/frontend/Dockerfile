@@ -18,9 +18,11 @@ RUN pnpm install --frozen-lockfile
 FROM base as builder
 
 ARG XD_API_URL
+ARG XD_SECRET_KEY
 
 ENV NX_DEAMON="false"
 ENV XD_API_URL=$XD_API_URL
+ENV XD_SECRET_KEY=$XD_SECRET_KEY
 
 COPY --from=installer /usr/src/app/node_modules ./node_modules
 

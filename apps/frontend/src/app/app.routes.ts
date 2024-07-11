@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { AuthenticationGuard } from 'common-frontend-models';
 
 import { HeaderComponent } from './components/header/header.component';
 
@@ -7,26 +8,27 @@ export const APP_ROUTES: Route[] = [
 		path: '',
 		component: HeaderComponent,
 		data: {
-			breadcrumbs: {
-				label: 'Home',
-				url: '/',
-			},
+			breadcrumb: 'Home',
 			title: 'Home Page',
 			subtitle: '',
 		},
 		children: [
 			{
 				path: '',
+				canActivate: [AuthenticationGuard],
 				loadComponent: () =>
 					import('./pages/home/home.component').then((m) => m.HomeComponent),
 			},
 			{
+				path: 'home',
+				canActivate: [AuthenticationGuard],
+				redirectTo: '',
+			},
+			{
 				path: 'facilities',
+				canActivate: [AuthenticationGuard],
 				data: {
-					breadcrumbs: {
-						label: 'Facilities',
-						url: 'facilities',
-					},
+					breadcrumb: 'Facilities',
 					title: 'Facilities Dashboard',
 					subtitle: 'List of all Facilities',
 				},
@@ -35,11 +37,9 @@ export const APP_ROUTES: Route[] = [
 			},
 			{
 				path: 'cases',
+				canActivate: [AuthenticationGuard],
 				data: {
-					breadcrumbs: {
-						label: 'Cases',
-						url: 'cases',
-					},
+					breadcrumb: 'Cases',
 					title: 'Cases',
 					subtitle: '',
 				},
@@ -50,6 +50,7 @@ export const APP_ROUTES: Route[] = [
 	},
 	{
 		path: 'not-found',
+		canActivate: [AuthenticationGuard],
 		loadComponent: () =>
 			import('./pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
 	},

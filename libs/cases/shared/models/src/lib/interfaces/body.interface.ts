@@ -1,4 +1,3 @@
-
 /* Interface for creating a new case body */
 import { ECasePriority, ECaseStatus, ECaseType } from '../enums';
 
@@ -25,6 +24,8 @@ export interface ICreateCaseBody {
 	createdBy: string;
 	/* Identifier of the work order */
 	eTag: string;
+	/* The asset which the case belongs to */
+	assetId: string;
 }
 
 /* Interface for updating an existing case body */

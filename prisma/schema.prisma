@@ -43,8 +43,12 @@ model Asset {
     location    AssetLocation?
     typeId      String
     variables   Json?
+    status      FacilityStatus @default(REGULAR)
+    indicatorMsg String @default("The pump is working as expected.")
 
+    cases           Case[]
     timeSeriesItems TimeSeriesItem[]
+    metrics     Metrics[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -86,8 +90,33 @@ model Case {
     eTag        String
     modifiedBy  String       @default("")
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    Asset        Asset    @relation(fields: [assetAssetId], references: [assetId])
+    assetAssetId String
+}
+
+model Metrics {
+    id                         Int     @id @default(autoincrement())
+    min                        Float?
+    max                        Float?
+    mean                       Float?
+    variance                   Float?
+    standardDeviation          Float?
+    coefficientOfVariation     Float?
+    name                       String
+
+    assetId                 String
+    Asset                   Asset        @relation(fields: [assetId], references: [assetId])
+
+    createdAt               DateTime @default(now())
+    updatedAt               DateTime @updatedAt
+}
+
+enum FacilityStatus {
+    REGULAR
+    SUSPICIOUS
+    FAULTY
 }
 
 enum CaseStatus {

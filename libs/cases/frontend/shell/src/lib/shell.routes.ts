@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { AuthenticationGuard } from 'common-frontend-models';
 
 /**
  * The routes for the cases domain.
@@ -18,47 +19,26 @@ export const CASES_SHELL_ROUTES: Route[] = [
 			{
 				// Route to list page
 				path: '',
+				canActivate: [AuthenticationGuard],
 				loadComponent: () =>
 					import('cases-frontend-view').then((m) => m.CaseBrowseComponent),
 			},
 			{
 				// Route to create a case
 				path: 'create',
+				canActivate: [AuthenticationGuard],
 				data: {
-					breadcrumbs: {
-						label: 'Create',
-						url: 'cases/create',
-					},
-					title: 'Create a Case',
-					subtitle: '',
+					breadcrumb: 'Create',
 				},
 				loadComponent: () =>
 					import('cases-frontend-view').then((m) => m.CreateCaseComponent),
 			},
 			{
-				// Route to cases which are open - later this should be a query param!!!
-				path: 'open',
-				data: {
-					breadcrumbs: {
-						label: 'Open',
-						url: 'cases/open',
-					},
-					title: 'Open cases',
-					subtitle: 'List of all open cases',
-				},
-				loadComponent: () =>
-					import('cases-frontend-view').then((m) => m.OpenCasesComponent),
-			},
-			{
 				// Route to detail case
 				path: ':id',
+				canActivate: [AuthenticationGuard],
 				data: {
-					breadcrumbs: {
-						label: 'Details',
-						url: 'cases/:id',
-					},
-					title: 'Detail of case',
-					subtitle: '',
+					breadcrumb: 'Details',
 				},
 				loadComponent: () =>
 					import('cases-frontend-view').then((m) => m.DetailCaseComponent),

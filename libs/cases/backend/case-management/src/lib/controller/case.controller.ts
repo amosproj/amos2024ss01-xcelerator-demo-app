@@ -1,6 +1,6 @@
-import { ICaseResponse } from '@frontend/cases/shared/models';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiAcceptedResponse, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ICaseResponse } from 'cases-shared-models';
 import { ESwaggerTag } from 'common-backend-swagger';
 import { Observable } from 'rxjs';
 

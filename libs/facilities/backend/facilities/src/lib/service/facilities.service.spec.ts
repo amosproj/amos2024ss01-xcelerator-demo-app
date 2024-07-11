@@ -1,9 +1,10 @@
+import { faker } from '@faker-js/faker';
 import { HttpService } from '@nestjs/axios';
 import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { XdAssetsService, XdTokenManagerService } from 'common-backend-insight-hub';
 import { PrismaService } from 'common-backend-prisma';
-import { create } from 'lodash';
+import { EPumpStatus } from 'facilities-shared-models';
 import { lastValueFrom, of } from 'rxjs';
 
 import { XdFacilitiesService } from './facilities.service';
@@ -89,21 +90,24 @@ describe('FacilitiesService ', () => {
 		description: 'test',
 		typeId: 'test',
 		variables: {},
+		indicatorMsg: faker.string.sample(),
+		status: EPumpStatus.REGULAR,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		location: {
 			latitude: 1,
 			longitude: 1,
 		},
+		cases: [],
 	};
 
 	it('should return all facilities', async () => {
-		const prismaSpy = jest.spyOn(prisma.asset, 'findMany').mockResolvedValue([ resultMock ]);
+		const prismaSpy = jest.spyOn(prisma.asset, 'findMany').mockResolvedValue([resultMock]);
 
 		const result = await lastValueFrom(service.getAllFacilitiesFromDB());
 
 		expect(prismaSpy).toHaveBeenCalled();
-		expect(result).toEqual([ resultMock ]);
+		expect(result).toEqual([resultMock]);
 	});
 
 	it('should return a facility by id', async () => {

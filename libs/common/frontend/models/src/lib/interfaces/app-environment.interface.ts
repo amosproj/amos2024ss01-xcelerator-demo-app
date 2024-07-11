@@ -11,4 +11,9 @@ export interface IAppEnvironment {
 	 * The url of the main api of the frontend application
 	 */
 	apiUrl: string;
+
+	/**
+	 * the secretKey for user authentication
+	 */
+	secretKey: string;
 }
