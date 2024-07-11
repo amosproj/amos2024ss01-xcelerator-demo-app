@@ -1,80 +1,164 @@
-@if(casedetail(); as _case){
+@if (casedetail(); as _case) {
+	<ix-button class="absolute top-20 right-32 z-50" (click)="toggleEdit()">
+		{{ isEditing ? 'Submit changes' : 'Update Case' }}
+	</ix-button>
+	<ix-icon-button
+		*ngIf="isEditing"
+		class="absolute top-20 right-64 z-50 text-red-600"
+		(click)="cancelEdit()"
+		icon="cancel"
+		iconColor="red"
+	>
+		Cancel
+	</ix-icon-button>
+	<ix-button class="absolute top-20 right-4 z-50" (click)="deleting()"> Delete Case </ix-button>
 
-    <ix-button class="absolute top-20 right-32 z-50" (click)="toggleEdit()">
-        {{ isEditing ? 'Submit changes' : 'Update Case' }}
-    </ix-button>
-    <ix-icon-button *ngIf="isEditing" class="absolute top-20 right-64 z-50 text-red-600" (click)="cancelEdit()" icon="cancel" iconColor="red">
-        Cancel
-    </ix-icon-button>
-    <ix-button  class="absolute top-20 right-4 z-50" (click)="deleting()">
-        Delete Case
-    </ix-button>
+	<ix-content-header
+		class="pl-4 pt-4"
+		hasBackButton="true"
+		headerTitle="Details of Facility {{ _case.title }}"
+		headerSubtitle="View all facilities and their status"
+		(backButtonClick)="router.navigate(['../'], { relativeTo: route })"
+	></ix-content-header>
 
-    <ix-content-header
-        class="pl-4 pt-4"
-        hasBackButton="true"
-        headerTitle="Details of Facility {{ _case.title }}"
-        headerSubtitle="View all facilities and their status"
-        (backButtonClick)="router.navigate(['../'], { relativeTo: route })"
-    ></ix-content-header>
-
-    <ix-content>
-
-        <div class="container">
-            <h1 class="text-xl mb-5">_Case {{ _case.handle }}</h1>
-            <form class="form-content mb-52" #caseForm="ngForm">
-                <div class="form-group mb-4 flex flex-col">
-                    <label for="title" class="mb-1 font-bold">Title</label>
-                    <input type="text" id="title" [(ngModel)]="_case.title" name="title" [readonly]="!isEditing" class="w-full p-2 mb-1 rounded border-box">
-                </div>
-                <div class="form-group mb-4 flex flex-col">
-                    <label for="description" class="mb-1 font-bold">Description</label>
-                    <textarea id="description" [(ngModel)]="_case.description" name="description" rows="3" [readonly]="!isEditing" class="w-full p-2 mb-1 rounded border-box"></textarea>
-                </div>
-                <div class="form-row flex justify-between">
-                    <div class="form-group mb-4 flex flex-col w-[48%]">
-                        <label for="assignedTo" class="mb-1 font-bold">Assigned to</label>
-                        <input type="email" id="assignedTo" [(ngModel)]="_case.modifiedBy" name="assignedTo" [readonly]="!isEditing" class="w-full p-2 mb-1 rounded border-box">
-                    </div>
-                    <div class="form-group mb-4 flex flex-col w-[48%]">
-                        <label for="dueDate" class="mb-1 font-bold">Due date (UTC)</label>
-                        <input type="text" id="dueDate" [(ngModel)]="_case.dueDate" name="dueDate" [readonly]="!isEditing" class="w-full p-2 mb-1 rounded border-box">
-                        <label *ngIf="_case.overdue" class="text-red-500">Overdue</label>
-                    </div>
-                </div>
-                <div class="form-row flex justify-between">
-                    <div class="form-group mb-4 flex flex-col w-[48%]">
-                        <label for="asset" class="mb-1 font-bold">Asset</label>
-                        <input type="text" id="asset" [(ngModel)]="_case.source" name="asset" [readonly]="!isEditing" class="w-full p-2 mb-1 rounded border-box">
-                    </div>
-                    <div class="form-group mb-4 flex flex-col w-[48%]">
-                        <label for="type" class="mb-1 font-bold">Type</label>
-                        <input type="text" id="type" [(ngModel)]="_case.type" name="type" [readonly]="!isEditing" class="w-full p-2 mb-1 rounded border-box">
-                    </div>
-                </div>
-                <div class="form-row flex justify-between">
-                    <div class="form-group mb-4 flex flex-col w-[48%]">
-                        <label for="priority" class="mb-1 font-bold">Priority</label>
-                        <input type="text" id="priority" [(ngModel)]="_case.priority" name="priority" [readonly]="!isEditing" class="w-full p-2 mb-1 rounded border-box">
-                    </div>
-                    <div class="form-group mb-4 flex flex-col w-[48%]">
-                        <label for="status" class="mb-1 font-bold">Status</label>
-                        <input type="text" id="status" [(ngModel)]="_case.status" name="status" [readonly]="!isEditing" class="w-full p-2 mb-1 rounded border-box">
-                    </div>
-                </div>
-                <div class="form-row flex justify-between">
-                    <div class="form-group mb-4 flex flex-col w-[48%]">
-                        <label *ngIf="!isEditing" for="createdBy" class="font-normal">Created by</label>
-                        <input *ngIf="!isEditing" type="text" id="createdBy" [(ngModel)]="_case.createdBy" name="createdBy" readonly class="w-full p-2 mb-1 rounded border-box">
-                        <label for="modifiedBy" *ngIf="isEditing" class="font-bold">Modified by</label>
-                        <input *ngIf="isEditing" type="text" id="modifiedBy" [(ngModel)]="_case.modifiedBy" name="modifiedBy" class="w-full p-2 mb-1 rounded border-box">
-                    </div>
-                    <div class="form-group mb-4 flex flex-col w-[48%]">
-                        <label for="createdDate" class="mb-1 font-bold">Creation date</label>
-                        <input type="text" id="createdDate" [(ngModel)]="_case.createdAt" name="createdDate" readonly class="w-full p-2 mb-1 rounded border-box">
-                    </div>
-                </div>
-            </form>
-        </div>
-    </ix-content>
+	<ix-content>
+		<div class="container">
+			<h1 class="text-xl mb-5">_Case {{ _case.handle }}</h1>
+			<form class="form-content mb-52" #caseForm="ngForm">
+				<div class="form-group mb-4 flex flex-col">
+					<label for="title" class="mb-1 font-bold">Title</label>
+					<input
+						type="text"
+						id="title"
+						[(ngModel)]="_case.title"
+						name="title"
+						[readonly]="!isEditing"
+						class="w-full p-2 mb-1 rounded border-box"
+					/>
+				</div>
+				<div class="form-group mb-4 flex flex-col">
+					<label for="description" class="mb-1 font-bold">Description</label>
+					<textarea
+						id="description"
+						[(ngModel)]="_case.description"
+						name="description"
+						rows="3"
+						[readonly]="!isEditing"
+						class="w-full p-2 mb-1 rounded border-box"
+					></textarea>
+				</div>
+				<div class="form-row flex justify-between">
+					<div class="form-group mb-4 flex flex-col w-[48%]">
+						<label for="assignedTo" class="mb-1 font-bold">Assigned to</label>
+						<input
+							type="email"
+							id="assignedTo"
+							[(ngModel)]="_case.modifiedBy"
+							name="assignedTo"
+							[readonly]="!isEditing"
+							class="w-full p-2 mb-1 rounded border-box"
+						/>
+					</div>
+					<div class="form-group mb-4 flex flex-col w-[48%]">
+						<label for="dueDate" class="mb-1 font-bold">Due date (UTC)</label>
+						<input
+							type="text"
+							id="dueDate"
+							[(ngModel)]="_case.dueDate"
+							name="dueDate"
+							[readonly]="!isEditing"
+							class="w-full p-2 mb-1 rounded border-box"
+						/>
+						<label *ngIf="_case.overdue" class="text-red-500">Overdue</label>
+					</div>
+				</div>
+				<div class="form-row flex justify-between">
+					<div class="form-group mb-4 flex flex-col w-[48%]">
+						<label for="asset" class="mb-1 font-bold">Asset</label>
+						<input
+							type="text"
+							id="asset"
+							[(ngModel)]="_case.source"
+							name="asset"
+							[readonly]="!isEditing"
+							class="w-full p-2 mb-1 rounded border-box"
+						/>
+					</div>
+					<div class="form-group mb-4 flex flex-col w-[48%]">
+						<label for="type" class="mb-1 font-bold">Type</label>
+						<input
+							type="text"
+							id="type"
+							[(ngModel)]="_case.type"
+							name="type"
+							[readonly]="!isEditing"
+							class="w-full p-2 mb-1 rounded border-box"
+						/>
+					</div>
+				</div>
+				<div class="form-row flex justify-between">
+					<div class="form-group mb-4 flex flex-col w-[48%]">
+						<label for="priority" class="mb-1 font-bold">Priority</label>
+						<input
+							type="text"
+							id="priority"
+							[(ngModel)]="_case.priority"
+							name="priority"
+							[readonly]="!isEditing"
+							class="w-full p-2 mb-1 rounded border-box"
+						/>
+					</div>
+					<div class="form-group mb-4 flex flex-col w-[48%]">
+						<label for="status" class="mb-1 font-bold">Status</label>
+						<input
+							type="text"
+							id="status"
+							[(ngModel)]="_case.status"
+							name="status"
+							[readonly]="!isEditing"
+							class="w-full p-2 mb-1 rounded border-box"
+						/>
+					</div>
+				</div>
+				<div class="form-row flex justify-between">
+					<div class="form-group mb-4 flex flex-col w-[48%]">
+						<label *ngIf="!isEditing" for="createdBy" class="font-normal"
+							>Created by</label
+						>
+						<input
+							*ngIf="!isEditing"
+							type="text"
+							id="createdBy"
+							[(ngModel)]="_case.createdBy"
+							name="createdBy"
+							readonly
+							class="w-full p-2 mb-1 rounded border-box"
+						/>
+						<label for="modifiedBy" *ngIf="isEditing" class="font-bold"
+							>Modified by</label
+						>
+						<input
+							*ngIf="isEditing"
+							type="text"
+							id="modifiedBy"
+							[(ngModel)]="_case.modifiedBy"
+							name="modifiedBy"
+							class="w-full p-2 mb-1 rounded border-box"
+						/>
+					</div>
+					<div class="form-group mb-4 flex flex-col w-[48%]">
+						<label for="createdDate" class="mb-1 font-bold">Creation date</label>
+						<input
+							type="text"
+							id="createdDate"
+							[(ngModel)]="_case.createdAt"
+							name="createdDate"
+							readonly
+							class="w-full p-2 mb-1 rounded border-box"
+						/>
+					</div>
+				</div>
+			</form>
+		</div>
+	</ix-content>
 }

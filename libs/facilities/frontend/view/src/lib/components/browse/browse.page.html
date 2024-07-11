@@ -1,87 +1,90 @@
 <div class="absolute top-20 right-4 !z-[50] flex flex-row-reverse gap-x-4">
-    <ix-button (click)="toggleView()">
-        Switch to {{ showCardList() ? 'Event List' : 'Card List' }}
-    </ix-button>
-    <ix-button (click)="toggleFilter()">
-        {{ filterIssues() ? 'Remove Filter for Issues' : 'Filter Facilities with Issues' }}
-    </ix-button>
+	<ix-button (click)="toggleView()">
+		Switch to {{ showCardList() ? 'Event List' : 'Card List' }}
+	</ix-button>
+	<ix-button (click)="toggleFilter()">
+		{{ filterIssues() ? 'Remove Filter for Issues' : 'Filter Facilities with Issues' }}
+	</ix-button>
 </div>
 
 <ix-content-header
-    class="pl-4 pt-4"
-    hasBackButton="true"
-    headerTitle="Facilities Overview"
-    headerSubtitle="View all facilities and their status"
-    (backButtonClick)="router.navigate(['../'], { relativeTo: route })"
+	class="pl-4 pt-4"
+	hasBackButton="true"
+	headerTitle="Facilities Overview"
+	headerSubtitle="View all facilities and their status"
+	(backButtonClick)="router.navigate(['../'], { relativeTo: route })"
 ></ix-content-header>
 
 <ix-content>
-	@if (showCardList()) {
-        @if (facilities(); as facilities) {
-            <ix-card-list label="Facilities Overview" [showAllCount]="facilities.length" list-style="stack" class="pb-32">
-                @for (facility of facilities; track facility.id) {
-                <ix-push-card
-                    [icon]="facility.icon"
-                    [notification]="facility.notification"
-                    [heading]="facility.heading"
-                    [subheading]="facility.subheading"
-                    [variant]="StatusToColorRecord[facility.status]"
-                    [routerLink]="['/facilities', facility.id]"
-                >
-                    @if(facility.location?.locality !== undefined && facility.location?.country !== undefined){
-                        <p>Location: {{ facility.location?.postalCode}} {{ facility.location?.locality }}, {{ facility.location?.country }}</p>
-                    } @else if (facility.location?.country !== undefined) {
-                        Location:{{ facility.location?.country }}
-                    } @else if (facility.location?.locality !== undefined) {
-                        <p>Location: {{ facility.location?.locality }}</p>
-                    } @else {
-                        <p>Location: Not specified</p>
-                    }
+	@if (showCardList()) { @if (facilities(); as facilities) {
+	<ix-card-list
+		label="Facilities Overview"
+		[showAllCount]="facilities.length"
+		list-style="stack"
+		class="pb-32"
+	>
+		@for (facility of facilities; track facility.id) {
+		<ix-push-card
+			[icon]="facility.icon"
+			[notification]="facility.notification"
+			[heading]="facility.heading"
+			[subheading]="facility.subheading"
+			[variant]="StatusToColorRecord[facility.status]"
+			[routerLink]="['/facilities', facility.id]"
+		>
+			@if(facility.location?.locality !== undefined && facility.location?.country !==
+			undefined){
+			<p>
+				Location: {{ facility.location?.postalCode}} {{ facility.location?.locality }}, {{
+				facility.location?.country }}
+			</p>
+			} @else if (facility.location?.country !== undefined) { Location:{{
+			facility.location?.country }} } @else if (facility.location?.locality !== undefined) {
+			<p>Location: {{ facility.location?.locality }}</p>
+			} @else {
+			<p>Location: Not specified</p>
+			} @if(facility.location?.streetAddress !== undefined){
+			<p>Address: {{ facility.location?.streetAddress }}</p>
+			} @if (facility.location?.region !== undefined) {
+			<p>Region: {{ facility.location?.region }}</p>
+			}
 
-                    @if(facility.location?.streetAddress !== undefined){
-                        <p>Address: {{ facility.location?.streetAddress }}</p>
-                    }
-                    @if (facility.location?.region !== undefined) {
-                        <p>Region: {{ facility.location?.region }}</p>
-                    }
+			<div class="flex">
+				<ix-typography color="std">status:&nbsp;</ix-typography>
+				<ix-typography [ngClass]="StatusToColorRecord[facility.status]"
+					>{{ facility.status }}
+				</ix-typography>
+			</div>
+		</ix-push-card>
+		}
+	</ix-card-list>
+	} } @else {
+	<ix-event-list item-height="L" class="pb-32">
+		@for (facility of facilities(); track facility.id){
+		<ix-event-list-item color="color-primary" [routerLink]="['/facilities', facility.id]">
+			<div>
+				<strong>{{ facility.heading }}</strong>
+				<p>{{ facility.subheading }}</p>
+				@if(facility.location?.locality !== undefined && facility.location?.country !==
+				undefined){
+				<p>Location: {{ facility.location?.locality }}, {{ facility.location?.country }}</p>
+				} @else if (facility.location?.country !== undefined) { Location:{{
+				facility.location?.country }} } @else if (facility.location?.locality !== undefined)
+				{
+				<p>Location: {{ facility.location?.locality }}</p>
+				} @else {
+				<p>Location: Not specified</p>
+				}
 
-                    <div class="flex">
-                        <ix-typography color="std">status:&nbsp;</ix-typography>
-                        <ix-typography [ngClass]="StatusToColorRecord[facility.status]"
-                        >{{ facility.status }}
-                        </ix-typography>
-                    </div>
-                </ix-push-card>
-                }
-            </ix-card-list>
-        }
-    }
-    @else {
-        <ix-event-list item-height="L" class="pb-32">
-            @for (facility of facilities(); track facility.id){
-                <ix-event-list-item color="color-primary" [routerLink]="['/facilities', facility.id]">
-                    <div>
-                        <strong>{{ facility.heading }}</strong>
-                        <p>{{ facility.subheading }}</p>
-                        @if(facility.location?.locality !== undefined && facility.location?.country !== undefined){
-                            <p>Location: {{ facility.location?.locality }}, {{ facility.location?.country }}</p>
-                        } @else if (facility.location?.country !== undefined) {
-                            Location:{{ facility.location?.country }}
-                        } @else if (facility.location?.locality !== undefined) {
-                            <p>Location: {{ facility.location?.locality }}</p>
-                        } @else {
-                            <p>Location: Not specified</p>
-                        }
-
-                        <div class="flex">
-                            <ix-typography color="std">status:&nbsp;</ix-typography>
-                            <ix-typography [ngClass]="StatusToColorRecord[facility.status]"
-                            >{{ facility.status }}
-                            </ix-typography>
-                        </div>
-                    </div>
-                </ix-event-list-item>
-            }
-        </ix-event-list>
-    }
+				<div class="flex">
+					<ix-typography color="std">status:&nbsp;</ix-typography>
+					<ix-typography [ngClass]="StatusToColorRecord[facility.status]"
+						>{{ facility.status }}
+					</ix-typography>
+				</div>
+			</div>
+		</ix-event-list-item>
+		}
+	</ix-event-list>
+	}
 </ix-content>
